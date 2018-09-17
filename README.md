@@ -1,8 +1,3 @@
-IP5 - ThekRe
+small changes on: IP5 - ThekRe
 
-Team:
-Gysin Simon
-Muriyamadom Rubil
-
-Coach:
-Kropp Martin
+Nick Koch

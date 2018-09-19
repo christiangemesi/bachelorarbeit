@@ -293,7 +293,7 @@ $(document).ready(function () {
         "paging": true,
         "pageLength": 10,
         "info": false,
-        "order": [[3, "asc"]],
+        "order": [[7, "asc"]],
         "columnDefs": [
             {
                 "searchable": false, "targets": 8,

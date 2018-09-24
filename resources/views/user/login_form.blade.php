@@ -109,7 +109,7 @@
                                             <label class="float-left" for="email">Email</label>
                                             <input type="text" class="form-control email" id="emailInput" name="email" maxlength="60" onkeyup = "emailValidate()" onblur="emailValidate()"/>
                                             <span id="emailIcon" aria-hidden="true"></span>
-                                            <span id="emailInputStatus" class="errorHeader">email wird benötigt!</span>
+                                            <span id="emailInputStatus" class="errorHeader">Email wird benötigt!</span>
                                         </div>
                                         <div class="form-group has-feedback">
                                             <label class="float-left" for="phonenumber">Tel</label>

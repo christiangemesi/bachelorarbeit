@@ -16,7 +16,7 @@ function addEvent() {
         createEvent(formatCalendarDate($("#start-date").val()), formatCalendarEndDate($("#end-date").val()));
         $("#button-save-order-change").prop('disabled', false);
     }else{
-        errorHandling("Ihre Auswahl steht in konflikt mit einem anderen Bestelltermin", "#error-calendar-message-box");
+        errorHandling("Ihre Auswahl steht in Konflikt mit einem anderen Bestelltermin", "#error-calendar-message-box");
     }
 }
 

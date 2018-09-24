@@ -207,7 +207,6 @@ $(document).ready(function () {
             $("#school-Address").hide();
             $("#user-delivery-info").show();
             $("#carousel-reserve-button").prop('disabled', false);
-
         }
         else {
             $("#user-delivery-info").hide();
@@ -388,7 +387,7 @@ $(document).ready(function () {
 
             createEvent(formatCalendarDate($("#start-date").val()), formatCalendarEndDate($("#end-date").val()));
         }else{
-            errorHandling("Ihre Auswahl steht in konflikt mit einem anderen Bestelltermin", "#error-calendar-message-box");
+            errorHandling("Ihre Auswahl steht in Konflikt mit einem anderen Bestelltermin", "#error-calendar-message-box");
             $('#carousel-right').prop('disabled', true);
         }
     }

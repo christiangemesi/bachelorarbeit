@@ -20,11 +20,20 @@ $(document).ready(function () {
     });
 
     /**
+     * Array of blocked dates
+     */
+    var array = ["2018-10-14","2018-10-15","2018-10-16"]
+
+    /**
      * Format of datepicker is set
      */
     $("#start-date").datepicker({
         dateFormat: "dd.mm.yy",
         minDate: 1,
+        beforeShowDay: function(date){
+            var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+            return [ array.indexOf(string) == -1 ]
+        },
         onSelect: function (date) {
             bindEndData();
             if($("#end-date").datepicker("getDate") != null){
@@ -37,6 +46,10 @@ $(document).ready(function () {
 
     $("#end-date").datepicker({
         dateFormat: "dd.mm.yy",
+        beforeShowDay: function(date){
+            var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+            return [ array.indexOf(string) == -1 ]
+        },
         onSelect: function (date) {
             addEvent();
             $("#info-calendar-message-box").css("display", "none");

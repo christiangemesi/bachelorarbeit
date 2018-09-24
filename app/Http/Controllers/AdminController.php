@@ -448,4 +448,17 @@ class AdminController extends Controller
         $new_date = $temp_date[2] . "-" . $temp_date[1] . "-" . $temp_date[0];
         return $new_date;
     }
+
+    /**
+     * load settings view
+     * @return mixed
+     */
+    public function indexSettings()
+    {
+        if ($this->checkLogin()) {
+            return view('admin.settings_index');
+        } else {
+            return view('admin/login_form');
+        }
+    }
 }

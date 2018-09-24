@@ -17,6 +17,9 @@
                 <a href="/admin/statistics"><span class="glyphicon glyphicon-stats nav-glyphicon"></span><div class="nav-text"> Statistiken</div></a>
             </li>
             <li class="sidebar-nav-text">
+                <a href="/admin/settings"><span class="glyphicon glyphicon-cog nav-glyphicon"></span><div class="nav-text"> Einstellungen</div></a>
+            </li>
+            <li class="sidebar-nav-text">
                 <a href="/admin/logout"><span class="glyphicon glyphicon-log-out nav-glyphicon"></span><div class="nav-text"> Abmelden</div></a>
             </li>
             <li class="sidebar-nav-text site-switch">

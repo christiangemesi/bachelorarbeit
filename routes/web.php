@@ -31,6 +31,7 @@ Route::post('admin/getThemebox', 'AdminController@getThemebox');
 Route::post('admin/updateThemebox', 'AdminController@updateThemebox');
 Route::post('admin/getOrder', 'AdminController@getOrder');
 Route::post('admin/updateOrder', 'AdminController@updateOrder');
+Route::get('admin/settings', 'AdminController@indexSettings');
 
 Route::get('user', 'UserController@index');
 Route::post('user/getThemebox','UserController@getThemebox');

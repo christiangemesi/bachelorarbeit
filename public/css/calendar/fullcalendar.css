@@ -25,7 +25,7 @@ body .fc { /* extra precedence to overcome jqui */
 
 .fc-highlight { /* when user is selecting cells */
 	background: #bce8f1;
-	opacity: .3;
+	opacity: 0;
 }
 
 .fc-bgevent { /* default look for background events */

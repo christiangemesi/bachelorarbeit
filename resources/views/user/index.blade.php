@@ -210,7 +210,7 @@
                                             <label for="emailInput">Email Adresse *</label>
                                             <input type="email" class="form-control" name="email" id="emailInput" maxlength="60" placeholder="max.muster@fhnw.ch" onblur="emailValidate()"/>
                                             <span id="emailIcon" aria-hidden="true"></span>
-                                            <span id="emailInputStatus" class="errorHeader">email wird benötigt!</span>
+                                            <span id="emailInputStatus" class="errorHeader">Email wird benötigt!</span>
                                         </div>
 
                                         <div class="form-group has-feedback">

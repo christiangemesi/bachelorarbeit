@@ -1,0 +1,11 @@
+#outer
+{
+    width:100%;
+    text-align: center;
+    margin: 1px;
+}
+.inner
+{
+    display: inline-block;
+    padding: 10px;
+}

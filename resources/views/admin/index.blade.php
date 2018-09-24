@@ -8,6 +8,7 @@
     <script src="{{ asset('/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('/js/dataTables.bootstrap.min.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('css/dataTables.bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/order-buttons.css') }}">
 
     <script src="{{ asset('js/calendar/moment.min.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('css/calendar/fullcalendar.css') }}">
@@ -99,13 +100,20 @@
                             </select>
                         </td>
                         <td>
-                            <button type="button" class="button-edit-order btn btn-primary" value="{{$order["order_id"]}}" aria-label="edit" data-toggle="tooltip" data-placement="top" title="Bestellung bearbeiten">
-                                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                            </button>
+                            <div id="outer">
+                                <button type="button" class="button-edit-order btn btn-primary inner" value="{{$order["order_id"]}}" aria-label="edit" data-toggle="tooltip" data-placement="top" title="Bestellung bearbeiten">
+                                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                </button>
 
-                            <button type="button" class="button-delete-order btn btn-danger" value="{{$order["order_id"]}}" aria-label="delete"  data-toggle="tooltip" data-placement="top" title="Bestellung löschen">
-                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                            </button>
+                                <button type="button" class="button-delete-order btn btn-danger inner" value="{{$order["order_id"]}}" aria-label="delete"  data-toggle="tooltip" data-placement="top" title="Bestellung löschen">
+                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                </button>
+                                </button>
+                                <button type="button" class="button-print-themebox btn btn-warning inner" value="{{$order["order_id"]}}" aria-label="print" data-toggle="tooltip" data-placement="top" title="Bestellung ausdrucken">
+                                    <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
+                                </button>
+                            </div>
+
                         </td>
                     </tr>
                 @endforeach

@@ -79,11 +79,6 @@ $.fn.fullCalendar = function(options) {
 	return res;
 };
 
-    //Autor Nick Koch
-    function windowMessage() {
-        confirm("Die Lieferung an Aargauer Schulen ist kostenpflichtig und es muss zusätzlich telefonisch mit der Infotheke der FHNW Bibliothek Brugg-Windisch Kontakt aufgenommen werden.");
-    }
-
 
 var complexOptions = [ // names of options that are objects whose properties should be combined
 	'header',

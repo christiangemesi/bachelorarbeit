@@ -12,6 +12,13 @@ window.onload = function () {
     document.getElementById("schoolNameInput").onkeyup = schoolnameValidate;
 };
 
+
+function confirmBox(){
+    if (!confirm('Die Lieferung an Aargauer Schulen ist kostenpflichtig und es muss zusätzlich telefonisch mit der Infotheke der FHNW Bibliothek Brugg-Windisch Kontakt aufgenommen werden.')) {
+        user.reload(true);
+    }
+}
+
 /**
  * Datepicker
  */
@@ -362,6 +369,7 @@ function validPhoneNumber(phonenr) {
  * @param order_carousel_status
  */
 function checkValidation(order_carousel_status) {
+    console.log(order_carousel_status);
     if (order_carousel_status === 0) {
         $("#carousel-right").prop('disabled', true);
         $("#button-save-order-change").prop('disabled', true);

@@ -216,17 +216,38 @@ $(document).ready(function () {
      * change the deliver typ
      */
     $("#thekre-dropdown").click(function(){
+
         if ($("#thekre-dropdown").val() === "1") {
             $("#school-Address").hide();
             $("#user-delivery-info").show();
             $("#carousel-reserve-button").prop('disabled', false);
+            $("#carousel-right").prop('disabled', false);
+
+
         }
         else {
             $("#user-delivery-info").hide();
             $("#school-Address").show();
             $("#carousel-reserve-button").prop('disabled', true);
+            $("#carousel-right").prop('disabled', true);
+            checkValidationDelivery();
         }
+
     });
+
+
+    /**
+     * check if all fields in delivery are filled out
+     */
+    function checkValidationDelivery() {
+        $filledOut = false;
+        while(!$filledOut) {
+            if (schoolnameValidate() && schoolstreetValidate() && schoolcityValidate() && placeofhandoverValidate() && schoolphoneValidate()) {
+                $("#carousel-right").prop('disabled', false);
+            }
+        }
+    }
+
 
     /**
      * enable and disable next/order buttons

@@ -22,7 +22,8 @@ $(document).ready(function () {
     /**
      * Array of blocked dates
      */
-    var array = ["2018-10-14","2018-10-15","2018-10-16"]
+    var listOfBlockedDates = Array();
+
 
     /**
      * Format of datepicker is set
@@ -32,7 +33,8 @@ $(document).ready(function () {
         minDate: 1,
         beforeShowDay: function(date){
             var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
-            return [ array.indexOf(string) == -1 ]
+            console.log("Blockierte Daten: " + listOfBlockedDates);
+            return [ listOfBlockedDates.indexOf(string) == -1 ]
         },
         onSelect: function (date) {
             bindEndData();
@@ -48,7 +50,8 @@ $(document).ready(function () {
         dateFormat: "dd.mm.yy",
         beforeShowDay: function(date){
             var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
-            return [ array.indexOf(string) == -1 ]
+            console.log("Blockierte Daten: " + listOfBlockedDates);
+            return [ listOfBlockedDates.indexOf(string) == -1 ]
         },
         onSelect: function (date) {
             addEvent();
@@ -131,6 +134,38 @@ $(document).ready(function () {
             $("#error-calendar-message-box").css("display", "none");
         }
     });
+    
+    
+    function computeDayBetweenStartAndEnd(startDate, endDate) {
+        var arr = new Array();
+        var dt = new Date(startDate);
+        while (dt <= endDate) {
+            arr.push(formatDate(new Date(dt)));
+            dt.setDate(dt.getDate() + 1);
+        }
+        return arr;
+    }
+
+    function formatDate(date) {
+        var day = date.getDate();
+        var month = date.getMonth() + 1;
+        var year = date.getFullYear();
+
+        if(day<10){
+            day = '0' + day;
+        }else{
+            day = '' + day;
+        }
+
+        if(month<10){
+            month = '0' + month;
+        }else{
+            month = '' + month;
+        }
+
+        return year + '-' + month + '-' + day;
+    }
+
 
     /**
      * load calendar and themebox detail list
@@ -159,10 +194,22 @@ $(document).ready(function () {
                 $("#calendar").fullCalendar("today");
                 $("#carousel-right").prop("disabled", true);
 
+                listOfBlockedDates.length = 0;
+
                 var orders = response["data"]["orders"];
                 $.each(orders, function( index, value ) {
                     $('#calendar').fullCalendar( "renderEvent", { title: "", start: addBlockStartdate(value["startdate"]), end: addBlockEnddate(value["enddate"]), rendering: "background", className : "block"}, true);
+                    console.log("start date: " + value['startdate'] + " end date: " + value['enddate'])
+
+                    var dateArr = computeDayBetweenStartAndEnd(new Date(value['startdate']), new Date(value['enddate']));
+
+                    for(var i = 0; i <= dateArr.length; i++){
+                        console.log(dateArr[i]);
+                        listOfBlockedDates.push(dateArr[i]);
+                    }
+
                 });
+
 
                 hideErrorBoxes();
                 $("#end-date").prop("disabled", true);
@@ -216,38 +263,18 @@ $(document).ready(function () {
      * change the deliver typ
      */
     $("#thekre-dropdown").click(function(){
-
         if ($("#thekre-dropdown").val() === "1") {
             $("#school-Address").hide();
             $("#user-delivery-info").show();
             $("#carousel-reserve-button").prop('disabled', false);
-            $("#carousel-right").prop('disabled', false);
-
 
         }
         else {
             $("#user-delivery-info").hide();
             $("#school-Address").show();
             $("#carousel-reserve-button").prop('disabled', true);
-            $("#carousel-right").prop('disabled', true);
-            checkValidationDelivery();
         }
-
     });
-
-
-    /**
-     * check if all fields in delivery are filled out
-     */
-    function checkValidationDelivery() {
-        $filledOut = false;
-        while(!$filledOut) {
-            if (schoolnameValidate() && schoolstreetValidate() && schoolcityValidate() && placeofhandoverValidate() && schoolphoneValidate()) {
-                $("#carousel-right").prop('disabled', false);
-            }
-        }
-    }
-
 
     /**
      * enable and disable next/order buttons
@@ -421,7 +448,7 @@ $(document).ready(function () {
 
             createEvent(formatCalendarDate($("#start-date").val()), formatCalendarEndDate($("#end-date").val()));
         }else{
-            errorHandling("Ihre Auswahl steht in Konflikt mit einem anderen Bestelltermin", "#error-calendar-message-box");
+            errorHandling("Ihre Auswahl steht in konflikt mit einem anderen Bestelltermin", "#error-calendar-message-box");
             $('#carousel-right').prop('disabled', true);
         }
     }

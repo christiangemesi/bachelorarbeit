@@ -360,7 +360,7 @@ function validEmailAddress(email) {
 }
 
 function validPhoneNumber(phonenr) {
-    var pattern = /^[0-9 ]+$/;
+    var pattern = /^(0041|041|\+41|\+\+41|41)?(0|\(0\))?([1-9]\d{1})(\d{3})(\d{2})(\d{2})$/;
     return pattern.test(phonenr);
 }
 

@@ -195,19 +195,21 @@ $(document).ready(function () {
                 $("#carousel-right").prop("disabled", true);
 
                 listOfBlockedDates.length = 0;
+                blockTillNextSunday();
 
                 var orders = response["data"]["orders"];
                 $.each(orders, function( index, value ) {
                     $('#calendar').fullCalendar( "renderEvent", { title: "", start: addBlockStartdate(value["startdate"]), end: addBlockEnddate(value["enddate"]), rendering: "background", className : "block"}, true);
-                    console.log("start date: " + value['startdate'] + " end date: " + value['enddate'])
+                    console.log("start date: " + value['startdate'] + " end date: " + value['enddate']);
+                    console.log("block start date: " + addBlockStartdate(value['startdate']));
+                    console.log("block end date: " + addBlockEnddate(value['enddate']));
 
-                    var dateArr = computeDayBetweenStartAndEnd(new Date(value['startdate']), new Date(value['enddate']));
+                    var dateArr = computeDayBetweenStartAndEnd(new Date(addBlockStartdate(value['startdate'])), new Date(addBlockEnddate(value['enddate'])));
 
                     for(var i = 0; i <= dateArr.length; i++){
                         console.log(dateArr[i]);
                         listOfBlockedDates.push(dateArr[i]);
                     }
-
                 });
 
 
@@ -219,12 +221,83 @@ $(document).ready(function () {
                 $("#themebox-id").val(response["data"]["themebox"]["pk_themebox"]);
 
                 addBlockDateFromToday();
+
+                loadBlockedDates();
             },
             error: function(xhr, status, error) {
                 errorHandling("Es ist ein Fehler bei der Datenverarbeitung passiert. Bitte kontaktieren Sie die FHNW Bibliothek unter bibliothek.windisch@fhnw.ch", "#error-message-box");
             }
         });
     }
+
+
+    /**
+     * block dates till next sunday
+     */
+    function blockTillNextSunday() {
+        var nextSunday = getNextDayOfWeek(new Date(), 7);
+        console.log(nextSunday)
+
+        var dayNextSunday = nextSunday.getUTCDate();
+        console.log(dayNextSunday)
+        var dayToday = (new Date().getDay());
+        console.log(dayToday)
+
+        var numberOfIterations = dayNextSunday - dayToday;
+
+        console.log("number of iterations: " + numberOfIterations);
+
+        var dateArr = computeDayBetweenStartAndEnd(new Date() + 1 , nextSunday);
+
+        for(var i = 0; i <= dateArr.length; i++){
+            console.log(dateArr[i]);
+            listOfBlockedDates.push(dateArr[i]);
+        }
+    }
+
+
+
+
+
+
+
+
+    /**
+     * load blocked dates
+     *
+     *//*
+    function loadBlockedDates() {
+        $.ajax({
+            url: "../user/getBlockedPeriods",
+            type:"POST",
+            success: function(response) {
+                $.each($blocked_periods), function () {
+                    console.log(
+                        $blocked_period["reason"],
+                        $blocked_period["startdate"],
+                        $blocked_period["enddate"]
+                    )
+                    console.log("Did it work?")
+                }
+            },
+            error: function(xhr, status, error) {
+                errorHandling("Es ist ein Fehler bei der Datenverarbeitung passiert. Bitte kontaktieren Sie die FHNW Bibliothek unter bibliothek.windisch@fhnw.ch", "#error-message-box");
+            }
+        });
+    }*/
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * button to show the themebox details - content

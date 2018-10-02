@@ -368,37 +368,35 @@ function validPhoneNumber(phonenr) {
  * Enables/Disables continue buttons
  * @param order_carousel_status
  */
-function checkValidation(order_carousel_status) {
-    console.log(order_carousel_status);
-    if (order_carousel_status === 0) {
-        $("#carousel-right").prop('disabled', true);
+function checkformOrder(form_type) {
+    if (form_type === 0) {
         $("#button-save-order-change").prop('disabled', true);
         var cansubmit = true;
 
-        $("#personal-data-box :input").each(function () {
+        $("#personal-data-box-admin :input").each(function () {
             if ($(this).parent().attr('class') != "form-group has-success has-feedback") {
                 cansubmit = false;
             }
         });
 
         if (cansubmit) {
-            $("#carousel-right").prop('disabled', !cansubmit);
             $("#button-save-order-change").prop('disabled', !cansubmit);
         }
     }
 
-    if (order_carousel_status === 1) {
-        $("#carousel-reserve-button").prop('disabled', true);
+    if (form_type === 1) {
+        $("#button-save-order-change").prop('disabled', true);
         var cansubmit = true;
 
-        $("#delivery-data-box :input").each(function () {
+        $("#delivery-data-box-admin :input").each(function () {
             if ($(this).parent().attr('class') != "form-group has-success has-feedback") {
                 cansubmit = false;
             }
         });
 
         if (cansubmit) {
-            $("#carousel-reserve-button").prop('disabled', !cansubmit);
+            $("#button-save-order-change").prop('disabled', !cansubmit);
         }
     }
+
 }

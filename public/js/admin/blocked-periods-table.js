@@ -60,6 +60,9 @@ $(document).ready(function () {
             url: "../admin/createBlockedPeriod",
             type: 'POST',
             data: {blocked_period_data: $('#create-blocked-period-form').serializeArray()},
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             success: function (response) {
                 showSuccessModal("Themenkiste wurde erfolgreich erstellt");
             },

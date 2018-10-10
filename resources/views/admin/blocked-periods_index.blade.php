@@ -16,6 +16,8 @@
     <script src="{{ asset('js/admin/blocked-periods-table.js') }}"></script>
     <script src="{{ asset('js/callback-modal.js') }}"></script>
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <div class="modal fade" id="callback-modal" tabindex="-1">
         <div class="modal-dialog " role="document">
             <div class="modal-content">

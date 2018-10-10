@@ -83,7 +83,7 @@ $(document).ready(function () {
         $('#callback-modal').modal('show');
         $('#modal-content-failure').css('display', 'none');
         $('#modal-content-success').css('display', 'none');
-        $('#modal-delete-themebox-warning').css('display', 'block');
+        $('#modal-delete-blocked-period-warning').css('display', 'block');
     }
 
     /**

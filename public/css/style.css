@@ -317,6 +317,10 @@ body{
     background-color: #dfdfdf;
 }
 
+.new-blocked-period-table thead :hover{
+    background-color: #dfdfdf;
+}
+
 #themebox-order-info-title{
     text-align: center;
     font-size: 30px;

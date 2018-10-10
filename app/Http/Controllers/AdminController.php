@@ -463,33 +463,62 @@ class AdminController extends Controller
         }
     }
 
+
+    /**
+     * return all blocked periods
+     * @return array
+     */
+    public function getAllBlockedPeriods()
+    {
+        $blocked_periods = Blocked_Period::get();
+        return $blocked_periods;
+    }
+
+
     /**
      * return all blocked periods
      * @return array
      */
     public function getBlockedPeriods()
     {
-        /*$blocked_periods = Blocked_Period::get();
-        $blocked_period_list= array();
+        $blocked_periods = Blocked_Period::get();
+        $blocked_periods_list = array();
 
         $counter = 0;
         foreach ($blocked_periods as $blocked_period) {
-            $blocked_period = Themebox::find($blocked_period->fk_blocked_period);
 
-
-            $blocked_period_list[$counter] = array("themebox" => $blocked_period["title"],
-                "reason" => $blocked_period["reason"],
-                "startdate" => date('d.m.Y', strtotime($blocked_period["startdate"])),
-                "enddate" => date('d.m.Y', strtotime($blocked_period["enddate"])));
-
+            $blocked_periods_list[$counter] = array(
+                "pk_blocked-period" => $blocked_period->pk_blocked_period,
+                "reason" => $blocked_period->reason,
+                "startdate" => date('d.m.Y', strtotime($blocked_period->startdate)),
+                "enddate" => date('d.m.Y', strtotime($blocked_period->enddate)));
             $counter++;
         }
 
-        return $blocked_period_list;*/
-
-        $blocked_periods = Blocked_Period::get();
-        return $blocked_periods;
+        return $blocked_periods_list;
     }
+
+
+    /**
+     * update blocked period
+     * @param Request $request
+     * @return mixed
+     */
+    public function updateBlockedPeriod(Request $request){
+
+        try {
+            Blocked_Period::find($request->blocked_period_data[0]["value"])->update(
+                ['reason' => $this->formatDate($request->order_data[1]["value"]),
+                    'startdate' => $this->formatDate($request->order_data[2]["value"]),
+                    'enddate' => $request->order_data[3]["value"],
+                ]);
+
+            return response()->json($request->order_data[3]["value"], 200);
+        }catch (Exception $e){
+            return response()->json($e, 500);
+        }
+    }
+
 
     /**
      * get themebox data from selected themebox
@@ -514,8 +543,9 @@ class AdminController extends Controller
     {
         $blocked_period = new Blocked_Period();
         $blocked_period->reason = $request->blocked_period_data[0]["value"];
-        $blocked_period->startdate = $request->blocked_period_data[1]["value"];
-        $blocked_period->enddate = $request->blocked_period_data[2]["value"];
+        $blocked_period->startdate = $this->formatDate($request->blocked_period_data[1]["value"]);
+        $blocked_period->enddate = $this->formatDate($request->blocked_period_data[2]["value"]);
+
 
         try {
             $blocked_period->save();

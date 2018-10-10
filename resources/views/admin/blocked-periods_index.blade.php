@@ -16,6 +16,7 @@
     <script src="{{ asset('js/admin/blocked-periods-table.js') }}"></script>
     <script src="{{ asset('js/callback-modal.js') }}"></script>
 
+
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <div class="modal fade" id="callback-modal" tabindex="-1">
@@ -115,7 +116,7 @@
             <button type="button" class="btn btn-success btn-create-blocked-period" id="button-create-blocked-period"><span class="glyphicon glyphicon-plus"></span> Sperrfrist hinzufügen</button>
         </div>
         <div class="panel panel-default no-border" id="table-content">
-            <table id="new-settings-table" class="data-table table table-bordered" cellspacing="0" width="100%">
+            <table id="new-blocked-period-table" class="data-table table table-bordered" cellspacing="0" width="100%">
                 <thead>
                 <tr>
                     <th class="settings-name-column-width">Grund</th>

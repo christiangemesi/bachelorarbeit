@@ -5,7 +5,7 @@ $(document).ready(function () {
      * remove themebox
      */
     $(".button-delete-themebox").click(function () {
-        prepareDeleteWaningModal();
+        prepareDeleteWarningModal();
         $('#delete-warning-header-text').val("Wollen Sie die Themenkiste wirklich löschen?");
         $('#object-remove-id').val($(this).val());
     });
@@ -173,7 +173,7 @@ $(document).ready(function () {
     /**
      * show delete warning modal
      */
-    function prepareDeleteWaningModal() {
+    function prepareDeleteWarningModal() {
         $('#callback-modal').modal('show');
         $('#modal-content-failure').css('display', 'none');
         $('#modal-content-success').css('display', 'none');

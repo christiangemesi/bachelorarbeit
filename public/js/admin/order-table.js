@@ -81,6 +81,25 @@ $(document).ready(function () {
         })
     });
 
+
+    /**
+     * button print
+     */
+    function printData()
+    {
+        var divToPrint=document.getElementById("printTable");
+        newWin= window.open("");
+        newWin.document.write(divToPrint.outerHTML);
+        newWin.print();
+        newWin.close();
+    }
+
+    $(".button-print-order").click(function () {
+        printData();
+        console.log("Klick!");
+    });
+
+
     /**
      * get order data for edit modal
      */

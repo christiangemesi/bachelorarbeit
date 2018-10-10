@@ -20,7 +20,6 @@
     <script src="{{ asset('js/calendar/add-first-block.js') }}"></script>
     <script src="{{ asset('js/callback-modal.js') }}"></script>
 
-
     <div class="modal fade" id="callback-modal" tabindex="-1">
         <div class="modal-dialog " role="document">
             <div class="modal-content">
@@ -48,7 +47,7 @@
         </div>
     </div>
 
-    <div class="col-md-12 admin-panel  data-table-thekre">
+    <div class="col-md-12 admin-panel  data-table-thekre" id="printTable">
         <h1 class="admin-header">Bestellungen</h1>
         <div class="panel panel-default no-border  margin-top-less" id="table-content">
             <table id="new-order-table" class="data-table table table-bordered" cellspacing="0" width="100%">
@@ -109,7 +108,7 @@
                                     <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                 </button>
                                 </button>
-                                <button type="button" class="button-print-themebox btn btn-warning inner" value="{{$order["order_id"]}}" aria-label="print" data-toggle="tooltip" data-placement="top" title="Bestellung ausdrucken">
+                                <button type="button" class="button-print-order btn btn-warning inner" value="{{$order["order_id"]}}" aria-label="print" data-toggle="tooltip" data-placement="top" title="Bestellung ausdrucken">
                                     <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
                                 </button>
                             </div>

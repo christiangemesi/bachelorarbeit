@@ -132,6 +132,51 @@
                                         </div>
                                     </div>
                                 </div>
+
+
+
+                            </div>
+
+                            <div class="item overflow-order-box">
+                                <div class="row thekre-row">
+                                    <div class="col-md-12" id="personal-data-box">
+                                        <h2 class="order-form-title">Persönliche Angaben</h2>
+                                        <div class="form-group has-feedback">
+                                            <label for="firstNameInput">Vorname * </label>
+                                            <input type="text" class="form-control" name="surname" id="firstNameInput" maxlength="40" placeholder="Max" onblur="firstNameValidate()" />
+                                            <span id="firstNameIcon"></span>
+                                            <span id="firstNameInputStatus" class="errorHeader">Vorname wird benötigt!</span>
+                                        </div>
+
+                                        <div class="form-group has-feedback">
+                                            <label for="lastNameInput">Nachname * </label>
+                                            <input type="text" class="form-control" name="name" id="lastNameInput" maxlength="40" placeholder="Muster" onblur="lastNameValidate()"/>
+                                            <span id="lastNameIcon" aria-hidden="true"></span>
+                                            <span id="lastNameInputStatus" class="errorHeader">Nachname wird benötigt!</span>
+                                        </div>
+
+                                        <div class="form-group has-feedback">
+                                            <label for="emailInput">Email Adresse *</label>
+                                            <input type="email" class="form-control" name="email" id="emailInput" maxlength="60" placeholder="max.muster@fhnw.ch" onblur="emailValidate()"/>
+                                            <span id="emailIcon" aria-hidden="true"></span>
+                                            <span id="emailInputStatus" class="errorHeader">Email wird benötigt!</span>
+                                        </div>
+
+                                        <div class="form-group has-feedback">
+                                            <label class="form-control-label" for="phone">Tel.-Nr. *</label>
+                                            <input name="phone" type="text" class="form-control" id="phone" maxlength="40" placeholder="0629231323" onblur="phoneValidate()"/>
+                                            <span id="phoneIcon" aria-hidden="true"></span>
+                                            <span id="phoneInputStatus" class="errorHeader">Telefonnummer wird benötigt!</span>
+                                        </div>
+                                        <div class="form-group has-feedback">
+                                            <label class="form-control-label" for="nebisusernumber">Nebisnummer *</label>
+                                            <input name="nebisusernumber" type="text" class="form-control" id="nebisusernumber" maxlength="40" placeholder="S98134827348" onblur="nebisValidate()" />
+                                            <span id="nebisIcon" aria-hidden="true"></span>
+                                            <span id="nebisInputStatus" class="errorHeader">Nebisnummer wird benötigt!</span>
+                                        </div>
+                                        <label class="required">* Pflichtfeld</label>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="item overflow-order-box">
@@ -184,48 +229,6 @@
                                                 <label class="required">* Pflichtfeld</label>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="item overflow-order-box">
-                                <div class="row thekre-row">
-                                    <div class="col-md-12" id="personal-data-box">
-                                        <h2 class="order-form-title">Persönliche Angaben</h2>
-                                        <div class="form-group has-feedback">
-                                            <label for="firstNameInput">Vorname * </label>
-                                            <input type="text" class="form-control" name="surname" id="firstNameInput" maxlength="40" placeholder="Max" onblur="firstNameValidate()" />
-                                            <span id="firstNameIcon"></span>
-                                            <span id="firstNameInputStatus" class="errorHeader">Vorname wird benötigt!</span>
-                                        </div>
-
-                                        <div class="form-group has-feedback">
-                                            <label for="lastNameInput">Nachname * </label>
-                                            <input type="text" class="form-control" name="name" id="lastNameInput" maxlength="40" placeholder="Muster" onblur="lastNameValidate()"/>
-                                            <span id="lastNameIcon" aria-hidden="true"></span>
-                                            <span id="lastNameInputStatus" class="errorHeader">Nachname wird benötigt!</span>
-                                        </div>
-
-                                        <div class="form-group has-feedback">
-                                            <label for="emailInput">Email Adresse *</label>
-                                            <input type="email" class="form-control" name="email" id="emailInput" maxlength="60" placeholder="max.muster@fhnw.ch" onblur="emailValidate()"/>
-                                            <span id="emailIcon" aria-hidden="true"></span>
-                                            <span id="emailInputStatus" class="errorHeader">Email wird benötigt!</span>
-                                        </div>
-
-                                        <div class="form-group has-feedback">
-                                            <label class="form-control-label" for="phone">Tel.-Nr. *</label>
-                                            <input name="phone" type="text" class="form-control" id="phone" maxlength="40" placeholder="0629231323" onblur="phoneValidate()"/>
-                                            <span id="phoneIcon" aria-hidden="true"></span>
-                                            <span id="phoneInputStatus" class="errorHeader">Telefonnummer wird benötigt!</span>
-                                        </div>
-                                        <div class="form-group has-feedback">
-                                            <label class="form-control-label" for="nebisusernumber">Nebisnummer *</label>
-                                            <input name="nebisusernumber" type="text" class="form-control" id="nebisusernumber" maxlength="40" placeholder="S98134827348" onblur="nebisValidate()" />
-                                            <span id="nebisIcon" aria-hidden="true"></span>
-                                            <span id="nebisInputStatus" class="errorHeader">Nebisnummer wird benötigt!</span>
-                                        </div>
-                                        <label class="required">* Pflichtfeld</label>
                                     </div>
                                 </div>
                             </div>

@@ -261,32 +261,27 @@ $(document).ready(function () {
 
 
 
-
     /**
      * load blocked dates
-     *
-     *//*
+     */
     function loadBlockedDates() {
         $.ajax({
             url: "../user/getBlockedPeriods",
             type:"POST",
-            success: function(response) {
-                $.each($blocked_periods), function () {
-                    console.log(
-                        $blocked_period["reason"],
-                        $blocked_period["startdate"],
-                        $blocked_period["enddate"]
-                    )
-                    console.log("Did it work?")
-                }
+            data: {
+                format: 'json'
+            },
+            success: function(data) {
+                console.log("Did it work?");
+
+                console.log(data);
+
             },
             error: function(xhr, status, error) {
                 errorHandling("Es ist ein Fehler bei der Datenverarbeitung passiert. Bitte kontaktieren Sie die FHNW Bibliothek unter bibliothek.windisch@fhnw.ch", "#error-message-box");
             }
         });
-    }*/
-
-
+    }
 
 
 

@@ -3,6 +3,7 @@ namespace ThekRe\Http\Controllers;
 
 use Illuminate\Http\Request;
 use League\Flysystem\Exception;
+use ThekRe\Blocked_Period;
 use ThekRe\Delivery;
 use ThekRe\Http\Requests;
 use ThekRe\Order;
@@ -453,12 +454,100 @@ class AdminController extends Controller
      * load settings view
      * @return mixed
      */
-    public function indexSettings()
+    public function indexBlockedPeriods()
     {
         if ($this->checkLogin()) {
-            return view('admin.settings_index');
+            return view('admin.blocked-periods_index',['blocked_periods' => $this->getBlockedPeriods()]);
         } else {
             return view('admin/login_form');
+        }
+    }
+
+    /**
+     * return all blocked periods
+     * @return array
+     */
+    public function getBlockedPeriods()
+    {
+        /*$blocked_periods = Blocked_Period::get();
+        $blocked_period_list= array();
+
+        $counter = 0;
+        foreach ($blocked_periods as $blocked_period) {
+            $blocked_period = Themebox::find($blocked_period->fk_blocked_period);
+
+
+            $blocked_period_list[$counter] = array("themebox" => $blocked_period["title"],
+                "reason" => $blocked_period["reason"],
+                "startdate" => date('d.m.Y', strtotime($blocked_period["startdate"])),
+                "enddate" => date('d.m.Y', strtotime($blocked_period["enddate"])));
+
+            $counter++;
+        }
+
+        return $blocked_period_list;*/
+
+        $blocked_periods = Blocked_Period::get();
+        return $blocked_periods;
+    }
+
+    /**
+     * get themebox data from selected themebox
+     * @param Request $request
+     * @return mixed
+     *//*
+    public function getBlockedPeriod(Request $request)
+    {
+        $pk_blocked_period = $request["pk_blocked_period"];
+        $blocked_period = Blocked_Period::find($pk_blocked_period);
+
+        return response()->json($blocked_period,200);
+    }*/
+
+
+    /**
+     * create blocked_period
+     * @param Request $request
+     * @return mixed
+     */
+    public function createBlockedPeriod(Request $request)
+    {
+        $blocked_period = new Blocked_Period();
+        $blocked_period->reason = $request->blocked_period_data[0]["value"];
+        $blocked_period->startdate = $request->blocked_period_data[1]["value"];
+        $blocked_period->enddate = $request->blocked_period_data[2]["value"];
+
+        try {
+            $blocked_period->save();
+            return response()->json([], 200);
+        } catch (Exception $e) {
+            return response()->json($e, 500);
+        }
+    }
+
+    /**
+     * remove blocked period
+     * @param Request $request
+     * @return mixed
+     */
+    public function removeBlockedPeriod(Request $request)
+    {
+        $blocked_period_id = $request->blocked_period_id;
+        $blocked_period = Blocked_Period::find($blocked_period_id);
+
+        $blocked_periods = Blocked_Period::where('pk_blocked_period', $blocked_period_id)->get();
+
+        if (count($blocked_period) != 0) {
+            foreach ($blocked_periods as $blocked_period) {
+                $blocked_period->forceDelete();
+            }
+        }
+
+        try {
+            $blocked_period->forceDelete();
+            return response()->json([], 200);
+        } catch (Exception $e) {
+            return response()->json($e, 500);
         }
     }
 }

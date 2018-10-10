@@ -3,6 +3,7 @@ namespace ThekRe\Http\Controllers;
 
 use Illuminate\Http\Request;
 use League\Flysystem\Exception;
+use ThekRe\Blocked_Period;
 use ThekRe\Delivery;
 use ThekRe\Http\Requests;
 use ThekRe\Order;
@@ -278,5 +279,33 @@ class UserController extends Controller
         }catch (Exception $e){
             return response()->json([], 500);
         }
+    }
+
+    /**
+     * return all blocked periods
+     * @return array
+     */
+    public function getBlockedPeriods()
+    {
+        $blocked_periods = Blocked_Period::get();
+        return $blocked_periods;
+    }
+
+
+    /**
+     * get blocked period data from selected blocked period
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getBlockedPeriod(Request $request)
+    {
+        $blocked_period_Id = $request["blocked_period_Id"];
+        $blocked_period = Blocked_Period::find($blocked_period_Id);
+
+        $data = array(
+            "blocked_period" => $blocked_period,
+        );
+
+        return response()->json(['data' => $data]);
     }
 }

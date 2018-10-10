@@ -31,7 +31,12 @@ Route::post('admin/getThemebox', 'AdminController@getThemebox');
 Route::post('admin/updateThemebox', 'AdminController@updateThemebox');
 Route::post('admin/getOrder', 'AdminController@getOrder');
 Route::post('admin/updateOrder', 'AdminController@updateOrder');
-Route::get('admin/settings', 'AdminController@indexSettings');
+Route::get('admin/blockedPeriods', 'AdminController@indexBlockedPeriods');
+Route::post('admin/getBlockedPeriods', 'AdminController@getBlockedPeriods');
+Route::post('admin/createBlockedPeriod', 'AdminController@createBlockedPeriod');
+Route::post('admin/removeBlockedPeriod', 'AdminController@removeBlockedPeriod');
+
+
 
 Route::get('user', 'UserController@index');
 Route::post('user/getThemebox','UserController@getThemebox');
@@ -42,4 +47,5 @@ Route::get('user/orderFailed', 'UserController@orderFailed')->name('orderFailed'
 Route::post('user/login', 'UserController@login');
 Route::get('user/loginForm', 'UserController@loginForm');
 Route::post('user/updateOrderDates', 'UserController@updateOrderDates');
+Route::post('user/getBlockedPeriods', 'UserController@getBlockedPeriods');
 

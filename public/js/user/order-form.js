@@ -368,35 +368,36 @@ function validPhoneNumber(phonenr) {
  * Enables/Disables continue buttons
  * @param order_carousel_status
  */
-function checkformOrder(form_type) {
-    if (form_type === 0) {
+function checkValidation(order_carousel_status) {
+    if (order_carousel_status === 0) {
+        $("#carousel-right").prop('disabled', true);
         $("#button-save-order-change").prop('disabled', true);
         var cansubmit = true;
 
-        $("#personal-data-box-admin :input").each(function () {
+        $("#personal-data-box :input").each(function () {
             if ($(this).parent().attr('class') != "form-group has-success has-feedback") {
                 cansubmit = false;
             }
         });
 
         if (cansubmit) {
+            $("#carousel-right").prop('disabled', !cansubmit);
             $("#button-save-order-change").prop('disabled', !cansubmit);
         }
     }
 
-    if (form_type === 1) {
-        $("#button-save-order-change").prop('disabled', true);
+    if (order_carousel_status === 1) {
+        $("#carousel-reserve-button").prop('disabled', true);
         var cansubmit = true;
 
-        $("#delivery-data-box-admin :input").each(function () {
+        $("#delivery-data-box :input").each(function () {
             if ($(this).parent().attr('class') != "form-group has-success has-feedback") {
                 cansubmit = false;
             }
         });
 
         if (cansubmit) {
-            $("#button-save-order-change").prop('disabled', !cansubmit);
+            $("#carousel-reserve-button").prop('disabled', !cansubmit);
         }
     }
-
 }

@@ -5,7 +5,7 @@ $(document).ready(function () {
     /**
      * remove blocked periods
      */
-    $(".button-delete-blocked-periods").click(function () {
+    $(".button-delete-blocked-period").click(function () {
         prepareDeleteWarningModal();
         $('#delete-warning-header-text').val("Wollen Sie die Sperrfrist wirklich löschen?");
         $('#object-remove-id').val($(this).val());

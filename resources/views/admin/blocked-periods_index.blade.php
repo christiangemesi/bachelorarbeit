@@ -141,7 +141,7 @@
                             <button type="button" class="button-update btn btn-primary button-edit-themebox" aria-label="edit"  value="" data-toggle="tooltip" data-placement="top" title="Sperrfrist bearbeiten">
                                 <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                             </button>
-                            <button type="button" class="button-delete-blocked-periods btn btn-danger" value="{{$blocked_period["pk_blocked-period"]}}" aria-label="delete" data-toggle="tooltip" data-placement="top" title="Sperrfrist löschen">
+                            <button type="button" class="button-delete-blocked-period btn btn-danger" value="{{$blocked_period["pk_blocked-period"]}}" aria-label="delete" data-toggle="tooltip" data-placement="top" title="Sperrfrist löschen">
                                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                             </button>
                         </td>

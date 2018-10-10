@@ -20,7 +20,7 @@ $(document).ready(function () {
             type: 'POST',
             data: {blocked_period_id: $('#object-remove-id').val()},
             success: function (response) {
-                showSuccessModal("Themenkiste wurde erfolgreich gelöscht");
+                showSuccessModal("Sperrfrist wurde erfolgreich gelöscht");
             },
             error: function (xhr, status, error) {
                 showFailureModal("Es ist ein Fehler beim Löschen passiert", xhr);
@@ -64,10 +64,10 @@ $(document).ready(function () {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             success: function (response) {
-                showSuccessModal("Themenkiste wurde erfolgreich erstellt");
+                showSuccessModal("Sperrfrist wurde erfolgreich erstellt");
             },
             error: function (xhr, status, error) {
-                showFailureModal("Themenkiste konnte nicht erstellt werden", xhr);
+                showFailureModal("Sperrfrist konnte nicht erstellt werden", xhr);
             }
         })
     });

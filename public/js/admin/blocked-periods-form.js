@@ -40,42 +40,48 @@ function notEmptyValidation(namevar, iconvar, statusvar) {
 }
 
 function checkform() {
-    document.getElementById("create-settings-button").disabled = true;
-    document.getElementById("button-save-settings-change").disabled = true;
-    var f = document.forms['create-settings-form'].elements;
-    var s = document.forms['edit-settings-form'].elements;
+    document.getElementById("create-blocked-period-button").disabled = true;
+    //document.getElementById("button-save-blocked-period-change").disabled = true;
+    var f = document.forms['create-blocked-period-form'].elements;
+    //var s = document.forms['edit-blocked-period-form'].elements;
     var cansubmitf = true;
-    var cansubmits = true;
+    //var cansubmits = true;
+
+    console.log(f);
 
     for (var i = 0; i < f.length; i++) {
-        if (f[i].value.length == 0){
+        console.log("value length " + f[i] + ": " + f[i].value.length);
+        if (f[i].value == ""){
             cansubmitf = false;
         }
     }
-    for (var a = 0; a < s.length; a++) {
+    /*for (var a = 0; a < s.length; a++) {
         if (s[a].value.length == 0){
             cansubmits = false;
         }
-    }
+    }*/
 
-    if(onlyNumbers(document.getElementById("settings-form-weight").value)) {
+    /*if(onlyNumbers(document.getElementById("settings-form-weight").value)) {
         if (cansubmitf) {
             document.getElementById("create-settings-button").disabled = !cansubmitf;
         }
-    }
-    if(onlyNumbers(document.getElementById("settings-edit-form-weight").value)){
+    }*/
+    /*if(onlyNumbers(document.getElementById("settings-edit-form-weight").value)){
         if (cansubmits) {
             document.getElementById("button-save-settings-change").disabled = !cansubmits;
         }
-    }
+    }*/
 
+    if (cansubmitf) {
+        document.getElementById("create-blocked-period-button").disabled = !cansubmitf;
+    }
 }
 
-
+/*
 function onlyNumbers(word) {
     var pattern = /^[0-9. ]+$/;
     return pattern.test(word);
-}
+}*/
 
 
 

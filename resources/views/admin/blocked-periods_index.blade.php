@@ -61,8 +61,7 @@
                                 <div class="form-group has-feedback">
                                     <label class="blocked-period-form-label" for="blocked-period-reason">Sperrfrist Grund *</label>
                                     <input type="text" class="form-control" name="reason" id="blocked-period-reason" maxlength="100" placeholder="Betriebsferien"
-                                           onblur="notEmptyValidation('blocked-period-reason', 'reason-form-icon', 'reason-form-status')"
-                                           onkeyup="notEmptyValidation('blocked-period-reason', 'reason-form-icon', 'reason-form-status')" autofocus autofocus="autofocus"/>
+                                           onblur="notEmptyValidation('blocked-period-reason', 'reason-form-icon', 'reason-form-status')"/>
                                     <span id="reason-form-icon"></span>
                                     <span id="reason-form-status" class="errorHeader">Grund wird benötigt!</span>
                                 </div>
@@ -70,10 +69,9 @@
                                     <label for="start-date">Startdatum *</label>
                                         <div class="input-group">
                                             <input type="text" class="form-control cursor-pointer modal-datepicker" id="start-date" name="start-date" placeholder="24.12.2018"
-                                                   onblur="notEmptyValidation('start-date', 'start-date-form-icon', 'start-date-form-status')"
-                                                   onkeyup="notEmptyValidation('start-date', 'start-date-form-icon', 'start-date-form-status')"/>
+                                                   onblur="notEmptyValidation('start-date', 'order-from-glyphicon', 'start-date-form-status')"
+                                                   onkeyup="notEmptyValidation('start-date', 'order-from-glyphicon', 'start-date-form-status')"/>
                                             <span class="input-group-addon cursor-pointer" id="order-from-glyphicon"><i class="glyphicon glyphicon-calendar"></i></span>
-                                            <span id="start-date-form-icon"></span>
                                             <span id="start-date-form-status" class="errorHeader">Grund wird benötigt!</span>
                                         </div>
                                 </div>
@@ -81,10 +79,9 @@
                                     <label for="end-date">Endatum *</label>
                                     <div class="input-group">
                                         <input type="text" class="form-control cursor-pointer modal-datepicker" id="end-date" name="end-date" placeholder="03.01.2019"
-                                               onblur="notEmptyValidation('end-date', 'end-date-form-icon', 'end-date-form-status')"
-                                               onkeyup="notEmptyValidation('end-date', 'end-date-form-icon', 'end-date-form-status')"/>
+                                               onblur="notEmptyValidation('end-date', 'order-to-glyphicon', 'end-date-form-status')"
+                                               onkeyup="notEmptyValidation('end-date', 'order-to-glyphicon', 'end-date-form-status')"/>
                                         <span class="input-group-addon cursor-pointer" id="order-to-glyphicon"><i class="glyphicon glyphicon-calendar"></i></span>
-                                        <span id="end-date-form-icon"></span>
                                         <span id="end-date-form-status" class="errorHeader">Grund wird benötigt!</span>
                                     </div>
                                 </div>

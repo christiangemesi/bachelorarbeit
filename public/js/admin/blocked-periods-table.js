@@ -19,6 +19,9 @@ $(document).ready(function () {
             url: "removeBlockedPeriod",
             type: 'POST',
             data: {blocked_period_id: $('#object-remove-id').val()},
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             success: function (response) {
                 showSuccessModal("Sperrfrist wurde erfolgreich gelöscht");
             },

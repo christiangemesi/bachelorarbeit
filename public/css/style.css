@@ -362,6 +362,10 @@ h2{
     font-size: 25px;
 }
 
+.blocked-period-new-title{
+    font-size: 25px;
+}
+
 #footer {
     height: 50px;
     width: 100%;
@@ -450,6 +454,10 @@ h2{
 }
 
 .btn-create-themebox{
+    margin-left: 25px;
+}
+
+.btn-create-blocked-period{
     margin-left: 25px;
 }
 

@@ -20,9 +20,10 @@ $(document).ready(function () {
     });
 
     /**
-     * Array of blocked dates
+     * Array of all blocked dates
      */
     var listOfBlockedDates = Array();
+
 
 
     /**
@@ -33,7 +34,6 @@ $(document).ready(function () {
         minDate: 1,
         beforeShowDay: function(date){
             var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
-            console.log("Blockierte Daten: " + listOfBlockedDates);
             return [ listOfBlockedDates.indexOf(string) == -1 ]
         },
         onSelect: function (date) {
@@ -50,7 +50,6 @@ $(document).ready(function () {
         dateFormat: "dd.mm.yy",
         beforeShowDay: function(date){
             var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
-            console.log("Blockierte Daten: " + listOfBlockedDates);
             return [ listOfBlockedDates.indexOf(string) == -1 ]
         },
         onSelect: function (date) {
@@ -134,8 +133,14 @@ $(document).ready(function () {
             $("#error-calendar-message-box").css("display", "none");
         }
     });
-    
-    
+
+
+    /**
+     * computes all day between a given start and enddate
+     * @param startDate
+     * @param endDate
+     * @returns {any[]}
+     */
     function computeDayBetweenStartAndEnd(startDate, endDate) {
         var arr = new Array();
         var dt = new Date(startDate);
@@ -146,6 +151,12 @@ $(document).ready(function () {
         return arr;
     }
 
+
+    /**
+     * formats date in the format YYYY-MM-DD
+     * @param date
+     * @returns {string}
+     */
     function formatDate(date) {
         var day = date.getDate();
         var month = date.getMonth() + 1;
@@ -190,24 +201,21 @@ $(document).ready(function () {
                 $("#themebox-infobox").append(hiddenField);
 
                 $("#themebox-order-info-title").html( response["data"]["themebox"]["title"]);
-                $("#calendar").fullCalendar( "removeEvents");
                 $("#calendar").fullCalendar("today");
                 $("#carousel-right").prop("disabled", true);
 
+                $("#calendar").fullCalendar( "removeEvents");
                 listOfBlockedDates.length = 0;
+                loadBlockedDates();
                 blockTillNextSunday();
 
                 var orders = response["data"]["orders"];
                 $.each(orders, function( index, value ) {
-                    $('#calendar').fullCalendar( "renderEvent", { title: "", start: addBlockStartdate(value["startdate"]), end: addBlockEnddate(value["enddate"]), rendering: "background", className : "block"}, true);
-                    console.log("start date: " + value['startdate'] + " end date: " + value['enddate']);
-                    console.log("block start date: " + addBlockStartdate(value['startdate']));
-                    console.log("block end date: " + addBlockEnddate(value['enddate']));
+                    $('#calendar').fullCalendar( "renderEvent", { id: "borrowed", title: "", start: addBlockStartdate(value["startdate"]), end: addBlockEnddate(value["enddate"]), rendering: "background", className : "block"}, true);
 
                     var dateArr = computeDayBetweenStartAndEnd(new Date(addBlockStartdate(value['startdate'])), new Date(addBlockEnddate(value['enddate'])));
 
                     for(var i = 0; i <= dateArr.length; i++){
-                        console.log(dateArr[i]);
                         listOfBlockedDates.push(dateArr[i]);
                     }
                 });
@@ -222,7 +230,6 @@ $(document).ready(function () {
 
                 addBlockDateFromToday();
 
-                loadBlockedDates();
             },
             error: function(xhr, status, error) {
                 errorHandling("Es ist ein Fehler bei der Datenverarbeitung passiert. Bitte kontaktieren Sie die FHNW Bibliothek unter bibliothek.windisch@fhnw.ch", "#error-message-box");
@@ -236,45 +243,69 @@ $(document).ready(function () {
      */
     function blockTillNextSunday() {
         var nextSunday = getNextDayOfWeek(new Date(), 7);
-        console.log(nextSunday)
 
         var dayNextSunday = nextSunday.getUTCDate();
-        console.log(dayNextSunday)
         var dayToday = (new Date().getDay());
-        console.log(dayToday)
 
         var numberOfIterations = dayNextSunday - dayToday;
 
-        console.log("number of iterations: " + numberOfIterations);
 
         var dateArr = computeDayBetweenStartAndEnd(new Date() + 1 , nextSunday);
 
         for(var i = 0; i <= dateArr.length; i++){
-            console.log(dateArr[i]);
             listOfBlockedDates.push(dateArr[i]);
         }
     }
 
 
-
-
-
+    /**
+     * create new blocked period
+     * @param start
+     * @param end
+     */
+    function blockedPeriodEvent(start, end){
+        $("#calendar").fullCalendar('renderEvent',
+            {
+                id: "blocked",
+                title: "",
+                start: start,
+                end:  end,
+                rendering: "background",
+                className: "blocked_event",
+                color: "#ffad00"
+            },
+            true
+        );
+    }
 
 
     /**
      * load blocked dates
      */
     function loadBlockedDates() {
+        var testArray = Array();
+
         $.ajax({
             url: "../user/getBlockedPeriods",
             type:"POST",
-            data: {
-                format: 'json'
+            data: {},
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             success: function(data) {
-                console.log("Did it work?");
 
-                console.log(data);
+                $.each(data, function(index, element){
+                    blockedPeriodEvent(formatBlockedPeriodCalendarStartDate(element.startdate), formatBlockedPeriodCalendarEndDate(element.enddate));
+                    var blockedPeriodsArray = computeDayBetweenStartAndEnd(new Date(formatCalendarDate(element.startdate)), new Date(formatCalendarDate(element.enddate)));
+
+                    for(var i = 0; i <= blockedPeriodsArray.length; i++){
+                        listOfBlockedDates.push(blockedPeriodsArray[i]);
+                        testArray.push(blockedPeriodsArray[i]);
+                    }
+                });
+
+                for(var i = 0; i <= testArray.length; i++){
+                }
 
             },
             error: function(xhr, status, error) {
@@ -282,16 +313,6 @@ $(document).ready(function () {
             }
         });
     }
-
-
-
-
-
-
-
-
-
-
 
 
     /**
@@ -451,6 +472,27 @@ $(document).ready(function () {
         return number;
     }
 
+    /**
+     * format startdate blocked period
+     * @param date
+     * @returns {string}
+     */
+    function formatBlockedPeriodCalendarStartDate(date){
+        var temp_date = date.split(".");
+        var new_date = new Date(temp_date[2] + "-" + temp_date[1] + "-" + temp_date[0] + "T00:00:00-00:00");
+        return new_date.getUTCFullYear() + "-" + formatTwoDigit(new_date.getUTCMonth() +1) + "-" + formatTwoDigit(new_date.getUTCDate());
+    }
+
+    /**
+     * format enddate blocked period
+     * @param date
+     * @returns {string}
+     */
+    function formatBlockedPeriodCalendarEndDate(date){
+        var temp_date = date.split(".");
+        var new_date = new Date(temp_date[2] + "-" + temp_date[1] + "-" + temp_date[0] + "T00:00:00-00:00");
+        return new_date.getUTCFullYear() + "-" + formatTwoDigit(new_date.getUTCMonth() +1) + "-" + formatTwoDigit(new_date.getUTCDate() +1);
+    }
 
     /**
      * check date collision
@@ -464,7 +506,7 @@ $(document).ready(function () {
             status = false;
         }else {
             $.each($("#calendar").fullCalendar('clientEvents'), function (index, value) {
-                if ((start >= value["start"] && start <= value["end"]-1 || start <= value["start"]  && end >= value["start"])) {
+                   if ((start >= value["start"] && start <= value["end"]-1 || start <= value["start"]  && end >= value["start"]) && (value["id"] == "borrowed")) {
                     status = false;
                 }
             });
@@ -520,6 +562,7 @@ $(document).ready(function () {
             $('#carousel-right').prop('disabled', true);
         }
     }
+
 
 
     /**

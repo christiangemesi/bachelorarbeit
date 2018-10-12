@@ -285,10 +285,34 @@ class UserController extends Controller
      * return all blocked periods
      * @return array
      */
-    public function getBlockedPeriods()
+    public function getAllBlockedPeriods()
     {
         $blocked_periods = Blocked_Period::get();
         return $blocked_periods;
+    }
+
+
+    /**
+     * return all blocked periods
+     * @return array
+     */
+    public function getBlockedPeriods()
+    {
+        $blocked_periods = Blocked_Period::get();
+        $blocked_periods_list = array();
+
+        $counter = 0;
+        foreach ($blocked_periods as $blocked_period) {
+
+            $blocked_periods_list[$counter] = array(
+                "pk_blocked-period" => $blocked_period->pk_blocked_period,
+                "reason" => $blocked_period->reason,
+                "startdate" => date('d.m.Y', strtotime($blocked_period->startdate)),
+                "enddate" => date('d.m.Y', strtotime($blocked_period->enddate)));
+            $counter++;
+        }
+
+        return $blocked_periods_list;
     }
 
 

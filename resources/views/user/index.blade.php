@@ -12,6 +12,8 @@
     <script src="{{ asset('js/calendar/de-ch.js') }}"></script>
     <script src="{{ asset('js/calendar/add-first-block.js') }}"></script>
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
 
     @include('layouts.nav_user')
 
@@ -53,7 +55,6 @@
                                                 @endforeach
                                             </ul>
                                         </div>
-
                                     </div>
 
                                     <div class="col-md-8">
@@ -73,7 +74,6 @@
 
                                                         </table>
                                                     </div>
-
                                                     <div class="form-group" id="themebox-infobox-select-date-container">
                                                         <label class="label-chose-order-period">gewünschte Ausleihperiode</label>
                                                         <table id="themebox-infobox-select-date">
@@ -96,45 +96,39 @@
                                                                 </td>
                                                             </tr>
                                                         </table>
-
                                                         <p class="text-max-order-date-info">
                                                             <i>Ausleihdauer max. 6 Wochen</i>
                                                         </p>
-
                                                         <div class="alert alert-danger display-none" id="error-calendar-message-box"></div>
                                                         <div class="alert alert-info display-none" id="info-calendar-message-box"></div>
                                                     </div>
-
                                                 </div>
-
                                                 <div class="col-md-8">
                                                     <div id='calendar'>
                                                         <!-- calendar with the orders data -->
                                                     </div>
-
                                                     <hr>
                                                     <div id="order-calendar-legend">
-                                                        <div class="row">
+                                                        <div class="row margin-right-legend">
                                                             <div class="col-md-3">
                                                                 <div id="order-calendar-legend-free"> <div class="order-calendar-legend-text">Verfügbar</div></div>
                                                             </div>
                                                             <div class="col-md-3">
                                                                 <div id="order-calendar-legend-block"><div class="order-calendar-legend-text">Blockiert</div></div>
                                                             </div>
-                                                            <div class="col-md-2">
+                                                            <div class="col-md-3">
                                                                 <div id="order-calendar-legend-new"><div class="order-calendar-legend-text">Ihre Auswahl</div></div>
                                                             </div>
+                                                            <div class="col-md-3">
+                                                                <div id="order-calendar-legend-blocked-period"><div class="order-calendar-legend-text">Keine Abholung möglich</div></div>
+                                                            </div>
                                                         </div>
-
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
-
-
                             </div>
 
                             <div class="item overflow-order-box">
@@ -168,6 +162,7 @@
                                             <span id="phoneIcon" aria-hidden="true"></span>
                                             <span id="phoneInputStatus" class="errorHeader">Telefonnummer wird benötigt!</span>
                                         </div>
+
                                         <div class="form-group has-feedback">
                                             <label class="form-control-label" for="nebisusernumber">Nebisnummer *</label>
                                             <input name="nebisusernumber" type="text" class="form-control" id="nebisusernumber" maxlength="40" placeholder="S98134827348" onblur="nebisValidate()" />

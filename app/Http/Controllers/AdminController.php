@@ -520,19 +520,6 @@ class AdminController extends Controller
     }
 
 
-    /**
-     * get themebox data from selected themebox
-     * @param Request $request
-     * @return mixed
-     *//*
-    public function getBlockedPeriod(Request $request)
-    {
-        $pk_blocked_period = $request["pk_blocked_period"];
-        $blocked_period = Blocked_Period::find($pk_blocked_period);
-
-        return response()->json($blocked_period,200);
-    }*/
-
 
     /**
      * create blocked_period
@@ -555,6 +542,8 @@ class AdminController extends Controller
         }
     }
 
+
+
     /**
      * remove blocked period
      * @param Request $request
@@ -564,14 +553,6 @@ class AdminController extends Controller
     {
         $blocked_period_id = $request->blocked_period_id;
         $blocked_period = Blocked_Period::find($blocked_period_id);
-
-        $blocked_periods = Blocked_Period::where('pk_blocked_period', $blocked_period_id)->get();
-
-        if (count($blocked_period) != 0) {
-            foreach ($blocked_periods as $blocked_period) {
-                $blocked_period->forceDelete();
-            }
-        }
 
         try {
             $blocked_period->forceDelete();

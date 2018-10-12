@@ -265,6 +265,10 @@ body{
     margin-top: 10px;
 }
 
+.margin-right-legend{
+    padding-right: 70px;
+}
+
 #order-calendar-legend-block{
     padding-right: 10px;
     height: 20px;
@@ -279,6 +283,13 @@ body{
     background-color: #A7EBC3;
 }
 
+#order-calendar-legend-blocked-period{
+    padding-right: 10px;
+    height: 20px;
+    width: 20px;
+    background-color: #ffe6b3;
+}
+
 #order-calendar-legend-free{
     padding-right: 10px;
     height: 20px;
@@ -290,6 +301,7 @@ body{
 .order-calendar-legend-text{
     width: 120px;
     padding-left: 25px;
+    white-space: nowrap;
 }
 
 .detail-container{

@@ -35,7 +35,7 @@ $(document).ready(function () {
                 if($("#end-date").datepicker("getDate") != null){
                     addEvent();
                 }
-
+                notEmptyValidation('start-date', 'order-from-glyphicon', 'start-date-form-status');
             }
         });
 
@@ -48,6 +48,7 @@ $(document).ready(function () {
             },
             onSelect: function (date) {
                 addEvent();
+                notEmptyValidation('end-date', 'order-to-glyphicon', 'end-date-form-status');
             }
         });
 

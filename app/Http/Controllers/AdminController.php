@@ -476,6 +476,38 @@ class AdminController extends Controller
 
 
     /**
+     * get blocked period data from selected blocked period
+     * @param Request $request
+     * @return mixed
+     */
+    public function getBlockedPeriodTest(Request $request)
+    {
+        $pk_blocked_period = $request["blocked_period-id"];
+        $blockedPeriod = Blocked_Period::find($pk_blocked_period);
+
+        return response()->json($blockedPeriod,200);
+    }
+
+
+    /**
+     * find order id based
+     * @param Request $request
+     * @return mixed
+     */
+    public function getBlockedPeriod(Request $request){
+
+        $blocked_period = Blocked_Period::find($request->blocked_period_id);
+
+        try {
+            return response()->json($blocked_period, 200);
+        }catch(Exception $e){
+            return response()->json($e, 500);
+        }
+    }
+
+
+
+    /**
      * return all blocked periods
      * @return array
      */
@@ -508,12 +540,12 @@ class AdminController extends Controller
 
         try {
             Blocked_Period::find($request->blocked_period_data[0]["value"])->update(
-                ['reason' => $this->formatDate($request->order_data[1]["value"]),
-                    'startdate' => $this->formatDate($request->order_data[2]["value"]),
-                    'enddate' => $request->order_data[3]["value"],
+                ['reason' => $request->blocked_period_data[1]["value"],
+                    'startdate' => $this->formatDate($request->blocked_period_data[2]["value"]),
+                    'enddate' => $this->formatDate($request->blocked_period_data[3]["value"])
                 ]);
 
-            return response()->json($request->order_data[3]["value"], 200);
+            return response()->json($request->blocked_period_data[3]["value"], 200);
         }catch (Exception $e){
             return response()->json($e, 500);
         }

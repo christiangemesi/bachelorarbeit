@@ -35,6 +35,7 @@ Route::get('admin/blockedPeriods', 'AdminController@indexBlockedPeriods');
 Route::post('admin/getBlockedPeriods', 'AdminController@getBlockedPeriods');
 Route::post('admin/createBlockedPeriod', 'AdminController@createBlockedPeriod');
 Route::post('admin/removeBlockedPeriod', 'AdminController@removeBlockedPeriod');
+Route::post('admin/getBlockedPeriod', 'AdminController@getBlockedPeriod');
 
 
 

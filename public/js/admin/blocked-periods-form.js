@@ -41,25 +41,26 @@ function notEmptyValidation(namevar, iconvar, statusvar) {
 
 function checkform() {
     document.getElementById("create-blocked-period-button").disabled = true;
-    //document.getElementById("button-save-blocked-period-change").disabled = true;
+    document.getElementById("button-save-blocked-period-change").disabled = true;
     var f = document.forms['create-blocked-period-form'].elements;
-    //var s = document.forms['edit-blocked-period-form'].elements;
+    var s = document.forms['edit-blocked-period-form'].elements;
     var cansubmitf = true;
-    //var cansubmits = true;
+    var cansubmits = true;
 
     console.log(f);
 
     for (var i = 0; i < f.length; i++) {
-        console.log("value length " + f[i] + ": " + f[i].value.length);
+        //console.log("value length " + f[i] + ": " + f[i].value.length);
         if (f[i].value == ""){
             cansubmitf = false;
         }
     }
-    /*for (var a = 0; a < s.length; a++) {
-        if (s[a].value.length == 0){
+    for (var a = 0; a < s.length; a++) {
+        //console.log("value length " + s[i] + ": " + s[i].value.length);
+        if (s[a].value == ""){
             cansubmits = false;
         }
-    }*/
+    }
 
     /*if(onlyNumbers(document.getElementById("settings-form-weight").value)) {
         if (cansubmitf) {
@@ -74,6 +75,10 @@ function checkform() {
 
     if (cansubmitf) {
         document.getElementById("create-blocked-period-button").disabled = !cansubmitf;
+    }
+
+    if (cansubmits) {
+        document.getElementById("button-save-blocked-period-change").disabled = !cansubmits;
     }
 }
 

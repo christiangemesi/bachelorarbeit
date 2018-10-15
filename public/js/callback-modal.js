@@ -11,6 +11,7 @@ function showSuccessModal(msg) {
     $('#modal-delete-warning').css('display', 'none');
     $('#modal-delete-order-warning').css('display', 'none');
     $('#modal-delete-themebox-warning').css('display', 'none');
+    $('#modal-delete-blocked-period-warning').css('display', 'none');
 }
 
 /**
@@ -26,6 +27,7 @@ function showFailureModal(msg, xhr) {
     $('#modal-content-info').css('display', 'none');
     $('#modal-delete-order-warning').css('display', 'none');
     $('#modal-delete-themebox-warning').css('display', 'none');
+    $('#modal-delete-blocked-period-warning').css('display', 'none');
 }
 
 function refresh() {

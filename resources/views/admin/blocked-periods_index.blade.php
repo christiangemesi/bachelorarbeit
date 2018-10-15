@@ -95,7 +95,7 @@
                 <div class="panel-footer">
                     <div class="row">
                         <div class="col-md-2">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Schliessen</button>
+                            <button type="button" class="btn btn-default callback-close" data-dismiss="modal">Schliessen</button>
                         </div>
                         <div class="col-md-10">
                             <button type="button" id="create-blocked-period-button" class="btn btn-success float-right" data-dismiss="modal" disabled>Speichern</button>

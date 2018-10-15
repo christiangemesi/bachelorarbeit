@@ -99,69 +99,6 @@ $(document).ready(function () {
 
 
 
-
-    /**
-     * load blocked dates
-     */
-    function loadBlockedDates() {
-        $.ajax({
-            url: "../admin/getBlockedPeriods",
-            type:"POST",
-            success: function(response) {
-                var html =
-                    '<tr><td>Grund: </td><td class="themebox-table-value">' + response["data"]["blocked_period"]["reason"] +'</td></tr>' +
-                    '<tr><td>Startdatum: </td><td class="themebox-table-value">' + response["data"]["blocked_period"]["startdate"] +'</td></tr>' +
-                    '<tr><td>Endatum: </td><td class="themebox-table-value">' + response["data"]["blocked_period"]["enddate"]+'</td></tr>';
-                $('#themebox-infobox').html(html);
-
-                console.log(html);
-
-                /*
-                listOfBlockedDates.length = 0;
-                blockTillNextSunday();
-
-                var orders = response["data"]["orders"];
-                $.each(orders, function( index, value ) {
-                    $('#calendar').fullCalendar( "renderEvent", { title: "", start: addBlockStartdate(value["startdate"]), end: addBlockEnddate(value["enddate"]), rendering: "background", className : "block"}, true);
-                    console.log("start date: " + value['startdate'] + " end date: " + value['enddate']);
-                    console.log("block start date: " + addBlockStartdate(value['startdate']));
-                    console.log("block end date: " + addBlockEnddate(value['enddate']));
-
-                    var dateArr = computeDayBetweenStartAndEnd(new Date(addBlockStartdate(value['startdate'])), new Date(addBlockEnddate(value['enddate'])));
-
-                    for(var i = 0; i <= dateArr.length; i++){
-                        console.log(dateArr[i]);
-                        listOfBlockedDates.push(dateArr[i]);
-                    }
-                });
-
-
-                hideErrorBoxes();
-                $("#end-date").prop("disabled", true);
-                $("#start-date").val("");
-                $("#end-date").val("");
-
-                $("#themebox-id").val(response["data"]["themebox"]["pk_themebox"]);
-
-                addBlockDateFromToday();
-
-                loadBlockedDates();*/
-            },
-            error: function(xhr, status, error) {
-                errorHandling("Es ist ein Fehler bei der Datenverarbeitung passiert. Bitte kontaktieren Sie die FHNW Bibliothek unter bibliothek.windisch@fhnw.ch", "#error-message-box");
-            }
-        });
-    }
-
-
-
-
-
-
-
-
-
-
     /**
      * format startdate datepicker
      * @param date

@@ -15,6 +15,8 @@
     <script src="{{ asset('/js/admin/blocked-periods-form.js') }}"></script>
     <script src="{{ asset('js/admin/blocked-periods-table.js') }}"></script>
     <script src="{{ asset('js/callback-modal.js') }}"></script>
+    <script src="{{ asset('js/calendar/event-creator.js') }}"></script>
+
 
 
     <meta name="csrf-token" content="{{ csrf_token() }}">

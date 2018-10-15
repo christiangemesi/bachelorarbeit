@@ -77,6 +77,14 @@ $(document).ready(function () {
 
 
     /**
+     * show callback error text
+     */
+    $("#modal-failure-message-show").click(function () {
+        $(".modal-content-failure-message-background").slideToggle("slow");
+    });
+
+
+    /**
      * show delete warning modal
      */
     function prepareDeleteWarningModal() {

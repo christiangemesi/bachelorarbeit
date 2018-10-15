@@ -8,7 +8,7 @@ $(document).ready(function () {
     /**
      * Array of already blocked dates
      */
-    var listOfAlreadyBlockedDates = ["2018-10-14", "2018-10-15", "2018-10-16"]
+    var listOfAlreadyBlockedDates = [];
 
 
         $('#start-date').keydown(function () {

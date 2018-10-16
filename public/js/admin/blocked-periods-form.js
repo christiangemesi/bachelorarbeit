@@ -31,31 +31,17 @@ function checkform() {
     var cansubmitf = true;
     var cansubmits = true;
 
-    console.log(s);
-
     for (var i = 0; i < f.length; i++) {
-        //console.log("value length " + f[i] + ": " + f[i].value.length);
         if (f[i].value == ""){
             cansubmitf = false;
         }
     }
     for (var a = 0; a < s.length; a++) {
-        //console.log("value length " + s[i] + ": " + s[i].value.length);
         if (s[a].value == ""){
             cansubmits = false;
         }
     }
 
-    /*if(onlyNumbers(document.getElementById("settings-form-weight").value)) {
-        if (cansubmitf) {
-            document.getElementById("create-settings-button").disabled = !cansubmitf;
-        }
-    }*/
-    /*if(onlyNumbers(document.getElementById("settings-edit-form-weight").value)){
-        if (cansubmits) {
-            document.getElementById("button-save-settings-change").disabled = !cansubmits;
-        }
-    }*/
 
     if (cansubmitf) {
         document.getElementById("create-blocked-period-button").disabled = !cansubmitf;
@@ -65,12 +51,6 @@ function checkform() {
         document.getElementById("button-save-blocked-period-change").disabled = !cansubmits;
     }
 }
-
-/*
-function onlyNumbers(word) {
-    var pattern = /^[0-9. ]+$/;
-    return pattern.test(word);
-}*/
 
 
 

@@ -18,7 +18,6 @@
     <script src="{{ asset('js/calendar/event-creator.js') }}"></script>
 
 
-
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <div class="modal fade" id="callback-modal" tabindex="-1">
@@ -173,10 +172,6 @@
             </div>
         </div>
     </div>
-
-
-
-
 
 
 

@@ -27,7 +27,6 @@ $(document).ready(function () {
             minDte: 1,
             beforeShowDay: function(date){
                 var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
-                console.log("Blockierte Daten: " + listOfAlreadyBlockedDates);
                 return [ listOfAlreadyBlockedDates.indexOf(string) == -1 ]
             },
             onSelect: function (date) {
@@ -43,7 +42,6 @@ $(document).ready(function () {
             dateFormat: "dd.mm.yy",
             beforeShowDay: function(date){
                 var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
-                console.log("Blockierte Daten: " + listOfAlreadyBlockedDates);
                 return [ listOfAlreadyBlockedDates.indexOf(string) == -1 ]
             },
             onSelect: function (date) {
@@ -89,7 +87,6 @@ $(document).ready(function () {
         minDte: 1,
         beforeShowDay: function(date){
             var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
-            console.log("Blockierte Daten: " + listOfAlreadyBlockedDates);
             return [ listOfAlreadyBlockedDates.indexOf(string) == -1 ]
         },
         onSelect: function (date) {
@@ -105,7 +102,6 @@ $(document).ready(function () {
         dateFormat: "dd.mm.yy",
         beforeShowDay: function(date){
             var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
-            console.log("Blockierte Daten: " + listOfAlreadyBlockedDates);
             return [ listOfAlreadyBlockedDates.indexOf(string) == -1 ]
         },
         onSelect: function (date) {
@@ -127,18 +123,6 @@ $(document).ready(function () {
     $("#edit-order-to-glyphicon").click(function () {
         $("#edit-blocked-period-end-date").focus();
     });
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     function computeDayBetweenStartAndEnd(startDate, endDate) {
@@ -170,7 +154,6 @@ $(document).ready(function () {
 
         return year + '-' + month + '-' + day;
     }
-
 
 
     /**

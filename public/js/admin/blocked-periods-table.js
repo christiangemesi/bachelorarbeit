@@ -121,11 +121,6 @@ $(document).ready(function () {
                 $("#edit-blocked-period-start-date").val(formatDate(response["startdate"]));
                 $("#edit-blocked-period-end-date").val(formatDate(response["enddate"]));
 
-
-                console.log("Test Start");
-                console.log(response["pk_blocked_period"] + " " + response["reason"] + " " + response["startdate"] + " " + response["enddate"]);
-                console.log("Test End");
-
                 notEmptyValidation('edit-blocked-period-reason', 'reason-form-icon', 'reason-form-status');
                 notEmptyValidation('edit-blocked-period-start-date', 'edit-order-from-glyphicon', 'start-date-form-status');
                 notEmptyValidation('edit-blocked-period-end-date', 'edit-order-to-glyphicon', 'end-date-form-status');
@@ -154,7 +149,6 @@ $(document).ready(function () {
             },
             error: function (xhr, status, error) {
                 showFailureModal("Änderungen konnten nicht gespeichert werden", xhr);
-                console.log(data);
             }
 
         });

@@ -476,20 +476,6 @@ class AdminController extends Controller
 
 
     /**
-     * get blocked period data from selected blocked period
-     * @param Request $request
-     * @return mixed
-     */
-    public function getBlockedPeriodTest(Request $request)
-    {
-        $pk_blocked_period = $request["blocked_period-id"];
-        $blockedPeriod = Blocked_Period::find($pk_blocked_period);
-
-        return response()->json($blockedPeriod,200);
-    }
-
-
-    /**
      * find order id based
      * @param Request $request
      * @return mixed

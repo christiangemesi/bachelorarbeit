@@ -17,7 +17,7 @@
 </p>
 
 <p>
-    Ihre Bestellung können Sie unter <a href="http://86.119.40.87/user/loginForm">Bestellverwaltung</a> mit den folgenden Daten ansehen:
+    Ihre Bestellung können Sie unter <a href="http://http://server1121.cs.technik.fhnw.ch/user/loginForm">Bestellverwaltung</a> mit den folgenden Daten ansehen:
     <br>
 
     Nachname Bestellperson:  <b>{{ $receiver_name }}</b><br>

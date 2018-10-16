@@ -17,7 +17,7 @@
     Bitte stellen Sie die Themenkiste am Montagmorgen, <b>{{ $pickupdate }} </b> wieder zum Abholen bereit. Sie wird in dieser Woche bis spätestens Donnerstag abgeholt.</br>
     Für den Versand der Themenkiste werden Ihrem NEBIS-Konto Gebühren von <b>Fr. 50.- </b> belastet. Die Rechnung erhalten Sie im folgenden Monat von der NEBIS-Gebührenverwaltung.
     <br><br>
-    Ihre Bestellung können Sie unter <a href="http://86.119.40.87/user/loginForm">Bestellverwaltung</a> mit den folgenden Daten bearbeiten:
+    Ihre Bestellung können Sie unter <a href="http://http://server1121.cs.technik.fhnw.ch/user/loginForm">Bestellverwaltung</a> mit den folgenden Daten bearbeiten:
     <br>
 
     Nachname Bestellperson:  <b>{{ $receiver_name }}</b><br>

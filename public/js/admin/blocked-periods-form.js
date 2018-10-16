@@ -14,22 +14,6 @@ function notEmptyValidation(namevar, iconvar, statusvar) {
         icon.className = "glyphicon glyphicon-remove form-control-feedback";
         checkform();
         return false;
-    } else if(namevar == "themebox-form-weight" || namevar == "themebox-edit-form-weight"){
-
-        if (!onlyNumbers(name.value)) {
-            status.innerHTML = "Falsches Gewicht Format - nur Nummern und Punkt erlaubt!";
-            status.style.display = "block";
-            name.parentNode.className = "form-group has-warning has-feedback";
-            icon.className = "glyphicon glyphicon-warning-sign form-control-feedback";
-            checkform();
-            return false;
-        }  else{
-            status.style.display = "none";
-            name.parentNode.className = "form-group has-success has-feedback";
-            icon.className = "glyphicon glyphicon-ok form-control-feedback";
-            checkform();
-            return true;
-        }
     } else {
         status.style.display = "none";
         name.parentNode.className = "form-group has-success has-feedback";

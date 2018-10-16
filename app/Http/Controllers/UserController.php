@@ -103,9 +103,7 @@ class UserController extends Controller
         );
 
         try {
-            //TODO change it back in the end
-            //don't send email --> just for testing
-            //$this->sendEmail($mail_data, $request->delivery);
+            $this->sendEmail($mail_data, $request->delivery);
             $order->save();
             return redirect()->route('orderSuccess');
         } catch (Exception $e) {

@@ -68,6 +68,79 @@ $(document).ready(function () {
 
 
 
+
+
+
+        //Edit Dates Datepicker
+
+    $('#edit-blocked-period-start-date').keydown(function () {
+        return false;
+    });
+
+    $('#edit-blocked-period-end-date').keydown(function () {
+        return false;
+    });
+
+    /**
+     * Format of datepicker is set
+     */
+    $("#edit-blocked-period-start-date").datepicker({
+        dateFormat: "dd.mm.yy",
+        minDte: 1,
+        beforeShowDay: function(date){
+            var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+            console.log("Blockierte Daten: " + listOfAlreadyBlockedDates);
+            return [ listOfAlreadyBlockedDates.indexOf(string) == -1 ]
+        },
+        onSelect: function (date) {
+            bindEndData();
+            if($("#edit-blocked-period-end-date").datepicker("getDate") != null){
+                addEvent();
+            }
+            notEmptyValidation('edit-blocked-period-start-date', 'edit-order-from-glyphicon', 'start-date-form-status');
+        }
+    });
+
+    $("#edit-blocked-period-end-date").datepicker({
+        dateFormat: "dd.mm.yy",
+        beforeShowDay: function(date){
+            var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+            console.log("Blockierte Daten: " + listOfAlreadyBlockedDates);
+            return [ listOfAlreadyBlockedDates.indexOf(string) == -1 ]
+        },
+        onSelect: function (date) {
+            addEvent();
+            notEmptyValidation('edit-blocked-period-end-date', 'edit-order-to-glyphicon', 'end-date-form-status');
+        }
+    });
+
+    /**
+     * Focus is set on button click on glyphicon
+     */
+    $("#edit-order-from-glyphicon").click(function () {
+        $("#edit-blocked-period-start-date").focus();
+    });
+
+    /**
+     * Focus is set on button click on glyphicon
+     */
+    $("#edit-order-to-glyphicon").click(function () {
+        $("#edit-blocked-period-end-date").focus();
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     function computeDayBetweenStartAndEnd(startDate, endDate) {
         var arr = new Array();
         var dt = new Date(startDate);

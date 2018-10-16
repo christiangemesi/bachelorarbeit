@@ -52,7 +52,7 @@
         <div class="modal-dialog " role="document">
             <div class="modal-content">
                 <div class="modal-header modal-header-success">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close callback-close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                     <div class="panel-heading blocked-period-new-title">
@@ -77,7 +77,7 @@
                                                    onblur="notEmptyValidation('start-date', 'order-from-glyphicon', 'start-date-form-status')"
                                                    onkeyup="notEmptyValidation('start-date', 'order-from-glyphicon', 'start-date-form-status')"/>
                                             <span class="input-group-addon cursor-pointer" id="order-from-glyphicon"><i class="glyphicon glyphicon-calendar"></i></span>
-                                            <span id="start-date-form-status" class="errorHeader">Grund wird benötigt!</span>
+                                            <span id="start-date-form-status" class="errorHeader">Startdatum wird benötigt!</span>
                                         </div>
                                 </div>
                                 <div class="form-group has-feedback">
@@ -87,7 +87,7 @@
                                                onblur="notEmptyValidation('end-date', 'order-to-glyphicon', 'end-date-form-status')"
                                                onkeyup="notEmptyValidation('end-date', 'order-to-glyphicon', 'end-date-form-status')"/>
                                         <span class="input-group-addon cursor-pointer" id="order-to-glyphicon"><i class="glyphicon glyphicon-calendar"></i></span>
-                                        <span id="end-date-form-status" class="errorHeader">Grund wird benötigt!</span>
+                                        <span id="end-date-form-status" class="errorHeader">Enddatum wird benötigt!</span>
                                     </div>
                                 </div>
                             </div>
@@ -117,7 +117,7 @@
         <div class="modal-dialog " role="document">
             <div class="modal-content">
                 <div class="modal-header modal-header-primary">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close callback-close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                     <div class="panel-heading themebox-new-title">
@@ -126,33 +126,34 @@
                 </div>
                 <div class="model-body">
                     <form id="edit-blocked-period-form" name="edit-blocked-period-form" autocomplete="off">
+                        <input type="hidden" value="" name="blocked_period_id" id="blocked_period_id"/>
                         <div class="panel-body">
                             <div class="row thekre-row blocked-period-create-form-background" id="blocked-period-data-box">
                                 <div class="form-group has-feedback">
                                     <label class="blocked-period-form-label" for="blocked-period-reason">Sperrfrist Grund *</label>
-                                    <input type="text" class="form-control" name="reason" id="blocked-period-reason" maxlength="100" placeholder="Betriebsferien"
-                                           onblur="notEmptyValidation('blocked-period-reason', 'reason-form-icon', 'reason-form-status')"/>
+                                    <input type="text" class="form-control" id="edit-blocked-period-reason" name="reason" maxlength="100" placeholder="Betriebsferien"
+                                           onblur="notEmptyValidation('edit-blocked-period-reason', 'reason-form-icon', 'reason-form-status')"/>
                                     <span id="reason-form-icon"></span>
                                     <span id="reason-form-status" class="errorHeader">Grund wird benötigt!</span>
                                 </div>
                                 <div class="form-group has-feedback">
                                     <label for="start-date">Startdatum *</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control cursor-pointer modal-datepicker" id="blocked-period-start-date" name="start-date" placeholder="24.12.2018"
-                                               onblur="notEmptyValidation('blocked-period-start-date', 'order-from-glyphicon', 'start-date-form-status')"
-                                               onkeyup="notEmptyValidation('blocked-period-start-date', 'order-from-glyphicon', 'start-date-form-status')"/>
-                                        <span class="input-group-addon cursor-pointer" id="order-from-glyphicon"><i class="glyphicon glyphicon-calendar"></i></span>
-                                        <span id="start-date-form-status" class="errorHeader">Grund wird benötigt!</span>
+                                        <input type="text" class="form-control cursor-pointer modal-datepicker" id="edit-blocked-period-start-date" name="start-date" placeholder="24.12.2018"
+                                               onblur="notEmptyValidation('edit-blocked-period-start-date', 'edit-order-from-glyphicon', 'start-date-form-status')"
+                                               onkeyup="notEmptyValidation('edit-blocked-period-start-date', 'edit-order-from-glyphicon', 'start-date-form-status')"/>
+                                        <span class="input-group-addon cursor-pointer" id="edit-order-from-glyphicon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                        <span id="start-date-form-status" class="errorHeader">Startdatum wird benötigt!</span>
                                     </div>
                                 </div>
                                 <div class="form-group has-feedback">
                                     <label for="end-date">Endatum *</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control cursor-pointer modal-datepicker" id="blocked-period-end-date" name="end-date" placeholder="03.01.2019"
-                                               onblur="notEmptyValidation('blocked-period-end-date', 'order-to-glyphicon', 'end-date-form-status')"
-                                               onkeyup="notEmptyValidation('blocked-period-end-date', 'order-to-glyphicon', 'end-date-form-status')"/>
-                                        <span class="input-group-addon cursor-pointer" id="order-to-glyphicon"><i class="glyphicon glyphicon-calendar"></i></span>
-                                        <span id="end-date-form-status" class="errorHeader">Grund wird benötigt!</span>
+                                        <input type="text" class="form-control cursor-pointer modal-datepicker" id="edit-blocked-period-end-date" name="end-date" placeholder="03.01.2019"
+                                               onblur="notEmptyValidation('edit-blocked-period-end-date', 'edit-order-to-glyphicon', 'end-date-form-status')"
+                                               onkeyup="notEmptyValidation('edit-blocked-period-end-date', 'edit-order-to-glyphicon', 'end-date-form-status')"/>
+                                        <span class="input-group-addon cursor-pointer" id="edit-order-to-glyphicon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                        <span id="end-date-form-status" class="errorHeader">Enddatum wird benötigt!</span>
                                     </div>
                                 </div>
                             </div>
@@ -162,7 +163,7 @@
                 <div class="panel-footer">
                     <div class="row">
                         <div class="col-md-2">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Schliessen</button>
+                            <button type="button" class="btn btn-default callback-close" data-dismiss="modal">Schliessen</button>
                         </div>
                         <div class="col-md-10">
                             <button type="button" id="button-save-blocked-period-change" class="btn btn-primary float-right" data-dismiss="modal">Speichern</button>

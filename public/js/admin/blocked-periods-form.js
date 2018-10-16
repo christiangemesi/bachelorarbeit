@@ -31,7 +31,7 @@ function checkform() {
     var cansubmitf = true;
     var cansubmits = true;
 
-    console.log(f);
+    console.log(s);
 
     for (var i = 0; i < f.length; i++) {
         //console.log("value length " + f[i] + ": " + f[i].value.length);

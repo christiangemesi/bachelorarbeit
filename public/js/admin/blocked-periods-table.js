@@ -116,13 +116,19 @@ $(document).ready(function () {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             success: function (response) {
-                $("#blocked-period-reason").val(response["reason"]);
-                $("#blocked-period-start-date").val(response["startdate"]);
-                $("#blocked-period-end-date").val(response["enddate"]);
+                $("#blocked_period_id").val(response["pk_blocked_period"]);
+                $("#edit-blocked-period-reason").val(response["reason"]);
+                $("#edit-blocked-period-start-date").val(formatDate(response["startdate"]));
+                $("#edit-blocked-period-end-date").val(formatDate(response["enddate"]));
 
-                notEmptyValidation('blocked-period-reason', 'reason-form-icon', 'reason-form-status');
-                notEmptyValidation('blocked-period-start-date', 'order-from-glyphicon', 'start-date-form-status');
-                notEmptyValidation('blocked-period-end-date', 'order-to-glyphicon', 'end-date-form-status');
+
+                console.log("Test Start");
+                console.log(response["pk_blocked_period"] + " " + response["reason"] + " " + response["startdate"] + " " + response["enddate"]);
+                console.log("Test End");
+
+                notEmptyValidation('edit-blocked-period-reason', 'reason-form-icon', 'reason-form-status');
+                notEmptyValidation('edit-blocked-period-start-date', 'edit-order-from-glyphicon', 'start-date-form-status');
+                notEmptyValidation('edit-blocked-period-end-date', 'edit-order-to-glyphicon', 'end-date-form-status');
 
             },
             error: function (xhr, status, error) {
@@ -140,11 +146,15 @@ $(document).ready(function () {
             url: "../admin/updateBlockedPeriod",
             type: 'POST',
             data: {blocked_period_data: $('#edit-blocked-period-form').serializeArray()},
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             success: function (response) {
                 showSuccessModal("Änderungen konnten erfolgreich gespeichert werden");
             },
             error: function (xhr, status, error) {
                 showFailureModal("Änderungen konnten nicht gespeichert werden", xhr);
+                console.log(data);
             }
 
         });

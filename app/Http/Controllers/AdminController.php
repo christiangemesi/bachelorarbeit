@@ -540,12 +540,12 @@ class AdminController extends Controller
 
         try {
             Blocked_Period::find($request->blocked_period_data[0]["value"])->update(
-                ['reason' => $request->blocked_period_data[1]["value"],
-                    'startdate' => $this->formatDate($request->blocked_period_data[2]["value"]),
-                    'enddate' => $this->formatDate($request->blocked_period_data[3]["value"])
-                ]);
+                    ['reason' => $request->blocked_period_data[1]["value"],
+                    'startdate' =>  $this->formatDate($request->blocked_period_data[2]["value"]),
+                    'enddate' =>  $this->formatDate($request->blocked_period_data[3]["value"])
+                    ]);
 
-            return response()->json($request->blocked_period_data[3]["value"], 200);
+            return response()->json($request, 200);
         }catch (Exception $e){
             return response()->json($e, 500);
         }

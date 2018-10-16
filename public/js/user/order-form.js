@@ -13,12 +13,6 @@ window.onload = function () {
 };
 
 
-function confirmBox(){
-    if (!confirm('Die Lieferung an Aargauer Schulen ist kostenpflichtig und es muss zusätzlich telefonisch mit der Infotheke der FHNW Bibliothek Brugg-Windisch Kontakt aufgenommen werden.')) {
-        user.reload(true);
-    }
-}
-
 /**
  * Datepicker
  */

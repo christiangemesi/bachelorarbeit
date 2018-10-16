@@ -249,7 +249,7 @@
                                             </button>
                                         </a>
                                         <a class="align-right">
-                                            <button type="submit" class="btn btn-success btn-lg thekre-button-right" id="carousel-reserve-button" onclick="confirm('Die Lieferung an Aargauer Schulen ist kostenpflichtig und es muss zusätzlich telefonisch mit der Infotheke der FHNW Bibliothek Brugg-Windisch Kontakt aufgenommen werden.')">
+                                            <button type="submit" class="btn btn-success btn-lg thekre-button-right" id="carousel-reserve-button">
                                                 Bestellen
                                             </button>
                                         </a>

@@ -105,7 +105,7 @@
                                     </div>
                                     <div class="form-group has-feedback">
                                         <label class="themebox-form-label" for="themebox-form-content">Inhalt * </label>
-                                        <textarea id="themebox-form-content" name="content" class="form-control" rows="5"
+                                        <textarea id="themebox-form-content" name="content" class="form-control themebox-edit-form-content" rows="5"
                                                   onblur="notEmptyValidate('themebox-form-content','themebox-form-content-status','themebox-form-content-icon')"
                                                   onkeyup="notEmptyValidate('themebox-form-content','themebox-form-content-status','themebox-form-content-icon')"></textarea>
                                         <span id="themebox-form-content-icon"></span>
@@ -195,7 +195,7 @@
                                 </div>
                                 <div class="form-group has-feedback">
                                     <label class="themebox-form-label" for="themebox-edit-form-content">Inhalt * </label>
-                                    <textarea name="content" id="themebox-edit-form-content" class="form-control" rows="5"
+                                    <textarea class="form-control themebox-edit-form-content" name="content" id="themebox-edit-form-content" class="form-control" rows="5"
                                               onblur="notEmptyValidate('themebox-edit-form-content','themebox-edit-form-content-status','themebox-edit-form-content-icon')"
                                               onkeyup="notEmptyValidate('themebox-edit-form-content','themebox-edit-form-content-status','themebox-edit-form-content-icon')"></textarea>
                                     <span id="themebox-edit-form-content-icon"></span>

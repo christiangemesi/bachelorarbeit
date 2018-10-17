@@ -501,6 +501,13 @@ h2{
 
 .themebox-form-label{
     float: left;
+    height: fit-content;
+}
+
+.themebox-edit-form-content{
+    height: 100%;
+    resize: none;
+    overflow: auto;
 }
 
 .statistics-progressbar-value{

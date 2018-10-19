@@ -262,7 +262,8 @@ class AdminController extends Controller
 
         try {
             if("Bereit" == Status::find($new_state_id)->name && 1 == $order["fk_delivery"]){
-                $this->sendEmail($order_id);
+                //TODO reactivate, to send email
+                //$this->sendEmail($order_id);
                 $status_ready = 1;
             }
             Order::find($order_id)->update(['fk_status' => $new_state_id]);

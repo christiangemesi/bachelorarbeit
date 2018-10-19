@@ -198,7 +198,8 @@ class AdminController extends Controller
         try {
             //if new status is "ready"
             if(2 == $request->order_data[3]["value"] && 1 == $request->order_data[9]["value"]){
-                $this->sendEmail($request->order_data[0]["value"]);
+                //todo change back
+                //$this->sendEmail($request->order_data[0]["value"]);
             }
             Order::find($request->order_data[0]["value"])->update(
                 ['startdate' => $this->formatDate($request->order_data[1]["value"]),
@@ -420,7 +421,7 @@ class AdminController extends Controller
      * send email when order state ready
      * @param $order_id
      */
-    public function sendEmail($order_id)
+    /*public function sendEmail($order_id)
     {
         $order = Order::find($order_id);
         $themebox = Themebox::find($order->fk_themebox);
@@ -437,7 +438,7 @@ class AdminController extends Controller
         Mail::send('admin.mail_ready_pickup', $mail_data, function ($message) use ($mail_data) {
             $message->to($mail_data['receiver_mail'], $mail_data['receiver_name'] . " " . $mail_data['receiver_surname'])->subject('Abholungseinladung Themenkiste');
         });
-    }
+    }*/
 
     /**
      * format date from DD.MM.YYYY to YYYY-MM-DD

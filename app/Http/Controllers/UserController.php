@@ -181,7 +181,8 @@ class UserController extends Controller
      * @param $mail_data
      * @param $delivery_type
      */
-    public function sendEmail($mail_data, $delivery_type)
+    //todo change back
+    /*public function sendEmail($mail_data, $delivery_type)
     {
         if ($delivery_type == 2) {
             $pickupdate = $this->getNextMonday($mail_data['enddate']);
@@ -194,7 +195,7 @@ class UserController extends Controller
         Mail::send($view, $mail_data, function ($message) use ($mail_data) {
             $message->to($mail_data['receiver_mail'], $mail_data['receiver_name'] . " " . $mail_data['receiver_surname'])->subject('Bestellbestätigung Themenkiste');
         });
-    }
+    }*/
 
     /**
      * get the next monday for delivery to school

@@ -56,7 +56,7 @@ return [
     */
 
     'from' => [
-        'address' => 'noreply@fhnw.ch',
+        'address' => 'bibliothek.windisch@fhnw.ch',
         'name' => 'Campusbibliothek Brugg-Windisch',
     ],
 

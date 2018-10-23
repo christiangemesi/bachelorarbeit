@@ -664,7 +664,16 @@ $(document).ready(function () {
      * show callback order confirm details
      */
     $(".button-confirm-order").click(function () {
+        if($('#thekre-dropdown').val() == 2){
+            $('#delete-warning-header-text').text("Die Lieferung an Aargauer Schulen ist kostenpflichtig und es muss zusätzlich telefonisch mit der Infotheke der FHNW Bibliothek Brugg-Windisch Kontakt aufgenommen werden.");
+            $('#button-submit-order').text("Themenkiste liefern lassen");
+        }
+        else{
+            $('#delete-warning-header-text').text("Wollen Sie die Themenkiste wirklich bestellen und selbst Abholen?");
+            $('#button-submit-order').text("Themenkiste bestellen");
+        }
         prepareOrderConfirmModal();
+
     });
 
     /**

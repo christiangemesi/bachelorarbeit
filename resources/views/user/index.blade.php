@@ -274,7 +274,7 @@
                                         </div>
                                         <div class="modal-body">
                                             <div class="panel-body">
-                                                <h2 class="delete-warning-header-text">Wollen Sie die Themenkiste wirklich bestellen?</h2>
+                                                <h2 class="delete-warning-header-text" id="delete-warning-header-text">Wollen Sie die Themenkiste wirklich bestellen und selbst Abholen?</h2>
                                             </div>
                                         </div>
                                         <div class="modal-footer">

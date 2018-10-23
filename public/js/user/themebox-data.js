@@ -334,9 +334,6 @@ $(document).ready(function () {
             url: "../user/getBlockedPeriods",
             type:"POST",
             data: {},
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
             success: function(data) {
 
                 $.each(data, function(index, element){

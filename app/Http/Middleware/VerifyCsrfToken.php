@@ -26,6 +26,11 @@ class VerifyCsrfToken extends Middleware
         'admin/getThemebox',
         'admin/updateThemebox',
         'admin/getOrder',
-        'admin/updateOrder'
+        'admin/updateOrder',
+        'user/getBlockedPeriods',
+        'admin/removeBlockedPeriod',
+        'admin/createBlockedPeriod',
+        '/admin/getBlockedPeriod',
+        '/admin/updateBlockedPeriod'
     ];
 }

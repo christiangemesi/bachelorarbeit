@@ -19,9 +19,6 @@ $(document).ready(function () {
             url: "removeBlockedPeriod",
             type: 'POST',
             data: {blocked_period_id: $('#object-remove-id').val()},
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
             success: function (response) {
                 showSuccessModal("Sperrfrist wurde erfolgreich gelöscht");
             },
@@ -63,9 +60,6 @@ $(document).ready(function () {
             url: "../admin/createBlockedPeriod",
             type: 'POST',
             data: {blocked_period_data: $('#create-blocked-period-form').serializeArray()},
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
             success: function (response) {
                 showSuccessModal("Sperrfrist wurde erfolgreich erstellt");
             },
@@ -112,9 +106,6 @@ $(document).ready(function () {
             url: "../admin/getBlockedPeriod",
             type: 'POST',
             data: {blocked_period_id: $(this).val()},
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
             success: function (response) {
                 $("#blocked_period_id").val(response["pk_blocked_period"]);
                 $("#edit-blocked-period-reason").val(response["reason"]);
@@ -141,9 +132,6 @@ $(document).ready(function () {
             url: "../admin/updateBlockedPeriod",
             type: 'POST',
             data: {blocked_period_data: $('#edit-blocked-period-form').serializeArray()},
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
             success: function (response) {
                 showSuccessModal("Änderungen konnten erfolgreich gespeichert werden");
             },

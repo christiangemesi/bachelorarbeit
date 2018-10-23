@@ -239,6 +239,32 @@ $(document).ready(function () {
 
 
     /**
+     * block all sundays for the next 2 years and previous 10 weeks
+     */
+    function addAllSundaysToBlockedListAndCalendar(){
+        var nextSunday = getNextDayOfWeek(new Date(), 7);
+        var previousSunday = getNextDayOfWeek(new Date(), 7);
+
+
+        for(var i = 0; i < 10; i++){
+            previousSunday.setDate(previousSunday.getDate() - 7);
+            listOfBlockedDates.push(formatDate(previousSunday));
+            blockAllSundaysEvent(formatDate(previousSunday));
+            console.log(formatDate(previousSunday));
+        }
+
+        for(var i = 0; i < 104; i++){
+            listOfBlockedDates.push(formatDate(nextSunday));
+            blockAllSundaysEvent(formatDate(nextSunday));
+            console.log(formatDate(nextSunday));
+            nextSunday.setDate(nextSunday.getDate() + 7);
+        }
+    }
+
+
+
+
+    /**
      * block dates till next sunday
      */
     function blockTillNextSunday() {
@@ -280,10 +306,31 @@ $(document).ready(function () {
 
 
     /**
+     * create new blocked period
+     * @param start
+     * @param end
+     */
+    function blockAllSundaysEvent(nextSunday){
+
+        $("#calendar").fullCalendar('renderEvent',
+            {
+                id: "blocked",
+                title: "",
+                start: nextSunday,
+                rendering: "background",
+                className: "blocked_event",
+                color: "#ffad00"
+            },
+            true
+        );
+    }
+
+
+
+    /**
      * load blocked dates
      */
     function loadBlockedDates() {
-        var testArray = Array();
 
         $.ajax({
             url: "../user/getBlockedPeriods",
@@ -300,11 +347,10 @@ $(document).ready(function () {
 
                     for(var i = 0; i <= blockedPeriodsArray.length; i++){
                         listOfBlockedDates.push(blockedPeriodsArray[i]);
-                        testArray.push(blockedPeriodsArray[i]);
                     }
                 });
-                
 
+                addAllSundaysToBlockedListAndCalendar();
             },
             error: function(xhr, status, error) {
                 errorHandling("Es ist ein Fehler bei der Datenverarbeitung passiert. Bitte kontaktieren Sie die FHNW Bibliothek unter bibliothek.windisch@fhnw.ch", "#error-message-box");

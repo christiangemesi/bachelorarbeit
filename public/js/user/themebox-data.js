@@ -303,9 +303,7 @@ $(document).ready(function () {
                         testArray.push(blockedPeriodsArray[i]);
                     }
                 });
-
-                for(var i = 0; i <= testArray.length; i++){
-                }
+                
 
             },
             error: function(xhr, status, error) {

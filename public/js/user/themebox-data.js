@@ -250,13 +250,11 @@ $(document).ready(function () {
             previousSunday.setDate(previousSunday.getDate() - 7);
             listOfBlockedDates.push(formatDate(previousSunday));
             blockAllSundaysEvent(formatDate(previousSunday));
-            console.log(formatDate(previousSunday));
         }
 
         for(var i = 0; i < 104; i++){
             listOfBlockedDates.push(formatDate(nextSunday));
             blockAllSundaysEvent(formatDate(nextSunday));
-            console.log(formatDate(nextSunday));
             nextSunday.setDate(nextSunday.getDate() + 7);
         }
     }
@@ -659,4 +657,25 @@ $(document).ready(function () {
             }
         }
     });
+
+
+
+    /**
+     * show callback order confirm details
+     */
+    $(".button-confirm-order").click(function () {
+        prepareOrderConfirmModal();
+    });
+
+    /**
+     * show order confirm modal
+     */
+    function prepareOrderConfirmModal() {
+        $('#callback-modal').modal('show');
+        $('#modal-content-failure').css('display', 'none');
+        $('#modal-content-success').css('display', 'none');
+        $('#modal-confirm-order-warning').css('display', 'block');
+    }
+
+
 });

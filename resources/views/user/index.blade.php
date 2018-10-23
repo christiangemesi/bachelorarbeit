@@ -249,10 +249,38 @@
                                             </button>
                                         </a>
                                         <a class="align-right">
-                                            <button type="submit" class="btn btn-success btn-lg thekre-button-right" id="carousel-reserve-button">
+                                            <button type="button" class="button-confirm-order btn btn-success btn-lg thekre-button-right" id="carousel-reserve-button">
                                                 Bestellen
                                             </button>
                                         </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="modal fade" id="callback-modal" tabindex="-1">
+                            <div class="modal-dialog " role="document">
+                                <div class="modal-content">
+
+                                    @include("layouts.callback_messages")
+
+                                    <div id="modal-confirm-order-warning">
+                                        <div class="panel-heading modal-header-warning"> <span class="glyphicon glyphicon-flash" id="thekmodal-glyphicon-flash" aria-hidden="true"></span>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="panel-body">
+                                                <h2 class="delete-warning-header-text">Wollen Sie die Themenkiste wirklich bestellen?</h2>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" id="button-submit-order" class="btn btn-lg btn-warning float-right">Themenkiste bestellen</button>
+                                            <button type="button" class="btn btn-lg btn-default btn-modal float-left" data-dismiss="modal">Schliessen</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

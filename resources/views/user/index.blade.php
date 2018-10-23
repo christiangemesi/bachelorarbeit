@@ -120,7 +120,7 @@
                                                                 <div id="order-calendar-legend-new"><div class="order-calendar-legend-text">Ihre Auswahl</div></div>
                                                             </div>
                                                             <div class="col-md-3">
-                                                                <div id="order-calendar-legend-blocked-period"><div class="order-calendar-legend-text">Keine Abholung möglich</div></div>
+                                                                <div id="order-calendar-legend-blocked-period"><div class="order-calendar-legend-text">Bibliothek geschlossen</div></div>
                                                             </div>
                                                         </div>
                                                     </div>

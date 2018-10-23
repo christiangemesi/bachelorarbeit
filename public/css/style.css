@@ -447,6 +447,24 @@ h2{
     color: #808080;
 }
 
+.print-table-title{
+    font-family: Arial;
+    font-size: 25px;
+}
+
+.print-table-text{
+    font-family: Arial;
+    font-size: 20px;
+}
+
+.print-table-user{
+    padding-left: 20px;
+}
+
+.print-table-delivery{
+    padding-left: 40px;
+}
+
 .float-right{
     float: right;
 }

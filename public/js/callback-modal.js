@@ -1,5 +1,5 @@
 /**
- * show success calback modal
+ * show success callback modal
  * @param msg
  */
 function showSuccessModal(msg) {

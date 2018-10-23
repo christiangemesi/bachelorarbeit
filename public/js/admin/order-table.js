@@ -95,8 +95,52 @@ $(document).ready(function () {
     }
 
     $(".button-print-order").click(function () {
-        printData();
-        console.log("Klick!");
+        $.ajax({
+            url: "admin/getOrder",
+            type: 'POST',
+            data: {order_id: $(this).val()},
+            success: function (response) {
+
+
+                var html =
+                    '<tr><td class="print-table-title"><strong>Bestellung: </strong></td><td class="print-table-text">' + response["order"]["ordernumber"] +'</td></tr>' +
+                    '<tr><td> </td></tr>' +
+                    '<tr><td class="print-table-title">Themenkiste: </td><td class="print-table-text">' + response["themebox"]["title"] +'</td></tr>' +
+                    '<tr><td class="print-table-title">Von: </td><td class="print-table-text">' + formatDate(response["order"]["startdate"]) +'</td></tr>' +
+                    '<tr><td class="print-table-title">Bis: </td><td class="print-table-text">' + formatDate(response["order"]["enddate"]) +'</td></tr>' +
+                    '<tr><td class="print-table-title">Bestelldatum: </td><td class="print-table-text">' + formatDate(response["order"]["datecreated"]) +'</td></tr>' +
+                    '<tr><td> </td></tr>' +
+                    '<tr class="print-table-user"><td class="print-table-title">Nachname: </td><td class="print-table-text">' + response["order"]["name"] +'</td></tr>' +
+                    '<tr class="print-table-user"><td class="print-table-title">Vorname: </td><td class="print-table-text">' + response["order"]["surname"] +'</td></tr>' +
+                    '<tr class="print-table-user"><td class="print-table-title">NEBIS-Nummer: </td><td class="print-table-text">' + response["order"]["nebisusernumber"] +'</td></tr>' +
+                    '<tr class="print-table-user"><td class="print-table-title">Email: </td><td class="print-table-text">' + response["order"]["email"] +'</td></tr>' +
+                    '<tr class="print-table-user"><td class="print-table-title">Telefonnummer: </td><td class="print-table-text">' + response["order"]["phonenumber"] +'</td></tr>';
+
+                if (2 === response["order"]["fk_delivery"]) {
+                    var deliveryHtml =
+                        '+ <tr><td> </td></tr>' +
+                        '<tr class="print-table-delivery"><td class="print-table-title">Lieferart: </td><td class="print-table-text">' + "Lieferung an Aargauer Schulen" +'</td></tr>' +
+                        '<tr class="print-table-delivery"><td class="print-table-title">Name der Schule: </td><td class="print-table-text">' + response["order"]["schoolname"] +'</td></tr>' +
+                        '<tr class="print-table-delivery"><td class="print-table-title">Strasse und Nr.: </td><td class="print-table-text">' + response["order"]["schoolstreet"] +'</td></tr>' +
+                        '<tr class="print-table-delivery"><td class="print-table-title">PLZ und Ort: </td><td class="print-table-text">' + response["order"]["schoolcity"] +'</td></tr>' +
+                        '<tr class="print-table-delivery"><td class="print-table-title">Abgabeort: </td><td class="print-table-text">' + response["order"]["placeofhandover"] +'</td></tr>' +
+                        '<tr class="print-table-delivery"><td class="print-table-title">Telefonnummer der Schule: </td><td class="print-table-text">' + response["order"]["schoolphonenumber"] +'</td></tr>';
+                    html = html + deliveryHtml;
+                }else{
+                    var deliveryTypeHtml =
+                        '+ <tr><td> </td></tr>' +
+                        '<tr class="print-table-delivery"><td class="print-table-title">Lieferart: </td><td class="print-table-text">' + "Abholung in der Bibliothek" +'</td></tr>';
+                    html = html + deliveryTypeHtml;
+                }
+                console.log(html);
+                $('#print-order').html(html);
+
+                printData();
+            },
+            error: function (xhr, status, error) {
+            showFailureModal("Es ist ein Fehler beim Laden der Daten vorgekommen", xhr);
+        }
+    });
     });
 
 

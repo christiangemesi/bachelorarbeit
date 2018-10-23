@@ -20,6 +20,12 @@
     <script src="{{ asset('js/calendar/add-first-block.js') }}"></script>
     <script src="{{ asset('js/callback-modal.js') }}"></script>
 
+
+    <div id="printTable" class="hidden">
+        @include('admin.print')
+    </div>
+
+
     <div class="modal fade" id="callback-modal" tabindex="-1">
         <div class="modal-dialog " role="document">
             <div class="modal-content">
@@ -47,7 +53,7 @@
         </div>
     </div>
 
-    <div class="col-md-12 admin-panel  data-table-thekre" id="printTable">
+    <div class="col-md-12 admin-panel  data-table-thekre">
         <h1 class="admin-header">Bestellungen</h1>
         <div class="panel panel-default no-border  margin-top-less" id="table-content">
             <table id="new-order-table" class="data-table table table-bordered" cellspacing="0" width="100%">
@@ -119,7 +125,6 @@
                 </tbody>
             </table>
         </div>
-
     </div>
 
     <div class="modal fade" id="order-edit-modal" tabindex="-1">
@@ -300,7 +305,7 @@
         </div>
     </div>
 
-    <div class="modal fade"id="modal-order-edit-progress" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true" style="padding-top:15%;">
+    <div class="modal fade" id="modal-order-edit-progress" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true" style="padding-top:15%;">
         <div class="modal-dialog modal-m">
             <div class="modal-content">
                 <div class="modal-header">
@@ -315,4 +320,5 @@
             </div>
         </div>
     </div>
+
 @endsection

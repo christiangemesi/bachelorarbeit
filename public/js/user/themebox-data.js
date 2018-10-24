@@ -304,17 +304,16 @@ $(document).ready(function () {
 
 
     /**
-     * create new blocked period
+     * create new blocked sunday
      * @param start
-     * @param end
      */
-    function blockAllSundaysEvent(nextSunday){
+    function blockAllSundaysEvent(Sunday){
 
         $("#calendar").fullCalendar('renderEvent',
             {
                 id: "blocked",
                 title: "",
-                start: nextSunday,
+                start: Sunday,
                 rendering: "background",
                 className: "blocked_event",
                 color: "#ffad00"

@@ -150,7 +150,7 @@ $(document).ready(function () {
      */
     $('#new-themebox-table').DataTable({
         "lengthChange": false,
-        "paging": true,
+        "paging": false,
         "pageLength": 10,
         "info": false,
         "language": {

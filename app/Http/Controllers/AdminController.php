@@ -195,12 +195,12 @@ class AdminController extends Controller
      */
     public function updateOrder(Request $request){
 
-        try {
+        try {/*
             //if new status is "ready"
             if(2 == $request->order_data[3]["value"] && 1 == $request->order_data[9]["value"]){
                 //todo change back
-                //$this->sendEmail($request->order_data[0]["value"]);
-            }
+                $this->sendEmail($request->order_data[0]["value"]);
+            }*/
             Order::find($request->order_data[0]["value"])->update(
                 ['startdate' => $this->formatDate($request->order_data[1]["value"]),
                     'enddate' => $this->formatDate($request->order_data[2]["value"]),

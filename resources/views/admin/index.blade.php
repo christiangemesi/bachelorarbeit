@@ -21,11 +21,6 @@
     <script src="{{ asset('js/callback-modal.js') }}"></script>
 
 
-    <div id="printTable" class="hidden">
-        @include('admin.print')
-    </div>
-
-
     <div class="modal fade" id="callback-modal" tabindex="-1">
         <div class="modal-dialog " role="document">
             <div class="modal-content">
@@ -319,6 +314,10 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div id="printTable" class="hidden">
+        @include('admin.print')
     </div>
 
 @endsection

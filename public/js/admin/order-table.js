@@ -354,7 +354,7 @@ $(document).ready(function () {
      */
     $('#new-order-table').DataTable({
         "lengthChange": false,
-        "paging": true,
+        "paging": false,
         "pageLength": 10,
         "info": false,
         "order": [[7, "asc"]],

@@ -132,14 +132,15 @@ $(document).ready(function () {
                         '<tr class="print-table-delivery"><td class="print-table-title">Lieferart: </td><td class="print-table-text">' + "Abholung in der Bibliothek" +'</td></tr>';
                     html = html + deliveryTypeHtml;
                 }
-                console.log(html);
                 $('#print-order').html(html);
 
-                printData();
             },
             error: function (xhr, status, error) {
-            showFailureModal("Es ist ein Fehler beim Laden der Daten vorgekommen", xhr);
-        }
+                showFailureModal("Es ist ein Fehler beim Laden der Daten vorgekommen", xhr);
+            },
+            complete: function () {
+                printData();
+            }
     });
     });
 

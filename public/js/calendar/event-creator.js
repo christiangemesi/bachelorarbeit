@@ -27,6 +27,8 @@ function addEvent() {
 function updateEvent() {
     hideErrorBoxes();
 
+    errorHandling("ACHTUNG! Diese Änderung kann nicht rückgängig gemacht werden!", "#info-calendar-message-box");
+
         $("#calendar").fullCalendar('removeEvents', function(event) {
             return event.className == "newOrder";
         });

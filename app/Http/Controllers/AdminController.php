@@ -2,10 +2,12 @@
 namespace ThekRe\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use League\Flysystem\Exception;
 use ThekRe\Blocked_Period;
 use ThekRe\Delivery;
 use ThekRe\Http\Requests;
+use ThekRe\Login;
 use ThekRe\Order;
 use ThekRe\Status;
 use ThekRe\Themebox;
@@ -63,15 +65,41 @@ class AdminController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function login(Request $request)
+    public function loginOld(Request $request)
     {
-        if ($request->password == config('admin_auth.admin_password')) {
+        if ($request->password == $this->getAdminPassword()) {
             $_SESSION['ThekRe_Admin'] = true;
             return response()->json('success');
         } else {
             return response()->json('failure');
         }
     }
+
+    /**
+     * compare input against hashed password
+     */
+    public function login(Request $request)
+    {
+        if (Hash::check($request->password, $this->getAdminPassword())) {
+            $_SESSION['ThekRe_Admin'] = true;
+            return response()->json('success');
+        } else {
+            return response()->json('failure');
+        }
+    }
+
+
+
+
+    /**
+     * get admin password from db
+     */
+    public function getAdminPassword(){
+        $passwordJSON = Login::where('pk_login', 1)->get();
+        return $passwordJSON[0]{'password'};
+    }
+
+
 
     /**
      * admin logout

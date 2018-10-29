@@ -20,6 +20,27 @@ function addEvent() {
     }
 }
 
+
+/**
+ * update calendar event dates
+ */
+function updateEvent() {
+    hideErrorBoxes();
+
+        $("#calendar").fullCalendar('removeEvents', function(event) {
+            return event.className == "newOrder";
+        });
+
+        $("#calendar").fullCalendar('removeEvents', function(event) {
+            return event.className == "myOrder";
+        });
+
+        createEvent(formatCalendarDate($("#start-date").val()), formatCalendarEndDate($("#end-date").val()));
+        $("#button-save-order-change").prop('disabled', false);
+}
+
+
+
 /**
  * show calendar error msg
  * @param msg

@@ -316,7 +316,7 @@ $(document).ready(function () {
         dateFormat: "dd.mm.yy",
         onSelect: function (date) {
             bindEndData();
-            addEvent();
+            updateEvent();
         }
     });
 
@@ -326,7 +326,7 @@ $(document).ready(function () {
     $("#end-date").datepicker({
         dateFormat: "dd.mm.yy",
         onSelect: function (date) {
-            addEvent();
+            updateEvent();
         }
     });
 

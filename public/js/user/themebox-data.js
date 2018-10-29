@@ -220,7 +220,6 @@ $(document).ready(function () {
                     }
                 });
 
-
                 hideErrorBoxes();
                 $("#end-date").prop("disabled", true);
                 $("#start-date").val("");
@@ -257,6 +256,7 @@ $(document).ready(function () {
             blockAllSundaysEvent(formatDate(nextSunday));
             nextSunday.setDate(nextSunday.getDate() + 7);
         }
+
     }
 
 
@@ -323,7 +323,6 @@ $(document).ready(function () {
     }
 
 
-
     /**
      * load blocked dates
      */
@@ -387,7 +386,7 @@ $(document).ready(function () {
     }
 
     /**
-     * change the deliver typ
+     * change the delivery typ
      */
     $("#thekre-dropdown").click(function(){
         if ($("#thekre-dropdown").val() === "1") {

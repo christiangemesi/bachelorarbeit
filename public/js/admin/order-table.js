@@ -92,6 +92,7 @@ $(document).ready(function () {
         newWin.document.write(divToPrint.outerHTML);
         newWin.print();
         newWin.close();
+        refresh();
     }
 
     $(".button-print-order").click(function () {

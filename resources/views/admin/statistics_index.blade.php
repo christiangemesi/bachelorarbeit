@@ -7,7 +7,6 @@
 
     <script src="{{ asset('/js/admin/statistics-load.js') }}"></script>
 
-    <div class="alert alert-danger" id="error-message-box"></div>
 
     <div class="col-md-12 admin-panel data-table-thekre">
         <h1 class="admin-header">Statistiken</h1>

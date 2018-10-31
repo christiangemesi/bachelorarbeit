@@ -661,47 +661,17 @@ class AdminController extends Controller
                     $pass->password=$hashed_password;
                     $pass->save();
 
-                    echo "<script src=\"{{ asset('js/admin/change-password.js') }}\">checkIfPasswordChanged(true);</script>";
-                    //return view('echo "<script>showSuccessModal(\"Änderungen konnten erfolgreich gespeichert werden\");</script>"');
+                    return redirect('admin/changePassword')->with('success-message', 'Das Passwort wurde geändert!');
                 }catch (Exception $e){
-                    //echo "<script>showFailureModal(\"Änderungen konnten nicht gespeichert werden\", xhr);</script>";
-                    return view('admin/indexChangePassword');
+                    return redirect('admin/changePassword')->with('alert-message', 'Das Passwort konnte nicht geändert werden!');
+
                 }
             }else{
-                //echo "<script>showFailureModal(\"Änderungen konnten nicht gespeichert werden\", xhr);</script>";
-                return view('admin/indexChangePassword');
+                return redirect('admin/changePassword')->with('alert-message', 'Das Passwort konnte nicht geändert werden! Bitte geben Sie Bestätigen Sie das Passwort, mit erneuter Eingabe.');
             }
         }else{
-            //echo "<script>showFailureModal(\"Änderungen konnten nicht gespeichert werden\", xhr);</script>";
-            return view('admin/indexChangePassword');
+            return redirect('admin/changePassword')->with('alert-message', 'Das Passwort konnte nicht geändert werden! Ihr eingebenes Passwort entspricht nicht dem aktuellen Passwort!');
         }
-
-        /*try {
-            $password = $passwords["confirm_password"];
-            $hashed_password = Hash::make($password);
-
-            $pass = Login::find(1);
-            $pass->password=$hashed_password;
-            $pass->save();
-
-            //echo "<script>showSuccessModal(\"Änderungen konnten erfolgreich gespeichert werden\");;</script>";
-            return view('admin/indexChangePassword');
-        }catch (Exception $e){
-            //echo "<script>showFailureModal(\"Änderungen konnten nicht gespeichert werden\", xhr);</script>";
-            return view('admin/indexChangePassword');
-        }*/
-
-
-        /*
-          success: function (response) {
-                $('#modal-order-edit-progress').modal('toggle');
-                showSuccessModal("Änderungen konnten erfolgreich gespeichert werden");
-            },
-            error: function (xhr, status, error) {
-                $('#modal-order-edit-progress').modal('toggle');
-                showFailureModal("Änderungen konnten nicht gespeichert werden", xhr);
-         */
-
     }
 
 

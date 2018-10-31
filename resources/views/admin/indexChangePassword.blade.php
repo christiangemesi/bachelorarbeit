@@ -13,6 +13,21 @@
     <script src="{{ asset('js/admin/change-password.js') }}"></script>
 
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+
+    @if(session()->has('alert-message'))
+        <div class="alert alert-danger">
+            {{ session()->get('alert-message') }}
+        </div>
+    @endif
+    @if(session()->has('success-message'))
+        <div class="alert alert-success">
+            {{ session()->get('success-message') }}
+        </div>
+    @endif
+
+
     <div class="col-md-12 admin-panel  data-table-thekre">
         <h1 class="admin-header">Passwort ändern</h1>
         <div class="panel panel-default no-border  margin-top-less" id="table-content">

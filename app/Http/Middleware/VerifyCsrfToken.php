@@ -31,6 +31,7 @@ class VerifyCsrfToken extends Middleware
         'admin/removeBlockedPeriod',
         'admin/createBlockedPeriod',
         'admin/getBlockedPeriod',
-        'admin/updateBlockedPeriod'
+        'admin/updateBlockedPeriod',
+        'admin/updatePassword'
     ];
 }

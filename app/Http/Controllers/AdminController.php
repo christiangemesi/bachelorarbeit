@@ -3,6 +3,8 @@ namespace ThekRe\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Log;
 use League\Flysystem\Exception;
 use ThekRe\Blocked_Period;
 use ThekRe\Delivery;
@@ -609,4 +611,113 @@ class AdminController extends Controller
             return response()->json($e, 500);
         }
     }
+
+
+
+    /**
+     * render change password form
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function indexChangePassword()
+    {
+        if ($this->checkLogin()) {
+            return view('admin/indexChangePassword');
+        } else {
+            return view('admin/login_form');
+        }
+    }
+
+
+    /**
+     * return the password
+     * @return mixed
+     */
+    public function getPassword()
+    {
+        $login = Login::find(1);
+
+        return $login->password;
+    }
+
+
+
+    /**
+     * update password
+     * @param Request $request
+     * @return mixed
+     */
+    public function updatePassword(Request $request){
+
+        $passwords = $request->all();
+
+        if(Hash::check($passwords["password-now"], $this->getPassword())){
+            if($passwords["password"] == $passwords["confirm_password"]){
+
+                try {
+                    $password = $passwords["confirm_password"];
+                    $hashed_password = Hash::make($password);
+
+                    $pass = Login::find(1);
+                    $pass->password=$hashed_password;
+                    $pass->save();
+
+                    echo "<script src=\"{{ asset('js/admin/change-password.js') }}\">checkIfPasswordChanged(true);</script>";
+                    //return view('echo "<script>showSuccessModal(\"Änderungen konnten erfolgreich gespeichert werden\");</script>"');
+                }catch (Exception $e){
+                    //echo "<script>showFailureModal(\"Änderungen konnten nicht gespeichert werden\", xhr);</script>";
+                    return view('admin/indexChangePassword');
+                }
+            }else{
+                //echo "<script>showFailureModal(\"Änderungen konnten nicht gespeichert werden\", xhr);</script>";
+                return view('admin/indexChangePassword');
+            }
+        }else{
+            //echo "<script>showFailureModal(\"Änderungen konnten nicht gespeichert werden\", xhr);</script>";
+            return view('admin/indexChangePassword');
+        }
+
+        /*try {
+            $password = $passwords["confirm_password"];
+            $hashed_password = Hash::make($password);
+
+            $pass = Login::find(1);
+            $pass->password=$hashed_password;
+            $pass->save();
+
+            //echo "<script>showSuccessModal(\"Änderungen konnten erfolgreich gespeichert werden\");;</script>";
+            return view('admin/indexChangePassword');
+        }catch (Exception $e){
+            //echo "<script>showFailureModal(\"Änderungen konnten nicht gespeichert werden\", xhr);</script>";
+            return view('admin/indexChangePassword');
+        }*/
+
+
+        /*
+          success: function (response) {
+                $('#modal-order-edit-progress').modal('toggle');
+                showSuccessModal("Änderungen konnten erfolgreich gespeichert werden");
+            },
+            error: function (xhr, status, error) {
+                $('#modal-order-edit-progress').modal('toggle');
+                showFailureModal("Änderungen konnten nicht gespeichert werden", xhr);
+         */
+
+    }
+
+
+
+    /**
+     * render change password form
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function indexEmail()
+    {
+        if ($this->checkLogin()) {
+            return view('admin/indexEmail');
+        } else {
+            return view('admin/login_form');
+        }
+    }
+
+
 }

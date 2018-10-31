@@ -20,6 +20,12 @@
                 <a href="/admin/blockedPeriods"><span class="glyphicon glyphicon-calendar nav-glyphicon"></span><div class="nav-text"> Sperrfristen</div></a>
             </li>
             <li class="sidebar-nav-text">
+                <a href="/admin/email"><span class="glyphicon glyphicon-envelope nav-glyphicon"></span><div class="nav-text"> E-Mails</div></a>
+            </li>
+            <li class="sidebar-nav-text">
+                <a href="/admin/changePassword"><span class="glyphicon glyphicon-pencil nav-glyphicon"></span><div class="nav-text"> Passwort ändern</div></a>
+            </li>
+            <li class="sidebar-nav-text">
                 <a href="/admin/logout"><span class="glyphicon glyphicon-log-out nav-glyphicon"></span><div class="nav-text"> Abmelden</div></a>
             </li>
             <li class="sidebar-nav-text site-switch">

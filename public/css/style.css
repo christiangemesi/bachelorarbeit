@@ -192,6 +192,27 @@ body{
     transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
 
+.thekre-dropdown-mail{
+    cursor: pointer;
+    height: 30px;
+    margin-left: 15px;
+    display: block;
+    width: 100%;
+    padding-left: 5px;
+    font-size: 18px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+
 .thekre-dropdown-Admin{
     height: 30px !important;
 }
@@ -500,7 +521,16 @@ h2{
     font-weight: normal;
 }
 
+.lbl-mail{
+    font-size: 25px;
+    font-weight: normal;
+}
+
 .tbl-statistics-year{
+    margin-left: 20px;
+}
+
+.tbl-mail{
     margin-left: 20px;
 }
 

@@ -13,7 +13,7 @@ use ThekRe\Login;
 use ThekRe\Order;
 use ThekRe\Status;
 use ThekRe\Themebox;
-use Mail;
+use ThekRe\Mail;
 
 class AdminController extends Controller
 {
@@ -675,19 +675,55 @@ class AdminController extends Controller
     }
 
 
-
     /**
-     * render change password form
+     * render index email
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function indexEmail()
     {
         if ($this->checkLogin()) {
-            return view('admin/indexEmail');
+
+            $all_mails = $this->getAllMails();
+
+            $mails = array();
+
+            foreach($all_mails as $all_mail){
+                $mails[] = $all_mail;
+            }
+
+
+            return view('admin/indexEmail')->with('mails', $mails);
         } else {
             return view('admin/login_form');
         }
     }
 
 
+
+
+
+    /**
+     * find order id based
+     * @param Request $request
+     * @return mixed
+     */
+    public function getMail(Request $request){
+
+        $mail = Mail::find($request->mail_id);
+
+        try {
+            return response()->json($mail, 200);
+        }catch(Exception $e){
+            return response()->json($e, 500);
+        }
+    }
+
+
+    /**
+     * get all mails
+     */
+    public function getAllMails(){
+        $all_mails = Mail::get();
+        return $all_mails;
+    }
 }

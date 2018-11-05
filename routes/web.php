@@ -40,6 +40,8 @@ Route::post('admin/updateBlockedPeriod', 'AdminController@updateBlockedPeriod');
 Route::get('admin/changePassword', 'AdminController@indexChangePassword');
 Route::get('admin/email', 'AdminController@indexEmail');
 Route::post('admin/updatePassword', 'AdminController@updatePassword');
+Route::post('admin/getMail', 'AdminController@getMail');
+
 
 
 

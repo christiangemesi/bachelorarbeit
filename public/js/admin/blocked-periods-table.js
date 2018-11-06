@@ -129,8 +129,6 @@ $(document).ready(function () {
      */
     $("#button-save-blocked-period-change").click(function () {
 
-        console.log($('#edit-blocked-period-form').serializeArray());
-
         $.ajax({
             url: "../admin/updateBlockedPeriod",
             type: 'POST',

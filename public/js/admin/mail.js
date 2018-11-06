@@ -23,6 +23,7 @@ $(document).ready(function() {
             },
             success: function (response) {
                 $('#summernote').summernote("code", response["mail_text"]);
+                document.getElementById("edit_legend").innerHTML = response["edit_legend"];
 
             },
             error: function (xhr, status, error) {
@@ -32,12 +33,45 @@ $(document).ready(function() {
         });
     }
 
-
-    $('#confirm-button-mail').click(function() {
-        var markupStr = $('#summernote').summernote('code');
-        console.log(markupStr);
+    /**
+     * edit mail
+     */
+    $('#confirm-button-mail').click(function () {
+        prepareEditMailWarning();
+        $('#delete-warning-header-text').val("Wollen Sie die Mailvorlage wirklich ändern?");
+        $('#object-edit-id').val($(this).val());
     });
 
+    /**
+     * confirm remove blocked period
+     */
+    $('#button-edit-mail-confirmed').click(function () {
 
+        document.getElementById('change_email_id').value = $("#mail-select").val();
+        document.getElementById('change_email_text').value = $('#summernote').summernote('code');
+
+        $.ajax({
+            url: "updateMail",
+            type: 'POST',
+            data: {mailIdAndText: $('#change_email_form').serializeArray()},
+            success: function (response) {
+                showSuccessModal("Änderungen konnten erfolgreich gespeichert werden");
+            },
+            error: function (xhr, status, error) {
+                showFailureModal("Änderungen konnten nicht gespeichert werden", xhr);
+            }
+
+        });
+    });
+
+    /**
+     * show edit mail warning modal
+     */
+    function prepareEditMailWarning() {
+        $('#callback-modal').modal('show');
+        $('#modal-content-failure').css('display', 'none');
+        $('#modal-content-success').css('display', 'none');
+        $('#modal-edit-mail-modal').css('display', 'block');
+    }
 
 });

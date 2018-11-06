@@ -726,4 +726,25 @@ class AdminController extends Controller
         $all_mails = Mail::get();
         return $all_mails;
     }
+
+
+    /**
+     * update mail
+     * @param Request $request
+     * @return mixed
+     */
+    public function updateMail(Request $request){
+
+        try {
+
+            Mail::find($request->mailIdAndText[0]["value"])->update(
+                ['mail_text' => $request->mailIdAndText[1]["value"]]);
+
+            return response()->json($request, 200);
+        }catch (Exception $e){
+            return response()->json($e, 500);
+        }
+
+
+    }
 }

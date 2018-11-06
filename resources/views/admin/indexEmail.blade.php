@@ -21,11 +21,45 @@
     <link href="{{ asset('/summernote/summernote.css') }}" rel="stylesheet">
     <script src="{{ asset('/summernote/summernote.js') }}"></script>
 
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+
+
+
+
+
+    <div class="modal fade" id="callback-modal" tabindex="-1">
+        <div class="modal-dialog " role="document">
+            <div class="modal-content">
+
+                @include("layouts.callback_messages")
+
+                <div id="modal-edit-mail-modal">
+                    <div class="panel-heading modal-header-warning"> <span class="glyphicon glyphicon-flash" id="thekmodal-glyphicon-flash" aria-hidden="true"></span>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="panel-body">
+                            <h2 class="delete-warning-header-text">Wollen Sie die Mailvorlage wirklich ändern?</h2>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="button-edit-mail-confirmed" class="btn btn-lg btn-warning float-left">Mailvorlage ändern</button>
+                        <button type="button" class="btn btn-lg btn-default btn-modal float-right" data-dismiss="modal">Schliessen</button>
+                        <input type="hidden" id="object-edit-id"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
 
     <div class="col-md-12 admin-panel  data-table-thekre">
         <h1 class="admin-header">E-Mails</h1>
-        <div class="panel panel-default no-border  margin-top-less" id="table-content">
+        <div class="panel panel-default no-border margin-top-less" id="table-content">
 
                 <div class="row thekre-row">
                     <div class="panel-body margin-less">
@@ -45,11 +79,22 @@
                     </table>
                 </div>
 
-                <div id="summernote"></div>
+                <div autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+                    <div id="summernote"></div>
+                </div>
 
-                <div class="form-group">
+                    <div class="form-group">
                     <button id="confirm-button-mail" class="btn btn-primary float-right">Speichern</button>
                 </div>
+
+                    <div id="edit_legend"></div>
+
+                    <div hidden>
+                        <form id="change_email_form">
+                            <input id="change_email_id" name="change_email_id">
+                            <input id="change_email_text" name="change_email_text">
+                        </form>
+                    </div>
 
              </div>
         </div>

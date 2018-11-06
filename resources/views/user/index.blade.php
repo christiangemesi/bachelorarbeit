@@ -3,7 +3,6 @@
 
 @section('content')
 
-
     <script src="{{ asset('js/user/themebox-data.js') }}"></script>
     <script src="{{ asset('js/calendar/moment.min.js') }}"></script>
     <script src="{{ asset('js/user/order-form.js') }}"></script>
@@ -11,6 +10,8 @@
     <script src="{{ asset('js/calendar/fullcalendar.js') }}"></script>
     <script src="{{ asset('js/calendar/de-ch.js') }}"></script>
     <script src="{{ asset('js/calendar/add-first-block.js') }}"></script>
+    <script src="{{ asset('js/user/blocked_periods.js') }}"></script>
+
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 

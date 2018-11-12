@@ -2,6 +2,20 @@
  * javascript runs on page load
  */
 $(document).ready(function () {
+
+    /**
+     * Array of all blocked dates for the datepicker
+     */
+    var listOfBlockedDates = Array();
+
+    /**
+     * variable for one day (start with next sunday) to calculate next and previous sundays
+     */
+    var dayToCalculateNextSundays = getNextDayOfWeek(new Date, 7);
+    var dayToCalculatePreviousSundays = getNextDayOfWeek(new Date, 7);
+
+
+
     loadThemeboxInfoBox($(".themebox-list").first().attr('id')); //load themebox data from the first list element
     $(".themebox-list")[0].focus(); //set focus to the first list element
 
@@ -18,12 +32,6 @@ $(document).ready(function () {
     $('#end-date').keydown(function () {
         return false;
     });
-
-    /**
-     * Array of all blocked dates
-     */
-    var listOfBlockedDates = Array();
-
 
 
     /**
@@ -183,6 +191,10 @@ $(document).ready(function () {
      * @param themebox_Id
      */
     function loadThemeboxInfoBox(themebox_Id) {
+
+        dayToCalculateNextSundays = getNextDayOfWeek(new Date, 7);
+        dayToCalculatePreviousSundays = getNextDayOfWeek(new Date, 7);
+
         $.ajax({
             url: "../user/getThemebox",
             type:"POST",
@@ -206,8 +218,12 @@ $(document).ready(function () {
 
                 $("#calendar").fullCalendar( "removeEvents");
                 listOfBlockedDates.length = 0;
+                blockDatesInDatepicker();
                 loadBlockedDates();
                 blockTillNextSunday();
+
+                blockNextFiveSundaysInCalendar();
+                blockPreviousFiveSundaysInCalendar();
 
                 var orders = response["data"]["orders"];
                 $.each(orders, function( index, value ) {
@@ -236,33 +252,48 @@ $(document).ready(function () {
         });
     }
 
+    $(".fc-corner-right").click(function () {
+        blockNextFiveSundaysInCalendar();
+    });
 
-    /**
-     * block all sundays for the next 2 years and previous 10 weeks
-     */
-    function addAllSundaysToBlockedListAndCalendar(){
-        var nextSunday = getNextDayOfWeek(new Date(), 7);
-        var previousSunday = getNextDayOfWeek(new Date(), 7);
+    $(".fc-corner-left").click(function () {
+        blockPreviousFiveSundaysInCalendar();
+    });
 
 
-        for(var i = 0; i < 10; i++){
-            previousSunday.setDate(previousSunday.getDate() - 7);
-            listOfBlockedDates.push(formatDate(previousSunday));
-            blockAllSundaysEvent(formatDate(previousSunday));
-        }
-
-        for(var i = 0; i < 104; i++){
+    function blockDatesInDatepicker() {
+        var nextSunday = getNextDayOfWeek(new Date, 7);
+        for(var i = 0; i < 5; i++){
             listOfBlockedDates.push(formatDate(nextSunday));
-            blockAllSundaysEvent(formatDate(nextSunday));
-            nextSunday.setDate(nextSunday.getDate() + 7);
+            nextSunday.setDate(nextSunday.getDate() - 7);
         }
+        nextSunday = getNextDayOfWeek(new Date, 7);
+        for(var i = 0; i < 200; i++){
+            nextSunday.setDate(nextSunday.getDate() + 7);
+            listOfBlockedDates.push(formatDate(nextSunday));
+        }
+    }
 
+
+    function blockNextFiveSundaysInCalendar() {
+        for(var i = 0; i < 10; i++){
+            blockAllSundaysEvent(formatDate(dayToCalculateNextSundays));
+            dayToCalculateNextSundays.setDate(dayToCalculateNextSundays.getDate() + 7);
+        }
     }
 
 
 
+    function blockPreviousFiveSundaysInCalendar() {
 
-    /**
+        for(var i = 0; i < 10; i++){
+            dayToCalculatePreviousSundays.setDate(dayToCalculatePreviousSundays.getDate() - 7);
+            blockAllSundaysEvent(formatDate(dayToCalculatePreviousSundays));
+        }
+    }
+
+
+        /**
      * block dates till next sunday
      */
     function blockTillNextSunday() {
@@ -342,8 +373,6 @@ $(document).ready(function () {
                         listOfBlockedDates.push(blockedPeriodsArray[i]);
                     }
                 });
-
-                addAllSundaysToBlockedListAndCalendar();
             },
             error: function(xhr, status, error) {
                 errorHandling("Es ist ein Fehler bei der Datenverarbeitung passiert. Bitte kontaktieren Sie die FHNW Bibliothek unter bibliothek.windisch@fhnw.ch", "#error-message-box");

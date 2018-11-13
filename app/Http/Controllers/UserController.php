@@ -10,6 +10,7 @@ use ThekRe\Order;
 use ThekRe\Themebox;
 use ThekRe\Status;
 use Mail;
+use ThekRe\EditMail;
 use Carbon\Carbon;
 
 class UserController extends Controller

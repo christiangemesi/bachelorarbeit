@@ -13,7 +13,8 @@ use ThekRe\Login;
 use ThekRe\Order;
 use ThekRe\Status;
 use ThekRe\Themebox;
-use ThekRe\Mail;
+use ThekRe\EditMail;
+use Mail;
 
 class AdminController extends Controller
 {

@@ -4,7 +4,7 @@ namespace ThekRe;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Mail extends Model
+class EditMail extends Model
 {
     protected $table = "tbl_mail";
     protected $primaryKey = "pk_mail";

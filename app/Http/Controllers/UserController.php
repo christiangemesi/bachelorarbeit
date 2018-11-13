@@ -104,9 +104,7 @@ class UserController extends Controller
         );
 
         try {
-            //TODO change it back before deploying
-            //doesn't send email for testing and demo
-            //$this->sendEmail($mail_data, $request->delivery);
+            $this->sendEmail($mail_data, $request->delivery);
             $order->save();
             return redirect()->route('orderSuccess');
         } catch (Exception $e) {
@@ -182,21 +180,52 @@ class UserController extends Controller
      * @param $mail_data
      * @param $delivery_type
      */
-    //todo change back
-    /*public function sendEmail($mail_data, $delivery_type)
+    public function sendEmail($mail_data, $delivery_type)
     {
-        if ($delivery_type == 2) {
+        if ($delivery_type == 2) { //delivery to school
+
             $pickupdate = $this->getNextMonday($mail_data['enddate']);
             $mail_data['pickupdate'] = $pickupdate;
+
+            $mail = EditMail::find(2);
+            $html_db = $mail->mail_text;
+
+            $html_replaced = str_replace("!titel!", $mail_data['title'], $html_db);
+            $html_replaced = str_replace("!signatur!", $mail_data['signatur'], $html_replaced);
+            $html_replaced = str_replace("!startdatum!", $mail_data['startdate'], $html_replaced);
+            $html_replaced = str_replace("!enddatum!", $mail_data['enddate'], $html_replaced);
+            $html_replaced = str_replace("!email!", $mail_data['receiver_mail'], $html_replaced);
+            $html_replaced = str_replace("!name!", $mail_data['receiver_name'], $html_replaced);
+            $html_replaced = str_replace("!vorname!", $mail_data['receiver_surname'], $html_replaced);
+            $html_replaced = str_replace("!bestellnummer!", $mail_data['ordernumber'], $html_replaced);
+            $html_replaced = str_replace("!abholdatum!", $mail_data['pickupdate'], $html_replaced);
+
+            $mail_data['html'] = $html_replaced;
+
             $view = 'user.mail_delivery_school';
         } else {
+
+            $mail = EditMail::find(1);
+            $html_db = $mail->mail_text;
+
+            $html_replaced = str_replace("!titel!", $mail_data['title'], $html_db);
+            $html_replaced = str_replace("!signatur!", $mail_data['signatur'], $html_replaced);
+            $html_replaced = str_replace("!startdatum!", $mail_data['startdate'], $html_replaced);
+            $html_replaced = str_replace("!enddatum!", $mail_data['enddate'], $html_replaced);
+            $html_replaced = str_replace("!email!", $mail_data['receiver_mail'], $html_replaced);
+            $html_replaced = str_replace("!name!", $mail_data['receiver_name'], $html_replaced);
+            $html_replaced = str_replace("!vorname!", $mail_data['receiver_surname'], $html_replaced);
+            $html_replaced = str_replace("!bestellnummer!", $mail_data['ordernumber'], $html_replaced);
+
+            $mail_data['html'] = $html_replaced;
+
             $view = 'user.mail_delivery_pickup';
         }
 
         Mail::send($view, $mail_data, function ($message) use ($mail_data) {
             $message->to($mail_data['receiver_mail'], $mail_data['receiver_name'] . " " . $mail_data['receiver_surname'])->subject('Bestellbestätigung Themenkiste');
         });
-    }*/
+    }
 
     /**
      * get the next monday for delivery to school

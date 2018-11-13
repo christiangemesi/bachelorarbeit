@@ -5,7 +5,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\View;
 use League\Flysystem\Exception;
+use PhpParser\Node\Expr\Array_;
 use ThekRe\Blocked_Period;
 use ThekRe\Delivery;
 use ThekRe\Http\Requests;
@@ -226,12 +228,11 @@ class AdminController extends Controller
      */
     public function updateOrder(Request $request){
 
-        try {/*
+        try {
             //if new status is "ready"
             if(2 == $request->order_data[3]["value"] && 1 == $request->order_data[9]["value"]){
-                //todo change back
                 $this->sendEmail($request->order_data[0]["value"]);
-            }*/
+            }
             Order::find($request->order_data[0]["value"])->update(
                 ['startdate' => $this->formatDate($request->order_data[1]["value"]),
                     'enddate' => $this->formatDate($request->order_data[2]["value"]),
@@ -294,8 +295,7 @@ class AdminController extends Controller
 
         try {
             if("Bereit" == Status::find($new_state_id)->name && 1 == $order["fk_delivery"]){
-                //TODO reactivate, to send email
-                //$this->sendEmail($order_id);
+                $this->sendEmail($order_id);
                 $status_ready = 1;
             }
             Order::find($order_id)->update(['fk_status' => $new_state_id]);
@@ -452,12 +452,23 @@ class AdminController extends Controller
      * send email when order state ready
      * @param $order_id
      */
-    /*public function sendEmail($order_id)
+    public function sendEmail($order_id)
     {
         $order = Order::find($order_id);
         $themebox = Themebox::find($order->fk_themebox);
 
+        $mail = EditMail::find(3);
+        $html_db = $mail->mail_text;
+
+        $html_replaced = str_replace("!titel!", $themebox->title, $html_db);
+        $html_replaced = str_replace("!signatur!", $themebox->signatur, $html_replaced);
+        $html_replaced = str_replace("!email!", $order->email, $html_replaced);
+        $html_replaced = str_replace("!name!", $order->name, $html_replaced);
+        $html_replaced = str_replace("!vorname!", $order->surname, $html_replaced);
+        $html_replaced = str_replace("!bestellnummer!", $order->ordernumber, $html_replaced);
+
         $mail_data = array(
+            'html' => $html_replaced,
             'title' => $themebox->title,
             'signatur' => $themebox->signatur,
             'receiver_mail' => $order->email,
@@ -469,7 +480,8 @@ class AdminController extends Controller
         Mail::send('admin.mail_ready_pickup', $mail_data, function ($message) use ($mail_data) {
             $message->to($mail_data['receiver_mail'], $mail_data['receiver_name'] . " " . $mail_data['receiver_surname'])->subject('Abholungseinladung Themenkiste');
         });
-    }*/
+    }
+
 
     /**
      * format date from DD.MM.YYYY to YYYY-MM-DD
@@ -710,7 +722,7 @@ class AdminController extends Controller
      */
     public function getMail(Request $request){
 
-        $mail = Mail::find($request->mail_id);
+        $mail = EditMail::find($request->mail_id);
 
         try {
             return response()->json($mail, 200);
@@ -720,11 +732,12 @@ class AdminController extends Controller
     }
 
 
+
     /**
      * get all mails
      */
     public function getAllMails(){
-        $all_mails = Mail::get();
+        $all_mails = EditMail::get();
         return $all_mails;
     }
 
@@ -738,7 +751,7 @@ class AdminController extends Controller
 
         try {
 
-            Mail::find($request->mailIdAndText[0]["value"])->update(
+            EditMail::find($request->mailIdAndText[0]["value"])->update(
                 ['mail_text' => $request->mailIdAndText[1]["value"]]);
 
             return response()->json($request, 200);

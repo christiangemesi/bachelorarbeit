@@ -37,7 +37,7 @@ $(document).ready(function() {
      * edit mail
      */
     $('#confirm-button-mail').click(function () {
-        prepareEditMailWarning();
+        prepareMailWarning();
         $('#delete-warning-header-text').val("Wollen Sie die Mailvorlage wirklich ändern?");
         $('#object-edit-id').val($(this).val());
     });
@@ -67,7 +67,7 @@ $(document).ready(function() {
     /**
      * show edit mail warning modal
      */
-    function prepareEditMailWarning() {
+    function prepareMailWarning() {
         $('#callback-modal').modal('show');
         $('#modal-content-failure').css('display', 'none');
         $('#modal-content-success').css('display', 'none');

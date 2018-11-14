@@ -33,6 +33,9 @@ $(document).ready(function () {
             url: "admin/updateState",
             type: 'POST',
             data: {status_data: status_data},
+            headers: {
+                'X-CSRFToken': $('meta[name="token"]').attr('content')
+            },
             beforeSend: function () {
                 $('#modal-order-edit-progress').modal('show');
             },

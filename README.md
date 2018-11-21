@@ -6,7 +6,7 @@ ThekRe is a web application for the FHNW campus library to manage their theme bo
 
 ## Table of content
 
-- [Installation])(#installation)
+- [Installation](#installation)
 
 
 

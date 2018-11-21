@@ -1,6 +1,8 @@
 # ThekRe
 
-ThekRe is a web application for the FHNW campus library to managae their theme boxes.
+ThekRe is a web application for the FHNW campus library to manage their theme boxes.
+
+
 
 ## Installation
 
@@ -116,7 +118,7 @@ Enter the Password and you should see the following page:
 
 After that you can import the database of ThekRe. Import the .sql file **ThekRe_DB.sql**.
 
-Klick in the navigation bar on **Importieren** and the on **Datei auswählen**. Choose the sql File (ThekRe_DB.sql) and klick on **OK**.
+Klick in the navigation bar on **Importieren** and then on **Datei auswählen**. Choose the .sql File (ThekRe_DB.sql) and klick on **OK**.
 
 ![import_db_phpmyadmin](https://gitlab.fhnw.ch/nick.koch/ThekRe/raw/develop/images_readme/import_db_phpmyadmin.png)
 
@@ -235,7 +237,7 @@ The administrator password is saved ([hashed and salted](https://laravel.com/doc
 
 ### Class Diagram
 
-The following image show the class diagram from ThekRe. The controllers call the model to get data from the database. The controller calls the views with model data. The views are not visualized in the class diagram, because all view are HTML files without a class description.
+The following image show the class diagram from ThekRe. The controllers call the model to get data from the database. The controller calls the views with model data. The views are not visualized in the class diagram, because all views are HTML files without a class description.
 
 ![classdiagram_controller](https://gitlab.fhnw.ch/nick.koch/ThekRe/raw/develop/images_readme/classdiagram_controller.JPG)
 
@@ -258,9 +260,11 @@ The following image show the class diagram from ThekRe. The controllers call the
 
 ### Database
 
-The use cases and the requirements lead to the following database design. The database layout is designed with an ORM and is forward engineered as a MySQL database. This schema was done with the tool MySQL Workbench. This tool was used, because it allows forward engineering to create the according SQL Statements for the database creation. This is the database schema of the current system. 
+The use cases and the requirements lead to the following database design. The database layout is designed with an ORM and is forward engineered as a MySQL database. This schema was done with the tool MySQL Workbench. This tool was used, because it allows forward engineering to create the according SQL Statements for the database creation. 
 
 In the second Version of ThekRe we added the tables: **tbl_mail**, **tbl_blocked_period** and **tbl_login**.
+
+This is the database schema of the current system:
 
 ![database_model_diagram](https://gitlab.fhnw.ch/nick.koch/ThekRe/raw/develop/images_readme/database_model_diagram.png)
 
@@ -278,7 +282,7 @@ In the second Version of ThekRe we added the tables: **tbl_mail**, **tbl_blocked
 
 ### Order Status
 
-When a user orders a box, a new order record will be created in the database. An order refers always to one theme box. Each order has a status. There are 5 different statuses: new, ready, running, returned and closed. In the following image, we can see the sequence from the order statuses. Those statuses are recorded in German in the database.
+When a user orders a box, a new order record will be created in the database. An order refers always to one theme box. Each order has a status. There are 6 different statuses: new, ready, running, returned, closed and cancelled. In the following image, we can see the sequence from the order statuses. Those statuses are recorded in German in the database.
 
 ![status_diagram](https://gitlab.fhnw.ch/nick.koch/ThekRe/raw/develop/images_readme/status_diagram.png)
 
@@ -289,8 +293,77 @@ When a user orders a box, a new order record will be created in the database. An
 5. The user comes to the library and picks the theme box up. The administrator sets the status from **ready** to **running**. The status is also set to **running** when the theme box is delivered to the customer.
 6. On the end-date of the order, the user brings the theme box back to the library. The administrator sets the status from **running** to **returned**.
 7. When the theme box content is complete, the administrator sets the status from **returned** to **closed**.
-8. When the order gets cancelled, the administrator sets the status from closed to **cancelled**.
+8. When the order gets cancelled, the administrator sets the status from **closed** to **cancelled**.
 9. When there is a missing part in the theme box, the administrator marks the theme box as incomplete in the order tool.
+
+
+
+## Coding Conventions
+
+### Boundaries and parameter
+
+| Parameter                             | Boundary / Value   |
+| ------------------------------------- | ------------------ |
+| theme box block days before order     | 7 days             |
+| theme box block days after the return | 7 days             |
+| personal data text length             | 0 - 100 characters |
+| order data text length                | 0 - 100 characters |
+| plz length                            | 4 digit            |
+| phone number length                   | 10 digit           |
+| order number                          | 8 characters       |
+| amount of administrator accounts      | 1                  |
+| calendar                              | Gregorian          |
+
+### File Extensions
+
+| File Type              | File Extension |
+| ---------------------- | -------------- |
+| PHP source file        | .php           |
+| HTML source file       | .blade.php     |
+| CSS source file        | .css           |
+| JavaScript source file | .js            |
+
+### File Content
+
+Every file should only contain one single class. Inner classes must be exported to new files. Coding blocks should be separated by an empty line before or after.
+
+### Naming Conventions
+
+In PHP, the naming should follow the PSR 2 standard. For other languages like JavaScript, HTML and CSS we will define a base set of rules:
+Do not use camel case or snake case for variable naming. Use hyphen-separated-case:
+
+- Wrong: myStyleClass
+- Wrong my_style_class
+- Correct: my-style-class
+
+Use an ID selector or class to work with an HTML object in JavaScript, for example installing a click handler:
+
+- Correct: $("button.class").click(function() {}
+- Correct: $("#settings-button").click(function() {}
+
+Use a class selector if you want to style a HTML object, for example a text. Do not use IDs for styling – just define a new class for the HTML object and style this class.
+
+#### PHP
+
+Function names:
+
+* myFunktion();
+* function();
+
+Variables:
+
+* $id
+* $themebox_id;
+
+#### HTML
+
+* Do not write inline JavaScript. Export all the JavaScript in a separate .js file.
+* Do not write inline CSS. Use CSS classes and the .css file.
+
+#### JS
+
+* Whenever possible use jQuery, the library offers an easier way to handle DOM elements than the normal JavaScript
+* All functions have a comment describing their purpose and parameters.
 
 
 
@@ -301,7 +374,7 @@ When a user orders a box, a new order record will be created in the database. An
 - new user roles and privileges
 
   >
-  > Since the students/processors of the orders have access to the admin area, my suggestion would be that the admin area is divided into two and there is an area for the students on which the topic boxes and orders can be handled and one for the employees of the library in which the passwords, the mails and the blocked periods can be changed.
+  >Since the students/processors of the orders have access to the admin area, my suggestion would be that the admin area is divided into two and there is an area for the students on which the topic boxes and orders can be handled and one for the employees of the library in which the passwords, the mails and the blocked periods can be changed.
   >
 
 

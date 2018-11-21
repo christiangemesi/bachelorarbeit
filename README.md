@@ -2,8 +2,6 @@
 
 ThekRe is a web application for the FHNW campus library to manage their theme boxes.
 
-
-
 ## Installation
 
 #### Install Ubuntu
@@ -287,14 +285,35 @@ When a user orders a box, a new order record will be created in the database. An
 ![status_diagram](https://gitlab.fhnw.ch/nick.koch/ThekRe/raw/develop/images_readme/status_diagram.png)
 
 1. A **new** order is created, when the user places an order for a theme box over the order form. **New** is the initial status from an order.
+
 2. The administrator sees the **new** order in their administration section.
+
 3. The administrator prepares the theme box and check if its content is complete.
+
 4. When the theme box is complete, the administrator sets the status from **new** to **ready**. When an item is missing in the theme box, the replacement is done in few hours.
+
 5. The user comes to the library and picks the theme box up. The administrator sets the status from **ready** to **running**. The status is also set to **running** when the theme box is delivered to the customer.
+
 6. On the end-date of the order, the user brings the theme box back to the library. The administrator sets the status from **running** to **returned**.
+
 7. When the theme box content is complete, the administrator sets the status from **returned** to **closed**.
+
 8. When the order gets cancelled, the administrator sets the status from **closed** to **cancelled**.
+
 9. When there is a missing part in the theme box, the administrator marks the theme box as incomplete in the order tool.
+
+
+### External libraries
+
+The following external libraries are used.
+
+| Library                 | Description                                                  |
+| ----------------------- | ------------------------------------------------------------ |
+| jQuery<br/>v1.12.4      | jQuery is a JavaScript library which offers the opportunity to manipulate the DOM. jQuery contains the module AJAX, which allows asynchronous JavaScript calls. The asynchronous JavaScript is used to load data from the back end without reloading the page.<br/>https://jquery.com/ |
+| Bootstrap<br/>v3.3.7    | Bootstrap is a CSS library which offers a lot of different pattern for HTML elements. Bootstrap is used for different user interface elements such as but-tons or callback modals.<br/>https://getbootstrap.com/ |
+| Fullcalendar<br/>v3.5.1 | Fullcalendar is an external JavaScript library to generate a month-view based calendar. This calendar is used as view element to create and edit an order.<br/>https://fullcalendar.io/ |
+| DataTable<br/>v1.10.16  | DataTable is an external JavaScript library to generate a data table with a search module. This table is used to show all the orders and theme boxes.<br/>https://datatables.net/ |
+| Summernote<br/>v0.8.9   | Summernote is a JavaScript library that helps you create WYSIWYG editors online.<br />https://summernote.org/ |
 
 
 
@@ -445,18 +464,3 @@ php artisan make:controller <controller-name> --plain
 ```
 
 The new controller will be added in the “Http/Controller” path. In new Controller, you can declare your new functions.
-
-
-
-### External libraries
-
-The following external libraries are used.
-
-| Library                 | Description                                                  |
-| ----------------------- | ------------------------------------------------------------ |
-| jQuery<br/>v1.12.4      | jQuery is a JavaScript library which offers the opportunity to manipulate the DOM. jQuery contains the module AJAX, which allows asynchronous JavaScript calls. The asynchronous JavaScript is used to load data from the back end without reloading the page.<br/>https://jquery.com/ |
-| Bootstrap<br/>v3.3.7    | Bootstrap is a CSS library which offers a lot of different pattern for HTML elements. Bootstrap is used for different user interface elements such as but-tons or callback modals.<br/>https://getbootstrap.com/ |
-| Fullcalendar<br/>v3.5.1 | Fullcalendar is an external JavaScript library to generate a month-view based calendar. This calendar is used as view element to create and edit an order.<br/>https://fullcalendar.io/ |
-| DataTable<br/>v1.10.16  | DataTable is an external JavaScript library to generate a data table with a search module. This table is used to show all the orders and theme boxes.<br/>https://datatables.net/ |
-| Summernote<br/>v0.8.9   | Summernote is a JavaScript library that helps you create WYSIWYG editors online.<br />https://summernote.org/ |
-

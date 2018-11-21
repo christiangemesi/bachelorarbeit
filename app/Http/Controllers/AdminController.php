@@ -94,8 +94,6 @@ class AdminController extends Controller
     }
 
 
-
-
     /**
      * get admin password from db
      */
@@ -103,7 +101,6 @@ class AdminController extends Controller
         $passwordJSON = Login::where('pk_login', 1)->get();
         return $passwordJSON[0]{'password'};
     }
-
 
 
     /**
@@ -537,7 +534,6 @@ class AdminController extends Controller
     }
 
 
-
     /**
      * return all blocked periods
      * @return array
@@ -583,7 +579,6 @@ class AdminController extends Controller
     }
 
 
-
     /**
      * create blocked_period
      * @param Request $request
@@ -606,7 +601,6 @@ class AdminController extends Controller
     }
 
 
-
     /**
      * remove blocked period
      * @param Request $request
@@ -624,7 +618,6 @@ class AdminController extends Controller
             return response()->json($e, 500);
         }
     }
-
 
 
     /**
@@ -651,7 +644,6 @@ class AdminController extends Controller
 
         return $login->password;
     }
-
 
 
     /**
@@ -712,9 +704,6 @@ class AdminController extends Controller
     }
 
 
-
-
-
     /**
      * find order id based
      * @param Request $request
@@ -730,7 +719,6 @@ class AdminController extends Controller
             return response()->json($e, 500);
         }
     }
-
 
 
     /**

@@ -65,12 +65,6 @@ $(document).ready(function () {
         });
 
 
-
-
-
-
-        //Edit Dates Datepicker
-
     $('#edit-blocked-period-start-date').keydown(function () {
         return false;
     });

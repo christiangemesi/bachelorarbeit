@@ -7,6 +7,40 @@ ThekRe is a web application for the FHNW campus library to manage their theme bo
 ## Table of content
 
 - [Installation](#installation)
+  - [Install Ubuntu](#install-ubuntu)
+    - [Update System](#update-system)
+  - [Install Apache](#install-apache)
+  - [Install PHP](#install-php)
+  - [Install MySQL](#install-mysql)
+  - [Install phpMyAdmin](#install-phpmyadmin)
+  - [Source Code](#source-code)
+  - [Administration](#administration)
+- [Architecture](#architecture)
+  - [Class Diagram](#class-diagram)
+  - [Database](#database)
+  - [Order Status](#order-status)
+  - [External Libraries](#external-libraries)
+
+- [Coding Conventions](#coding-conventions)
+  - [Boundaries and Parameter](#boundaries-and-parameter)
+  - [File Extensions](#file-extensions)
+  - [File Content](#file-content)
+  - [Naming Conventions](#naming-conventions)
+    - [PHP](#php)
+    - [HTML](#html)
+    - [JS](#js)
+
+- [Support](#support)
+  - [Issue Tracker](#issue-tracker)
+
+- [Roadmap](#roadmap)
+  - [Ideas for Future Features/Extensions](#ideas-for-future-featuresextensions)
+  - [Considerations for Extensions](#considerations-for-extensions)
+    - [Database Extension](#database-extension)
+    - [View Extensions](#view-extensions)
+    - [New View](#new-view)
+    - [Controller Extensions](#controller-extensions)
+    - [New Controller](#new-controller)
 
 
 
@@ -311,7 +345,7 @@ When a user orders a box, a new order record will be created in the database. An
 9. When there is a missing part in the theme box, the administrator marks the theme box as incomplete in the order tool.
 
 
-### External libraries
+### External Libraries
 
 The following external libraries are used.
 
@@ -327,7 +361,7 @@ The following external libraries are used.
 
 ## Coding Conventions
 
-### Boundaries and parameter
+### Boundaries and Parameter
 
 | Parameter                             | Boundary / Value   |
 | ------------------------------------- | ------------------ |
@@ -396,7 +430,7 @@ Variables:
 
 ## Support
 
-### Issue tracker
+### Issue Tracker
 
 For smaller and major issues use [Jira](https://www.cs.technik.fhnw.ch/jira2/projects/THEKRE/summary).
 
@@ -404,7 +438,7 @@ For smaller and major issues use [Jira](https://www.cs.technik.fhnw.ch/jira2/pro
 
 ## Roadmap
 
-### Ideas for future features/extensions
+### Ideas for Future Features/Extensions
 
 - new user roles and privileges
 
@@ -414,11 +448,11 @@ For smaller and major issues use [Jira](https://www.cs.technik.fhnw.ch/jira2/pro
 
 
 
-### Considerations for extensions
+### Considerations for Extensions
 
 The following chapters describe how to proceed with system extensions. This chapter is written as manual, so a person can take this chapter as a manual for any extensions.
 
-#### Database extension
+#### Database Extension
 
 Change in the database can be done over the phpMyAdmin or over the command line. If you add a new attribute to existing database table, you do not have to do any changes in the specific model classes. The Eloquent ORM module from Laravel maps automatically the changes from the table.
 If a new table is created in the database, you have to write the following line in the command line in the base path from the project:
@@ -440,7 +474,7 @@ Now, you can call the new created model from the controller classes, like in the
 $table-name = new <Table-name>();
 ```
 
-#### View extensions
+#### View Extensions
 
 The views can be extended normally with standard HTML and CSS. JavaScript has to be declared in separate JavaScript file. For each view, there is a JavaScript file with the related functions. You have to consider the declared coding convention to keep the code quality.
 
@@ -467,7 +501,7 @@ You have to add the following element to the array **$except**. from the class â
 'user/ updateOrderDates',
 ```
 
-#### Controller extension
+#### Controller Extensions
 
 An existing controller can be extended with usual PHP attributes and functions. You have to con-sider the declared coding convention to keep the code quality.
 

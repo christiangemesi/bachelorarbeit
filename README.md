@@ -237,9 +237,9 @@ The administrator password is saved ([hashed and salted](https://laravel.com/doc
 
 The following image show the class diagram from ThekRe. The controllers call the model to get data from the database. The controller calls the views with model data. The views are not visualized in the class diagram, because all view are HTML files without a class description.
 
-![Controller](C:\Users\Nick Koch\Desktop\Lehre\FHNW\2. Lehrjahr\ThekRe\Controller.JPG)
+![classdiagram_controller](https://gitlab.fhnw.ch/nick.koch/ThekRe/raw/develop/images_readme/classdiagram_controller.JPG)
 
-![Model](C:\Users\Nick Koch\Desktop\Lehre\FHNW\2. Lehrjahr\ThekRe\Model.JPG)
+![classdiagram_model](https://gitlab.fhnw.ch/nick.koch/ThekRe/raw/develop/images_readme/classdiagram_model.JPG)
 
 
 | Class Name      | Description                                                  |

@@ -52,7 +52,7 @@ phpinfo();
 
 To test the installation of PHP and the extensions, open a web browser and type http://ip-adress-server/info.php or http://localhost/info.php (local on the server or the VM) and you should get the following view.
 
-![php_default_page](images_readme\php_default_page.png)
+![php_default_page](https://gitlab.fhnw.ch/nick.koch/ThekRe/raw/develop/images_readme/php_default_page.png)
 
 After the test the file can be deleted again.
 
@@ -70,7 +70,7 @@ Install MySQL with the following command.
 sudo apt-get install mysql-server
 ```
 
-You get asked for a root Password. This can be set individually. The Password now is **4oZ3ackSg0RiU4M**.![config_mysql_password](images_readme\config_mysql_password.png)
+You get asked for a root Password. This can be set individually. The Password now is **4oZ3ackSg0RiU4M**.![config_mysql_password](https://gitlab.fhnw.ch/nick.koch/ThekRe/raw/develop/images_readme/config_mysql_password.png)
 
 After selecting "OK" confirm the password.
 
@@ -82,7 +82,7 @@ mysql -u root -p
 
 After the successful login you should get something like the following output:
 
-![test_mysql](images_readme\test_mysql.png)
+![test_mysql](https://gitlab.fhnw.ch/nick.koch/ThekRe/raw/develop/images_readme/test_mysql.png)
 
 
 
@@ -96,45 +96,45 @@ sudo apt-get install phpmyadmin
 
 Set **apache2** as default web server:
 
-![config_phpmyadmin_webserver](images_readme\config_phpmyadmin_webserver.png)
+![config_phpmyadmin_webserver](https://gitlab.fhnw.ch/nick.koch/ThekRe/raw/develop/images_readme/config_phpmyadmin_webserver.png)
 
 Configure database for phpMyAdmin with **dbconfig-common**
 
-![config_phpmyadmin_dbconfig](images_readme\config_phpmyadmin_dbconfig.png)
+![config_phpmyadmin_dbconfig](https://gitlab.fhnw.ch/nick.koch/ThekRe/raw/develop/images_readme/config_phpmyadmin_dbconfig.png)
 
 Enter the same password as set in the MySql installation chapter.
 
-![config_phpmyadmin_mysql_password](images_readme\config_phpmyadmin_mysql_password.png)
+![config_phpmyadmin_mysql_password](https://gitlab.fhnw.ch/nick.koch/ThekRe/raw/develop/images_readme/config_phpmyadmin_mysql_password.png)
 
 To test the installation of phpMyAdmin, open http://ip-adress-server/phpmyadmin or http://localhost/phpmyadmin (local on the server or the VM) in a web browser you should get the following view.
 
-![welcome_phpmyadmin](images_readme\welcome_phpmyadmin.png)
+![welcome_phpmyadmin](https://gitlab.fhnw.ch/nick.koch/ThekRe/raw/develop/images_readme/welcome_phpmyadmin.png)
 
 Enter the Password and you should see the following page:
 
-![settings_phpmyadmin](images_readme\settings_phpmyadmin.png)
+![settings_phpmyadmin](https://gitlab.fhnw.ch/nick.koch/ThekRe/raw/develop/images_readme/settings_phpmyadmin.png)
 
 After that you can import the database of ThekRe. Import the .sql file **ThekRe_DB.sql**.
 
 Klick in the navigation bar on **Importieren** and the on **Datei auswählen**. Choose the sql File (ThekRe_DB.sql) and klick on **OK**.
 
-![import_db_phpmyadmin](images_readme\import_db_phpmyadmin.png)
+![import_db_phpmyadmin](https://gitlab.fhnw.ch/nick.koch/ThekRe/raw/develop/images_readme/import_db_phpmyadmin.png)
 
 Now the database **thekre** with the 7 tables got generated.
 
-![tables_thekre](images_readme\tables_thekre.png)
+![tables_thekre](https://gitlab.fhnw.ch/nick.koch/ThekRe/raw/develop/images_readme/tables_thekre.png)
 
 After that have to create a new database user for the system access. Go to **Benutzerkonten** in the navigation bar and klick **Benutzerkonten hinzufügen**.
 
-![add_user_phpmyadmin](images_readme\add_user_phpmyadmin.png)
+![add_user_phpmyadmin](https://gitlab.fhnw.ch/nick.koch/ThekRe/raw/develop/images_readme/add_user_phpmyadmin.png)
 
 The username is **thekre_admin**, hostname is **localhost** and the password is **cSCdrkd1VNEbk8PW**.
 
-![add_user_name_password_phpmyadmin](images_readme\add_user_name_password_phpmyadmin.png)
+![add_user_name_password_phpmyadmin](https://gitlab.fhnw.ch/nick.koch/ThekRe/raw/develop/images_readme/add_user_name_password_phpmyadmin.png)
 
 Choose the following user privilege's and klick **OK**.
 
-![user_privileges_phpmyadmin](images_readme\user_privileges_phpmyadmin.png)
+![user_privileges_phpmyadmin](https://gitlab.fhnw.ch/nick.koch/ThekRe/raw/develop/images_readme/user_privileges_phpmyadmin.png)
 
 The password is defined in the .env file on the server.
 
@@ -219,13 +219,13 @@ sudo service apache2 restart
 
 To test the whole installation, open http://ip-adress-server/ or http://localhost/ (local on the server or the VM) in a web browser you should get the following view.
 
-![start_page_thekre](images_readme\start_page_thekre.png)
+![start_page_thekre](https://gitlab.fhnw.ch/nick.koch/ThekRe/raw/develop/images_readme/start_page_thekre.png)
 
 #### Administration
 
 If you open a web browser and go to http://ip-adress-server/admin or http://localhost/admin the following page should be displayed:
 
-![admin_login_thekre](images_readme\admin_login_thekre.png)
+![admin_login_thekre](https://gitlab.fhnw.ch/nick.koch/ThekRe/raw/develop/images_readme/admin_login_thekre.png)
 
 The administrator password is saved ([hashed and salted](https://laravel.com/docs/5.7/hashing)) in the database, in the table **tbl_login**.
 
@@ -280,7 +280,7 @@ In the second Version of ThekRe we added the tables: **tbl_mail**, **tbl_blocked
 
 When a user orders a box, a new order record will be created in the database. An order refers always to one theme box. Each order has a status. There are 5 different statuses: new, ready, running, returned and closed. In the following image, we can see the sequence from the order statuses. Those statuses are recorded in German in the database.
 
-![status_diagram](images_readme\status_diagram.png)
+![status_diagram](https://gitlab.fhnw.ch/nick.koch/ThekRe/raw/develop/images_readme/status_diagram.png)
 
 1. A **new** order is created, when the user places an order for a theme box over the order form. **New** is the initial status from an order.
 2. The administrator sees the **new** order in their administration section.

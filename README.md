@@ -5,8 +5,7 @@ ThekRe is a web application for the FHNW campus library to manage their theme bo
 
 
 ## Table of content
-
-- [Installation](#installation)
+[Installation](#installation)
   - [Install Ubuntu](#install-ubuntu)
     - [Update System](#update-system)
   - [Install Apache](#install-apache)
@@ -15,86 +14,39 @@ ThekRe is a web application for the FHNW campus library to manage their theme bo
   - [Install phpMyAdmin](#install-phpmyadmin)
   - [Source Code](#source-code)
   - [Administration](#administration)
-- [Architecture](#architecture)
+
+[Architecture](#architecture)
   - [Class Diagram](#class-diagram)
   - [Database](#database)
   - [Order Status](#order-status)
   - [External Libraries](#external-libraries)
-- [Coding Conventions](#coding-conventions)
+
+[Coding Conventions](#coding-conventions)
   - [Boundaries and Parameter](#boundaries-and-parameter)
   - [File Extensions](#file-extensions)
   - [File Content](#file-content)
-  - [Naming Conventions](#naming-conventions)
-    - [PHP](#php)
-    - [HTML](#html)
-    - [JS](#js)
 
-- [Support](#support)
+[Naming Conventions](#naming-conventions)
+
+  - [PHP](#php)
+  - [HTML](#html)
+  - [JS](#js)
+
+[Support](#support)
   - [Issue Tracker](#issue-tracker)
 
-- [Roadmap](#roadmap)
+[Roadmap](#roadmap)
   - [Ideas for Future Features/Extensions](#ideas-for-future-featuresextensions)
   - [Considerations for Extensions](#considerations-for-extensions)
     - [Database Extension](#database-extension)
+
     - [View Extensions](#view-extensions)
+
     - [New View](#new-view)
+
     - [Controller Extensions](#controller-extensions)
+
     - [New Controller](#new-controller)
-
-
-
-<ul>
-	<li><a href="#installation">Installation</a></li>
-		<ul>
-		<li><a href="#install-ubuntu">Install Ubuntu</a></li>
-			<ul>
-			<li><a href="#update-system">Update System</a></li>
-			</ul>
-		</ul>
-		<ul>
-		<li><a href="#install-apache">Install Apache</a></li>
-		<li><a href="#install-php">Install PHP</a></li>
-		<li><a href="#install-mysql">Install MySQL</a></li>
-		<li><a href="#install-phpmyadmin">Install phpMyAdmin</a></li>
-		<li><a href="#source-code">Source Code</a></li>
-		<li><a href="#administration">Administration</a></li>
-		</ul>
-	<li><a href="#architecture">Architecture</a></li>
-		<ul>
-		<li><a href="#class-diagram">Class Diagram</a></li>
-		<li><a href="#database">Database</a></li>
-		<li><a href="#order-status">Order Status</a></li>
-		<li><a href="#external-libraries">External Libraries</a></li>
-		</ul>
-	<li><a href="#coding-conventions">Coding Conventions</a></li>
-		<ul>
-		<li><a href="#boundaries-and-parameter">Boundaries and Parameter</a></li>
-		<li><a href="#file-extensions">File Extensions</a></li>
-		<li><a href="#file-content">File Content</a></li>
-		<li><a href="#naming-conventions">Naming Conventions</a></li>
-		<li><a href="#php">PHP</a></li>
-		<li><a href="#html">HTML</a></li>
-		<li><a href="#js">JS</a></li>
-		</ul>
-	<li><a href="#support">Support</a></li>
-		<ul>
-		<li><a href="#issue-tracker">Issue Tracker</a></li>
-		</ul>
-	<li><a href="#roadmap">Roadmap</a></li>
-		<ul>
-		<li><a href="#ideas-for-future-featuresextensions">Ideas for Future Features/Extensions</a></li>
-		<li><a href="#considerations-for-extensions">Considerations for Extensions</a></li>
-			<ul>
-			<li><a href="#database-extension">Database Extension</a></li>
-			<li><a href="#view-extensions">View Extensions</a></li>
-			<li><a href="#new-view">New View</a></li>
-			<li><a href="#controller-extensions">Controller Extensions</a></li>
-			<li><a href="#new-controller">New Controller</a></li>
-			</ul>
-		</ul>
-</ul>
-
-
 
 
 

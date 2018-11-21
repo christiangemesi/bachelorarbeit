@@ -24,7 +24,7 @@ sudo apt-get install apache2
 
 To test the installation of apache, open http://ip-adress-server/ or http://localhost/ (local on the server or the VM) in a web browser you should get the following view.
 
-![apache_default_page](https://gitlab.fhnw.ch/nick.koch/ThekRe/blob/develop/images_readme/apache_default_page.png)
+![apache_default_page](https://gitlab.fhnw.ch/nick.koch/ThekRe/raw/develop/images_readme/apache_default_page.png)
 
 
 

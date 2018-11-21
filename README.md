@@ -8,67 +8,67 @@ ThekRe is a web application for the FHNW campus library to manage their theme bo
 
 [Installation](#installation)
 
-​	[Install Ubuntu](#install-ubuntu)
+​			[Install Ubuntu](#install-ubuntu)
 
-​		[Update System](#update-system)
+​					[Update System](#update-system)
 
-​	[Install Apache](#install-apache)
+​			[Install Apache](#install-apache)
 
-​	[Install PHP](#install-php)
+​			[Install PHP](#install-php)
 
-​	[Install MySQL](#install-mysql)
+​			[Install MySQL](#install-mysql)
 
-​	[Install phpMyAdmin](#install-phpmyadmin)
+​			[Install phpMyAdmin](#install-phpmyadmin)
 
-​	[Source Code](#source-code)
+​			[Source Code](#source-code)
 
-​	[Administration](#administration)
+​			[Administration](#administration)
 
 [Architecture](#architecture)
 
-​	[Class Diagram](#class-diagram)
+​			[Class Diagram](#class-diagram)
 
-​	[Database](#database)
+​			[Database](#database)
 
-​	[Order Status](#order-status)
+​			[Order Status](#order-status)
 
-​	[External Libraries](#external-libraries)
+​			[External Libraries](#external-libraries)
 
 [Coding Conventions](#coding-conventions)
 
-​	[Boundaries and Parameter](#boundaries-and-parameter)
+​			[Boundaries and Parameter](#boundaries-and-parameter)
 
-​	[File Extensions](#file-extensions)
+​			[File Extensions](#file-extensions)
 
-​	[File Content](#file-content)
+​			[File Content](#file-content)
 
-​	[Naming Conventions](#naming-conventions)
+​			[Naming Conventions](#naming-conventions)
 
-​		[PHP](#php)
+​						[PHP](#php)
 
-​		[HTML](#html)
+​						[HTML](#html)
 
-​		[JS](#js)
+​						[JS](#js)
 
 [Support](#support)
 
-​	[Issue Tracker](#issue-tracker)
+​			[Issue Tracker](#issue-tracker)
 
 [Roadmap](#roadmap)
 
-​	[Ideas for Future Features/Extensions](#ideas-for-future-featuresextensions)
+​			[Ideas for Future Features/Extensions](#ideas-for-future-featuresextensions)
 
-​	[Considerations for Extensions](#considerations-for-extensions)
+​			[Considerations for Extensions](#considerations-for-extensions)
 
-​		[Database Extension](#database-extension)
+​						[Database Extension](#database-extension)
 
-​		[View Extensions](#view-extensions)
+​						[View Extensions](#view-extensions)
 
-​		[New View](#new-view)
+​						[New View](#new-view)
 
-​		[Controller Extensions](#controller-extensions)
+​						[Controller Extensions](#controller-extensions)
 
-​		[New Controller](#new-controller)
+​						[New Controller](#new-controller)
 
 
 

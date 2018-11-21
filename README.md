@@ -6,41 +6,69 @@ ThekRe is a web application for the FHNW campus library to manage their theme bo
 
 ## Table of content
 
-- [Installation](#installation)
-  - [Install Ubuntu](#install-ubuntu)
-    - [Update System](#update-system)
-  - [Install Apache](#install-apache)
-  - [Install PHP](#install-php)
-  - [Install MySQL](#install-mysql)
-  - [Install phpMyAdmin](#install-phpmyadmin)
-  - [Source Code](#source-code)
-  - [Administration](#administration)
-- [Architecture](#architecture)
-  - [Class Diagram](#class-diagram)
-  - [Database](#database)
-  - [Order Status](#order-status)
-  - [External Libraries](#external-libraries)
+[Installation](#installation)
 
-- [Coding Conventions](#coding-conventions)
-  - [Boundaries and Parameter](#boundaries-and-parameter)
-  - [File Extensions](#file-extensions)
-  - [File Content](#file-content)
-  - [Naming Conventions](#naming-conventions)
-    - [PHP](#php)
-    - [HTML](#html)
-    - [JS](#js)
+​	[Install Ubuntu](#install-ubuntu)
 
-- [Support](#support)
-  - [Issue Tracker](#issue-tracker)
+​		[Update System](#update-system)
 
-- [Roadmap](#roadmap)
-  - [Ideas for Future Features/Extensions](#ideas-for-future-featuresextensions)
-  - [Considerations for Extensions](#considerations-for-extensions)
-    - [Database Extension](#database-extension)
-    - [View Extensions](#view-extensions)
-    - [New View](#new-view)
-    - [Controller Extensions](#controller-extensions)
-    - [New Controller](#new-controller)
+​	[Install Apache](#install-apache)
+
+​	[Install PHP](#install-php)
+
+​	[Install MySQL](#install-mysql)
+
+​	[Install phpMyAdmin](#install-phpmyadmin)
+
+​	[Source Code](#source-code)
+
+​	[Administration](#administration)
+
+[Architecture](#architecture)
+
+​	[Class Diagram](#class-diagram)
+
+​	[Database](#database)
+
+​	[Order Status](#order-status)
+
+​	[External Libraries](#external-libraries)
+
+[Coding Conventions](#coding-conventions)
+
+​	[Boundaries and Parameter](#boundaries-and-parameter)
+
+​	[File Extensions](#file-extensions)
+
+​	[File Content](#file-content)
+
+​	[Naming Conventions](#naming-conventions)
+
+​		[PHP](#php)
+
+​		[HTML](#html)
+
+​		[JS](#js)
+
+[Support](#support)
+
+​	[Issue Tracker](#issue-tracker)
+
+[Roadmap](#roadmap)
+
+​	[Ideas for Future Features/Extensions](#ideas-for-future-featuresextensions)
+
+​	[Considerations for Extensions](#considerations-for-extensions)
+
+​		[Database Extension](#database-extension)
+
+​		[View Extensions](#view-extensions)
+
+​		[New View](#new-view)
+
+​		[Controller Extensions](#controller-extensions)
+
+​		[New Controller](#new-controller)
 
 
 

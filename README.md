@@ -262,7 +262,7 @@ The use cases and the requirements lead to the following database design. The da
 
 In the second Version of ThekRe we added the tables: **tbl_mail**, **tbl_blocked_period** and **tbl_login**.
 
-![database model](C:\Users\Nick Koch\Desktop\Lehre\FHNW\2. Lehrjahr\ThekRe\database model.png)
+![database_model_diagram](https://gitlab.fhnw.ch/nick.koch/ThekRe/raw/develop/images_readme/database_model_diagram.png)
 
 | Table              | Description                                                  |
 | ------------------ | ------------------------------------------------------------ |

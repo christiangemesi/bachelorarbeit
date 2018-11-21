@@ -2,6 +2,13 @@
 
 ThekRe is a web application for the FHNW campus library to manage their theme boxes.
 
+
+
+## Table of content
+
+
+[TOC]
+
 ## Installation
 
 #### Install Ubuntu
@@ -383,6 +390,14 @@ Variables:
 
 * Whenever possible use jQuery, the library offers an easier way to handle DOM elements than the normal JavaScript
 * All functions have a comment describing their purpose and parameters.
+
+
+
+## Support
+
+### Issue tracker
+
+For smaller and major issues use [Jira](https://www.cs.technik.fhnw.ch/jira2/projects/THEKRE/summary).
 
 
 

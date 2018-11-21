@@ -6,69 +6,123 @@ ThekRe is a web application for the FHNW campus library to manage their theme bo
 
 ## Table of content
 
-[Installation](#installation)
+- [Installation](#installation)
+  - [Install Ubuntu](#install-ubuntu)
+    - [Update System](#update-system)
+  - [Install Apache](#install-apache)
+  - [Install PHP](#install-php)
+  - [Install MySQL](#install-mysql)
+  - [Install phpMyAdmin](#install-phpmyadmin)
+  - [Source Code](#source-code)
+  - [Administration](#administration)
+- [Architecture](#architecture)
+  - [Class Diagram](#class-diagram)
+  - [Database](#database)
+  - [Order Status](#order-status)
+  - [External Libraries](#external-libraries)
+- [Coding Conventions](#coding-conventions)
+  - [Boundaries and Parameter](#boundaries-and-parameter)
+  - [File Extensions](#file-extensions)
+  - [File Content](#file-content)
+  - [Naming Conventions](#naming-conventions)
+    - [PHP](#php)
+    - [HTML](#html)
+    - [JS](#js)
 
-​			[Install Ubuntu](#install-ubuntu)
+- [Support](#support)
+  - [Issue Tracker](#issue-tracker)
 
-​					[Update System](#update-system)
+- [Roadmap](#roadmap)
+  - [Ideas for Future Features/Extensions](#ideas-for-future-featuresextensions)
+  - [Considerations for Extensions](#considerations-for-extensions)
+    - [Database Extension](#database-extension)
+    - [View Extensions](#view-extensions)
+    - [New View](#new-view)
+    - [Controller Extensions](#controller-extensions)
+    - [New Controller](#new-controller)
 
-​			[Install Apache](#install-apache)
 
-​			[Install PHP](#install-php)
 
-​			[Install MySQL](#install-mysql)
+<ul>
+<li><p><a href="#installation">Installation</a></p>
 
-​			[Install phpMyAdmin](#install-phpmyadmin)
+<p><ul>
+<li><a href="#install-ubuntu">Install Ubuntu</a></li></p>
 
-​			[Source Code](#source-code)
+<p><li><a href="#update-system">Update System</a></li></p>
 
-​			[Administration](#administration)
+<p><li><a href="#install-apache">Install Apache</a></li></p>
 
-[Architecture](#architecture)
+<p><li><a href="#install-php">Install PHP</a></li></p>
 
-​			[Class Diagram](#class-diagram)
+<p><li><a href="#install-mysql">Install MySQL</a></li></p>
 
-​			[Database](#database)
+<p><li><a href="#install-phpmyadmin">Install phpMyAdmin</a></li></p>
 
-​			[Order Status](#order-status)
+<p><li><a href="#source-code">Source Code</a></li></p>
 
-​			[External Libraries](#external-libraries)
+<p><li><a href="#administration">Administration</a></li></ul>
 
-[Coding Conventions](#coding-conventions)
+<p></p></li></p>
 
-​			[Boundaries and Parameter](#boundaries-and-parameter)
+<p><li><p><a href="#architecture">Architecture</a></p></p>
 
-​			[File Extensions](#file-extensions)
+<p><ul>
+<li><a href="#class-diagram">Class Diagram</a></li></p>
 
-​			[File Content](#file-content)
+<p><li><a href="#database">Database</a></li></p>
 
-​			[Naming Conventions](#naming-conventions)
+<p><li><a href="#order-status">Order Status</a></li></p>
 
-​						[PHP](#php)
+<p><li><a href="#external-libraries">External Libraries</a></li></ul></p>
 
-​						[HTML](#html)
+<p></li></p>
 
-​						[JS](#js)
+<p><li><p><a href="#coding-conventions">Coding Conventions</a></p></p>
 
-[Support](#support)
+<ul>
+<li><a href="#boundaries-and-parameter">Boundaries and Parameter</a></li>
 
-​			[Issue Tracker](#issue-tracker)
+<li><a href="#file-extensions">File Extensions</a></li>
 
-[Roadmap](#roadmap)
+<li><a href="#file-content">File Content</a></li>
 
-​			[Ideas for Future Features/Extensions](#ideas-for-future-featuresextensions)
+<li><a href="#naming-conventions">Naming Conventions</a></li>
 
-​			[Considerations for Extensions](#considerations-for-extensions)
+<li><a href="#php">PHP</a></li>
 
-​						[Database Extension](#database-extension)
+<li><a href="#html">HTML</a></li>
 
-​						[View Extensions](#view-extensions)
+<li><a href="#js">JS</a></li></ul>
 
-​						[New View](#new-view)
+<p></li></p>
 
-​						[Controller Extensions](#controller-extensions)
+<p><li><p><a href="#support">Support</a></p></p>
 
-​						[New Controller](#new-controller)
+<ul>
+<li><a href="#issue-tracker">Issue Tracker</a></li></ul>
+
+<p></li></p>
+
+<p><li><p><a href="#roadmap">Roadmap</a></p></p>
+
+<p><ul>
+<li><a href="#ideas-for-future-featuresextensions">Ideas for Future Features/Extensions</a></li></p>
+
+<p><li><a href="#considerations-for-extensions">Considerations for Extensions</a></li></p>
+
+<p><li><a href="#database-extension">Database Extension</a></li></p>
+
+<p><li><a href="#view-extensions">View Extensions</a></li></p>
+
+<p><li><a href="#new-view">New View</a></li></p>
+
+<p><li><a href="#controller-extensions">Controller Extensions</a></li></p>
+
+<p><li><a href="#new-controller">New Controller</a></li></ul></p>
+
+<p></li>
+</ul></p>
 
 
 

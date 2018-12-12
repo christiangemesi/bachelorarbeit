@@ -226,7 +226,7 @@ Clone the project from gitlab in to the directory.
 
 ```bash
 cd /var/www/html
-sudo git clone https://gitlab.fhnw.ch/stuPro/ThekRe.git
+sudo git clone https://gitlab.fhnw.ch/nick.koch/ThekRe
 cd ThekRe
 ```
 

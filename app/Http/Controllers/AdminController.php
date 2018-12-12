@@ -475,7 +475,7 @@ class AdminController extends Controller
         );
 
         Mail::send('admin.mail_ready_pickup', $mail_data, function ($message) use ($mail_data) {
-            $message->to(/*$mail_data['receiver_mail']*/"nick.koch@fhnw.ch", $mail_data['receiver_name'] . " " . $mail_data['receiver_surname'])->bcc("daniel.meienberg@fhnw.ch", "Meienberg Daniel")->subject('Abholungseinladung Themenkiste');
+            $message->to(/*$mail_data['receiver_mail']*/"nick.koch@fhnw.ch", $mail_data['receiver_name'] . " " . $mail_data['receiver_surname'])/*->bcc("daniel.meienberg@fhnw.ch", "Meienberg Daniel")*/->subject('Abholungseinladung Themenkiste');
         });
     }
 

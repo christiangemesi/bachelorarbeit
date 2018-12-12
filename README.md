@@ -172,11 +172,15 @@ sudo service apache2 reload
 
 After that reload the page in the browser and it should work.
 
-Enter the Password and you should see the following page:
+Set the username to: **root** and enter the Password and you should see the following page:
 
 ![settings_phpmyadmin](https://gitlab.fhnw.ch/nick.koch/ThekRe/raw/develop/images_readme/settings_phpmyadmin.png)
 
-After that you can import the database of ThekRe. Import the .sql file **ThekRe_DB.sql**.
+Create the database **thekre** as show in the following picture:
+
+![create_database_thekre](https://gitlab.fhnw.ch/nick.koch/ThekRe/raw/develop/images_readme/create_database_thekre.jpg)
+
+After that you can import the tables of ThekRe. Import the .sql file **ThekRe_DB.sql**.
 
 Klick in the navigation bar on **Importieren** and then on **Datei auswählen**. Choose the .sql File (ThekRe_DB.sql) and klick on **OK**.
 

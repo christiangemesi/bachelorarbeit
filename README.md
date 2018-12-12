@@ -178,7 +178,7 @@ Set the username to: **root** and enter the Password and you should see the foll
 
 Create the database **thekre** as show in the following picture:
 
-![create_database_thekre](https://gitlab.fhnw.ch/nick.koch/ThekRe/raw/develop/images_readme/create_database_thekre.jpg)
+![create_database_thekre](https://gitlab.fhnw.ch/nick.koch/ThekRe/raw/master/images_readme/create_database_thekre.JPG)
 
 After that you can import the tables of ThekRe. Import the .sql file **ThekRe_DB.sql**.
 

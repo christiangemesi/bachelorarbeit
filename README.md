@@ -158,6 +158,20 @@ To test the installation of phpMyAdmin, open http://ip-adress-server/phpmyadmin 
 
 ![welcome_phpmyadmin](https://gitlab.fhnw.ch/nick.koch/ThekRe/raw/develop/images_readme/welcome_phpmyadmin.png)
 
+If you get the following view:
+
+![phpmyadmin_not_found](https://gitlab.fhnw.ch/nick.koch/ThekRe/raw/develop/images_readme/phpmyadmin_not_found.png)
+
+then enter the following commands in the terminal:
+
+```bash
+sudo ln -s /etc/phpmyadmin/apache.conf /etc/apache2/conf-available/phpmyadmin.conf
+sudo a2enconf phpmyadmin.conf
+sudo service apache2 reload
+```
+
+After that reload the page in the browser and it should work.
+
 Enter the Password and you should see the following page:
 
 ![settings_phpmyadmin](https://gitlab.fhnw.ch/nick.koch/ThekRe/raw/develop/images_readme/settings_phpmyadmin.png)

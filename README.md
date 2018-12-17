@@ -237,9 +237,10 @@ sudo git checkout develop
 sudo git pull
 ```
 
-Install the Laravel composer. This takes some time, so go and grab yourself a big cup of coffee.
+Install the Laravel composer and then update it. This takes some time, so go and grab yourself a big cup of coffee.
 
 ```bash
+sudo apt-get install composer
 sudo composer update
 ```
 

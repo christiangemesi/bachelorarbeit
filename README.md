@@ -352,7 +352,7 @@ The administrator password is saved ([hashed and salted](https://laravel.com/doc
 
 To send the order confirmation e-mail we use the FHNW intern LMailer.
 
-The following instructions are based on the ["official" documentation](https://gitlab.fhnw.ch/nick.koch/ThekRe/raw/develop/readme_docs/official_documention_lmailer.pdf").
+The following instructions are based on the ["official" documentation](https://gitlab.fhnw.ch/nick.koch/ThekRe/blob/develop/readme_docs/official_documention_lmailer.pdf).
 
 
 

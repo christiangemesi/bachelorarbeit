@@ -288,6 +288,54 @@ To test the whole installation, open http://ip-adress-server/ or http://localhos
 
 ![start_page_thekre](https://gitlab.fhnw.ch/nick.koch/ThekRe/raw/develop/images_readme/start_page_thekre.png)
 
+If you don't get the upper view, but rather something like the following:
+![whoos_looks_like_something_went_wrong](https://gitlab.fhnw.ch/nick.koch/ThekRe/raw/develop/images_readme/whoos_looks_like_something_went_wrong.JPG)
+Then you have to add the .env file to /var/www/html/ThekRe/
+The .env file should look something like this:
+
+```bash
+APP_NAME=ThekRe
+APP_ENV=local
+APP_KEY=base64:JDdNtaLrgo8IdRsXirzoB3cPBTkZvh60dpay22LzI8M=
+APP_DEBUG=true
+APP_LOG_LEVEL=debug
+APP_URL=localhost
+
+BROADCAST_DRIVER=log
+CACHE_DRIVER=file
+SESSION_DRIVER=file
+QUEUE_DRIVER=sync
+
+REDIS_HOST=127.0.0.1
+REDIS_PASSWORD=null
+REDIS_PORT=6379
+
+PUSHER_APP_ID=
+PUSHER_APP_KEY=
+PUSHER_APP_SECRET=
+
+MAIL_DRIVER=smtp
+
+MAIL_HOST=lmailer.ict.fhnw.ch
+MAIL_PORT=25
+MAIL_USERNAME=
+MAIL_PASSWORD=
+MAIL_ENCRYPTION=null
+
+DATABASE=thekre
+DATABASE_USERNAME=thekre_admin
+DATABASE_PASSWORD=cSCdrkd1VNEbk8PW
+
+```
+
+After that you have to restart the apache server
+
+````bash
+sudo service apache2 restart
+````
+
+
+
 #### Administration
 
 If you open a web browser and go to http://ip-adress-server/admin or http://localhost/admin the following page should be displayed:

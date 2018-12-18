@@ -206,7 +206,7 @@ function schoolcityValidate() {
         document.getElementById("schoolcityIcon").className = "glyphicon glyphicon-remove form-control-feedback";
         checkformOrder(1);
         return false;
-    } else if (!onlyLettersNumbers(schoolcityInput.value)) {
+    } else if (!validCityName(schoolcityInput.value)) {
         document.getElementById("schoolcityInputStatus").innerHTML = "Falsches Format! Nur Buchstaben und Zahlen erlaubt.";
         document.getElementById("schoolcityInputStatus").style.display = "block";
         schoolcityInput.parentNode.className = "form-group has-warning has-feedback";
@@ -305,6 +305,11 @@ function validEmailAddress(email) {
 function validPhoneNumber(phonenr) {
     var pattern = /^[0-9 ]+$/;
     return pattern.test(phonenr);
+}
+
+function validCityName(city) {
+    var pattern = /^[A-Za-zäöüÄÖÜéèêàÈÉÀ0-9- ]+$/;
+    return pattern.test(city);
 }
 
 function checkformOrder(form_type) {

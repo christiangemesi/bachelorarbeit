@@ -14,6 +14,7 @@ ThekRe is a web application for the FHNW campus library to manage their theme bo
   - [Install phpMyAdmin](#install-phpmyadmin)
   - [Source Code](#source-code)
   - [Administration](#administration)
+  - [Setup LMailer](#setup-lmailer)
 
 [Architecture](#architecture)
   - [Class Diagram](#class-diagram)
@@ -344,6 +345,87 @@ If you open a web browser and go to http://ip-adress-server/admin or http://loca
 ![admin_login_thekre](https://gitlab.fhnw.ch/nick.koch/ThekRe/raw/develop/images_readme/admin_login_thekre.png)
 
 The administrator password is saved ([hashed and salted](https://laravel.com/docs/5.7/hashing)) in the database, in the table **tbl_login**.
+
+
+
+#### Setup LMailer
+
+To send the order confirmation e-mail we use the FHNW intern LMailer.
+
+The following instructions are based on the ["official" documentation](https://gitlab.fhnw.ch/nick.koch/ThekRe/raw/develop/readme_docs/official_documention_lmailer.pdf").
+
+
+
+##### Mail service
+A local mail service must be installed on both the main server and the virtual machines so that any error messages and information can be correctly forwarded to the administrator. The mail service merely serves as a forwarder for the SMTP server of the FHNW, so that it cannot be misused as a relay.
+We do not use the standard MTA of Debian (exim4), but Postfix. If exim4 is installed, it must be uninstalled first. 
+
+##### Installation of Postfix
+
+1. Unistall exim4: ```apt-get remove exim4 exim4-base```
+2. Install postfix: ```apt-get install postfix libsasl2-modules ca-certificates```
+
+##### Configuration of Postfix
+
+To allow a server to forward e-mails via **lmailer.ict.fhnw.ch**, an application must be submitted to **f1.network.services@fhnw.ch** with the IP address of the server.
+First the edit the main configuration file **/etc/postfix/main.cf** must be edited. It should look like this: 
+
+````bash
+myhostname = HERE_COMES_THE_HOSTNAME_OF_THE_SERVER
+# default value for alias_maps = hash:/etc/aliases, nis:mail.aliases
+alias_maps = hash:/etc/aliases
+alias_database = hash:/etc/aliases
+myorigin = /etc/mailname
+mydestination =
+relayhost = lmailer.ict.fhnw.ch:25
+mynetworks = 127.0.0.0/8
+mailbox_size_limit = 0
+recipient_delimiter = +
+inet_interfaces = loopback-only
+inet_protocols = ipv4
+fork_attempts = 2
+biff=no
+append_dot_mydomain = no
+# Uncomment the next line to generate "delayed mail" warnings
+#delay_warning_time = 4h
+# See /usr/share/doc/postfix/TLS_README.gz in the postfix-doc package for
+# information on enabling SSL in the smtp client.
+smtp_use_tls = no
+sender_canonical_maps = hash:/etc/postfix/sender_canonical
+recipient_canonical_maps = hash:/etc/postfix/recipient_canonical
+````
+
+The host name must be set to the hostname of the server. In the **etc/mailname** file, the hostname must also be entered and must match with **myhostname**.
+System services usually send their information e-mails to a specific recipient, for example, the username under which the service is executed. To send all mails to the same recipient, aliases must be set up.
+
+The File **/etc/postfix/recipient_canonical/** has to have the following entry:
+
+````bash
+@<hostname>.imvs.technik.fhnw.ch admin.imvs.windisch@fhnw.ch
+@<hostname> admin.imvs.windisch@fhnw.ch
+@localhost admin.imvs.windisch@fhnw.ch
+````
+
+This has to be done, so that all local E-Mails get forwarded to the collective address.
+
+The file **/etc/postfix/sender_canonical** has to have the following entry:
+
+````bash
+@<hostname>.imvs.technik.fhnw.ch admin.imvs.windisch@fhnw.ch
+@<hostname> admin.imvs.windisch@fhnw.ch
+@localhost admin.imvs.windisch@fhnw.ch
+````
+
+Ensures that a valid sender address is used for local e-mails. Otherwise **lmailer.ict.fhnw.ch** will consider the e-mail as SPAM or refuse the relaying!
+Now the following commands must be executed:
+
+````bash
+postmap hash:/etc/aliases
+postmap hash:/etc/postfix/recipient_canonical
+postmap hash:/etc/postfix/sender_canonical
+````
+
+After every change of the files the hashes have to generated again.
 
 
 

@@ -290,6 +290,7 @@ To test the whole installation, open http://ip-adress-server/ or http://localhos
 
 If you don't get the upper view, but rather something like the following:
 ![whoos_looks_like_something_went_wrong](https://gitlab.fhnw.ch/nick.koch/ThekRe/raw/develop/images_readme/whoos_looks_like_something_went_wrong.JPG)
+
 Then you have to add the .env file to /var/www/html/ThekRe/
 The .env file should look something like this:
 

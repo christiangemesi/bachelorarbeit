@@ -4,7 +4,7 @@
         <ul class="sidebar-nav">
             <li class="sidebar-brand">
                 <a href="https://www.fhnw.ch">
-                    <img src="../images/fhnw_logo_w_claim_de.svg" id="fhnw-logo" alt="fhnw logo">
+                    <img src="./images/fhnw_logo_w_claim_de.svg" id="fhnw-logo" alt="fhnw logo">
                 </a>
             </li>
             <li class="sidebar-nav-text">

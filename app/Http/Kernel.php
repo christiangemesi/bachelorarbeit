@@ -19,7 +19,6 @@ class Kernel extends HttpKernel
         \ThekRe\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \ThekRe\Http\Middleware\TrustProxies::class,
-        \Barryvdh\Cors\HandleCors::class,
     ];
 
     /**
@@ -58,5 +57,6 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \ThekRe\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'cors' => \App\Http\Middleware\Cors::class,
     ];
 }

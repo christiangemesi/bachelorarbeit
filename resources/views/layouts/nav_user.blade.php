@@ -8,13 +8,13 @@
                 </a>
             </li>
             <li class="sidebar-nav-text">
-                <a href="./user"><span class="glyphicon glyphicon-folder-open nav-glyphicon"></span><div class="nav-text"> Bestellformular</div></a>
+                <a href="./user"><div class="nav-text"> Bestellformular</div></a>
             </li>
             <li class="sidebar-nav-text">
-                <a href="./user/loginForm"><span class="glyphicon glyphicon-edit nav-glyphicon"></span><div class="nav-text"> Bestellverwaltung</div></a>
+                <a href="./user/loginForm"><div class="nav-text"> Bestellverwaltung</div></a>
             </li>
             <li class="sidebar-nav-text site-switch">
-                <a href="./admin"><span class="glyphicon glyphicon-user nav-glyphicon"></span><div class="nav-text"> Administrator Login</div></a>
+                <a href="./admin"><div class="nav-text"> Administrator Login</div></a>
             </li>
         </ul>
     </div>

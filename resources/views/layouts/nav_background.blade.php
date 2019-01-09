@@ -8,7 +8,7 @@
                 </a>
             </li>
             <li class="sidebar-nav-text site-switch">
-                <a href="../user"><span class="glyphicon glyphicon-link nav-glyphicon"></span><div class="nav-text"> ThekRe Startseite</div></a>
+                <a href="../user"><div class="nav-text"> ThekRe Startseite</div></a>
             </li>
         </ul>
     </div>

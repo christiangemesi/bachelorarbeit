@@ -14,6 +14,10 @@ $(document).ready(function () {
     var dayToCalculateNextSundays = getNextDayOfWeek(new Date, 7);
     var dayToCalculatePreviousSundays = getNextDayOfWeek(new Date, 7);
 
+    /**
+     * variable needs to be set correspondently to the url
+     */
+    var unique_url = "themenkisten/";
 
 
     loadThemeboxInfoBox($(".themebox-list").first().attr('id')); //load themebox data from the first list element
@@ -196,7 +200,7 @@ $(document).ready(function () {
         dayToCalculatePreviousSundays = getNextDayOfWeek(new Date, 7);
 
         $.ajax({
-            url: "/user/getThemebox",
+            url: "../themenkisten/user/getThemebox",
             type:"POST",
             data: {themeboxId: themebox_Id},
             success: function(response) {
@@ -360,7 +364,7 @@ $(document).ready(function () {
     function loadBlockedDates() {
 
         $.ajax({
-            url: "../user/getBlockedPeriods",
+            url: "../" + unique_url +"user/getBlockedPeriods",
             type:"POST",
             data: {},
             success: function(data) {
@@ -386,8 +390,9 @@ $(document).ready(function () {
      */
     $(document).on("click", ".btn-show-themebox-content", function(event){
         $('#themebox-content-modal').modal('show');
+
         $.ajax({
-            url: "../user/getThemeboxContent",
+            url: "/" + unique_url + "user/getThemeboxContent",
             type:"POST",
             data: {themeboxId: $("#themebox-id").val()},
             success: function(response) {
@@ -395,6 +400,7 @@ $(document).ready(function () {
             },
             error: function(xhr, status, error) {
                 errorHandling("Es ist ein Fehler bei der Datenverarbeitung passiert. Bitte kontaktieren Sie die FHNW Bibliothek unter bibliothek.windisch@fhnw.ch", "#error-message-box");
+                console.log(process.env.APP_URL);
             }
         });
     });

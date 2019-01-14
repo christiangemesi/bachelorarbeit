@@ -16,7 +16,6 @@
 
     <!-- include js, jquery and css for summernote-->
     <link href="{{ asset('js/bootstrap/css/bootstrap.css') }}" rel="stylesheet">
-    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
     <script src="{{ asset('js/bootstrap/js/bootstrap.js') }}"></script>
     <link href="{{ asset('/summernote/summernote.css') }}" rel="stylesheet">
     <script src="{{ asset('/summernote/summernote.js') }}"></script>

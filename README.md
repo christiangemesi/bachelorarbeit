@@ -301,7 +301,9 @@ APP_ENV=local
 APP_KEY=base64:JDdNtaLrgo8IdRsXirzoB3cPBTkZvh60dpay22LzI8M=
 APP_DEBUG=true
 APP_LOG_LEVEL=debug
-APP_URL=localhost
+APP_URL=https://www.fhnw.ch/de/die-fhnw/bibliotheken/bibliothek-brugg-windisch/themenkisten
+
+UNIQUE_SERVER_URL=themenkisten/
 
 BROADCAST_DRIVER=log
 CACHE_DRIVER=file
@@ -327,6 +329,7 @@ MAIL_ENCRYPTION=null
 DATABASE=thekre
 DATABASE_USERNAME=thekre_admin
 DATABASE_PASSWORD=cSCdrkd1VNEbk8PW
+
 
 ```
 

@@ -194,9 +194,7 @@ $(document).ready(function () {
 
         dayToCalculateNextSundays = getNextDayOfWeek(new Date, 7);
         dayToCalculatePreviousSundays = getNextDayOfWeek(new Date, 7);
-
-        console.log(process.env.APP_URL);
-
+        
         $.ajax({
             url: "/themenkisten/user/getThemebox",
             type:"POST",
@@ -250,6 +248,8 @@ $(document).ready(function () {
             },
             error: function(xhr, status, error) {
                 errorHandling("Es ist ein Fehler bei der Datenverarbeitung passiert. Bitte kontaktieren Sie die FHNW Bibliothek unter bibliothek.windisch@fhnw.ch", "#error-message-box");
+                console.log(process.env.APP_URL);
+                console.log("Test1");
             }
         });
     }
@@ -389,10 +389,8 @@ $(document).ready(function () {
     $(document).on("click", ".btn-show-themebox-content", function(event){
         $('#themebox-content-modal').modal('show');
 
-        console.log(process.env.APP_URL);
-
         $.ajax({
-            url: "themenkisten/user/getThemeboxContent",
+            url: "/themenkisten/user/getThemeboxContent",
             type:"POST",
             data: {themeboxId: $("#themebox-id").val()},
             success: function(response) {
@@ -400,6 +398,8 @@ $(document).ready(function () {
             },
             error: function(xhr, status, error) {
                 errorHandling("Es ist ein Fehler bei der Datenverarbeitung passiert. Bitte kontaktieren Sie die FHNW Bibliothek unter bibliothek.windisch@fhnw.ch", "#error-message-box");
+                console.log(process.env.APP_URL);
+                console.log("Test2");
             }
         });
     });

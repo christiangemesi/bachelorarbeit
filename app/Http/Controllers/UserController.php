@@ -43,7 +43,7 @@ class UserController extends Controller
             "orders" => $orders
         );
 
-        return response()->json(['data' => $data]);
+        return response()->json(['data' => $data], 200);
     }
 
     /**

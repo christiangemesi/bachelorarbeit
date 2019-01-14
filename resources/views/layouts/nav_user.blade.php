@@ -8,11 +8,10 @@
                 </a>
             </li>
             <li class="sidebar-nav-text">
-                <a href="/user"><div class="nav-text"> Bestellformular</div></a>
+                <a href="/themenkisten/user"><div class="nav-text"> Bestellformular</div></a>
             </li>
             <li class="sidebar-nav-text">
-                <a href="/user/loginForm"><div class="nav-text"> Bestellverwaltung</div></a>
-            </li>
+                <a href="/themenkisten/user/loginForm"><div class="nav-text"> Bestellverwaltung</div></a>
             </li>
         </ul>
     </div>

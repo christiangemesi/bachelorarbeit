@@ -195,6 +195,8 @@ $(document).ready(function () {
         dayToCalculateNextSundays = getNextDayOfWeek(new Date, 7);
         dayToCalculatePreviousSundays = getNextDayOfWeek(new Date, 7);
 
+        console.log(process.env.APP_URL);
+
         $.ajax({
             url: process.env.APP_URL + "/user/getThemebox",
             type:"POST",

@@ -200,7 +200,7 @@ $(document).ready(function () {
         dayToCalculatePreviousSundays = getNextDayOfWeek(new Date, 7);
 
         $.ajax({
-            url: "../themenkisten/user/getThemebox",
+            url: "../" + unique_url + "user/getThemebox",
             type:"POST",
             data: {themeboxId: themebox_Id},
             success: function(response) {

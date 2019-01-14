@@ -360,7 +360,7 @@ $(document).ready(function () {
     function loadBlockedDates() {
 
         $.ajax({
-            url: "../user/getBlockedPeriods",
+            url: "../themenkisten/user/getBlockedPeriods",
             type:"POST",
             data: {},
             success: function(data) {

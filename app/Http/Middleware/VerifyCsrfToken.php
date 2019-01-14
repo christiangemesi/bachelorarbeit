@@ -34,6 +34,30 @@ class VerifyCsrfToken extends Middleware
         'admin/updateBlockedPeriod',
         'admin/updatePassword',
         'admin/getMail',
-        'admin/updateMail'
+        'admin/updateMail',
+
+        'themenkisten/user/createOrder',
+        'themenkisten/user/getThemebox',
+        'themenkisten/user/getThemeboxContent',
+        'themenkisten/user/updateOrderDates',
+        'themenkisten/user/login',
+        'themenkisten/admin/login',
+        'themenkisten/admin/updateState',
+        'themenkisten/admin/createThemebox',
+        'themenkisten/admin/removeOrder',
+        'themenkisten/admin/removeThemebox',
+        'themenkisten/admin/loadStatisticsThemebox',
+        'themenkisten/admin/getThemebox',
+        'themenkisten/admin/updateThemebox',
+        'themenkisten/admin/getOrder',
+        'themenkisten/admin/updateOrder',
+        'themenkisten/user/getBlockedPeriods',
+        'themenkisten/admin/removeBlockedPeriod',
+        'themenkisten/admin/createBlockedPeriod',
+        'themenkisten/admin/getBlockedPeriod',
+        'themenkisten/admin/updateBlockedPeriod',
+        'themenkisten/admin/updatePassword',
+        'themenkisten/admin/getMail',
+        'themenkisten/admin/updateMail'
     ];
 }

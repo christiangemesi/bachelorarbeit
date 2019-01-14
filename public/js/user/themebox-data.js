@@ -388,6 +388,9 @@ $(document).ready(function () {
      */
     $(document).on("click", ".btn-show-themebox-content", function(event){
         $('#themebox-content-modal').modal('show');
+
+        console.log(process.env.APP_URL);
+
         $.ajax({
             url: "themenkisten/user/getThemeboxContent",
             type:"POST",

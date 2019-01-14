@@ -14,6 +14,10 @@ $(document).ready(function () {
     var dayToCalculateNextSundays = getNextDayOfWeek(new Date, 7);
     var dayToCalculatePreviousSundays = getNextDayOfWeek(new Date, 7);
 
+    /**
+     * variable needs to be set correspondently to the url
+     */
+    var unique_url = "themenkisten/";
 
 
     loadThemeboxInfoBox($(".themebox-list").first().attr('id')); //load themebox data from the first list element
@@ -360,7 +364,7 @@ $(document).ready(function () {
     function loadBlockedDates() {
 
         $.ajax({
-            url: "../" + '{{ env('UNIQUE_SERVER_URL') }}' + "user/getBlockedPeriods",
+            url: "../" + unique_url +"user/getBlockedPeriods",
             type:"POST",
             data: {},
             success: function(data) {
@@ -388,7 +392,7 @@ $(document).ready(function () {
         $('#themebox-content-modal').modal('show');
 
         $.ajax({
-            url: "/themenkisten/user/getThemeboxContent",
+            url: "/" + unique_url + "user/getThemeboxContent",
             type:"POST",
             data: {themeboxId: $("#themebox-id").val()},
             success: function(response) {

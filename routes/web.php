@@ -49,8 +49,8 @@ Route::post('/admin/updateMail', 'AdminController@updateMail');
 
 
 Route::get('/user', 'UserController@index');
-Route::post('user/getThemebox','UserController@getThemebox');
-Route::post('user/getThemeboxContent','UserController@getThemeboxContent');
+Route::post('../user/getThemebox','UserController@getThemebox');
+Route::post('/user/getThemeboxContent','UserController@getThemeboxContent');
 Route::post('/user/createOrder', 'UserController@createOrder');
 Route::get('/user/orderSuccess', 'UserController@orderSuccess')->name('orderSuccess');
 Route::get('/user/orderFailed', 'UserController@orderFailed')->name('orderFailed');

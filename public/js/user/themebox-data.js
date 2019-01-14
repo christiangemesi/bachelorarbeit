@@ -198,7 +198,7 @@ $(document).ready(function () {
         console.log(process.env.APP_URL);
 
         $.ajax({
-            url: process.env.APP_URL + "/user/getThemebox",
+            url: "/themenkisten/user/getThemebox",
             type:"POST",
             data: {themeboxId: themebox_Id},
             success: function(response) {
@@ -389,7 +389,7 @@ $(document).ready(function () {
     $(document).on("click", ".btn-show-themebox-content", function(event){
         $('#themebox-content-modal').modal('show');
         $.ajax({
-            url: process.env.APP_URL + "/user/getThemeboxContent",
+            url: "themenkisten/user/getThemeboxContent",
             type:"POST",
             data: {themeboxId: $("#themebox-id").val()},
             success: function(response) {

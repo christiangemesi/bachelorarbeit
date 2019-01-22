@@ -392,7 +392,7 @@ $(document).ready(function () {
         $('#themebox-content-modal').modal('show');
 
         $.ajax({
-            url: unique_url + "user/getThemeboxContent",
+            url: "../" + unique_url + "user/getThemeboxContent",
             type:"POST",
             data: {themeboxId: $("#themebox-id").val()},
             success: function(response) {

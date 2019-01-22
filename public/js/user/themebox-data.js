@@ -154,8 +154,10 @@ $(document).ready(function () {
      * @returns {any[]}
      */
     function computeDayBetweenStartAndEnd(startDate, endDate) {
+
         var arr = new Array();
         var dt = new Date(startDate);
+
         while (dt <= endDate) {
             arr.push(formatDate(new Date(dt)));
             dt.setDate(dt.getDate() + 1);
@@ -303,13 +305,10 @@ $(document).ready(function () {
     function blockTillNextSunday() {
         var nextSunday = getNextDayOfWeek(new Date(), 7);
 
-        var dayNextSunday = nextSunday.getUTCDate();
-        var dayToday = (new Date().getDay());
+        var tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
 
-        var numberOfIterations = dayNextSunday - dayToday;
-
-
-        var dateArr = computeDayBetweenStartAndEnd(new Date() + 1 , nextSunday);
+        var dateArr = computeDayBetweenStartAndEnd(tomorrow , nextSunday);
 
         for(var i = 0; i <= dateArr.length; i++){
             listOfBlockedDates.push(dateArr[i]);

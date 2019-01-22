@@ -46,7 +46,7 @@ $(document).ready(function () {
         minDate: 1,
         beforeShowDay: function(date){
             var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
-            return [ listOfBlockedDates.indexOf(string) == -1 ]
+            return [ listOfBlockedDates.indexOf(string) === -1 ]
         },
         onSelect: function (date) {
             bindEndData();

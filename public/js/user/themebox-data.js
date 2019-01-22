@@ -200,7 +200,7 @@ $(document).ready(function () {
         dayToCalculatePreviousSundays = getNextDayOfWeek(new Date, 7);
 
         $.ajax({
-            url: "../themenkisten/user/getThemebox",
+            url: "../" + unique_url + "user/getThemebox",
             type:"POST",
             data: {themeboxId: themebox_Id},
             success: function(response) {
@@ -392,7 +392,7 @@ $(document).ready(function () {
         $('#themebox-content-modal').modal('show');
 
         $.ajax({
-            url: "/" + unique_url + "user/getThemeboxContent",
+            url: "./user/getThemeboxContent",
             type:"POST",
             data: {themeboxId: $("#themebox-id").val()},
             success: function(response) {

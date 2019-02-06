@@ -274,7 +274,7 @@ $(document).ready(function () {
      */
     $('#button-save-order-change').click(function () {
         $.ajax({
-            url: "../admin/updateOrder",
+            url: "admin/updateOrder",
             type: 'POST',
             data: {order_data: $('#order-edit-form').serializeArray()},
             beforeSend: function () {

@@ -113,7 +113,7 @@
                                                                 <div id="order-calendar-legend-free"> <div class="order-calendar-legend-text">Verfügbar</div></div>
                                                             </div>
                                                             <div class="col-md-3">
-                                                                <div id="order-calendar-legend-block"><div class="order-calendar-legend-text">Blockiert</div></div>
+                                                                <div id="order-calendar-legend-block"><div class="order-calendar-legend-text">Ausgeliehen</div></div>
                                                             </div>
                                                             <div class="col-md-3">
                                                                 <div id="order-calendar-legend-new"><div class="order-calendar-legend-text">Ihre Auswahl</div></div>

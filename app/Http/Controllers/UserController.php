@@ -59,6 +59,7 @@ class UserController extends Controller
         return response()->json($themebox, 200);
     }
 
+
     /**
      * create new order
      * @param Request $request
@@ -100,7 +101,8 @@ class UserController extends Controller
             'receiver_mail' => $order->email,
             'receiver_name' => $order->name,
             'receiver_surname' => $order->surname,
-            'ordernumber' => $order->ordernumber
+            'ordernumber' => $order->ordernumber,
+            'extra_text' => $themebox->extra_text
         );
 
         try {
@@ -199,6 +201,7 @@ class UserController extends Controller
             $html_replaced = str_replace("!vorname!", $mail_data['receiver_surname'], $html_replaced);
             $html_replaced = str_replace("!bestellnummer!", $mail_data['ordernumber'], $html_replaced);
             $html_replaced = str_replace("!abholdatum!", $mail_data['pickupdate'], $html_replaced);
+            $html_replaced = str_replace("!extra_text!", $mail_data['extra_text'], $html_replaced);
 
             $mail_data['html'] = $html_replaced;
 
@@ -216,6 +219,7 @@ class UserController extends Controller
             $html_replaced = str_replace("!name!", $mail_data['receiver_name'], $html_replaced);
             $html_replaced = str_replace("!vorname!", $mail_data['receiver_surname'], $html_replaced);
             $html_replaced = str_replace("!bestellnummer!", $mail_data['ordernumber'], $html_replaced);
+            $html_replaced = str_replace("!extra_text!", $mail_data['extra_text'], $html_replaced);
 
             $mail_data['html'] = $html_replaced;
 

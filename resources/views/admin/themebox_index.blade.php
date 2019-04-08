@@ -13,6 +13,9 @@
     <script src="{{ asset('js/admin/themebox-table.js') }}"></script>
     <script src="{{ asset('js/callback-modal.js') }}"></script>
 
+    <link href="{{ asset('/summernote/summernote.css') }}" rel="stylesheet">
+    <script src="{{ asset('/summernote/summernote.js') }}"></script>
+
     <div class="modal fade" id="callback-modal" tabindex="-1">
         <div class="modal-dialog " role="document">
             <div class="modal-content">
@@ -111,6 +114,13 @@
                                         <span id="themebox-form-content-icon"></span>
                                         <span id="themebox-form-content-status" class="errorHeader">Inhalt wird benötigt!</span>
                                     </div>
+                                    <div class="form-group has-feedback">
+                                        <label class="themebox-form-label" for="themebox-form-extra_text">Extratext</label>
+                                        <div id="summernote_create"></div>
+                                    </div>
+                                    <div hidden>
+                                        <input id="extra_text_create" name="extra_text_create">
+                                    </div>
                                 </div>
                             </div>
                         </form>
@@ -200,6 +210,13 @@
                                               onkeyup="notEmptyValidate('themebox-edit-form-content','themebox-edit-form-content-status','themebox-edit-form-content-icon')"></textarea>
                                     <span id="themebox-edit-form-content-icon"></span>
                                     <span id="themebox-edit-form-content-status" class="errorHeader">Inhalt wird benötigt!</span>
+                                </div>
+                                <div class="form-group has-feedback">
+                                    <label class="themebox-form-label" for="themebox-edit-form-extra_text">Extratext</label>
+                                    <div id="summernote_edit" name="extra_text"></div>
+                                </div>
+                                <div hidden>
+                                    <input id="extra_text_edit" name="extra_text_edit">
                                 </div>
                                 <div class="form-group">
                                     <div class="float-left">

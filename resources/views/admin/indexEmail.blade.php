@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.masterNoBootstrap')
 @section('title', 'ThekRe - Admin')
 
 @section('content')
@@ -12,7 +12,6 @@
     <script src="{{ asset('js/callback-modal.js') }}"></script>
     <script src="{{ asset('js/admin/mail.js') }}"></script>
     <script src="{{ asset('js/jquery-1.12.4.js') }}"></script>
-
 
     <!-- include js, jquery and css for summernote-->
     <link href="{{ asset('js/bootstrap/css/bootstrap.css') }}" rel="stylesheet">
@@ -82,7 +81,7 @@
                     <div id="summernote"></div>
                 </div>
 
-                    <div class="form-group">
+                <div class="form-group">
                     <button id="confirm-button-mail" class="btn btn-primary float-right">Speichern</button>
                 </div>
 

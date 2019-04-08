@@ -31,6 +31,9 @@ $(document).ready(function () {
      * show create themebox modal
      */
     $("#button-create-themebox").click(function () {
+
+        $('#summernote_create').summernote();
+
         $('#themebox-create-modal').modal('show');
         $('#create-themebox-form').trigger("reset");
 
@@ -55,6 +58,9 @@ $(document).ready(function () {
      * create themebox
      */
     $('#create-themebox-button').click(function () {
+
+        document.getElementById('extra_text_create').value = $('#summernote_create').summernote('code');
+
         $.ajax({
             url: "../admin/createThemebox",
             type: 'POST',
@@ -86,6 +92,10 @@ $(document).ready(function () {
                 $("#themebox-edit-form-size").val(response["size"]);
                 $("#themebox-edit-form-weight").val(response["weight"]);
                 $("#themebox-edit-form-content").val(response["content"]);
+                $("#themebox-edit-form-extra_text").val(response["extra_text"]);
+
+                $('#summernote_edit').summernote("code", response["extra_text"]);
+
                 if (1 === response["complete"]) {
                     $("#themebox-edit-form-complete").prop('checked', true);
                     $("#themebox-edit-form-complete").val(1);
@@ -102,6 +112,7 @@ $(document).ready(function () {
                 notEmptyValidate('themebox-edit-form-size','themebox-edit-form-size-status','themebox-edit-form-size-icon');
                 notEmptyValidate('themebox-edit-form-weight','themebox-edit-form-weight-status','themebox-edit-form-weight-icon');
                 notEmptyValidate('themebox-edit-form-content','themebox-edit-form-content-status','themebox-edit-form-content-icon');
+
             },
             error: function (xhr, status, error) {
                 showFailureModal("Es ist ein Server Problem aufgetreten", xhr);
@@ -124,6 +135,9 @@ $(document).ready(function () {
      * save themebox changes
      */
     $("#button-save-themebox-change").click(function () {
+
+        document.getElementById('extra_text_edit').value = $('#summernote_edit').summernote('code');
+
         $.ajax({
             url: "../admin/updateThemebox",
             type: 'POST',

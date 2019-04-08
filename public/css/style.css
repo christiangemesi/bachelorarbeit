@@ -327,7 +327,7 @@ body{
 
 .detail-container{
     overflow-x: auto;
-    height: 180px;
+    height: 220px;
 }
 
 .data-table-thekre{
@@ -466,6 +466,7 @@ h2{
 
 .themebox-table-value{
     color: #808080;
+    padding-bottom: 5px;
 }
 
 .print-table-title{
@@ -748,4 +749,8 @@ h2{
 
 #themebox-list-search{
     width: 105%;
+}
+
+#themebox-extra-text-modal-box{
+    display: inline-table;
 }

@@ -389,6 +389,7 @@ class AdminController extends Controller
         $themebox->size = $request->themebox_data[4]["value"];
         $themebox->weight = $request->themebox_data[5]["value"];
         $themebox->content = $request->themebox_data[6]["value"];
+        $themebox->extra_text = $request->themebox_data[7]["value"];
         $themebox->complete = true;
 
         try {
@@ -427,11 +428,12 @@ class AdminController extends Controller
                 'barcode' => $request->themebox_data[4]["value"],
                 'size' => $request->themebox_data[5]["value"],
                 'weight' => $request->themebox_data[6]["value"],
-                'content' => $request->themebox_data[7]["value"]]
+                'content' => $request->themebox_data[7]["value"],
+                'extra_text' => $request->themebox_data[8]["value"]]
            );
 
            $status = 0;
-           if(!empty($request->themebox_data[8]["value"])){
+           if(!empty($request->themebox_data[9]["value"])){
                $status = 1;
            }
 

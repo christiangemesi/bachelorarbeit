@@ -269,7 +269,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div id="order-calendar-legend-block">
-                                            <div class="order-calendar-legend-text">Blockiert</div>
+                                            <div class="order-calendar-legend-text">Ausgeliehen</div>
                                         </div>
                                     </div>
                                     <div class="col-md-3">

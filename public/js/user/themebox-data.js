@@ -46,7 +46,7 @@ $(document).ready(function () {
         minDate: 1,
         beforeShowDay: function(date){
             var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
-            return [ listOfBlockedDates.indexOf(string) == -1 ]
+            return [ listOfBlockedDates.indexOf(string) === -1 ]
         },
         onSelect: function (date) {
             bindEndData();
@@ -154,8 +154,10 @@ $(document).ready(function () {
      * @returns {any[]}
      */
     function computeDayBetweenStartAndEnd(startDate, endDate) {
+
         var arr = new Array();
         var dt = new Date(startDate);
+
         while (dt <= endDate) {
             arr.push(formatDate(new Date(dt)));
             dt.setDate(dt.getDate() + 1);
@@ -211,6 +213,11 @@ $(document).ready(function () {
                     '<tr><td>Grösse: </td><td class="themebox-table-value">' + response["data"]["themebox"]["size"]+'</td></tr>' +
                     '<tr><td>Gewicht: </td><td class="themebox-table-value">' + response["data"]["themebox"]["weight"]+' kg</td></tr>' +
                     '<tr><td>Inhalt: </td><td class="themebox-table-value"><button type="button" class="btn btn-default btn-show-themebox-content">Anzeigen <span class="glyphicon glyphicon-search"></span></button></td></tr>';
+
+                if (response["data"]["themebox"]["extra_text"] != null) {
+                    html = html + '<tr><td>Extratext: </td><td class="themebox-table-value"><button type="button" class="btn btn-danger btn-show-extra-text">Anzeigen <span class="glyphicon glyphicon-search"></span></button></td></tr>';
+                }
+
                 $('#themebox-infobox').html(html);
 
                 var hiddenField = '<input type="hidden" name="themeboxId" value=' + themebox_Id + '>';
@@ -303,13 +310,10 @@ $(document).ready(function () {
     function blockTillNextSunday() {
         var nextSunday = getNextDayOfWeek(new Date(), 7);
 
-        var dayNextSunday = nextSunday.getUTCDate();
-        var dayToday = (new Date().getDay());
+        var tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
 
-        var numberOfIterations = dayNextSunday - dayToday;
-
-
-        var dateArr = computeDayBetweenStartAndEnd(new Date() + 1 , nextSunday);
+        var dateArr = computeDayBetweenStartAndEnd(tomorrow , nextSunday);
 
         for(var i = 0; i <= dateArr.length; i++){
             listOfBlockedDates.push(dateArr[i]);
@@ -404,6 +408,28 @@ $(document).ready(function () {
             }
         });
     });
+
+
+    /**
+     * button to show the themebox extra text
+     */
+    $(document).on("click", ".btn-show-extra-text", function(event){
+        $('#themebox-extra-text-modal').modal('show');
+
+        $.ajax({
+            url: "./user/getThemeboxContent",
+            type:"POST",
+            data: {themeboxId: $("#themebox-id").val()},
+            success: function(response) {
+                $('#themebox-extra-text-modal-box').html(response["extra_text"]);
+            },
+            error: function(xhr, status, error) {
+                errorHandling("Es ist ein Fehler bei der Datenverarbeitung passiert. Bitte kontaktieren Sie die FHNW Bibliothek unter bibliothek.windisch@fhnw.ch", "#error-message-box");
+                console.log(process.env.APP_URL);
+            }
+        });
+    });
+
 
     $('.thekre-list li a').click(function(e) {
         e.preventDefault();

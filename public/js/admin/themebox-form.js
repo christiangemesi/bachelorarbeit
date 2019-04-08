@@ -47,13 +47,18 @@ function checkform() {
     var cansubmitf = true;
     var cansubmits = true;
 
-        for (var i = 0; i < f.length; i++) {
-            if (f[i].value.length == 0){
+    const NUMBER_OF_FIELDS_TO_BE_CHECKED = 7;
+
+        for (var i = 0; i < NUMBER_OF_FIELDS_TO_BE_CHECKED; i++) {
+
+            if (f[i].value.length === 0){
                 cansubmitf = false;
             }
+
         }
-        for (var a = 0; a < s.length; a++) {
-            if (s[a].value.length == 0){
+        for (var a = 0; a < NUMBER_OF_FIELDS_TO_BE_CHECKED; a++) {
+
+            if (s[a].value.length === 0){
                 cansubmits = false;
             }
         }
@@ -67,7 +72,7 @@ function checkform() {
             if (cansubmits) {
                 document.getElementById("button-save-themebox-change").disabled = !cansubmits;
             }
-        }
+}
 
 }
 

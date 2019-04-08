@@ -113,7 +113,7 @@
                                                                 <div id="order-calendar-legend-free"> <div class="order-calendar-legend-text">Verfügbar</div></div>
                                                             </div>
                                                             <div class="col-md-3">
-                                                                <div id="order-calendar-legend-block"><div class="order-calendar-legend-text">Blockiert</div></div>
+                                                                <div id="order-calendar-legend-block"><div class="order-calendar-legend-text">Ausgeliehen</div></div>
                                                             </div>
                                                             <div class="col-md-3">
                                                                 <div id="order-calendar-legend-new"><div class="order-calendar-legend-text">Ihre Auswahl</div></div>
@@ -288,6 +288,7 @@
                 </div>
             </div>
         </div>
+
         <div class="modal fade" id="themebox-content-modal">
             <div class="modal-dialog " role="document">
                 <div class="modal-content">
@@ -302,6 +303,31 @@
                             <div class="panel-body">
                                 <div class="form-group">
                                     <textarea id="themebox-content-modal-box" class="form-control" rows="20" disabled="true"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-lg btn-default btn-modal float-right" data-dismiss="modal">Schliessen</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="themebox-extra-text-modal">
+            <div class="modal-dialog " role="document">
+                <div class="modal-content">
+                    <div id="modal-content-info">
+                        <div class="panel-heading modal-header-info">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h1 id="modal-content-info-header">Extratext</h1>
+                        </div>
+                        <div class="modal-body">
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <div id="themebox-extra-text-modal-box" class="form-control" rows="20"></div>
                                 </div>
                             </div>
                         </div>

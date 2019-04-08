@@ -116,7 +116,7 @@
                                     </div>
                                     <div class="form-group has-feedback">
                                         <label class="themebox-form-label" for="themebox-form-extra_text">Extratext</label>
-                                        <div id="summernote_create"></div>
+                                        <div id="summernote_create" name="extra_text"></div>
                                     </div>
                                     <div hidden>
                                         <input id="extra_text_create" name="extra_text_create">

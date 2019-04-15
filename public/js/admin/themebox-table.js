@@ -138,6 +138,12 @@ $(document).ready(function () {
 
         document.getElementById('extra_text_edit').value = $('#summernote_edit').summernote('code');
 
+        rawText = document.getElementById('extra_text_edit').value.replace(/<\/?[^>]+(>|$)/g, "");
+
+        if (rawText === "") {
+            document.getElementById('extra_text_edit').value = null;
+        }
+
         $.ajax({
             url: "../admin/updateThemebox",
             type: 'POST',

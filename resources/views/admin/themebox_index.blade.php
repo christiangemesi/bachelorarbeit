@@ -115,7 +115,7 @@
                                         <span id="themebox-form-content-status" class="errorHeader">Inhalt wird benötigt!</span>
                                     </div>
                                     <div class="form-group has-feedback">
-                                        <label class="themebox-form-label" for="themebox-form-extra_text">Extratext</label>
+                                        <label class="themebox-form-label" for="themebox-form-extra_text">Wichtige Info</label>
                                         <div id="summernote_create" name="extra_text"></div>
                                     </div>
                                     <div hidden>
@@ -212,7 +212,7 @@
                                     <span id="themebox-edit-form-content-status" class="errorHeader">Inhalt wird benötigt!</span>
                                 </div>
                                 <div class="form-group has-feedback">
-                                    <label class="themebox-form-label" for="themebox-edit-form-extra_text">Extratext</label>
+                                    <label class="themebox-form-label" for="themebox-edit-form-extra_text">Wichtige Info</label>
                                     <div id="summernote_edit" name="extra_text"></div>
                                 </div>
                                 <div hidden>

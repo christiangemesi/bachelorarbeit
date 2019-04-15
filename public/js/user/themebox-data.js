@@ -215,7 +215,7 @@ $(document).ready(function () {
                     '<tr><td>Inhalt: </td><td class="themebox-table-value"><button type="button" class="btn btn-default btn-show-themebox-content">Anzeigen <span class="glyphicon glyphicon-search"></span></button></td></tr>';
 
                 if (response["data"]["themebox"]["extra_text"] != null) {
-                    html = html + '<tr><td>Extratext: </td><td class="themebox-table-value"><button type="button" class="btn btn-danger btn-show-extra-text">Anzeigen <span class="glyphicon glyphicon-search"></span></button></td></tr>';
+                    html = html + '<tr><td>Wichtige Info: </td><td class="themebox-table-value"><button type="button" class="btn btn-danger btn-show-extra-text">Anzeigen <span class="glyphicon glyphicon-search"></span></button></td></tr>';
                 }
 
                 $('#themebox-infobox').html(html);

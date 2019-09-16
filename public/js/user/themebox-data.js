@@ -17,7 +17,7 @@ $(document).ready(function () {
     /**
      * variable needs to be set correspondently to the url
      */
-    var unique_url = "themenkisten/";
+    var unique_url = "/";
 
 
     loadThemeboxInfoBox($(".themebox-list").first().attr('id')); //load themebox data from the first list element

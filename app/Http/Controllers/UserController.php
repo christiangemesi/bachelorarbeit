@@ -36,9 +36,11 @@ class UserController extends Controller
         $themebox_Id = $request["themeboxId"];
         $themebox = Themebox::find($themebox_Id);
 
+        $orders = Order::select('startdate','enddate')->where('fk_themebox', '=', $themebox_Id)->get();
 
         $data = array(
             "themebox" => $themebox,
+            "orders" => $orders
         );
 
         return response()->json(['data' => $data], 200);
@@ -63,10 +65,8 @@ class UserController extends Controller
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    
     public function createOrder(Request $request)
-    {
-        
+    {     
         
         $order = new Order();
         $order->fk_themebox = $request->themeboxId;

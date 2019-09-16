@@ -11,6 +11,8 @@
 |
 */
 
+
+
 $url = getenv('APP_URL');
 
 
@@ -58,4 +60,12 @@ Route::post('/user/login', 'UserController@login');
 Route::get('/user/loginForm', 'UserController@loginForm');
 Route::post('/user/updateOrderDates', 'UserController@updateOrderDates');
 Route::post('/user/getBlockedPeriods', 'UserController@getBlockedPeriods');
+
+Route::get('/poweruser','PowerUserController@index')->name('poweruserIndex');
+Route::get('/poweruser/themboxes','PowerUserController@getThemeboxes');
+Route::get('/poweruser/themboxes','PowerUserController@indexThembox');
+Route::post('/poweruser/login', 'PowerUserController@login');
+Route::get('/poweruser/loginForm', 'PowerUserController@loginForm')->name('PowerloginForm');
+
+
 

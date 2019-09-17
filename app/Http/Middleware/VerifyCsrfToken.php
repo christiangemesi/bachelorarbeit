@@ -18,6 +18,7 @@ class VerifyCsrfToken extends Middleware
         'user/updateOrderDates',
         'user/login',
         'admin/login',
+        'poweruser/login',
         'admin/updateState',
         'admin/createThemebox',
         'admin/removeOrder',

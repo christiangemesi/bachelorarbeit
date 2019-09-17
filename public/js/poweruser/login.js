@@ -30,11 +30,11 @@ $(document).ready(function() {
 
 
     /**
-     * admin login
+     * poweruser login
      */
     function checkLogin(){
         $.ajax({
-            url: "http://localhost/admin/login",
+            url: "login",
             type:'POST',
             data: {password: $('#poweruser-password').val()},
             success:  function(response) {

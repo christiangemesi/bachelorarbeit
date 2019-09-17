@@ -36,16 +36,22 @@ class PowerUserController extends Controller
         }
         return false;
     }
+
+
     public function login(Request $request)
-    {   $this->console_log($request->password);
-        $this->console_log($this->getAdminPassword());
-        if (Hash::check($request->password, $this->getAdminPassword())) {
+    {
+        if (Hash::check($request->password, $this->getPoweruserPassword())) {
 
             $_SESSION['ThekRe_Poweruser'] = true;
             return response()->json('success');
         } else {
             return response()->json('failure');
         }
+    }
+    public function logout()
+    {
+        unset($_SESSION['ThekRe_Poweruser']);
+        return redirect('poweruser');
     }
 
     public function loginForm()
@@ -60,7 +66,7 @@ class PowerUserController extends Controller
     /**
      * get admin password from db
      */
-    public function getAdminPassword(){
+    public function getPoweruserPassword(){
         $passwordJSON = Login::where('pk_login', 1)->get();
         return $passwordJSON[0]{'password'};
     }

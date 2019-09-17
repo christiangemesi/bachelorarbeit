@@ -20,13 +20,6 @@ use Mail;
 
 class AdminController extends Controller
 {
-    //TODO remove again
-    public function console_log($data){
-        echo '<script>';
-        echo 'console.log('. json_encode( $data ) .')';
-        echo '</script>';
-    }
-
     public function __construct()
     {
         if (session_status() == PHP_SESSION_NONE) {
@@ -93,6 +86,7 @@ class AdminController extends Controller
      */
     public function login(Request $request)
     {
+
         if (Hash::check($request->password, $this->getAdminPassword())) {
             $_SESSION['ThekRe_Admin'] = true;
             return response()->json('success');

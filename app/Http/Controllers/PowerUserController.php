@@ -23,7 +23,7 @@ class PowerUserController extends Controller
     public function index()
     {
         if ($this->checkLogin()) {
-            return view('poweruser/index',  ['orders' => $this->getOrders(), 'statuses' => $this->getStatuses()]);
+            return view('poweruser/index',  ['orders' => $this->getOrders(), 'statuses' => $this->getStatuses(),'themeboxes' => $this->getThemeboxes()]);
         } else {
             return redirect()->route('PowerloginForm');
         }

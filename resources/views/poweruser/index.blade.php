@@ -14,11 +14,13 @@
     <link rel="stylesheet" href="{{ asset('css/calendar/fullcalendar.css') }}">
     <script src="{{ asset('js/calendar/fullcalendar.js') }}"></script>
     <script src="{{ asset('js/calendar/de-ch.js') }}"></script>
-    <script src="{{ asset('js/admin/order-form.js') }}"></script>
-    <script src="{{ asset('js/admin/order-table.js') }}"></script>
+    <script src="{{ asset('js/poweruser/order-form.js') }}"></script>
+    <script src="{{ asset('js/poweruser/order-table.js') }}"></script>
     <script src="{{ asset('js/calendar/event-creator.js') }}"></script>
     <script src="{{ asset('js/calendar/add-first-block.js') }}"></script>
     <script src="{{ asset('js/callback-modal.js') }}"></script>
+    <link href="{{ asset('/summernote/summernote.css') }}" rel="stylesheet">
+    <script src="{{ asset('/summernote/summernote.js') }}"></script>
 
 
     <div class="modal fade" id="callback-modal" tabindex="-1">
@@ -48,8 +50,10 @@
         </div>
     </div>
 
+
     <div class="col-md-12 admin-panel  data-table-thekre">
         <h1 class="admin-header">Bestellungen</h1>
+        <button type="button" class="btn btn-success btn-create-themebox" id="button-create-order"><span class="glyphicon glyphicon-plus"></span> Besstellung hinzufügen</button>
         <div class="panel panel-default no-border  margin-top-less" id="table-content">
             <table id="new-order-table" class="data-table table table-bordered" cellspacing="0" width="100%">
                 <thead>
@@ -118,7 +122,42 @@
             </table>
         </div>
     </div>
-
+    <div class="modal fade" id="order-add-modal" tabindex="-1">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header modal-header-success">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <div class="panel-heading themebox-new-title">
+                        Besstellung hinzufügen
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <form id="order-add-form" autocomplete="off">
+                            <div class="col-md-6 thekre-row overflow-order-user-box">
+                                <input type="hidden" value="" name="order-id" id="order-id">
+                                <div class="panel-body margin-less">
+                                    <div class="row thekre-row">
+{{--                                        TODO: ganzi scheis form--}}
+                                        <div class="form-group">
+                                            <label class="float-left" for="orderbox-choose-add">Themenkiste</label>
+                                            <select class="form-control" id="orderbox-choose-add">
+                                                @foreach($themeboxes as $thembox)
+                                                    <option>{{$thembox["title"]}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="modal fade" id="order-edit-modal" tabindex="-1">
         <div class="modal-dialog  modal-lg" role="document">
             <div class="modal-content">

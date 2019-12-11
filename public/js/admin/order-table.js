@@ -279,6 +279,7 @@ $(document).ready(function () {
             data: {order_data: $('#order-edit-form').serializeArray()},
             beforeSend: function () {
                 $('#modal-order-edit-progress').modal('show');
+                console.log($('#order-edit-form').serializeArray());
             },
             success: function (response) {
                 $('#modal-order-edit-progress').modal('toggle');

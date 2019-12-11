@@ -9,18 +9,31 @@ $(document).ready(function () {
         return false;
     });
 
+    $('#orderAdd-start-date').keydown(function () {
+        return false;
+    });
+
+    $('#orderAdd-end-date').keydown(function () {
+        return false;
+    });
+
     /**
      * Focus is set on button click on glyphicon
      */
     $("#order-from-glyphicon").click(function () {
         $("#start-date").focus();
     });
-
+    $("#orderAdd-from-glyphicon").click(function () {
+        $("#orderAdd-start-date").focus();
+    })
     /**
      * Focus is set on button click on glyphicon
      */
     $("#order-to-glyphicon").click(function () {
         $("#end-date").focus();
+    });
+    $("#orderAdd-to-glyphicon").click(function () {
+        $("#orderAdd-end-date").focus();
     });
 
     /**
@@ -30,7 +43,7 @@ $(document).ready(function () {
         var status_data = this.value;
 
         $.ajax({
-            url: "admin/updateState",
+            url: "poweruser/updateState",
             type: 'POST',
             data: {status_data: status_data},
             headers: {
@@ -68,24 +81,6 @@ $(document).ready(function () {
     });
 
     /**
-     * confirm remove themebox
-     */
-    $('#button-delete-order-confirm').click(function () {
-        $.ajax({
-            url: "admin/removeOrder",
-            type: 'POST',
-            data: {order_id: $('#object-remove-id').val()},
-            success: function (response) {
-                showSuccessModal("Bestellung wurde erfolgreich gelöscht");
-            },
-            error: function (xhr, status, error) {
-                showFailureModal("Es ist ein Fehler beim Löschen passiert", xhr);
-            }
-        })
-    });
-
-
-    /**
      * button print
      */
     function printData()
@@ -104,8 +99,6 @@ $(document).ready(function () {
             type: 'POST',
             data: {order_id: $(this).val()},
             success: function (response) {
-
-
                 var html =
                     '<tr><td class="print-table-title"><strong>Bestellung: </strong></td><td class="print-table-text">' + response["order"]["ordernumber"] +'</td></tr>' +
                     '<tr><td> </td></tr>' +
@@ -143,6 +136,7 @@ $(document).ready(function () {
                 showFailureModal("Es ist ein Fehler beim Laden der Daten vorgekommen", xhr);
             },
             complete: function () {
+
                 printData();
             }
         });
@@ -154,7 +148,7 @@ $(document).ready(function () {
      */
     $(".button-edit-order").click(function () {
         $.ajax({
-            url: "admin/getOrder",
+            url: "poweruser/getOrder",
             type: 'POST',
             data: {order_id: $(this).val()},
             success: function (response) {
@@ -171,6 +165,7 @@ $(document).ready(function () {
                         keyboard: false
                     }
                 );
+
                 $('#order-edit-form').trigger("reset");
                 $("#order-id").val(response["order"]["pk_order"]);
                 $("#ordernumber-edit").val(response["order"]["ordernumber"]);
@@ -255,7 +250,7 @@ $(document).ready(function () {
 
                 bindEndData();
                 addBlockDateFromToday();
-            },
+                },
             error: function (xhr, status, error) {
                 showFailureModal("Es ist ein Fehler beim Laden der Daten vorgekommen", xhr);
             }
@@ -274,7 +269,7 @@ $(document).ready(function () {
      */
     $('#button-save-order-change').click(function () {
         $.ajax({
-            url: "admin/updateOrder",
+            url: "poweruser/updateOrder",
             type: 'POST',
             data: {order_data: $('#order-edit-form').serializeArray()},
             beforeSend: function () {
@@ -287,6 +282,32 @@ $(document).ready(function () {
             error: function (xhr, status, error) {
                 $('#modal-order-edit-progress').modal('toggle');
                 showFailureModal("Änderungen konnten nicht gespeichert werden", xhr);
+            }
+        });
+    });
+
+    $('#button-save-orderAdd').click(function () {
+        var order_data = {
+            themeboxId: parseInt($('#orderAdd-thembox').val()),
+            orderData: $('#order-add-form').serializeArray()
+        }
+        $.ajax({
+            url: "poweruser/addOrder",
+            type: 'POST',
+            data: order_data,
+            beforeSend: function () {
+                $('#modal-order-edit-progress').modal('show');
+
+            },
+            success: function (response) {
+                $('#modal-order-edit-progress').modal('toggle');
+                showSuccessModal("Bestelung wurde erfolgreich gespeichert");
+
+            },
+            error: function (xhr, status, error,response) {
+                $('#modal-order-edit-progress').modal('toggle');
+                showFailureModal("Bestellung konnten nicht gespeichert werden", xhr);
+
             }
         });
     });
@@ -330,6 +351,24 @@ $(document).ready(function () {
     $("#end-date").datepicker({
         dateFormat: "dd.mm.yy",
         onSelect: function (date) {
+            // updateEvent();
+        }
+    });
+
+    $("#orderAdd-start-date").datepicker({
+        dateFormat: "dd.mm.yy",
+        onSelect: function (date) {
+            // bindEndData();
+            // updateEvent();
+        }
+    });
+
+    /**
+     * end date input field
+     */
+    $("#orderAdd-end-date").datepicker({
+        dateFormat: "dd.mm.yy",
+        onSelect: function (date) {
             updateEvent();
         }
     });
@@ -338,6 +377,22 @@ $(document).ready(function () {
      * initial caledar settings
      */
     $("#calendar").fullCalendar({
+        selectable: true,
+        eventColor: "#f44242",
+        height: "auto",
+        dayClick: function (date, allDay, jsEvent, view) {
+            $("#info-calendar-message-box").html("Wählen Sie oben ihre gewünschte Ausleihperiode");
+            $("#info-calendar-message-box").css("display", "block");
+            $("#error-calendar-message-box").css("display", "none");
+        },
+        select: function (start, end, allDay) {
+            $("#info-calendar-message-box").html("Wählen Sie oben ihre gewünschte Ausleihperiode");
+            $("#info-calendar-message-box").css("display", "block");
+            $("#error-calendar-message-box").css("display", "none");
+        }
+    });
+
+    $("#orderAdd-calendar").fullCalendar({
         selectable: true,
         eventColor: "#f44242",
         height: "auto",
@@ -445,27 +500,112 @@ $(document).ready(function () {
     /**
      * show create order modal
      */
-    //TODO button click show modal and usw...
     $("#button-create-order").click(function () {
+        let fk_thembox = 1;
+        $.ajax({
+            url: "poweruser/getOrderAddData",
+            type: "POST",
+            data: {fk_thembox},
+            success: function (response){
+                $('#summernote_create').summernote();
 
-        $('#summernote_create').summernote();
+                $('#order-add-modal').modal("show");
+                $('#order-add-form').trigger("reset");
+                $('#order-add-form span').each(function () {
+                    $(this).removeClass("glyphicon glyphicon-ok form-control-feedback")
+                });
+                $("#order-add-form div").each(function () {
+                    $(this).removeClass("has-success has-feedback");
+                });
+                $('#order-add-form span').each(function () {
+                    $(this).removeClass("glyphicon glyphicon-remove form-control-feedback");
+                });
+                $('#order-add-form div').each(function () {
+                    $(this).removeClass("has-error has-feedback");
+                });
+                $("#orderAdd-calendar").fullCalendar("render");
+                $("#orderAdd-calendar").fullCalendar("removeEvents");
+                $("#orderAdd-calendar").fullCalendar('removeEvents', function (event) {
+                    return event.className == "newOrder";
+                });
+                response["orderData"].forEach(function (element) {
+                    $('#orderAdd-calendar').fullCalendar("renderEvent", {
+                        title: "",
+                        start: addTime(element["order_startdate"]),
+                        end: addEndTime(element["order_enddate"]),
+                        rendering: "background",
+                        className: "myOrder",
+                        color: "#f44242"
+                    }, true);
+                })
 
-        $('#order-add-modal').modal("show");
-        $('#order-add-form').trigger("reset");
+                $('#order-add-modal').modal('show',
+                    {
+                        backdrop: 'static',
+                        keyboard: false
+                    }
+                );
 
-        $('#order-add-form span').each(function () {
-            $(this).removeClass("glyphicon glyphicon-ok form-control-feedback")
-        });
-        $("#order-add-form div").each(function () {
-            $(this).removeClass("has-success has-feedback");
-        });
-        $('#order-add-form span').each(function () {
-            $(this).removeClass("glyphicon glyphicon-remove form-control-feedback");
-        });
-        $('#order-add-form div').each(function () {
-            $(this).removeClass("has-error has-feedback");
-        });
-        console.log("click");
+                response["delivery"].forEach(function (element) {
+                    $("#orderAdd-delivery").append("<option value=" + element['pk_delivery'] + " selected>" + element['type'] + "</option>")
+
+                })
+                $("#orderAdd-delivery").val(1);
+
+            },
+        })
+    })
+
+    $('#orderAdd-delivery').click(function () {
+        if ($("#orderAdd-delivery").val() == "1") {
+            $("#orderAdd-delivery-type").hide();
+            lastNameValidate($("#orderAdd-nachname"),$("#orderAdd-lastNameInputStatus"),$("#orderAdd-lastNameIcon"));
+            firstNameValidate($("#orderAdd-name"),$("#orderAdd-firstNameInputStatus"),$("#orderAdd-firstNameIcon"));
+            emailValidate($("#orderAdd-email"),$("#orderAdd-emailInputStatus"),$("#orderAdd-emailIcon"));
+            phoneValidate($("#orderAdd-phone"),$("#orderAdd-phoneInputStatus"),$("#orderAdd-phoneIcon"));
+            nebisValidate($("#orderAdd-Nebisnumber"),$("#orderAdd-nebisInputStatus"),$("#orderAdd-nebisIcon"));
+        }
+        else {
+            $("#orderAdd-delivery-type").show();
+            schoolnameValidate($("#orderAdd-schoolname"),$("#orderAdd-schoolNameInputStatus"),$("#orderAdd-schoolNameIcon"));
+            schoolstreetValidate($("#orderAdd-schoolstreet"),$("#orderAdd-schoolstreetInputStatus"),$("#orderAdd-schoolstreetIcon"));
+            schoolcityValidate($("#orderAdd-schoolcity"),$("#orderAdd-schoolcityInputStatus"),$("#orderAdd-schoolcityIcon"));
+            placeofhandoverValidate($("#orderAdd-placeofhandover"),$("#orderAdd-placeofhandoverInputStatus"),$("#orderAdd-placeofhandoverIcon"));
+            schoolphoneValidate($("#orderAdd-schoolphonenumber"),$("#orderAdd-schoolphoneInputStatus"),$("#orderAdd-schoolphoneIcon"));
+        }
+    });
+
+    $('#order-add-modal').on('shown.bs.modal', function () {
+        $("#orderAdd-calendar").fullCalendar('render');
+    });
+
+    $('#orderAdd-thembox').change(function () {
+        let fk_thembox = parseInt($('#orderAdd-thembox').val());
+
+        $.ajax({
+            url: "poweruser/getOrderAddData",
+            type: "POST",
+            data: {fk_thembox},
+            success: function (response) {
+                $("#orderAdd-calendar").fullCalendar("render");
+                $("#orderAdd-calendar").fullCalendar("removeEvents");
+                $("#orderAdd-calendar").fullCalendar('removeEvents', function (event) {
+                    return event.className == "newOrder";
+                });
+
+
+                response["orderData"].forEach(function (element) {
+                    $('#orderAdd-calendar').fullCalendar("renderEvent", {
+                        title: "",
+                        start: addTime(element["order_startdate"]),
+                        end: addEndTime(element["order_enddate"]),
+                        rendering: "background",
+                        className: "myOrder",
+                        color: "#f44242"
+                    }, true);
+                })
+            }
+        })
     })
 });
 

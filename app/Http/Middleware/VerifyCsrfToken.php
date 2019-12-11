@@ -17,8 +17,14 @@ class VerifyCsrfToken extends Middleware
         'user/getThemeboxContent',
         'user/updateOrderDates',
         'user/login',
-        'admin/login',
+
         'poweruser/login',
+        'poweruser/updateOrder',
+        'poweruser/getOrder',
+        'poweruser/getOrderAddData',
+        'poweruser/addOrder',
+
+        'admin/login',
         'admin/updateState',
         'admin/createThemebox',
         'admin/removeOrder',
@@ -34,6 +40,7 @@ class VerifyCsrfToken extends Middleware
         'admin/getBlockedPeriod',
         'admin/updateBlockedPeriod',
         'admin/updatePassword',
+        'admin/updatePoweruserPassword',
         'admin/getMail',
         'admin/updateMail',
 

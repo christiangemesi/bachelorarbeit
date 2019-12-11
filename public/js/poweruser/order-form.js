@@ -1,137 +1,150 @@
 /**
  * 1.Form personal data
  */
-function firstNameValidate() {
+function firstNameValidate(input,status,icon) {
 
-    var firstNameInput = document.getElementById("surname");
+    var firstNameInput = convertToObject(input);
+    var firstNameInputStatus = convertToObject(status);
+    var firstNameInputIcon = convertToObject(icon);
 
     if (firstNameInput.value == "") {
-        document.getElementById("firstNameInputStatus").innerHTML = "Vorname wird benötigt!";
-        document.getElementById("firstNameInputStatus").style.display = "block";
+        firstNameInputStatus.innerHTML = "Vorname wird benötigt!";
+        firstNameInputStatus.style.display = "block";
         firstNameInput.parentNode.className = "form-group has-error has-feedback";
-        document.getElementById("firstNameIcon").className = "glyphicon glyphicon-remove form-control-feedback";
+        firstNameInputIcon.className = "glyphicon glyphicon-remove form-control-feedback";
         checkformOrder(0);
         return false;
     } else if (!onlyLetters(firstNameInput.value)) {
-        document.getElementById("firstNameInputStatus").innerHTML = "Nur Buchstaben sind erlaubt!";
-        document.getElementById("firstNameInputStatus").style.display = "block";
+        firstNameInputStatus.innerHTML = "Nur Buchstaben sind erlaubt!";
+        firstNameInputStatus.style.display = "block";
         firstNameInput.parentNode.className = "form-group has-warning has-feedback";
-        document.getElementById("firstNameIcon").className = "glyphicon glyphicon-warning-sign form-control-feedback";
-        document.getElementById("button-save-order-change").disabled = true;
+        firstNameInputIcon.className = "glyphicon glyphicon-warning-sign form-control-feedback";
+        saveOrderChangeButton.disabled = true;
         return false;
     } else {
-        document.getElementById("firstNameInputStatus").style.display = "none";
+        firstNameInputStatus.style.display = "none";
         firstNameInput.parentNode.className = "form-group has-success has-feedback";
-        document.getElementById("firstNameIcon").className = "glyphicon glyphicon-ok form-control-feedback";
+        firstNameInputIcon.className = "glyphicon glyphicon-ok form-control-feedback";
         checkformOrder(0);
         return true;
     }
 }
 
+function lastNameValidate(input,status,icon) {
 
-function lastNameValidate() {
-
-    var lastNameInput = document.getElementById("lastname");
+    var lastNameInput = convertToObject(input);
+    var lastNameInputStatus = convertToObject(status);
+    var lastNameIcon= convertToObject(icon);
 
     if (lastNameInput.value == "") {
-        document.getElementById("lastNameInputStatus").innerHTML = "Nachname wird benötigt!";
-        document.getElementById("lastNameInputStatus").style.display = "block";
+        lastNameInputStatus.innerHTML = "Nachname wird benötigt!";
+        lastNameInputStatus.style.display = "block";
         lastNameInput.parentNode.className = "form-group has-error has-feedback";
-        document.getElementById("lastNameIcon").className = "glyphicon glyphicon-remove form-control-feedback";
+        lastNameIcon.className = "glyphicon glyphicon-remove form-control-feedback";
         checkformOrder(0);
         return false;
     } else if (!onlyLetters(lastNameInput.value)) {
-        document.getElementById("lastNameInputStatus").innerHTML = "Nur Buchstaben sind erlaubt!";
-        document.getElementById("lastNameInputStatus").style.display = "block";
+        lastNameInputStatus.innerHTML = "Nur Buchstaben sind erlaubt!";
+        lastNameInputStatus.style.display = "block";
         lastNameInput.parentNode.className = "form-group has-warning has-feedback";
-        document.getElementById("lastNameIcon").className = "glyphicon glyphicon-warning-sign form-control-feedback";
-        document.getElementById("button-save-order-change").disabled = true;
+        lastNameIcon.className = "glyphicon glyphicon-warning-sign form-control-feedback";
+        saveOrderChangeButton.disabled = true;
         return false;
     } else {
-        document.getElementById("lastNameInputStatus").style.display = "none";
+        lastNameInputStatus.style.display = "none";
         lastNameInput.parentNode.className = "form-group has-success has-feedback";
-        document.getElementById("lastNameIcon").className = "glyphicon glyphicon-ok form-control-feedback";
+        lastNameIcon.className = "glyphicon glyphicon-ok form-control-feedback";
         checkformOrder(0);
         return true;
     }
 }
 
-function emailValidate() {
+function emailValidate(input,status,icon) {
 
-    var emailInput = document.getElementById("email");
+    var emailInput = convertToObject(input);
+    var emailInputStatus = convertToObject(status);
+    var emailInputIcon = convertToObject(icon);
 
     if (emailInput.value == "") {
-        document.getElementById("emailInputStatus").innerHTML = "Email Adresse wird benötigt!";
-        document.getElementById("emailInputStatus").style.display = "block";
+        emailInputStatus.innerHTML = "Email Adresse wird benötigt!";
+        emailInputStatus.style.display = "block";
         emailInput.parentNode.className = "form-group has-error has-feedback";
-        document.getElementById("emailIcon").className = "glyphicon glyphicon-remove form-control-feedback";
+        emailInputIcon.className = "glyphicon glyphicon-remove form-control-feedback";
         checkformOrder(0);
         return false;
     } else if (!validEmailAddress(emailInput.value)) {
-        document.getElementById("emailInputStatus").innerHTML = "Falsches EMail Adressen Format!";
-        document.getElementById("emailInputStatus").style.display = "block";
+        emailInputStatus.innerHTML = "Falsches EMail Adressen Format!";
+        emailInputStatus.style.display = "block";
         emailInput.parentNode.className = "form-group has-warning has-feedback";
-        document.getElementById("emailIcon").className = "glyphicon glyphicon-warning-sign form-control-feedback";
-        document.getElementById("button-save-order-change").disabled = true;
+        emailInputIcon.className = "glyphicon glyphicon-warning-sign form-control-feedback";
+        saveOrderChangeButton.disabled = true;
         return false;
     } else {
-        document.getElementById("emailInputStatus").style.display = "none";
+        emailInputStatus.style.display = "none";
         emailInput.parentNode.className = "form-group has-success has-feedback";
-        document.getElementById("emailIcon").className = "glyphicon glyphicon-ok form-control-feedback";
+        emailInputIcon.className = "glyphicon glyphicon-ok form-control-feedback";
         checkformOrder(0);
         return true;
     }
 }
 
-function phoneValidate() {
+function phoneValidate(input,status,icon) {
 
-    var phone = document.getElementById("phonenumber");
+    var phone = convertToObject(input);
+    var phoneStatus = convertToObject(status);
+    var phoneIcon =convertToObject(icon);
 
     if (phone.value == "") {
-        document.getElementById("phoneInputStatus").innerHTML = "Telefonnummer wird benötigt!";
-        document.getElementById("phoneInputStatus").style.display = "block";
+        phoneStatus.innerHTML = "Telefonnummer wird benötigt!";
+        phoneStatus.style.display = "block";
         phone.parentNode.className = "form-group has-error has-feedback";
-        document.getElementById("phoneIcon").className = "glyphicon glyphicon-remove form-control-feedback";
+        phoneIcon.className = "glyphicon glyphicon-remove form-control-feedback";
         checkformOrder(0);
         return false;
     } else if (!validPhoneNumber(phone.value)) {
-        document.getElementById("phoneInputStatus").innerHTML = "Falsches Telefonnummer Format";
-        document.getElementById("phoneInputStatus").style.display = "block";
+        phoneStatus.innerHTML = "Falsches Telefonnummer Format";
+        phoneStatus.style.display = "block";
         phone.parentNode.className = "form-group has-warning has-feedback";
-        document.getElementById("phoneIcon").className = "glyphicon glyphicon-warning-sign form-control-feedback";
-        document.getElementById("button-save-order-change").disabled = true;
+        phoneIcon.className = "glyphicon glyphicon-warning-sign form-control-feedback";
+        saveOrderChangeButton.disabled = true;
         return false;
     } else {
-        document.getElementById("phoneInputStatus").style.display = "none";
+        phoneStatus.style.display = "none";
         phone.parentNode.className = "form-group has-success has-feedback";
-        document.getElementById("phoneIcon").className = "glyphicon glyphicon-ok form-control-feedback";
+        phoneIcon.className = "glyphicon glyphicon-ok form-control-feedback";
         checkformOrder(0);
         return true;
     }
 }
 
-function nebisValidate() {
+function nebisValidate(input,status,icon) {
 
-    var nebisusernumber = document.getElementById("nebisusernumber");
+    var nebisusernumber = convertToObject(input);
+    var nebisusernumberStatus = convertToObject(status);
+    var nebisusernumberIcon = convertToObject(icon);
+    console.log("dabini");
 
     if (nebisusernumber.value == "") {
-        document.getElementById("nebisInputStatus").innerHTML = "Nebisnummer wird benötigt!";
-        document.getElementById("nebisInputStatus").style.display = "block";
+        console.log("leer");
+        nebisusernumberStatus.innerHTML = "Nebisnummer wird benötigt!";
+        nebisusernumberStatus.style.display = "block";
         nebisusernumber.parentNode.className = "form-group has-error has-feedback";
-        document.getElementById("nebisIcon").className = "glyphicon glyphicon-remove form-control-feedback";
+        nebisusernumberIcon.className = "glyphicon glyphicon-remove form-control-feedback";
         checkformOrder(0);
         return false;
     } else if (!notEmpty(nebisusernumber.value)) {
-        document.getElementById("nebisInputStatus").innerHTML = "Falsches Nebisnummer Format!";
-        document.getElementById("nebisInputStatus").style.display = "block";
+        console.log("im falschformat");
+        nebisusernumberStatus.innerHTML = "Falsches Nebisnummer Format!";
+        nebisusernumberStatus.style.display = "block";
         nebisusernumber.parentNode.className = "form-group has-warning has-feedback";
-        document.getElementById("nebisIcon").className = "glyphicon glyphicon-warning-sign form-control-feedback";
-        document.getElementById("button-save-order-change").disabled = true;
+        nebisusernumberIcon.className = "glyphicon glyphicon-warning-sign form-control-feedback";
+        saveOrderChangeButton.disabled = true;
         return false;
     } else {
-        document.getElementById("nebisInputStatus").style.display = "none";
+        console.log("het klappet");
+        nebisusernumberStatus.style.display = "none";
         nebisusernumber.parentNode.className = "form-group has-success has-feedback";
-        document.getElementById("nebisIcon").className = "glyphicon glyphicon-ok form-control-feedback";
+        nebisusernumberIcon.className = "glyphicon glyphicon-ok form-control-feedback";
         checkformOrder(0);
         return true;
     }
@@ -141,136 +154,146 @@ function nebisValidate() {
 /**
  * 2.Form School Address
  */
-function schoolnameValidate() {
+function schoolnameValidate(input,status,icon) {
 
-    var schoolNameInput = document.getElementById("schoolname");
+    var schoolNameInput = convertToObject(input);
+    var schoolNameInputStatus = convertToObject(status);
+    var schoolNameInputIcon =  convertToObject(icon);
 
     if (schoolNameInput.value == "") {
-        document.getElementById("schoolNameInputStatus").innerHTML = "Name wird benötigt!";
-        document.getElementById("schoolNameInputStatus").style.display = "block";
+        schoolNameInputStatus.innerHTML = "Name wird benötigt!";
+        schoolNameInputStatus.style.display = "block";
         schoolNameInput.parentNode.className = "form-group has-error has-feedback";
-        document.getElementById("schoolNameIcon").className = "glyphicon glyphicon-remove form-control-feedback";
+        schoolNameInputIcon.className = "glyphicon glyphicon-remove form-control-feedback";
         checkformOrder(1);
         return false;
     } else if (!onlyLettersNumbers(schoolNameInput.value)) {
-        document.getElementById("schoolNameInputStatus").innerHTML = "Falsches Format! Nur Buchstaben und Zahlen erlaubt.";
-        document.getElementById("schoolNameInputStatus").style.display = "block";
+        schoolNameInputStatus.innerHTML = "Falsches Format! Nur Buchstaben und Zahlen erlaubt.";
+        schoolNameInputStatus.style.display = "block";
         schoolNameInput.parentNode.className = "form-group has-warning has-feedback";
-        document.getElementById("schoolNameIcon").className = "glyphicon glyphicon-warning-sign form-control-feedback";
-        document.getElementById("button-save-order-change").disabled = true;
+        schoolNameInputIcon.className = "glyphicon glyphicon-warning-sign form-control-feedback";
+        saveOrderChangeButton.disabled = true;
         return false;
     } else {
-        document.getElementById("schoolNameInputStatus").style.display = "none";
+        schoolNameInputStatus.style.display = "none";
         schoolNameInput.parentNode.className = "form-group has-success has-feedback";
-        document.getElementById("schoolNameIcon").className = "glyphicon glyphicon-ok form-control-feedback";
+        schoolNameInputIcon.className = "glyphicon glyphicon-ok form-control-feedback";
         checkformOrder(1);
         return true;
     }
 }
 
-function schoolstreetValidate() {
+function schoolstreetValidate(input,status,icon) {
 
-    var schoolstreetInput = document.getElementById("schoolstreet");
+    var schoolstreetInput = convertToObject(input);
+    var schoolstreetInputStatus = convertToObject(status);
+    var schoolstreetInputIcon =  convertToObject(icon);
 
     if (schoolstreetInput.value == "") {
-        document.getElementById("schoolstreetInputStatus").innerHTML = "Strasse wird benötigt!";
-        document.getElementById("schoolstreetInputStatus").style.display = "block";
+        schoolstreetInputStatus.innerHTML = "Strasse wird benötigt!";
+        schoolstreetInputStatus.style.display = "block";
         schoolstreetInput.parentNode.className = "form-group has-error has-feedback";
-        document.getElementById("schoolstreetIcon").className = "glyphicon glyphicon-remove form-control-feedback";
+        schoolstreetInputIcon.className = "glyphicon glyphicon-remove form-control-feedback";
         checkformOrder(1);
         return false;
     } else if (!onlyLettersNumbers(schoolstreetInput.value)) {
-        document.getElementById("schoolstreetInputStatus").innerHTML = "Falsches Format! Nur Buchstaben und Zahlen erlaubt.";
-        document.getElementById("schoolstreetInputStatus").style.display = "block";
+        schoolstreetInputStatus.innerHTML = "Falsches Format! Nur Buchstaben und Zahlen erlaubt.";
+        schoolstreetInputStatus.style.display = "block";
         schoolstreetInput.parentNode.className = "form-group has-warning has-feedback";
-        document.getElementById("schoolstreetIcon").className = "glyphicon glyphicon-warning-sign form-control-feedback";
-        document.getElementById("button-save-order-change").disabled = true;
+        schoolstreetInputIcon.className = "glyphicon glyphicon-warning-sign form-control-feedback";
+        saveOrderChangeButton.disabled = true;
         return false;
     } else {
-        document.getElementById("schoolstreetInputStatus").style.display = "none";
+        schoolstreetInputStatus.style.display = "none";
         schoolstreetInput.parentNode.className = "form-group has-success has-feedback";
-        document.getElementById("schoolstreetIcon").className = "glyphicon glyphicon-ok form-control-feedback";
+        schoolstreetInputIcon.className = "glyphicon glyphicon-ok form-control-feedback";
         checkformOrder(1);
         return true;
     }
 }
 
-function schoolcityValidate() {
+function schoolcityValidate(input,status,icon) {
 
-    var schoolcityInput = document.getElementById("schoolcity");
+    var schoolcityInput = convertToObject(input);
+    var schoolcityInputStatus = convertToObject(status);
+    var schoolcityInputIcon = convertToObject(icon);
 
     if (schoolcityInput.value == "") {
-        document.getElementById("schoolcityInputStatus").innerHTML = "Ort wird benötigt!";
-        document.getElementById("schoolcityInputStatus").style.display = "block";
+        schoolcityInputStatus.innerHTML = "Ort wird benötigt!";
+        schoolcityInputStatus.style.display = "block";
         schoolcityInput.parentNode.className = "form-group has-error has-feedback";
-        document.getElementById("schoolcityIcon").className = "glyphicon glyphicon-remove form-control-feedback";
+        schoolcityInputIcon.className = "glyphicon glyphicon-remove form-control-feedback";
         checkformOrder(1);
         return false;
     } else if (!validCityName(schoolcityInput.value)) {
-        document.getElementById("schoolcityInputStatus").innerHTML = "Falsches Format! Nur Buchstaben und Zahlen erlaubt.";
-        document.getElementById("schoolcityInputStatus").style.display = "block";
+        schoolcityInputStatus.innerHTML = "Falsches Format! Nur Buchstaben und Zahlen erlaubt.";
+        schoolcityInputStatus.style.display = "block";
         schoolcityInput.parentNode.className = "form-group has-warning has-feedback";
-        document.getElementById("schoolcityIcon").className = "glyphicon glyphicon-warning-sign form-control-feedback";
-        document.getElementById("button-save-order-change").disabled = true;
+        schoolcityInputIcon.className = "glyphicon glyphicon-warning-sign form-control-feedback";
+        saveOrderChangeButton.disabled = true;
         return false;
     } else {
-        document.getElementById("schoolcityInputStatus").style.display = "none";
+        schoolcityInputStatus.style.display = "none";
         schoolcityInput.parentNode.className = "form-group has-success has-feedback";
-        document.getElementById("schoolcityIcon").className = "glyphicon glyphicon-ok form-control-feedback";
+        schoolcityInputIcon.className = "glyphicon glyphicon-ok form-control-feedback";
         checkformOrder(1);
         return true;
     }
 }
 
-function placeofhandoverValidate() {
+function placeofhandoverValidate(input,status,icon) {
 
-    var placeofhandoverInput = document.getElementById("placeofhandover");
+    var placeofhandoverInput = convertToObject(input);
+    var placeofhandoverInputStatus = convertToObject(status);
+    var placeofhandoverInputIcon = convertToObject(icon);
 
     if (placeofhandoverInput.value == "") {
-        document.getElementById("placeofhandoverInputStatus").innerHTML = "Übergabeort wird benötigt!";
-        document.getElementById("placeofhandoverInputStatus").style.display = "block";
+        placeofhandoverInputStatus.innerHTML = "Übergabeort wird benötigt!";
+        placeofhandoverInputStatus.style.display = "block";
         placeofhandoverInput.parentNode.className = "form-group has-error has-feedback";
-        document.getElementById("placeofhandoverIcon").className = "glyphicon glyphicon-remove form-control-feedback";
+        placeofhandoverInputIcon.className = "glyphicon glyphicon-remove form-control-feedback";
         checkformOrder(1);
         return false;
     } else if (!onlyLettersNumbers(placeofhandoverInput.value)) {
-        document.getElementById("placeofhandoverInputStatus").innerHTML = "Falsches Telefonnummer Format";
-        document.getElementById("placeofhandoverInputStatus").style.display = "block";
+        placeofhandoverInputStatus.innerHTML = "Falsches Telefonnummer Format";
+        placeofhandoverInputStatus.style.display = "block";
         placeofhandoverInput.parentNode.className = "form-group has-warning has-feedback";
-        document.getElementById("placeofhandoverIcon").className = "glyphicon glyphicon-warning-sign form-control-feedback";
-        document.getElementById("button-save-order-change").disabled = true;
+        placeofhandoverInputIcon.className = "glyphicon glyphicon-warning-sign form-control-feedback";
+        saveOrderChangeButton.disabled = true;
         return false;
     } else {
-        document.getElementById("placeofhandoverInputStatus").style.display = "none";
+        placeofhandoverInputStatus.style.display = "none";
         placeofhandoverInput.parentNode.className = "form-group has-success has-feedback";
-        document.getElementById("placeofhandoverIcon").className = "glyphicon glyphicon-ok form-control-feedback";
+        placeofhandoverInputIcon.className = "glyphicon glyphicon-ok form-control-feedback";
         checkformOrder(1);
         return true;
     }
 }
 
-function schoolphoneValidate() {
+function schoolphoneValidate(input,status,icon) {
 
-    var schoolphoneInput = document.getElementById("schoolphonenumber");
+    var schoolphoneInput = convertToObject(input);
+    var schoolphoneInputStatus = convertToObject(status);
+    var schoolphoneInputIcon = convertToObject(icon);
 
     if (schoolphoneInput.value == "") {
-        document.getElementById("schoolphoneInputStatus").innerHTML = "Telefonnummer wird benötigt!";
-        document.getElementById("schoolphoneInputStatus").style.display = "block";
+        schoolphoneInputStatus.innerHTML = "Telefonnummer wird benötigt!";
+        schoolphoneInputStatus.style.display = "block";
         schoolphoneInput.parentNode.className = "form-group has-error has-feedback";
-        document.getElementById("schoolphoneIcon").className = "glyphicon glyphicon-remove form-control-feedback";
+        schoolphoneInputIcon.className = "glyphicon glyphicon-remove form-control-feedback";
         checkformOrder(1);
         return false;
     } else if (!validPhoneNumber(schoolphoneInput.value)) {
-        document.getElementById("schoolphoneInputStatus").innerHTML = "Falsches Telefonnummer Format";
-        document.getElementById("schoolphoneInputStatus").style.display = "block";
+        schoolphoneInputStatus.innerHTML = "Falsches Telefonnummer Format";
+        schoolphoneInputStatus.style.display = "block";
         schoolphoneInput.parentNode.className = "form-group has-warning has-feedback";
-        document.getElementById("schoolphoneIcon").className = "glyphicon glyphicon-warning-sign form-control-feedback";
-        document.getElementById("button-save-order-change").disabled = true;
+        schoolphoneInputIcon.className = "glyphicon glyphicon-warning-sign form-control-feedback";
+        saveOrderChangeButton().disabled = true;
         return false;
     } else {
-        document.getElementById("schoolphoneInputStatus").style.display = "none";
+        schoolphoneInputStatus.style.display = "none";
         schoolphoneInput.parentNode.className = "form-group has-success has-feedback";
-        document.getElementById("schoolphoneIcon").className = "glyphicon glyphicon-ok form-control-feedback";
+        schoolphoneInputIcon.className = "glyphicon glyphicon-ok form-control-feedback";
         checkformOrder(1);
         return true;
     }
@@ -281,6 +304,10 @@ function schoolphoneValidate() {
  * @param word
  * @returns {boolean}
  */
+function saveOrderChangeButton() {
+    return document.getElementById("button-save-order-change")
+}
+
 function notEmpty(word) {
     var pattern = /.*\S.*/;
     return pattern.test(word);
@@ -341,5 +368,13 @@ function checkformOrder(form_type) {
         if (cansubmit) {
             $("#button-save-order-change").prop('disabled', !cansubmit);
         }
+    }
+}
+function convertToObject(objectToConvert) {
+    if(typeof objectToConvert == "object"){
+        return objectToConvert;
+    }
+    else {
+        return document.getElementById(objectToConvert);
     }
 }

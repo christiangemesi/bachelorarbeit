@@ -13,6 +13,8 @@
 
 
 
+use ThekRe\Http\Controllers\PowerUserController;
+
 $url = getenv('APP_URL');
 
 
@@ -45,6 +47,7 @@ Route::post('/admin/updateBlockedPeriod', 'AdminController@updateBlockedPeriod')
 Route::get('/admin/changePassword', 'AdminController@indexChangePassword');
 Route::get('/admin/email', 'AdminController@indexEmail');
 Route::post('/admin/updatePassword', 'AdminController@updatePassword');
+Route::post('/admin/updatePoweruserPassword', 'AdminController@updatePoweruserPassword');
 Route::post('/admin/getMail', 'AdminController@getMail');
 Route::post('/admin/updateMail', 'AdminController@updateMail');
 
@@ -55,6 +58,10 @@ Route::get('/poweruser/themboxes','PowerUserController@indexThembox');
 Route::post('/poweruser/login', 'PowerUserController@login');
 Route::get('/poweruser/loginForm', 'PowerUserController@loginForm')->name('PowerloginForm');
 Route::get('/poweruser/logout', 'PowerUserController@logout');
+Route::post('/poweruser/updateOrder', 'PowerUserController@updateOrder');
+Route::post('/poweruser/getOrder','PowerUserController@getOrder');
+Route::post('/poweruser/getOrderAddData','PowerUserController@getOrderAddData');
+Route::post('/poweruser/addOrder','PowerUserController@addOrder');
 
 
 

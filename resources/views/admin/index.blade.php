@@ -14,11 +14,12 @@
     <link rel="stylesheet" href="{{ asset('css/calendar/fullcalendar.css') }}">
     <script src="{{ asset('js/calendar/fullcalendar.js') }}"></script>
     <script src="{{ asset('js/calendar/de-ch.js') }}"></script>
-    <script src="{{ asset('js/admin/order-form.js') }}"></script>
-    <script src="{{ asset('js/admin/order-table.js') }}"></script>
+    <script src="{{ asset('js/poweruser/order-form.js') }}"></script>
+    <script src="{{ asset('js/poweruser/order-table.js') }}"></script>
     <script src="{{ asset('js/calendar/event-creator.js') }}"></script>
     <script src="{{ asset('js/calendar/add-first-block.js') }}"></script>
     <script src="{{ asset('js/callback-modal.js') }}"></script>
+
 
 
     <div class="modal fade" id="callback-modal" tabindex="-1">

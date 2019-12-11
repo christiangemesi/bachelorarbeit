@@ -11,6 +11,7 @@
     <script src="{{ asset('js/calendar/de-ch.js') }}"></script>
     <script src="{{ asset('js/calendar/add-first-block.js') }}"></script>
 
+
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
 

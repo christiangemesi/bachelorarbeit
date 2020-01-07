@@ -53,8 +53,24 @@
     <div class="col-md-12 admin-panel  data-table-thekre">
         <h1 class="admin-header">Bestellungen</h1>
         <button type="button" class="btn btn-success btn-create-themebox" id="button-create-order"><span class="glyphicon glyphicon-plus"></span> Bestellung hinzufügen</button>
+        <div class="row">
+            <div class="col-sm-10">
+            </div>
+            <div class="col-sm-2">
+                <label class="float-left" for="status-select">Suchen nach Status: </label>
+                <select class="float-right form-dropdown thekre-dropdown-Admin" id="status-select">
+                    <option value="0">All</option>
+                    @foreach($statuses as $status)
+                        <option value="{{$status["pk_status"]}}">{{$status["name"]}}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+        <div class="thekre-row"><div class="col-sm-12"></div></div>
         <div class="panel panel-default no-border  margin-top-less" id="table-content">
+
             <table id="new-order-table" class="data-table table table-bordered" cellspacing="0" width="100%">
+
                 <thead>
                 <tr>
                     <th>Bestellnummer</th>
@@ -95,10 +111,9 @@
                         <td>
                             <select id="status-list-{{$order["order_id"]}}" name="status"
                                     class="form-dropdown thekre-dropdown-Admin status-update">
-                                <option value= {{$order["fk_status"] . "-" . $order["order_id"]}}> {{$order["status"]}}</option>
-
+                                <option value={{$order["fk_status"] . "-" . $order["order_id"]}}>{{$order["status"]}}</option>
                                 @if(isset($statuses[$order["fk_status"]]))
-                                    <option value= {{$statuses[$order["fk_status"]]["pk_status"] . "-" . $order["order_id"]}}> {{$statuses[$order["fk_status"]]["name"]}}</option>
+                                    <option value={{$statuses[$order["fk_status"]]["pk_status"] . "-" . $order["order_id"]}}>{{$statuses[$order["fk_status"]]["name"]}}</option>
                                 @endif
                             </select>
                         </td>
@@ -162,38 +177,40 @@
                                             <div class="alert alert-danger display-none" id="error-calendar-message-box"></div>
                                             <div class="alert alert-info display-none" id="info-calendar-message-box"></div>
                                         </div>
+                                        <div id="orderAdd-personal-data-box-admin">
+                                            <div class="form-group has-feedback">
+                                                <label class="float-left" for="orderAdd-nachname">Nachname</label>
+                                                <input type="text" class="form-control" id="orderAdd-nachname" name="orderAdd-nachname" maxlength="40" onkeyup="lastNameValidate('orderAdd-nachname','OrderAdd-lastNameInputStatus','OrderAdd-lastNameIcon')" onblur="lastNameValidate('orderAdd-nachname','OrderAdd-lastNameInputStatus','OrderAdd-lastNameIcon')"/>
+                                                <span id="OrderAdd-lastNameIcon" aria-hidden="true"></span>
+                                                <span id="OrderAdd-lastNameInputStatus" class="errorHeader">Nachname wird benötigt!</span>
+                                            </div>
 
-                                        <div class="form-group has-feedback">
-                                            <label class="float-left" for="orderAdd-nachname">Nachname</label>
-                                            <input type="text" class="form-control" id="orderAdd-nachname" name="orderAdd-nachname" maxlength="40" onkeyup="lastNameValidate(this,'OrderAdd-lastNameInputStatus','OrderAdd-lastNameIcon')" onblur="lastNameValidate(this,'OrderAdd-lastNameInputStatus','OrderAdd-lastNameIcon')"/>
-                                            <span id="OrderAdd-lastNameIcon" aria-hidden="true"></span>
-                                            <span id="OrderAdd-lastNameInputStatus" class="errorHeader">Nachname wird benötigt!</span>
+                                            <div class="form-group">
+                                                <label class="float-left" for="orderAdd-name">Vorname</label>
+                                                <input type="text" class="form-control" id="orderAdd-name" name="orderAdd-name" onkeyup="firstNameValidate('orderAdd-name','orderAdd-firstNameInputStatus','orderAdd-firstNameIcon')" onblur="firstNameValidate('orderAdd-name','orderAdd-firstNameInputStatus','orderAdd-firstNameIcon')"/>
+                                                <span id="orderAdd-firstNameIcon"></span>
+                                                <span id="orderAdd-firstNameInputStatus" class="errorHeader">Vorname wird benötigt!</span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="float-left" for="orderAdd-email">Email</label>
+                                                <input  type="email" class="form-control" id="orderAdd-email" name="orderAdd-email" onkeyup="emailValidate('orderAdd-email','orderAdd-emailInputStatus','orderAdd-emailIcon')" onblur="emailValidate('orderAdd-email','orderAdd-emailInputStatus','orderAdd-emailIcon')"/>
+                                                <span id="orderAdd-emailIcon" aria-hidden="true"></span>
+                                                <span id="orderAdd-emailInputStatus" class="errorHeader">Email wird benötigt!</span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="float-left" for="orderAdd-phone">Phonenumber</label>
+                                                <input type="tel" class="form-control" id="orderAdd-phone" name="orderAdd-phone" onkeyup="phoneValidate('orderAdd-phone','orderAdd-phoneInputStatus','orderAdd-phoneIcon')" onblur="phoneValidate('orderAdd-phone','orderAdd-phoneInputStatus','orderAdd-phoneIcon')"/>
+                                                <span id="orderAdd-phoneIcon" aria-hidden="true"></span>
+                                                <span id="orderAdd-phoneInputStatus" class="errorHeader">Telefonnummer wird benötigt!</span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="float-left" for="orderAdd-Nebisnumber" >Nebisnumber</label>
+                                                <input type="text" class="form-control" id="orderAdd-Nebisnumber" name="orderAdd-Nebisnumber" onkeyup="nebisValidate('orderAdd-Nebisnumber','orderAdd-nebisInputStatus','orderAdd-nebisIcon')" onblur="nebisValidate('orderAdd-Nebisnumber','orderAdd-nebisInputStatus','orderAdd-nebisIcon')">
+                                                <span id="orderAdd-nebisIcon" aria-hidden="true"></span>
+                                                <span id="orderAdd-nebisInputStatus" class="errorHeader">Nebisnummer wird benötigt!</span>
+                                            </div>
                                         </div>
 
-                                        <div class="form-group">
-                                            <label class="float-left" for="orderAdd-name">Vorname</label>
-                                            <input type="text" class="form-control" id="orderAdd-name" name="orderAdd-name" onkeyup="firstNameValidate(this,'orderAdd-firstNameInputStatus','orderAdd-firstNameIcon')" onblur="firstNameValidate(this,'orderAdd-firstNameInputStatus','orderAdd-firstNameIcon')"/>
-                                            <span id="orderAdd-firstNameIcon"></span>
-                                            <span id="orderAdd-firstNameInputStatus" class="errorHeader">Vorname wird benötigt!</span>
-                                        </div>
-                                        <div class="form-group">
-                                             <label class="float-left" for="orderAdd-email">Email</label>
-                                            <input  type="email" class="form-control" id="orderAdd-email" name="orderAdd-email" onkeyup="emailValidate(this,'orderAdd-emailInputStatus','orderAdd-emailIcon')" onblur="emailValidate(this,'orderAdd-emailInputStatus','orderAdd-emailIcon')"/>
-                                            <span id="orderAdd-emailIcon" aria-hidden="true"></span>
-                                            <span id="orderAdd-emailInputStatus" class="errorHeader">Email wird benötigt!</span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="float-left" for="orderAdd-phone">Phonenumber</label>
-                                            <input type="tel" class="form-control" id="orderAdd-phone" name="orderAdd-phone" onkeyup="phoneValidate(this,'orderAdd-phoneInputStatus','orderAdd-phoneIcon')" onblur="phoneValidate(this,'orderAdd-phoneInputStatus','orderAdd-phoneIcon')"/>
-                                            <span id="orderAdd-phoneIcon" aria-hidden="true"></span>
-                                            <span id="orderAdd-phoneInputStatus" class="errorHeader">Telefonnummer wird benötigt!</span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="float-left" for="orderAdd-Nebisnumber" >Nebisnumber</label>
-                                            <input type="text" class="form-control" id="orderAdd-Nebisnumber" name="orderAdd-Nebisnumber" onkeyup="nebisValidate(this,'orderAdd-nebisInputStatus','orderAdd-nebisIcon')" onblur="nebisValidate(this,'orderAdd-nebisInputStatus','orderAdd-nebisIcon')">
-                                            <span id="orderAdd-nebisIcon" aria-hidden="true"></span>
-                                            <span id="orderAdd-nebisInputStatus" class="errorHeader">Nebisnummer wird benötigt!</span>
-                                        </div>
                                         <div>
                                             <div class="form-group">
                                                 <label class="float-left" for="orderAdd-delivery">Lieferart</label>
@@ -206,31 +223,31 @@
                                             <div id="orderAdd-delivery-type" class="display-none">
                                                 <div class="form-group has-feedback">
                                                     <label class="float-left" for="orderAdd-schoolname">Name der Schule</label>
-                                                    <input type="text" class="form-control" id="orderAdd-schoolname" name="orderAdd-schoolname" maxlength="60" onkeyup = "schoolnameValidate(this,'orderAdd-schoolNameInputStatus','orderAdd-schoolNameIcon')" onblur="schoolnameValidate(this,'orderAdd-schoolNameInputStatus','orderAdd-schoolNameIcon')"/>
+                                                    <input type="text" class="form-control" id="orderAdd-schoolname" name="orderAdd-schoolname" maxlength="60" onkeyup = "schoolnameValidate('orderAdd-schoolname','orderAdd-schoolNameInputStatus','orderAdd-schoolNameIcon')" onblur="schoolnameValidate('orderAdd-schoolname','orderAdd-schoolNameInputStatus','orderAdd-schoolNameIcon')"/>
                                                     <span id="orderAdd-schoolNameIcon" aria-hidden="true"></span>
                                                     <span id="orderAdd-schoolNameInputStatus" class="errorHeader">Name der Schule wird benötigt!</span>
                                                 </div>
                                                 <div class="form-group has-feedback">
                                                     <label class="float-left" for="orderAdd-schoolstreet">Strasse und Nr</label>
-                                                    <input type="text" class="form-control" id="orderAdd-schoolstreet" name="orderAdd-schoolstreet" maxlength="60" onkeyup = "schoolstreetValidate(this,'orderAdd-schoolstreetInputStatus','orderAdd-schoolstreetIcon')" onblur="schoolstreetValidate(this,'orderAdd-schoolstreetInputStatus','orderAdd-schoolstreetIcon')"/>
+                                                    <input type="text" class="form-control" id="orderAdd-schoolstreet" name="orderAdd-schoolstreet" maxlength="60" onkeyup = "schoolstreetValidate('orderAdd-schoolstreet','orderAdd-schoolstreetInputStatus','orderAdd-schoolstreetIcon')" onblur="schoolstreetValidate('orderAdd-schoolstreet','orderAdd-schoolstreetInputStatus','orderAdd-schoolstreetIcon')"/>
                                                     <span id="orderAdd-schoolstreetIcon" aria-hidden="true"></span>
                                                     <span id="orderAdd-schoolstreetInputStatus" class="errorHeader">Strasse und Nr wird benötigt!</span>
                                                 </div>
                                                 <div class="form-group has-feedback">
                                                     <label class="float-left" for="orderAdd-schoolcity">PLZ und Ort</label>
-                                                    <input type="text" class="form-control" id="orderAdd-schoolcity" name="orderAdd-schoolcity" maxlength="60" onkeyup = "schoolcityValidate(this,'orderAdd-schoolcityInputStatus','orderAdd-schoolcityIcon')" onblur="schoolcityValidate(this,'orderAdd-schoolcityInputStatus','orderAdd-schoolcityIcon')"/>
+                                                    <input type="text" class="form-control" id="orderAdd-schoolcity" name="orderAdd-schoolcity" maxlength="60" onkeyup = "schoolcityValidate('orderAdd-schoolcity','orderAdd-schoolcityInputStatus','orderAdd-schoolcityIcon')" onblur="schoolcityValidate('orderAdd-schoolcity','orderAdd-schoolcityInputStatus','orderAdd-schoolcityIcon')"/>
                                                     <span id="orderAdd-schoolcityIcon" aria-hidden="true"></span>
                                                     <span id="orderAdd-schoolcityInputStatus" class="errorHeader">PLZ und Ort wird benötigt!</span>
                                                 </div>
                                                 <div class="form-group has-feedback">
                                                     <label class="float-left" for="orderAdd-placeofhandover">Abgabeort an der Schule</label>
-                                                    <input type="text" class="form-control" id="orderAdd-placeofhandover" name="orderAdd-placeofhandover" maxlength="60" onkeyup = "placeofhandoverValidate(this,'orderAdd-placeofhandoverInputStatus','orderAdd-placeofhandoverIcon')" onblur="placeofhandoverValidate(this,'orderAdd-placeofhandoverInputStatus','orderAdd-placeofhandoverIcon')"/>
+                                                    <input type="text" class="form-control" id="orderAdd-placeofhandover" name="orderAdd-placeofhandover" maxlength="60" onkeyup = "placeofhandoverValidate('orderAdd-placeofhandover','orderAdd-placeofhandoverInputStatus','orderAdd-placeofhandoverIcon')" onblur="placeofhandoverValidate('orderAdd-placeofhandover','orderAdd-placeofhandoverInputStatus','orderAdd-placeofhandoverIcon')"/>
                                                     <span id="orderAdd-placeofhandoverIcon" aria-hidden="true"></span>
                                                     <span id="orderAdd-placeofhandoverInputStatus" class="errorHeader">Abgabeort wird benötigt!</span>
                                                 </div>
                                                 <div class="form-group has-feedback">
                                                     <label class="float-left" for="orderAdd-schoolphoneInput">Tel.-Nr. der Schule</label>
-                                                    <input type="text" class="form-control" name="orderAdd-schoolphonenumber" id="orderAdd-schoolphonenumber" maxlength="40" onkeyup = "schoolphoneValidate(this,'orderAdd-schoolphoneInputStatus','orderAdd-schoolphoneIcon')" onblur="schoolphoneValidate(this,'orderAdd-schoolphoneInputStatus','orderAdd-schoolphoneIcon')"/>
+                                                    <input type="text" class="form-control" name="orderAdd-schoolphonenumber" id="orderAdd-schoolphonenumber" maxlength="40" onkeyup = "schoolphoneValidate('orderAdd-schoolphonenumber','orderAdd-schoolphoneInputStatus','orderAdd-schoolphoneIcon')" onblur="schoolphoneValidate('orderAdd-schoolphonenumber','orderAdd-schoolphoneInputStatus','orderAdd-schoolphoneIcon')"/>
                                                     <span id="orderAdd-schoolphoneIcon" aria-hidden="true"></span>
                                                     <span id="orderAdd-schoolphoneInputStatus" class="errorHeader">Telefonnummer wird benötigt!</span>
                                                 </div>
@@ -344,31 +361,31 @@
                                         <div id="personal-data-box-admin">
                                             <div class="form-group has-feedback">
                                                 <label class="float-left" for="lastname">Nachname</label>
-                                                <input type="text" class="form-control lastname" id="lastname" name="lastname" maxlength="40" onkeyup="lastNameValidate(this,'lastNameInputStatus','lastNameIcon')" onblur="lastNameValidate(this,'lastNameInputStatus','lastNameIcon')"/>
+                                                <input type="text" class="form-control lastname" id="lastname" name="lastname" maxlength="40" onkeyup="lastNameValidate('lastname','lastNameInputStatus','lastNameIcon')" onblur="lastNameValidate('lastname','lastNameInputStatus','lastNameIcon')"/>
                                                 <span id="lastNameIcon" aria-hidden="true"></span>
                                                 <span id="lastNameInputStatus" class="errorHeader">Nachname wird benötigt!</span>
                                             </div>
                                             <div class="form-group has-feedback">
                                                 <label class="float-left" for="surname">Vorname</label>
-                                                <input type="text" class="form-control surname" id="surname" name="surname" maxlength="40" onkeyup="firstNameValidate(this,'firstNameInputStatus','firstNameIcon')" onblur="firstNameValidate(this,'firstNameInputStatus','firstNameIcon')"/>
+                                                <input type="text" class="form-control surname" id="surname" name="surname" maxlength="40" onkeyup="firstNameValidate('surname','firstNameInputStatus','firstNameIcon')" onblur="firstNameValidate('surname','firstNameInputStatus','firstNameIcon')"/>
                                                 <span id="firstNameIcon"></span>
                                                 <span id="firstNameInputStatus" class="errorHeader">Vorname wird benötigt!</span>
                                             </div>
                                             <div class="form-group has-feedback">
                                                 <label class="float-left" for="email">Email</label>
-                                                <input type="text" class="form-control email" id="email" name="email" maxlength="60" onkeyup = "emailValidate(this,'emailInputStatus','emailIcon')" onblur="emailValidate(this,'emailInputStatus','emailIcon')"/>
+                                                <input type="text" class="form-control email" id="email" name="email" maxlength="60" onkeyup = "emailValidate('email','emailInputStatus','emailIcon')" onblur="emailValidate('email','emailInputStatus','emailIcon')"/>
                                                 <span id="emailIcon" aria-hidden="true"></span>
                                                 <span id="emailInputStatus" class="errorHeader">Email wird benötigt!</span>
                                             </div>
                                             <div class="form-group has-feedback">
                                                 <label class="float-left" for="phonenumber">Tel</label>
-                                                <input type="text" class="form-control phonenumber" id="phonenumber" name="phonenumber" maxlength="40" onkeyup = "phoneValidate(this,'phoneInputStatus','phoneIcon')" onblur="phoneValidate(this,'phoneInputStatus','phoneIcon')"/>
+                                                <input type="text" class="form-control phonenumber" id="phonenumber" name="phonenumber" maxlength="40" onkeyup = "phoneValidate('phonenumber','phoneInputStatus','phoneIcon')" onblur="phoneValidate('phonenumber','phoneInputStatus','phoneIcon')"/>
                                                 <span id="phoneIcon" aria-hidden="true"></span>
                                                 <span id="phoneInputStatus" class="errorHeader">Telefonnummer wird benötigt!</span>
                                             </div>
                                             <div class="form-group has-feedback">
                                                 <label class="float-left" for="nebisusernumber">NEBIS Nummer</label>
-                                                <input type="text" class="form-control nebisusernumber" id="nebisusernumber" name="nebisusernumber" maxlength="40" onkeyup = "nebisValidate(this,'nebisInputStatus','nebisIcon')" onblur="nebisValidate(this,'nebisInputStatus','nebisIcon')"/>
+                                                <input type="text" class="form-control nebisusernumber" id="nebisusernumber" name="nebisusernumber" maxlength="40" onkeyup = "nebisValidate('nebisnumber','nebisInputStatus','nebisIcon')" onblur="nebisValidate('nebisnumber','nebisInputStatus','nebisIcon')"/>
                                                 <span id="nebisIcon" aria-hidden="true"></span>
                                                 <span id="nebisInputStatus" class="errorHeader">Nebisnummer wird benötigt!</span>
                                             </div>
@@ -384,31 +401,31 @@
                                             <div id="order-delivery-type" class="display-none">
                                                 <div class="form-group has-feedback">
                                                     <label class="float-left" for="schoolname">Name der Schule</label>
-                                                    <input type="text" class="form-control" id="schoolname" name="schoolname" maxlength="60" onkeyup = "schoolnameValidate(this,'schoolNameInputStatus','schoolNameIcon')" onblur="schoolnameValidate(this,'schoolNameInputStatus','schoolNameIcon')"/>
+                                                    <input type="text" class="form-control" id="schoolname" name="schoolname" maxlength="60" onkeyup = "schoolnameValidate('schoolname','schoolNameInputStatus','schoolNameIcon')" onblur="schoolnameValidate('schoolname','schoolNameInputStatus','schoolNameIcon')"/>
                                                     <span id="schoolNameIcon" aria-hidden="true"></span>
                                                     <span id="schoolNameInputStatus" class="errorHeader">Name der Schule wird benötigt!</span>
                                                 </div>
                                                 <div class="form-group has-feedback">
                                                     <label class="float-left" for="schoolstreet">Strasse und Nr</label>
-                                                    <input type="text" class="form-control" id="schoolstreet" name="schoolstreet" maxlength="60" onkeyup = "schoolstreetValidate(this,'schoolstreetInputStatus','schoolstreetIcon')" onblur="schoolstreetValidate(this,'schoolstreetInputStatus','schoolstreetIcon')"/>
+                                                    <input type="text" class="form-control" id="schoolstreet" name="schoolstreet" maxlength="60" onkeyup = "schoolstreetValidate('schoolstreet','schoolstreetInputStatus','schoolstreetIcon')" onblur="schoolstreetValidate('schoolstreet','schoolstreetInputStatus','schoolstreetIcon')"/>
                                                     <span id="schoolstreetIcon" aria-hidden="true"></span>
                                                     <span id="schoolstreetInputStatus" class="errorHeader">Strasse und Nr wird benötigt!</span>
                                                 </div>
                                                 <div class="form-group has-feedback">
                                                     <label class="float-left" for="schoolcity">PLZ und Ort</label>
-                                                    <input type="text" class="form-control" id="schoolcity" name="schoolcity" maxlength="60" onkeyup = "schoolcityValidate(this,'schoolcityInputStatus','schoolcityIcon')" onblur="schoolcityValidate(this,'schoolcityInputStatus','schoolcityIcon')"/>
+                                                    <input type="text" class="form-control" id="schoolcity" name="schoolcity" maxlength="60" onkeyup = "schoolcityValidate('schoolcity','schoolcityInputStatus','schoolcityIcon')" onblur="schoolcityValidate('schoolcity','schoolcityInputStatus','schoolcityIcon')"/>
                                                     <span id="schoolcityIcon" aria-hidden="true"></span>
                                                     <span id="schoolcityInputStatus" class="errorHeader">PLZ und Ort wird benötigt!</span>
                                                 </div>
                                                 <div class="form-group has-feedback">
                                                     <label class="float-left" for="placeofhandover">Abgabeort an der Schule</label>
-                                                    <input type="text" class="form-control" id="placeofhandover" name="placeofhandover" maxlength="60" onkeyup = "placeofhandoverValidate(this,'placeofhandoverInputStatus','placeofhandoverIcon')" onblur="placeofhandoverValidate(this,'placeofhandoverInputStatus','placeofhandoverIcon')"/>
+                                                    <input type="text" class="form-control" id="placeofhandover" name="placeofhandover" maxlength="60" onkeyup = "placeofhandoverValidate('placeofhandover','placeofhandoverInputStatus','placeofhandoverIcon')" onblur="placeofhandoverValidate('placeofhandover','placeofhandoverInputStatus','placeofhandoverIcon')"/>
                                                     <span id="placeofhandoverIcon" aria-hidden="true"></span>
                                                     <span id="placeofhandoverInputStatus" class="errorHeader">Abgabeort wird benötigt!</span>
                                                 </div>
                                                 <div class="form-group has-feedback">
                                                     <label class="float-left" for="schoolphoneInput">Tel.-Nr. der Schule</label>
-                                                    <input type="text" class="form-control" name="schoolphonenumber" id="schoolphonenumber" maxlength="40" onkeyup = "schoolphoneValidate(this,'schoolphoneInputStatus','schoolphoneIcon')" onblur="schoolphoneValidate(this,'schoolphoneInputStatus','schoolphoneIcon')"/>
+                                                    <input type="text" class="form-control" name="schoolphonenumber" id="schoolphonenumber" maxlength="40" onkeyup = "schoolphoneValidate('schoolphonenumber','schoolphoneInputStatus','schoolphoneIcon')" onblur="schoolphoneValidate('schoolphonenumber','schoolphoneInputStatus','schoolphoneIcon')"/>
                                                     <span id="schoolphoneIcon" aria-hidden="true"></span>
                                                     <span id="schoolphoneInputStatus" class="errorHeader">Telefonnummer wird benötigt!</span>
                                                 </div>

@@ -442,5 +442,17 @@ $(document).ready(function () {
         var min_date = $("#start-date").datepicker('getDate');
         end_date.datepicker('option', 'minDate', min_date);
     }
+    $("#status-select").change(function () {
+        let table = $("#new-order-table").DataTable();
+        table.search("");
+        table.draw();
+    });
+
+    $.fn.dataTable.ext.search.push(function (settings,searchData,index, rowData, counter ) {
+        let searchedStatus = $("#status-select option:selected").text();
+        let selection = $(rowData[7]);
+        let selectedText = $(selection).find('option:selected').text();
+        return searchedStatus === selectedText || searchedStatus === "All";
+    })
 });
 

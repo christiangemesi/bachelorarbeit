@@ -199,11 +199,11 @@ $(document).ready(function () {
                     }
                 });
 
-                lastNameValidate();
-                firstNameValidate();
-                emailValidate();
-                phoneValidate();
-                nebisValidate();
+                lastNameValidate($("#lastname"),$("#lastNameInputStatus"),$("#lastNameIcon"));
+                firstNameValidate($("#surname"),$("#firstNameInputStatus"),$("#firstNameIcon"));
+                emailValidate($("#email"),$("#emailInputStatus"),$("#emailIcon"));
+                phoneValidate($("#phonenumber"),$("#phoneInputStatus"),$("#phoneIcon"));
+                nebisValidate($("#nebisusernumber"),$("#nebisInputStatus"),$("#nebisIcon"));
 
                 if (2 === response["order"]["fk_delivery"]) {
                     $("#order-delivery-type").css("display", "block");
@@ -213,11 +213,11 @@ $(document).ready(function () {
                     $("#placeofhandover").val(response["order"]["placeofhandover"]);
                     $("#schoolphonenumber").val(response["order"]["schoolphonenumber"]);
 
-                    schoolnameValidate();
-                    schoolstreetValidate();
-                    schoolcityValidate();
-                    placeofhandoverValidate();
-                    schoolphoneValidate();
+                    schoolnameValidate($("#schoolname"),$("#schoolNameInputStatus"),$("#schoolNameIcon"));
+                    schoolstreetValidate($("#schoolstreet"),$("#schoolstreetInputStatus"),$("#schoolstreetIcon"));
+                    schoolcityValidate($("#schoolcity"),$("#schoolcityInputStatus"),$("#schoolcityIcon"));
+                    placeofhandoverValidate($("#placeofhandover"),$("#placeofhandoverInputStatus"),$("#placeofhandover"));
+                    schoolphoneValidate($("#schoolphonenumber"),$("#schoolphoneInputStatus"),$("#schoolphoneIcon"));
                 } else {
                     $("#order-delivery-type").css("display", "none");
                 }
@@ -351,15 +351,16 @@ $(document).ready(function () {
     $("#end-date").datepicker({
         dateFormat: "dd.mm.yy",
         onSelect: function (date) {
-            // updateEvent();
+            updateEvent();
         }
     });
 
     $("#orderAdd-start-date").datepicker({
         dateFormat: "dd.mm.yy",
         onSelect: function (date) {
-            // bindEndData();
-            // updateEvent();
+           // bindEndDataOrderAdd();
+            //updateEvent
+
         }
     });
 
@@ -369,9 +370,10 @@ $(document).ready(function () {
     $("#orderAdd-end-date").datepicker({
         dateFormat: "dd.mm.yy",
         onSelect: function (date) {
-            updateEvent();
+            //updateEvent;
         }
     });
+
 
     /**
      * initial caledar settings
@@ -493,7 +495,15 @@ $(document).ready(function () {
     function bindEndData() {
         var end_date = $('#end-date');
         var start_date = $("#start-date").datepicker('getDate');
-        var min_date = $("#start-date").datepicker('getDate');
+        var min_date = $("start-date").datepicker('getDate');
+        end_date.datepicker('option', 'minDate', min_date);
+    }
+
+    function bindEndDataOrderAdd() {
+        console.log("worki torki");
+        var end_date = $('#orderAdd-end-date');
+        var start_date = $("#orderAdd-start-date").datepicker('getDate');
+        var min_date = $("#orderAdd-start-date").datepicker('getDate');
         end_date.datepicker('option', 'minDate', min_date);
     }
 
@@ -509,8 +519,14 @@ $(document).ready(function () {
             success: function (response){
                 $('#summernote_create').summernote();
 
-                $('#order-add-modal').modal("show");
+                $('#order-add-modal').modal('show',
+                    {
+                        backdrop: 'static',
+                        keyboard: false
+                    }
+                );
                 $('#order-add-form').trigger("reset");
+
                 $('#order-add-form span').each(function () {
                     $(this).removeClass("glyphicon glyphicon-ok form-control-feedback")
                 });
@@ -537,7 +553,7 @@ $(document).ready(function () {
                         className: "myOrder",
                         color: "#f44242"
                     }, true);
-                })
+                });
 
                 $('#order-add-modal').modal('show',
                     {
@@ -545,6 +561,13 @@ $(document).ready(function () {
                         keyboard: false
                     }
                 );
+                $("#orderAdd-delivery").html("");
+
+                lastNameValidate($("#orderAdd-nachname"),$("#orderAdd-lastNameInputStatus"),$("#orderAdd-lastNameIcon"));
+                firstNameValidate($("#orderAdd-name"),$("#orderAdd-firstNameInputStatus"),$("#orderAdd-firstNameIcon"));
+                emailValidate($("#orderAdd-email"),$("#orderAdd-emailInputStatus"),$("#orderAdd-emailIcon"));
+                phoneValidate($("#orderAdd-phone"),$("#orderAdd-phoneInputStatus"),$("#orderAdd-phoneIcon"));
+                nebisValidate($("#orderAdd-Nebisnumber"),$("#orderAdd-nebisInputStatus"),$("#orderAdd-nebisIcon"));
 
                 response["delivery"].forEach(function (element) {
                     $("#orderAdd-delivery").append("<option value=" + element['pk_delivery'] + " selected>" + element['type'] + "</option>")
@@ -606,6 +629,47 @@ $(document).ready(function () {
                 })
             }
         })
+    });
+
+    $(".status-update").on("change", function () {
+        var status_data = this.value;
+
+        $.ajax({
+            url: "admin/updateState",
+            type: 'POST',
+            data: {status_data: status_data},
+            headers: {
+                'X-CSRFToken': $('meta[name="token"]').attr('content')
+            },
+            beforeSend: function () {
+                $('#modal-order-edit-progress').modal('show');
+            },
+            success: function (response) {
+                $('#modal-order-edit-progress').modal('toggle');
+                if (1 === response) {
+                    showSuccessModal("Die Themenkiste ist bereit, die Bestellperson erhält eine Benachrichtigungs Email");
+                } else {
+                    showSuccessModal("Status wurde erfolgreich geändert");
+                }
+            },
+            error: function (xhr, status, error) {
+                $('#modal-order-edit-progress').modal('toggle');
+                showFailureModal("Es ist ein Fehler bei der Statusänderung passiert", xhr);
+            }
+        })
+    });
+
+    $("#status-select").change(function () {
+        let table = $("#new-order-table").DataTable();
+        table.search("");
+        table.draw();
+    });
+
+    $.fn.dataTable.ext.search.push(function (settings,searchData,index, rowData, counter ) {
+        let searchedStatus = $("#status-select option:selected").text();
+        let selection = $(rowData[7]);
+        let selectedText = $(selection).find('option:selected').text();
+        return searchedStatus === selectedText || searchedStatus === "All";
     })
 });
 

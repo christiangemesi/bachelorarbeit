@@ -100,6 +100,30 @@ class PowerUserController extends Controller
         }
         return $order_list;
     }
+    public function getOrdersWhereStatusIs($statusFK)
+    {
+        $orders = Order::where('fk_status',$statusFK)->get();
+        $order_list = array();
+        $counter = 0;
+        foreach ($orders as $order) {
+            $themebox = Themebox::find($order->fk_themebox);
+            $status = Status::find($order->fk_status);
+            $delivery = Delivery::find($order->fk_delivery);
+
+            $order_list[$counter] = array("themebox" => $themebox["title"],
+                "name" => $order->name,
+                "startdate" => date('d.m.Y', strtotime($order->startdate)),
+                "enddate" => date('d.m.Y', strtotime($order->enddate)),
+                "themeboxsig" => $themebox["signatur"],
+                "deliverytype" => $delivery["type"],
+                "fk_status" => $order->fk_status,
+                "status" => $status["name"],
+                "order_id" => $order->pk_order,
+                "ordernumber" => $order->ordernumber);
+            $counter++;
+        }
+        return $order_list;
+    }
 
     public function getStatuses()
     {
@@ -161,6 +185,27 @@ class PowerUserController extends Controller
             return response()->json($e, 500);
         }
     }
+
+    public function updateThemeboxState(Request $request)
+    {
+        $request_data = explode('-', $request->status_data);
+        $order_id = $request_data[1];
+        $new_state_id = $request_data[0];
+        $status_ready = 0;
+        $order = Order::find($order_id);
+
+        try {
+            if("Bereit" == Status::find($new_state_id)->name && 1 == $order["fk_delivery"]){
+                $this->sendEmail($order_id);
+                $status_ready = 1;
+            }
+            Order::find($order_id)->update(['fk_status' => $new_state_id]);
+            return response()->json($status_ready, 200);
+        } catch (Exception $e) {
+            return response()->json($e, 500);
+        }
+    }
+
     public function getOrder(Request $request){
         $order = Order::find($request->order_id);
 
@@ -357,5 +402,4 @@ class PowerUserController extends Controller
             $message->to($mail_data['receiver_mail'], $mail_data['receiver_name'] . " " . $mail_data['receiver_surname'])->bcc('bibliothek.windisch@fhnw.ch', 'Bibliothek Windisch')->subject('Bestellbestätigung Themenkiste');
         });
     }
-
 }

@@ -13,7 +13,6 @@
 
 
 
-use ThekRe\Http\Controllers\PowerUserController;
 
 $url = getenv('APP_URL');
 
@@ -62,6 +61,7 @@ Route::post('/poweruser/updateOrder', 'PowerUserController@updateOrder');
 Route::post('/poweruser/getOrder','PowerUserController@getOrder');
 Route::post('/poweruser/getOrderAddData','PowerUserController@getOrderAddData');
 Route::post('/poweruser/addOrder','PowerUserController@addOrder');
+Route::post('/poweruser/updateState', 'PowerUserController@updateThemeboxState');
 
 
 

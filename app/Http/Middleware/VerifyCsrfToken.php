@@ -23,6 +23,7 @@ class VerifyCsrfToken extends Middleware
         'poweruser/getOrder',
         'poweruser/getOrderAddData',
         'poweruser/addOrder',
+        '/poweruser/updateState',
 
         'admin/login',
         'admin/updateState',

@@ -166,6 +166,7 @@ $(document).ready(function () {
                     }
                 );
 
+                console.log(response["order"]["startdate"]);
                 $('#order-edit-form').trigger("reset");
                 $("#order-id").val(response["order"]["pk_order"]);
                 $("#ordernumber-edit").val(response["order"]["ordernumber"]);
@@ -358,8 +359,8 @@ $(document).ready(function () {
     $("#orderAdd-start-date").datepicker({
         dateFormat: "dd.mm.yy",
         onSelect: function (date) {
-           // bindEndDataOrderAdd();
-            //updateEvent
+           bindEndDataOrderAdd();
+            orderAddUpdateEvent();
 
         }
     });
@@ -370,7 +371,7 @@ $(document).ready(function () {
     $("#orderAdd-end-date").datepicker({
         dateFormat: "dd.mm.yy",
         onSelect: function (date) {
-            //updateEvent;
+            orderAddUpdateEvent();
         }
     });
 
@@ -495,7 +496,7 @@ $(document).ready(function () {
     function bindEndData() {
         var end_date = $('#end-date');
         var start_date = $("#start-date").datepicker('getDate');
-        var min_date = $("start-date").datepicker('getDate');
+        var min_date = $("#start-date").datepicker('getDate');
         end_date.datepicker('option', 'minDate', min_date);
     }
 
@@ -525,6 +526,8 @@ $(document).ready(function () {
                         keyboard: false
                     }
                 );
+                setTodaysDate();
+
                 $('#order-add-form').trigger("reset");
 
                 $('#order-add-form span').each(function () {
@@ -574,7 +577,6 @@ $(document).ready(function () {
 
                 })
                 $("#orderAdd-delivery").val(1);
-
             },
         })
     })
@@ -630,6 +632,30 @@ $(document).ready(function () {
             }
         })
     });
+
+    function setTodaysDate(){
+        // var today = new Date();
+        // console.log(today);
+        // var dd = String(today.getDate()).padStart(2,'0');
+        // var mm = String(today.getMonth()+1).padStart(2,'0');
+        // var yyyy = today.getFullYear();
+        // today = dd+'.'+mm+'.'+yyyy;
+        //
+        // console.log(dd,mm,yyyy);
+        //
+        //
+        // var start = document.getElementById('orderAdd-start-date');
+        // var end = document.getElementById('orderAdd-end-date');
+        //
+        // console.log(today);
+        // console.log(formatDate(today))
+        //
+        // start.datepicker.setAttribute('value',today);
+        // start.setAttribute('value',today);
+        //
+        //
+        // console.log("should have worked 2");
+    }
 
     $(".status-update").on("change", function () {
         var status_data = this.value;

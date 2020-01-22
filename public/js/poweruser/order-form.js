@@ -35,10 +35,16 @@ function firstNameValidate(input,status,icon) {
 
 function lastNameValidate(input,status,icon) {
 
-    console.log("vall");
+    // console.log(input,status,icon);
+
+
+
      var lastNameInput = convertToObject(input);
      var lastNameInputStatus = convertToObject(status);
      var lastNameIcon= convertToObject(icon);
+
+    // console.log(lastNameInput,lastNameInputStatus,lastNameIcon)
+
 
     if (lastNameInput.value == "") {
         lastNameInputStatus.innerHTML = "Nachname wird benötigt!";
@@ -434,6 +440,9 @@ function checkFormOrderAdd(form_type) {
 }
 function convertToObject(objectToConvert) {
     if(typeof objectToConvert == "object"){
+        console.log("converter");
+        console.log(objectToConvert);
+        console.log(objectToConvert[0]);
         return objectToConvert[0];
     }
     return document.getElementById(objectToConvert);

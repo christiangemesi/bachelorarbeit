@@ -181,8 +181,8 @@
                                             <div class="form-group has-feedback">
                                                 <label class="float-left" for="orderAdd-nachname">Nachname</label>
                                                 <input type="text" class="form-control" id="orderAdd-nachname" name="orderAdd-nachname" maxlength="40" onkeyup="lastNameValidate('orderAdd-nachname','OrderAdd-lastNameInputStatus','OrderAdd-lastNameIcon')" onblur="lastNameValidate('orderAdd-nachname','OrderAdd-lastNameInputStatus','OrderAdd-lastNameIcon')"/>
-                                                <span id="OrderAdd-lastNameIcon" aria-hidden="true"></span>
-                                                <span id="OrderAdd-lastNameInputStatus" class="errorHeader">Nachname wird benötigt!</span>
+                                                <span id="orderAdd-lastNameIcon" aria-hidden="true"></span>
+                                                <span id="orderAdd-lastNameInputStatus" class="errorHeader">Nachname wird benötigt!</span>
                                             </div>
 
                                             <div class="form-group">

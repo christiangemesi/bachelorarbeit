@@ -44,10 +44,6 @@ $(document).ready(function () {
     $("#start-date").datepicker({
         dateFormat: "dd.mm.yy",
         minDate: 1,
-        beforeShowDay: function(date){
-            var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
-            return [ listOfBlockedDates.indexOf(string) === -1 ]
-        },
         onSelect: function (date) {
             bindEndData();
             if($("#end-date").datepicker("getDate") != null){
@@ -60,15 +56,13 @@ $(document).ready(function () {
 
     $("#end-date").datepicker({
         dateFormat: "dd.mm.yy",
-        beforeShowDay: function(date){
-            var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
-            return [ listOfBlockedDates.indexOf(string) == -1 ]
-        },
         onSelect: function (date) {
             addEvent();
             $("#info-calendar-message-box").css("display", "none");
         }
     });
+
+
 
     /**
      * Focus is set on button click on glyphicon
@@ -670,7 +664,7 @@ $(document).ready(function () {
         var end_date = $('#end-date');
         var start_date = $("#start-date").datepicker('getDate');
         var min_date = $("#start-date").datepicker('getDate');
-        start_date.setDate(start_date.getDate() + 42);
+        start_date.setDate(start_date.getDate + 42);
         end_date.datepicker('option', 'maxDate', start_date);
         end_date.datepicker('option', 'minDate', min_date);
         $("#start-date").datepicker('option', 'minDate', new Date());

@@ -2,6 +2,8 @@ $(document).ready(function () {
     var orders;
     var old_startdate;
     var old_enddate;
+    var listOfBlockedDates = Array();
+
 
     $('#start-date').keydown(function () {
         return false;
@@ -227,9 +229,14 @@ $(document).ready(function () {
     $("#start-date").datepicker({
         dateFormat: "dd.mm.yy",
         minDate: 1,
+        beforeShowDay: function(date){
+            var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+            return [ listOfBlockedDates.indexOf(string) === -1 ]
+        },
         onSelect: function (date) {
             bindEndData();
             addEvent();
+            console.log("jap da");
         }
     });
 
@@ -238,10 +245,16 @@ $(document).ready(function () {
      */
     $("#end-date").datepicker({
         dateFormat: "dd.mm.yy",
+        beforeShowDay: function(date){
+            var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+            return [ listOfBlockedDates.indexOf(string) === -1 ]
+        },
         onSelect: function (date) {
             addEvent();
         }
     });
+
+
 
     /**
      * Specifies calendar properties
@@ -265,14 +278,17 @@ $(document).ready(function () {
     /**
      * bind start date and end date
      */
+    
+    
     function bindEndData() {
-        var end_date = $('#end-date');
-        var start_date = $("#start-date").datepicker('getDate');
-        var min_date = $("#start-date").datepicker('getDate');
-        start_date.setDate(start_date.getDate() + 42);
+        let end_date = $('#end-date');
+        let start_date = $("#start-date").datepicker('getDate');
+        let min_date = $("#start-date").datepicker('getDate');
+        start_date.setDate(start_date.getDate + 42);
         end_date.datepicker('option', 'maxDate', start_date);
         end_date.datepicker('option', 'minDate', min_date);
     }
+
 
     /**
      * prevent on enter submit edit themebox form

@@ -323,7 +323,7 @@ class PowerUserController extends Controller
         );
 
         try {
-//            $this->sendEmailNewOrder($mail_data, $path[7]["value"]);
+            $this->sendEmailNewOrder($mail_data, $path[7]["value"]);
             $newOrder->save();
             return response()->json($mail_data["title"],200);
         } catch (Exception $e) {

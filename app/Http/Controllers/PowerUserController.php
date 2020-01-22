@@ -354,6 +354,10 @@ class PowerUserController extends Controller
         }
         return $random_string;
     }
+    public function getNextMonday($date)
+    {
+        return date('d.m.Y', strtotime('next monday', strtotime($date)));
+    }
     public function sendEmailNewOrder($mail_data, $delivery_type)
     {
         if ($delivery_type == 2) { //delivery to school

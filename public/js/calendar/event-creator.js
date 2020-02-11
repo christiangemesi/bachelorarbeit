@@ -71,7 +71,7 @@ function orderAddUpdateEvent() {
     });
     console.log(formatCalendarDate($("#orderAdd-start-date").val()));
     console.log(formatCalendarEndDate($("#orderAdd-end-date").val()));
-    createEvent(formatCalendarDate($("#orderAdd-start-date").val()), formatCalendarEndDate($("#orderAdd-end-date").val()));
+    orderAddCreateEvent(formatCalendarDate($("#orderAdd-start-date").val()), formatCalendarEndDate($("#orderAdd-end-date").val()));
     $("#button-save-orderAdd-change").prop('disabled', false);
 }
 
@@ -127,6 +127,22 @@ function formatCalendarEndDate(date){
  */
 function createEvent(start, end){
     $("#calendar").fullCalendar('renderEvent',
+        {
+            title: "",
+            start: start,
+            end:  end,
+            rendering: "background",
+            className: "newOrder",
+            color: "#04B404"
+        },
+        true
+    );
+
+    $('#themebox-infobox-select-date').css("display", "block");
+    $('#carousel-right').prop('disabled', false);
+}
+function orderAddCreateEvent(start, end){
+    $("#orderAdd-calendar").fullCalendar('renderEvent',
         {
             title: "",
             start: start,

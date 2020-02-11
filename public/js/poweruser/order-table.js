@@ -526,7 +526,6 @@ $(document).ready(function () {
                         keyboard: false
                     }
                 );
-                setTodaysDate();
 
                 $('#order-add-form').trigger("reset");
 
@@ -566,11 +565,13 @@ $(document).ready(function () {
                 );
                 $("#orderAdd-delivery").html("");
 
-                lastNameValidate($("#orderAdd-nachname"),$("#orderAdd-lastNameInputStatus"),$("#orderAdd-lastNameIcon"));
-                firstNameValidate($("#orderAdd-name"),$("#orderAdd-firstNameInputStatus"),$("#orderAdd-firstNameIcon"));
-                emailValidate($("#orderAdd-email"),$("#orderAdd-emailInputStatus"),$("#orderAdd-emailIcon"));
-                phoneValidate($("#orderAdd-phone"),$("#orderAdd-phoneInputStatus"),$("#orderAdd-phoneIcon"));
-                nebisValidate($("#orderAdd-Nebisnumber"),$("#orderAdd-nebisInputStatus"),$("#orderAdd-nebisIcon"));
+                // lastNameValidate($("#orderAdd-nachname"),$("#orderAdd-lastNameInputStatus"),$("#orderAdd-lastNameIcon"));
+                // firstNameValidate($("#orderAdd-name"),$("#orderAdd-firstNameInputStatus"),$("#orderAdd-firstNameIcon"));
+                // emailValidate($("#orderAdd-email"),$("#orderAdd-emailInputStatus"),$("#orderAdd-emailIcon"));
+                // phoneValidate($("#orderAdd-phone"),$("#orderAdd-phoneInputStatus"),$("#orderAdd-phoneIcon"));
+                // nebisValidate($("#orderAdd-Nebisnumber"),$("#orderAdd-nebisInputStatus"),$("#orderAdd-nebisIcon"));
+
+                saveOrderAddButton().disabled = true;
 
                 response["delivery"].forEach(function (element) {
                     $("#orderAdd-delivery").append("<option value=" + element['pk_delivery'] + " selected>" + element['type'] + "</option>")
@@ -632,30 +633,6 @@ $(document).ready(function () {
             }
         })
     });
-
-    function setTodaysDate(){
-        // var today = new Date();
-        // console.log(today);
-        // var dd = String(today.getDate()).padStart(2,'0');
-        // var mm = String(today.getMonth()+1).padStart(2,'0');
-        // var yyyy = today.getFullYear();
-        // today = dd+'.'+mm+'.'+yyyy;
-        //
-        // console.log(dd,mm,yyyy);
-        //
-        //
-        // var start = document.getElementById('orderAdd-start-date');
-        // var end = document.getElementById('orderAdd-end-date');
-        //
-        // console.log(today);
-        // console.log(formatDate(today))
-        //
-        // start.datepicker.setAttribute('value',today);
-        // start.setAttribute('value',today);
-        //
-        //
-        // console.log("should have worked 2");
-    }
 
     $(".status-update").on("change", function () {
         var status_data = this.value;

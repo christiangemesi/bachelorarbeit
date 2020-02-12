@@ -24,13 +24,13 @@ function orderAddAddEvent() {
     var collision = checkEventCollision(formatCalendarDateCompare($("#orderAdd-start-date").val()), formatCalendarDateCompare($("#orderAdd-end-date").val()));
     hideErrorBoxes();
     if(collision){
-        $("#orderAdd-calendar").fullCalendar('removeEvents', function(event) {
-            return event.className == "newOrder";
-        });
-
-        $("#orderAdd-calendar").fullCalendar('removeEvents', function(event) {
-            return event.className == "myOrder";
-        });
+        // $("#orderAdd-calendar").fullCalendar('removeEvents', function(event) {
+        //     return event.className == "newOrder";
+        // });
+        //
+        // $("#orderAdd-calendar").fullCalendar('removeEvents', function(event) {
+        //     return event.className == "myOrder";
+        // });
 
         createEvent(formatCalendarDate($("#orderAdd-start-date").val()), formatCalendarEndDate($("#orderAdd-end-date").val()));
         $("#button-save-orderAdd").prop('disabled', false);

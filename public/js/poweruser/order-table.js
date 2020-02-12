@@ -356,6 +356,9 @@ $(document).ready(function () {
         }
     });
 
+    /**
+     * start date input field
+     */
     $("#orderAdd-start-date").datepicker({
         dateFormat: "dd.mm.yy",
         onSelect: function (date) {
@@ -552,7 +555,7 @@ $(document).ready(function () {
                         start: addTime(element["order_startdate"]),
                         end: addEndTime(element["order_enddate"]),
                         rendering: "background",
-                        className: "myOrder",
+                        className: "Order66",
                         color: "#f44242"
                     }, true);
                 });
@@ -564,12 +567,6 @@ $(document).ready(function () {
                     }
                 );
                 $("#orderAdd-delivery").html("");
-
-                // lastNameValidate($("#orderAdd-nachname"),$("#orderAdd-lastNameInputStatus"),$("#orderAdd-lastNameIcon"));
-                // firstNameValidate($("#orderAdd-name"),$("#orderAdd-firstNameInputStatus"),$("#orderAdd-firstNameIcon"));
-                // emailValidate($("#orderAdd-email"),$("#orderAdd-emailInputStatus"),$("#orderAdd-emailIcon"));
-                // phoneValidate($("#orderAdd-phone"),$("#orderAdd-phoneInputStatus"),$("#orderAdd-phoneIcon"));
-                // nebisValidate($("#orderAdd-Nebisnumber"),$("#orderAdd-nebisInputStatus"),$("#orderAdd-nebisIcon"));
 
                 saveOrderAddButton().disabled = true;
 

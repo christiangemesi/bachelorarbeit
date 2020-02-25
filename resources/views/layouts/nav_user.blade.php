@@ -10,9 +10,6 @@
             <li class="sidebar-nav-text">
                 <a href="{{ env('APP_URL') }}/user"><div class="nav-text"> Bestellformular</div></a>
             </li>
-            <li class="sidebar-nav-text">
-                <a href="{{ env('APP_URL') }}/user/loginForm"><div class="nav-text"> Bestellverwaltung</div></a>
-            </li>
         </ul>
     </div>
 </div>

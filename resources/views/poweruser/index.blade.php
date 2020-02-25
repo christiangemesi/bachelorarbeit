@@ -150,7 +150,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <form id="order-add-form" autocomplete="off">
-                            <div class="col-md-6 thekre-row overflow-order-user-box">
+                            <div class="col-md-5 thekre-row overflow-order-user-box">
                                 <div class="panel-body margin-less">
                                     <div class="row thekre-row">
                                         <div class="form-group">
@@ -257,18 +257,18 @@
                                 </div>
                             </div>
                         </form>
-                        <div class="col-md-6">
+                        <div class="col-md-7">
                             <div class="margin-top-40" id='orderAdd-calendar'>
                             </div>
                             <hr>
                             <div id="order-calendar-legend">
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <div id="order-calendar-legend-free">
                                             <div class="order-calendar-legend-text">Verfügbar</div>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <div id="order-calendar-legend-block">
                                             <div class="order-calendar-legend-text">Ausgeliehen</div>
                                         </div>
@@ -277,7 +277,11 @@
                                         <div id="order-calendar-legend-new">
                                             <div class="order-calendar-legend-text">Ihre Auswahl</div>
                                         </div>
-
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div id="order-calendar-legend-blocked-period">
+                                            <div class="order-calendar-legend-text">Geschlossenl</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -314,7 +318,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <form id="order-edit-form" autocomplete="off">
-                            <div class="col-md-6 thekre-row overflow-order-user-box">
+                            <div class="col-md-5 thekre-row overflow-order-user-box">
                                 <input type="hidden" value="" name="order-id" id="order-id"/>
                                 <div class="panel-body margin-less">
                                     <div class="row thekre-row">
@@ -435,18 +439,18 @@
                                 </div>
                             </div>
                         </form>
-                        <div class="col-md-6">
+                        <div class="col-md-7">
                             <div class="margin-top-40" id='calendar'>
                             </div>
                             <hr>
                             <div id="order-calendar-legend">
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <div id="order-calendar-legend-free">
                                             <div class="order-calendar-legend-text">Verfügbar</div>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <div id="order-calendar-legend-block">
                                             <div class="order-calendar-legend-text">Ausgeliehen</div>
                                         </div>
@@ -454,6 +458,11 @@
                                     <div class="col-md-3">
                                         <div id="order-calendar-legend-new">
                                             <div class="order-calendar-legend-text">Ihre Auswahl</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div id="order-calendar-legend-blocked-period">
+                                            <div class="order-calendar-legend-text">Geschlossenl</div>
                                         </div>
                                     </div>
                                 </div>

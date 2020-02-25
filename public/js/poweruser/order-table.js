@@ -1,4 +1,8 @@
 $(document).ready(function () {
+    let listOfBlockedDates = Array();
+    let dayToCalculateNextSundays = getNextDayOfWeek(new Date, 7);
+    let dayToCalculatePreviousSundays = getNextDayOfWeek(new Date, 7);
+
     $('[data-toggle="tooltip"]').tooltip();
 
     $('#start-date').keydown(function () {
@@ -251,6 +255,10 @@ $(document).ready(function () {
 
                 bindEndData();
                 addBlockDateFromToday();
+                loadBlockedDates();
+                blockTillNextSunday();
+                blockNextFiveSundaysInCalendar();
+                blockPreviousFiveSundaysInCalendar();
                 },
             error: function (xhr, status, error) {
                 showFailureModal("Es ist ein Fehler beim Laden der Daten vorgekommen", xhr);
@@ -559,6 +567,10 @@ $(document).ready(function () {
                         color: "#f44242"
                     }, true);
                 });
+                loadBlockedDates();
+                blockTillNextSunday();
+                blockNextFiveSundaysInCalendar();
+                blockPreviousFiveSundaysInCalendar();
 
                 $('#order-add-modal').modal('show',
                     {
@@ -671,5 +683,155 @@ $(document).ready(function () {
         let selectedText = $(selection).find('option:selected').text();
         return searchedStatus === selectedText || searchedStatus === "All";
     })
+    function loadBlockedDates() {
+
+        $.ajax({
+            url: "../" + "/" +"user/getBlockedPeriods",
+            type:"POST",
+            data: {},
+            success: function(data) {
+
+                $.each(data, function(index, element){
+                    blockedPeriodEvent(formatBlockedPeriodCalendarStartDate(element.startdate), formatBlockedPeriodCalendarEndDate(element.enddate));
+                    blockedPeriodEventtwo(formatBlockedPeriodCalendarStartDate(element.startdate), formatBlockedPeriodCalendarEndDate(element.enddate));
+                    var blockedPeriodsArray = computeDayBetweenStartAndEnd(new Date(formatCalendarDate(element.startdate)), new Date(formatCalendarDate(element.enddate)));
+
+                    for(var i = 0; i <= blockedPeriodsArray.length; i++){
+                        listOfBlockedDates.push(blockedPeriodsArray[i]);
+                    }
+                });
+            },
+            error: function(xhr, status, error) {
+                errorHandling("Es ist ein Fehler bei der Datenverarbeitung passiert. Bitte kontaktieren Sie die FHNW Bibliothek unter bibliothek.windisch@fhnw.ch", "#error-message-box");
+            }
+        });
+    }
+    function blockedPeriodEvent(start, end){
+        $("#orderAdd-calendar").fullCalendar('renderEvent',
+            {
+                id: "blocked",
+                title: "",
+                start: start,
+                end:  end,
+                rendering: "background",
+                className: "blocked_event",
+                color: "#ffad00"
+            },
+            true
+        );
+    }
+
+    function formatBlockedPeriodCalendarStartDate(date){
+        let temp_date = date.split(".");
+        var new_date = new Date(temp_date[2] + "-" + temp_date[1] + "-" + temp_date[0] + "T00:00:00-00:00");
+        return new_date.getUTCFullYear() + "-" + formatTwoDigit(new_date.getUTCMonth() +1) + "-" + formatTwoDigit(new_date.getUTCDate());
+    }
+
+    function formatBlockedPeriodCalendarEndDate(date){
+        var temp_date = date.split(".");
+        var new_date = new Date(temp_date[2] + "-" + temp_date[1] + "-" + temp_date[0] + "T00:00:00-00:00");
+        return new_date.getUTCFullYear() + "-" + formatTwoDigit(new_date.getUTCMonth() +1) + "-" + formatTwoDigit(new_date.getUTCDate() +1);
+    }
+
+    function computeDayBetweenStartAndEnd(startDate, endDate) {
+
+        var arr = new Array();
+        var dt = new Date(startDate);
+
+        while (dt <= endDate) {
+            arr.push(formatBlockDate(new Date(dt)));
+            dt.setDate(dt.getDate() + 1);
+        }
+        return arr;
+    }
+    function blockTillNextSunday() {
+        var nextSunday = getNextDayOfWeek(new Date(), 7);
+
+        var tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+
+        var dateArr = computeDayBetweenStartAndEnd(tomorrow , nextSunday);
+
+        for(var i = 0; i <= dateArr.length; i++){
+            listOfBlockedDates.push(dateArr[i]);
+        }
+    }
+    function blockNextFiveSundaysInCalendar() {
+        for(var i = 0; i < 10; i++){
+            blockAllSundaysEvent(formatBlockDate(dayToCalculateNextSundays));
+            blockAllSundaysEventtwo(formatBlockDate(dayToCalculateNextSundays));
+            dayToCalculateNextSundays.setDate(dayToCalculateNextSundays.getDate() + 7);
+        }
+    }
+    function blockAllSundaysEvent(Sunday){
+
+        $("#orderAdd-calendar").fullCalendar('renderEvent',
+            {
+                id: "blocked",
+                title: "",
+                start: Sunday,
+                rendering: "background",
+                className: "blocked_event",
+                color: "#ffad00"
+            },
+            true
+        );
+    }
+    function blockPreviousFiveSundaysInCalendar() {
+
+        for(var i = 0; i < 10; i++){
+            dayToCalculatePreviousSundays.setDate(dayToCalculatePreviousSundays.getDate() - 7);
+            blockAllSundaysEvent(formatBlockDate(dayToCalculatePreviousSundays));
+            blockAllSundaysEventtwo(formatBlockDate(dayToCalculatePreviousSundays));
+        }
+    }
+    function formatBlockDate(date) {
+        var day = date.getDate();
+        var month = date.getMonth() + 1;
+        var year = date.getFullYear();
+
+        if(day<10){
+            day = '0' + day;
+        }else{
+            day = '' + day;
+        }
+
+        if(month<10){
+            month = '0' + month;
+        }else{
+            month = '' + month;
+        }
+
+        return year + '-' + month + '-' + day;
+    }
+    function blockAllSundaysEventtwo(Sunday){
+
+        $("#calendar").fullCalendar('renderEvent',
+            {
+                id: "blocked",
+                title: "",
+                start: Sunday,
+                rendering: "background",
+                className: "blocked_event",
+                color: "#ffad00"
+            },
+            true
+        );
+    }
+    function blockedPeriodEventtwo(start, end){
+        $("#calendar").fullCalendar('renderEvent',
+            {
+                id: "blocked",
+                title: "",
+                start: start,
+                end:  end,
+                rendering: "background",
+                className: "blocked_event",
+                color: "#ffad00"
+            },
+            true
+        );
+    }
 });
+
 

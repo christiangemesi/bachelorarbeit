@@ -257,6 +257,9 @@ $(document).ready(function () {
                     }
                 });
 
+                dayToCalculateNextSundays = getNextDayOfWeek(new Date, 7);
+                dayToCalculatePreviousSundays = getNextDayOfWeek(new Date, 7);
+
                 bindEndData();
                 addBlockDateFromToday();
                 loadBlockedDates();
@@ -521,14 +524,14 @@ $(document).ready(function () {
         }
     }
     function blockNextFiveSundaysInCalendar() {
-        for(var i = 0; i < 10; i++){
+        for(var i = 0; i < 52; i++){
             blockAllSundaysEventtwo(formatBlockDate(dayToCalculateNextSundays));
             dayToCalculateNextSundays.setDate(dayToCalculateNextSundays.getDate() + 7);
         }
     }
     function blockPreviousFiveSundaysInCalendar() {
 
-        for(var i = 0; i < 10; i++){
+        for(var i = 0; i < 52; i++){
             dayToCalculatePreviousSundays.setDate(dayToCalculatePreviousSundays.getDate() - 7);
             blockAllSundaysEventtwo(formatBlockDate(dayToCalculatePreviousSundays));
         }

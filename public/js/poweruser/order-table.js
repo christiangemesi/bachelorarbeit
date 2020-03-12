@@ -253,6 +253,9 @@ $(document).ready(function () {
                     }
                 });
 
+                dayToCalculateNextSundays = getNextDayOfWeek(new Date, 7);
+                dayToCalculatePreviousSundays = getNextDayOfWeek(new Date, 7);
+
                 bindEndData();
                 addBlockDateFromToday();
                 loadBlockedDates();
@@ -568,6 +571,10 @@ $(document).ready(function () {
                     }, true);
                 });
                 loadBlockedDates();
+
+                dayToCalculateNextSundays = getNextDayOfWeek(new Date, 7);
+                dayToCalculatePreviousSundays = getNextDayOfWeek(new Date, 7);
+
                 blockTillNextSunday();
                 blockNextFiveSundaysInCalendar();
                 blockPreviousFiveSundaysInCalendar();
@@ -757,7 +764,7 @@ $(document).ready(function () {
         }
     }
     function blockNextFiveSundaysInCalendar() {
-        for(var i = 0; i < 10; i++){
+        for(var i = 0; i < 52; i++){
             blockAllSundaysEvent(formatBlockDate(dayToCalculateNextSundays));
             blockAllSundaysEventtwo(formatBlockDate(dayToCalculateNextSundays));
             dayToCalculateNextSundays.setDate(dayToCalculateNextSundays.getDate() + 7);
@@ -778,8 +785,7 @@ $(document).ready(function () {
         );
     }
     function blockPreviousFiveSundaysInCalendar() {
-
-        for(var i = 0; i < 10; i++){
+        for(var i = 0; i < 52; i++){
             dayToCalculatePreviousSundays.setDate(dayToCalculatePreviousSundays.getDate() - 7);
             blockAllSundaysEvent(formatBlockDate(dayToCalculatePreviousSundays));
             blockAllSundaysEventtwo(formatBlockDate(dayToCalculatePreviousSundays));
@@ -821,7 +827,7 @@ $(document).ready(function () {
     function blockedPeriodEventtwo(start, end){
         $("#calendar").fullCalendar('renderEvent',
             {
-                id: "blocked",
+                id: "blockeddate",
                 title: "",
                 start: start,
                 end:  end,

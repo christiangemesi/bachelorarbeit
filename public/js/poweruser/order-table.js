@@ -635,6 +635,14 @@ $(document).ready(function () {
                     return event.className == "newOrder";
                 });
 
+                loadBlockedDates();
+
+                dayToCalculateNextSundays = getNextDayOfWeek(new Date, 7);
+                dayToCalculatePreviousSundays = getNextDayOfWeek(new Date, 7);
+
+                blockTillNextSunday();
+                blockNextFiveSundaysInCalendar();
+                blockPreviousFiveSundaysInCalendar();
 
                 response["orderData"].forEach(function (element) {
                     $('#orderAdd-calendar').fullCalendar("renderEvent", {
@@ -642,12 +650,14 @@ $(document).ready(function () {
                         start: addTime(element["order_startdate"]),
                         end: addEndTime(element["order_enddate"]),
                         rendering: "background",
-                        className: "myOrder",
+                        className: "selected",
                         color: "#f44242"
                     }, true);
                 })
             }
         })
+
+
     });
 
     $(".status-update").on("change", function () {
@@ -697,6 +707,7 @@ $(document).ready(function () {
             type:"POST",
             data: {},
             success: function(data) {
+
 
                 $.each(data, function(index, element){
                     blockedPeriodEvent(formatBlockedPeriodCalendarStartDate(element.startdate), formatBlockedPeriodCalendarEndDate(element.enddate));

@@ -21,6 +21,7 @@
     <script src="{{ asset('js/callback-modal.js') }}"></script>
 
 
+
     <div class="modal fade" id="callback-modal" tabindex="-1">
         <div class="modal-dialog " role="document">
             <div class="modal-content">
@@ -50,6 +51,20 @@
 
     <div class="col-md-12 admin-panel  data-table-thekre">
         <h1 class="admin-header">Bestellungen</h1>
+        <div class="row">
+            <div class="col-sm-10">
+            </div>
+            <div class="col-sm-2">
+                <label class="float-left" for="status-select">Suchen nach Status: </label>
+                <select class="float-right form-dropdown thekre-dropdown-Admin" id="status-select">
+                    <option value="0">All</option>
+                    @foreach($statuses as $status)
+                        <option value="{{$status["pk_status"]}}">{{$status["name"]}}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+        <div class="thekre-row"><div class="col-sm-12"></div></div>
         <div class="panel panel-default no-border  margin-top-less" id="table-content">
             <table id="new-order-table" class="data-table table table-bordered" cellspacing="0" width="100%">
                 <thead>
@@ -92,10 +107,10 @@
                         <td>
                             <select id="status-list-{{$order["order_id"]}}" name="status"
                                     class="form-dropdown thekre-dropdown-Admin status-update">
-                                <option value= {{$order["fk_status"] . "-" . $order["order_id"]}}> {{$order["status"]}}</option>
+                                <option value= {{$order["fk_status"] . "-" . $order["order_id"]}}>{{$order["status"]}}</option>
 
                                 @if(isset($statuses[$order["fk_status"]]))
-                                    <option value= {{$statuses[$order["fk_status"]]["pk_status"] . "-" . $order["order_id"]}}> {{$statuses[$order["fk_status"]]["name"]}}</option>
+                                    <option value= {{$statuses[$order["fk_status"]]["pk_status"] . "-" . $order["order_id"]}}>{{$statuses[$order["fk_status"]]["name"]}}</option>
                                 @endif
                             </select>
                         </td>
@@ -136,7 +151,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <form id="order-edit-form" autocomplete="off">
-                        <div class="col-md-6 thekre-row overflow-order-user-box">
+                        <div class="col-md-5 thekre-row overflow-order-user-box">
                             <input type="hidden" value="" name="order-id" id="order-id"/>
                             <div class="panel-body margin-less">
                                 <div class="row thekre-row">
@@ -256,18 +271,18 @@
                             </div>
                         </div>
                         </form>
-                        <div class="col-md-6">
+                        <div class="col-md-7">
                             <div class="margin-top-40" id='calendar'>
                             </div>
                             <hr>
                             <div id="order-calendar-legend">
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <div id="order-calendar-legend-free">
                                             <div class="order-calendar-legend-text">Verfügbar</div>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <div id="order-calendar-legend-block">
                                             <div class="order-calendar-legend-text">Ausgeliehen</div>
                                         </div>
@@ -275,6 +290,11 @@
                                     <div class="col-md-3">
                                         <div id="order-calendar-legend-new">
                                             <div class="order-calendar-legend-text">Ihre Auswahl</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div id="order-calendar-legend-blocked-period">
+                                            <div class="order-calendar-legend-text">Geschlossenl</div>
                                         </div>
                                     </div>
                                 </div>

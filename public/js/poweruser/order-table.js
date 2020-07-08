@@ -13,18 +13,31 @@ $(document).ready(function () {
         return false;
     });
 
+    $('#orderAdd-start-date').keydown(function () {
+        return false;
+    });
+
+    $('#orderAdd-end-date').keydown(function () {
+        return false;
+    });
+
     /**
      * Focus is set on button click on glyphicon
      */
     $("#order-from-glyphicon").click(function () {
         $("#start-date").focus();
     });
-
+    $("#orderAdd-from-glyphicon").click(function () {
+        $("#orderAdd-start-date").focus();
+    })
     /**
      * Focus is set on button click on glyphicon
      */
     $("#order-to-glyphicon").click(function () {
         $("#end-date").focus();
+    });
+    $("#orderAdd-to-glyphicon").click(function () {
+        $("#orderAdd-end-date").focus();
     });
 
     /**
@@ -34,7 +47,7 @@ $(document).ready(function () {
         var status_data = this.value;
 
         $.ajax({
-            url: "admin/updateState",
+            url: "poweruser/updateState",
             type: 'POST',
             data: {status_data: status_data},
             headers: {
@@ -72,24 +85,6 @@ $(document).ready(function () {
     });
 
     /**
-     * confirm remove themebox
-     */
-    $('#button-delete-order-confirm').click(function () {
-        $.ajax({
-            url: "admin/removeOrder",
-            type: 'POST',
-            data: {order_id: $('#object-remove-id').val()},
-            success: function (response) {
-                showSuccessModal("Bestellung wurde erfolgreich gelöscht");
-            },
-            error: function (xhr, status, error) {
-                showFailureModal("Es ist ein Fehler beim Löschen passiert", xhr);
-            }
-        })
-    });
-
-
-    /**
      * button print
      */
     function printData()
@@ -108,8 +103,6 @@ $(document).ready(function () {
             type: 'POST',
             data: {order_id: $(this).val()},
             success: function (response) {
-
-
                 var html =
                     '<tr><td class="print-table-title"><strong>Bestellung: </strong></td><td class="print-table-text">' + response["order"]["ordernumber"] +'</td></tr>' +
                     '<tr><td> </td></tr>' +
@@ -147,9 +140,10 @@ $(document).ready(function () {
                 showFailureModal("Es ist ein Fehler beim Laden der Daten vorgekommen", xhr);
             },
             complete: function () {
+
                 printData();
             }
-    });
+        });
     });
 
 
@@ -158,7 +152,7 @@ $(document).ready(function () {
      */
     $(".button-edit-order").click(function () {
         $.ajax({
-            url: "admin/getOrder",
+            url: "poweruser/getOrder",
             type: 'POST',
             data: {order_id: $(this).val()},
             success: function (response) {
@@ -175,6 +169,8 @@ $(document).ready(function () {
                         keyboard: false
                     }
                 );
+
+                console.log(response["order"]["startdate"]);
                 $('#order-edit-form').trigger("reset");
                 $("#order-id").val(response["order"]["pk_order"]);
                 $("#ordernumber-edit").val(response["order"]["ordernumber"]);
@@ -208,11 +204,11 @@ $(document).ready(function () {
                     }
                 });
 
-                lastNameValidate();
-                firstNameValidate();
-                emailValidate();
-                phoneValidate();
-                nebisValidate();
+                lastNameValidate($("#lastname"),$("#lastNameInputStatus"),$("#lastNameIcon"));
+                firstNameValidate($("#surname"),$("#firstNameInputStatus"),$("#firstNameIcon"));
+                emailValidate($("#email"),$("#emailInputStatus"),$("#emailIcon"));
+                phoneValidate($("#phonenumber"),$("#phoneInputStatus"),$("#phoneIcon"));
+                nebisValidate($("#nebisusernumber"),$("#nebisInputStatus"),$("#nebisIcon"));
 
                 if (2 === response["order"]["fk_delivery"]) {
                     $("#order-delivery-type").css("display", "block");
@@ -222,11 +218,11 @@ $(document).ready(function () {
                     $("#placeofhandover").val(response["order"]["placeofhandover"]);
                     $("#schoolphonenumber").val(response["order"]["schoolphonenumber"]);
 
-                    schoolnameValidate();
-                    schoolstreetValidate();
-                    schoolcityValidate();
-                    placeofhandoverValidate();
-                    schoolphoneValidate();
+                    schoolnameValidate($("#schoolname"),$("#schoolNameInputStatus"),$("#schoolNameIcon"));
+                    schoolstreetValidate($("#schoolstreet"),$("#schoolstreetInputStatus"),$("#schoolstreetIcon"));
+                    schoolcityValidate($("#schoolcity"),$("#schoolcityInputStatus"),$("#schoolcityIcon"));
+                    placeofhandoverValidate($("#placeofhandover"),$("#placeofhandoverInputStatus"),$("#placeofhandover"));
+                    schoolphoneValidate($("#schoolphonenumber"),$("#schoolphoneInputStatus"),$("#schoolphoneIcon"));
                 } else {
                     $("#order-delivery-type").css("display", "none");
                 }
@@ -266,8 +262,7 @@ $(document).ready(function () {
                 blockTillNextSunday();
                 blockNextFiveSundaysInCalendar();
                 blockPreviousFiveSundaysInCalendar();
-
-            },
+                },
             error: function (xhr, status, error) {
                 showFailureModal("Es ist ein Fehler beim Laden der Daten vorgekommen", xhr);
             }
@@ -286,12 +281,11 @@ $(document).ready(function () {
      */
     $('#button-save-order-change').click(function () {
         $.ajax({
-            url: "admin/updateOrder",
+            url: "poweruser/updateOrder",
             type: 'POST',
             data: {order_data: $('#order-edit-form').serializeArray()},
             beforeSend: function () {
                 $('#modal-order-edit-progress').modal('show');
-                console.log($('#order-edit-form').serializeArray());
             },
             success: function (response) {
                 $('#modal-order-edit-progress').modal('toggle');
@@ -300,6 +294,32 @@ $(document).ready(function () {
             error: function (xhr, status, error) {
                 $('#modal-order-edit-progress').modal('toggle');
                 showFailureModal("Änderungen konnten nicht gespeichert werden", xhr);
+            }
+        });
+    });
+
+    $('#button-save-orderAdd').click(function () {
+        var order_data = {
+            themeboxId: parseInt($('#orderAdd-thembox').val()),
+            orderData: $('#order-add-form').serializeArray()
+        }
+        $.ajax({
+            url: "poweruser/addOrder",
+            type: 'POST',
+            data: order_data,
+            beforeSend: function () {
+                $('#modal-order-edit-progress').modal('show');
+
+            },
+            success: function (response) {
+                $('#modal-order-edit-progress').modal('toggle');
+                showSuccessModal("Bestelung wurde erfolgreich gespeichert");
+
+            },
+            error: function (xhr, status, error,response) {
+                $('#modal-order-edit-progress').modal('toggle');
+                showFailureModal("Bestellung konnten nicht gespeichert werden", xhr);
+
             }
         });
     });
@@ -348,9 +368,48 @@ $(document).ready(function () {
     });
 
     /**
+     * start date input field
+     */
+    $("#orderAdd-start-date").datepicker({
+        dateFormat: "dd.mm.yy",
+        onSelect: function (date) {
+           bindEndDataOrderAdd();
+            orderAddUpdateEvent();
+
+        }
+    });
+
+    /**
+     * end date input field
+     */
+    $("#orderAdd-end-date").datepicker({
+        dateFormat: "dd.mm.yy",
+        onSelect: function (date) {
+            orderAddUpdateEvent();
+        }
+    });
+
+
+    /**
      * initial caledar settings
      */
     $("#calendar").fullCalendar({
+        selectable: true,
+        eventColor: "#f44242",
+        height: "auto",
+        dayClick: function (date, allDay, jsEvent, view) {
+            $("#info-calendar-message-box").html("Wählen Sie oben ihre gewünschte Ausleihperiode");
+            $("#info-calendar-message-box").css("display", "block");
+            $("#error-calendar-message-box").css("display", "none");
+        },
+        select: function (start, end, allDay) {
+            $("#info-calendar-message-box").html("Wählen Sie oben ihre gewünschte Ausleihperiode");
+            $("#info-calendar-message-box").css("display", "block");
+            $("#error-calendar-message-box").css("display", "none");
+        }
+    });
+
+    $("#orderAdd-calendar").fullCalendar({
         selectable: true,
         eventColor: "#f44242",
         height: "auto",
@@ -454,6 +513,181 @@ $(document).ready(function () {
         var min_date = $("#start-date").datepicker('getDate');
         end_date.datepicker('option', 'minDate', min_date);
     }
+
+    function bindEndDataOrderAdd() {
+        console.log("worki torki");
+        var end_date = $('#orderAdd-end-date');
+        var start_date = $("#orderAdd-start-date").datepicker('getDate');
+        var min_date = $("#orderAdd-start-date").datepicker('getDate');
+        end_date.datepicker('option', 'minDate', min_date);
+    }
+
+    /**
+     * show create order modal
+     */
+    $("#button-create-order").click(function () {
+        let fk_thembox = 1;
+        $.ajax({
+            url: "poweruser/getOrderAddData",
+            type: "POST",
+            data: {fk_thembox},
+            success: function (response){
+                $('#summernote_create').summernote();
+
+                $('#order-add-modal').modal('show',
+                    {
+                        backdrop: 'static',
+                        keyboard: false
+                    }
+                );
+
+                $('#order-add-form').trigger("reset");
+
+                $('#order-add-form span').each(function () {
+                    $(this).removeClass("glyphicon glyphicon-ok form-control-feedback")
+                });
+                $("#order-add-form div").each(function () {
+                    $(this).removeClass("has-success has-feedback");
+                });
+                $('#order-add-form span').each(function () {
+                    $(this).removeClass("glyphicon glyphicon-remove form-control-feedback");
+                });
+                $('#order-add-form div').each(function () {
+                    $(this).removeClass("has-error has-feedback");
+                });
+                $("#orderAdd-calendar").fullCalendar("render");
+                $("#orderAdd-calendar").fullCalendar("removeEvents");
+                $("#orderAdd-calendar").fullCalendar('removeEvents', function (event) {
+                    return event.className == "newOrder";
+                });
+                response["orderData"].forEach(function (element) {
+                    $('#orderAdd-calendar').fullCalendar("renderEvent", {
+                        title: "",
+                        start: addTime(element["order_startdate"]),
+                        end: addEndTime(element["order_enddate"]),
+                        rendering: "background",
+                        className: "Order66",
+                        color: "#f44242"
+                    }, true);
+                });
+                loadBlockedDates();
+
+                dayToCalculateNextSundays = getNextDayOfWeek(new Date, 7);
+                dayToCalculatePreviousSundays = getNextDayOfWeek(new Date, 7);
+
+                blockTillNextSunday();
+                blockNextFiveSundaysInCalendar();
+                blockPreviousFiveSundaysInCalendar();
+
+                $('#order-add-modal').modal('show',
+                    {
+                        backdrop: 'static',
+                        keyboard: false
+                    }
+                );
+                $("#orderAdd-delivery").html("");
+
+                saveOrderAddButton().disabled = true;
+
+                response["delivery"].forEach(function (element) {
+                    $("#orderAdd-delivery").append("<option value=" + element['pk_delivery'] + " selected>" + element['type'] + "</option>")
+
+                })
+                $("#orderAdd-delivery").val(1);
+            },
+        })
+    })
+
+    $('#orderAdd-delivery').click(function () {
+        if ($("#orderAdd-delivery").val() == "1") {
+            $("#orderAdd-delivery-type").hide();
+            lastNameValidate($("#orderAdd-nachname"),$("#orderAdd-lastNameInputStatus"),$("#orderAdd-lastNameIcon"));
+            firstNameValidate($("#orderAdd-name"),$("#orderAdd-firstNameInputStatus"),$("#orderAdd-firstNameIcon"));
+            emailValidate($("#orderAdd-email"),$("#orderAdd-emailInputStatus"),$("#orderAdd-emailIcon"));
+            phoneValidate($("#orderAdd-phone"),$("#orderAdd-phoneInputStatus"),$("#orderAdd-phoneIcon"));
+            nebisValidate($("#orderAdd-Nebisnumber"),$("#orderAdd-nebisInputStatus"),$("#orderAdd-nebisIcon"));
+        }
+        else {
+            $("#orderAdd-delivery-type").show();
+            schoolnameValidate($("#orderAdd-schoolname"),$("#orderAdd-schoolNameInputStatus"),$("#orderAdd-schoolNameIcon"));
+            schoolstreetValidate($("#orderAdd-schoolstreet"),$("#orderAdd-schoolstreetInputStatus"),$("#orderAdd-schoolstreetIcon"));
+            schoolcityValidate($("#orderAdd-schoolcity"),$("#orderAdd-schoolcityInputStatus"),$("#orderAdd-schoolcityIcon"));
+            placeofhandoverValidate($("#orderAdd-placeofhandover"),$("#orderAdd-placeofhandoverInputStatus"),$("#orderAdd-placeofhandoverIcon"));
+            schoolphoneValidate($("#orderAdd-schoolphonenumber"),$("#orderAdd-schoolphoneInputStatus"),$("#orderAdd-schoolphoneIcon"));
+        }
+    });
+
+    $('#order-add-modal').on('shown.bs.modal', function () {
+        $("#orderAdd-calendar").fullCalendar('render');
+    });
+
+    $('#orderAdd-thembox').change(function () {
+        let fk_thembox = parseInt($('#orderAdd-thembox').val());
+
+        $.ajax({
+            url: "poweruser/getOrderAddData",
+            type: "POST",
+            data: {fk_thembox},
+            success: function (response) {
+                $("#orderAdd-calendar").fullCalendar("render");
+                $("#orderAdd-calendar").fullCalendar("removeEvents");
+                $("#orderAdd-calendar").fullCalendar('removeEvents', function (event) {
+                    return event.className == "newOrder";
+                });
+
+                loadBlockedDates();
+
+                dayToCalculateNextSundays = getNextDayOfWeek(new Date, 7);
+                dayToCalculatePreviousSundays = getNextDayOfWeek(new Date, 7);
+
+                blockTillNextSunday();
+                blockNextFiveSundaysInCalendar();
+                blockPreviousFiveSundaysInCalendar();
+
+                response["orderData"].forEach(function (element) {
+                    $('#orderAdd-calendar').fullCalendar("renderEvent", {
+                        title: "",
+                        start: addTime(element["order_startdate"]),
+                        end: addEndTime(element["order_enddate"]),
+                        rendering: "background",
+                        className: "selected",
+                        color: "#f44242"
+                    }, true);
+                })
+            }
+        })
+
+
+    });
+
+    $(".status-update").on("change", function () {
+        var status_data = this.value;
+
+        $.ajax({
+            url: "admin/updateState",
+            type: 'POST',
+            data: {status_data: status_data},
+            headers: {
+                'X-CSRFToken': $('meta[name="token"]').attr('content')
+            },
+            beforeSend: function () {
+                $('#modal-order-edit-progress').modal('show');
+            },
+            success: function (response) {
+                $('#modal-order-edit-progress').modal('toggle');
+                if (1 === response) {
+                    showSuccessModal("Die Themenkiste ist bereit, die Bestellperson erhält eine Benachrichtigungs Email");
+                } else {
+                    showSuccessModal("Status wurde erfolgreich geändert");
+                }
+            },
+            error: function (xhr, status, error) {
+                $('#modal-order-edit-progress').modal('toggle');
+                showFailureModal("Es ist ein Fehler bei der Statusänderung passiert", xhr);
+            }
+        })
+    });
+
     $("#status-select").change(function () {
         let table = $("#new-order-table").DataTable();
         table.search("");
@@ -474,7 +708,9 @@ $(document).ready(function () {
             data: {},
             success: function(data) {
 
+
                 $.each(data, function(index, element){
+                    blockedPeriodEvent(formatBlockedPeriodCalendarStartDate(element.startdate), formatBlockedPeriodCalendarEndDate(element.enddate));
                     blockedPeriodEventtwo(formatBlockedPeriodCalendarStartDate(element.startdate), formatBlockedPeriodCalendarEndDate(element.enddate));
                     var blockedPeriodsArray = computeDayBetweenStartAndEnd(new Date(formatCalendarDate(element.startdate)), new Date(formatCalendarDate(element.enddate)));
 
@@ -488,6 +724,21 @@ $(document).ready(function () {
             }
         });
     }
+    function blockedPeriodEvent(start, end){
+        $("#orderAdd-calendar").fullCalendar('renderEvent',
+            {
+                id: "blocked",
+                title: "",
+                start: start,
+                end:  end,
+                rendering: "background",
+                className: "blocked_event",
+                color: "#ffad00"
+            },
+            true
+        );
+    }
+
     function formatBlockedPeriodCalendarStartDate(date){
         let temp_date = date.split(".");
         var new_date = new Date(temp_date[2] + "-" + temp_date[1] + "-" + temp_date[0] + "T00:00:00-00:00");
@@ -525,14 +776,29 @@ $(document).ready(function () {
     }
     function blockNextFiveSundaysInCalendar() {
         for(var i = 0; i < 52; i++){
+            blockAllSundaysEvent(formatBlockDate(dayToCalculateNextSundays));
             blockAllSundaysEventtwo(formatBlockDate(dayToCalculateNextSundays));
             dayToCalculateNextSundays.setDate(dayToCalculateNextSundays.getDate() + 7);
         }
     }
-    function blockPreviousFiveSundaysInCalendar() {
+    function blockAllSundaysEvent(Sunday){
 
+        $("#orderAdd-calendar").fullCalendar('renderEvent',
+            {
+                id: "blocked",
+                title: "",
+                start: Sunday,
+                rendering: "background",
+                className: "blocked_event",
+                color: "#ffad00"
+            },
+            true
+        );
+    }
+    function blockPreviousFiveSundaysInCalendar() {
         for(var i = 0; i < 52; i++){
             dayToCalculatePreviousSundays.setDate(dayToCalculatePreviousSundays.getDate() - 7);
+            blockAllSundaysEvent(formatBlockDate(dayToCalculatePreviousSundays));
             blockAllSundaysEventtwo(formatBlockDate(dayToCalculatePreviousSundays));
         }
     }
@@ -572,7 +838,7 @@ $(document).ready(function () {
     function blockedPeriodEventtwo(start, end){
         $("#calendar").fullCalendar('renderEvent',
             {
-                id: "blocked",
+                id: "blockeddate",
                 title: "",
                 start: start,
                 end:  end,
@@ -584,4 +850,5 @@ $(document).ready(function () {
         );
     }
 });
+
 

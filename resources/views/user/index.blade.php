@@ -11,6 +11,7 @@
     <script src="{{ asset('js/calendar/de-ch.js') }}"></script>
     <script src="{{ asset('js/calendar/add-first-block.js') }}"></script>
 
+
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
 
@@ -322,7 +323,7 @@
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <h1 id="modal-content-info-header">Extratext</h1>
+                            <h1 id="modal-content-info-header">Wichtige Info</h1>
                         </div>
                         <div class="modal-body">
                             <div class="panel-body">

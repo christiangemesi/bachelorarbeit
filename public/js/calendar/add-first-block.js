@@ -41,6 +41,16 @@ function addBlockDateFromToday() {
         },
         true
     );
+    $("#orderAdd-calendar").fullCalendar('renderEvent',
+        {
+            title: "",
+            start: today,
+            end: enddate,
+            rendering: "background",
+            className: "block"
+        },
+        true
+    );
 }
 
 /**

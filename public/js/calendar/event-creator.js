@@ -20,6 +20,25 @@ function addEvent() {
     }
 }
 
+function orderAddAddEvent() {
+    var collision = checkEventCollision(formatCalendarDateCompare($("#orderAdd-start-date").val()), formatCalendarDateCompare($("#orderAdd-end-date").val()));
+    hideErrorBoxes();
+    if(collision){
+        // $("#orderAdd-calendar").fullCalendar('removeEvents', function(event) {
+        //     return event.className == "newOrder";
+        // });
+        //
+        // $("#orderAdd-calendar").fullCalendar('removeEvents', function(event) {
+        //     return event.className == "myOrder";
+        // });
+
+        createEvent(formatCalendarDate($("#orderAdd-start-date").val()), formatCalendarEndDate($("#orderAdd-end-date").val()));
+        $("#button-save-orderAdd").prop('disabled', false);
+    }else{
+        errorHandling("Ihre Auswahl steht in Konflikt mit einem anderen Bestelltermin", "#error-calendar-message-box");
+    }
+}
+
 
 /**
  * update calendar event dates
@@ -36,9 +55,24 @@ function updateEvent() {
         $("#calendar").fullCalendar('removeEvents', function(event) {
             return event.className == "myOrder";
         });
-
+        console.log(formatCalendarDate($("#start-date").val()));
+        console.log(formatCalendarEndDate($("#end-date").val()));
         createEvent(formatCalendarDate($("#start-date").val()), formatCalendarEndDate($("#end-date").val()));
         $("#button-save-order-change").prop('disabled', false);
+}
+function orderAddUpdateEvent() {
+
+    $("#orderAdd-calendar").fullCalendar('removeEvents', function(event) {
+        return event.className == "newOrder";
+    });
+
+    $("#orderAdd-calendar").fullCalendar('removeEvents', function(event) {
+        return event.className == "myOrder";
+    });
+    console.log(formatCalendarDate($("#orderAdd-start-date").val()));
+    console.log(formatCalendarEndDate($("#orderAdd-end-date").val()));
+    orderAddCreateEvent(formatCalendarDate($("#orderAdd-start-date").val()), formatCalendarEndDate($("#orderAdd-end-date").val()));
+    $("#button-save-orderAdd-change").prop('disabled', false);
 }
 
 
@@ -93,6 +127,22 @@ function formatCalendarEndDate(date){
  */
 function createEvent(start, end){
     $("#calendar").fullCalendar('renderEvent',
+        {
+            title: "",
+            start: start,
+            end:  end,
+            rendering: "background",
+            className: "newOrder",
+            color: "#04B404"
+        },
+        true
+    );
+
+    $('#themebox-infobox-select-date').css("display", "block");
+    $('#carousel-right').prop('disabled', false);
+}
+function orderAddCreateEvent(start, end){
+    $("#orderAdd-calendar").fullCalendar('renderEvent',
         {
             title: "",
             start: start,

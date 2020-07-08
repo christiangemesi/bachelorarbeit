@@ -34,6 +34,7 @@ class AdminController extends Controller
     public function index()
     {
         if ($this->checkLogin()) {
+
             return view('admin/index',  ['orders' => $this->getOrders(), 'statuses' => $this->getStatuses()]);
         } else {
             return redirect()->route('loginForm');
@@ -85,6 +86,7 @@ class AdminController extends Controller
      */
     public function login(Request $request)
     {
+
         if (Hash::check($request->password, $this->getAdminPassword())) {
             $_SESSION['ThekRe_Admin'] = true;
             return response()->json('success');
@@ -215,7 +217,7 @@ class AdminController extends Controller
            return response()->json($data, 200);
        }catch(Exception $e){
             return response()->json($e, 500);
-        }
+       }
     }
 
     /**
@@ -451,6 +453,7 @@ class AdminController extends Controller
      * send email when order state ready
      * @param $order_id
      */
+
     public function sendEmail($order_id)
     {
         $order = Order::find($order_id);
@@ -477,7 +480,7 @@ class AdminController extends Controller
         );
 
         Mail::send('admin.mail_ready_pickup', $mail_data, function ($message) use ($mail_data) {
-            $message->to($mail_data['receiver_mail'], $mail_data['receiver_name'] . " " . $mail_data['receiver_surname'])->bcc("daniel.meienberg@fhnw.ch", "Meienberg Daniel")->subject('Abholungseinladung Themenkiste');
+            $message->to($mail_data['receiver_mail'], $mail_data['receiver_name'] . " " . $mail_data['receiver_surname'])->bcc('bibliothek.windisch@fhnw.ch', 'Bibliothek Windisch')->subject('Abholungseinladung Themenkiste');
         });
     }
 
@@ -646,6 +649,12 @@ class AdminController extends Controller
 
         return $login->password;
     }
+    public function getPoweruserPassword()
+    {
+        $login = Login::find(2);
+
+        return $login->password;
+    }
 
 
     /**
@@ -665,6 +674,34 @@ class AdminController extends Controller
                     $hashed_password = Hash::make($password);
 
                     $pass = Login::find(1);
+                    $pass->password=$hashed_password;
+                    $pass->save();
+
+                    return redirect('admin/changePassword')->with('success-message', 'Das Passwort wurde geändert!');
+                }catch (Exception $e){
+                    return redirect('admin/changePassword')->with('alert-message', 'Das Passwort konnte nicht geändert werden!');
+
+                }
+            }else{
+                return redirect('admin/changePassword')->with('alert-message', 'Das Passwort konnte nicht geändert werden! Bitte geben Sie Bestätigen Sie das Passwort, mit erneuter Eingabe.');
+            }
+        }else{
+            return redirect('admin/changePassword')->with('alert-message', 'Das Passwort konnte nicht geändert werden! Ihr eingebenes Passwort entspricht nicht dem aktuellen Passwort!');
+        }
+    }
+
+    public function updatePoweruserPassword(Request $request){
+
+        $passwords = $request->all();
+
+        if(Hash::check($passwords["poweruser-password-now"], $this->getPoweruserPassword())){
+            if($passwords["poweruser-password"] == $passwords["poweruser-confirm_password"]){
+
+                try {
+                    $password = $passwords["poweruser-confirm_password"];
+                    $hashed_password = Hash::make($password);
+
+                    $pass = Login::find(2);
                     $pass->password=$hashed_password;
                     $pass->save();
 

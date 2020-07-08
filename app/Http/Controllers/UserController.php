@@ -36,7 +36,7 @@ class UserController extends Controller
         $themebox_Id = $request["themeboxId"];
         $themebox = Themebox::find($themebox_Id);
 
-        $orders = Order::where('fk_themebox', '=', $themebox_Id)->get();
+        $orders = Order::select('startdate','enddate')->where('fk_themebox', '=', $themebox_Id)->get();
 
         $data = array(
             "themebox" => $themebox,
@@ -58,7 +58,7 @@ class UserController extends Controller
 
         return response()->json($themebox, 200);
     }
-
+    
 
     /**
      * create new order
@@ -66,7 +66,8 @@ class UserController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function createOrder(Request $request)
-    {
+    {     
+        
         $order = new Order();
         $order->fk_themebox = $request->themeboxId;
         $order->startdate = $this->formatDate($request->startdate);
@@ -77,7 +78,7 @@ class UserController extends Controller
         $order->phonenumber = $request->phone;
         $order->nebisusernumber = $request->nebisusernumber;
         $order->fk_delivery = $request->delivery;
-
+        
         if ($request->delivery == 2) {
             $order->schoolname = $request->schoolname;
             $order->schoolstreet = $request->schoolstreet;
@@ -88,11 +89,11 @@ class UserController extends Controller
 
         $order->fk_status = 1;
         $order->ordernumber = $this->createOrdernumber();
-        $dt = Carbon::now();
+        $dt = Carbon::now();    
         $order->datecreated = $dt;
 
-        $themebox = Themebox::find($order->fk_themebox);
-
+    $themebox = Themebox::find($order->fk_themebox);
+        
         $mail_data = array(
             'title' => $themebox->title,
             'signatur' => $themebox->signatur,
@@ -227,7 +228,7 @@ class UserController extends Controller
         }
 
         Mail::send($view, $mail_data, function ($message) use ($mail_data) {
-            $message->to($mail_data['receiver_mail'], $mail_data['receiver_name'] . " " . $mail_data['receiver_surname'])->bcc("daniel.meienberg@fhnw.ch", "Meienberg Daniel")->subject('Bestellbestätigung Themenkiste');
+            $message->to($mail_data['receiver_mail'], $mail_data['receiver_name'] . " " . $mail_data['receiver_surname'])->bcc('bibliothek.windisch@fhnw.ch', 'Bibliothek Windisch')->subject('Bestellbestätigung Themenkiste');
         });
     }
 

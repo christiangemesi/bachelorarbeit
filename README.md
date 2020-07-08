@@ -123,6 +123,33 @@ You get asked for a root Password. This can be set individually. The Password no
 
 After selecting "OK" confirm the password.
 
+If you haven't been asked to set your password enter:
+
+```bash
+sudo /etc/init.d/mysql stop
+sudo mysqld_safe --skip-grant-tables &
+mysql -u root
+```
+the problem is that your systhem is using the auth_socket plugin enter:
+
+```bash
+USE mysql;
+UPDATE user SET pluin='mysql_native_password' WHERE User='root';
+```
+Now you can set your new password at the position of NEWPASSWORD:
+
+```bash
+UPDATE user SET authentication_string=password('NEWPASSWORD') WHERE user='root';
+```
+now just enter these comands and then login with your new password:
+
+```bash
+FLUSH PRIVILEGES;
+exit;
+sudo service mysql resart
+mysql -u root -p
+```
+
 With the following command you can test the installation:
 
 ```bash

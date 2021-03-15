@@ -361,7 +361,7 @@ $(document).ready(function () {
     function loadBlockedDates() {
 
         $.ajax({
-            url: "../themenkisten/user/getBlockedPeriods",
+            url: "./user/getBlockedPeriods",
             type:"POST",
             data: {},
             success: function(data) {

@@ -279,7 +279,8 @@ $(document).ready(function () {
      * bind start date and end date
      */
     
-    
+
+
     function bindEndData() {
         let end_date = $('#end-date');
         let start_date = $("#start-date").datepicker('getDate');

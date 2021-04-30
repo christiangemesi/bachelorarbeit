@@ -195,7 +195,7 @@ $(document).ready(function () {
         dayToCalculateNextSundays = getNextDayOfWeek(new Date, 7);
         dayToCalculatePreviousSundays = getNextDayOfWeek(new Date, 7);
         $.ajax({
-            url: "./user/getThemebox",
+            url: "../themenkisten/user/getThemebox",
             type:"POST",
             data: {themeboxId: themebox_Id},
             success: function(response) {
@@ -361,7 +361,7 @@ $(document).ready(function () {
     function loadBlockedDates() {
 
         $.ajax({
-            url: "./user/getBlockedPeriods",
+            url: "../themenkisten/user/getBlockedPeriods",
             type:"POST",
             data: {},
             success: function(data) {

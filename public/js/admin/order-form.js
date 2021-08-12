@@ -119,7 +119,7 @@ function nebisValidate() {
         // document.getElementById("nebisInputStatus").style.display = "block";
         // nebisusernumber.parentNode.className = "form-group has-error has-feedback";
         // document.getElementById("nebisIcon").className = "glyphicon glyphicon-remove form-control-feedback";
-        checkformOrder(0);
+        // checkformOrder(0);
         return true;
     } else if (!notEmpty(nebisusernumber.value)) {
         document.getElementById("nebisInputStatus").innerHTML = "Falsches Nebisnummer Format!";

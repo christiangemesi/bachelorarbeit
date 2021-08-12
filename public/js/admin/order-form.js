@@ -114,15 +114,14 @@ function nebisValidate() {
 
     var nebisusernumber = document.getElementById("nebisusernumber");
 
-    // if (nebisusernumber.value == "") {
-    //     // document.getElementById("nebisInputStatus").innerHTML = "Nebisnummer wird benötigt!";
-    //     // document.getElementById("nebisInputStatus").style.display = "block";
-    //     // nebisusernumber.parentNode.className = "form-group has-error has-feedback";
-    //     // document.getElementById("nebisIcon").className = "glyphicon glyphicon-remove form-control-feedback";
-    //     // checkformOrder(0);
-    //     return true;
-    // } else
-    if (!notEmpty(nebisusernumber.value)) {
+    if (nebisusernumber.value == "") {
+        document.getElementById("nebisInputStatus").innerHTML = "Nebisnummer wird benötigt!";
+        document.getElementById("nebisInputStatus").style.display = "block";
+        nebisusernumber.parentNode.className = "form-group has-error has-feedback";
+        document.getElementById("nebisIcon").className = "glyphicon glyphicon-remove form-control-feedback";
+        checkformOrder(0);
+        return false;
+    } else if (!notEmpty(nebisusernumber.value)) {
         document.getElementById("nebisInputStatus").innerHTML = "Falsches Nebisnummer Format!";
         document.getElementById("nebisInputStatus").style.display = "block";
         nebisusernumber.parentNode.className = "form-group has-warning has-feedback";

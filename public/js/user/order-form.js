@@ -175,10 +175,10 @@ function nebisValidate() {
     //     checkValidation(0);
     //     return false;
     // } else {
-        document.getElementById("nebisInputStatus").style.display = "none";
+    //     document.getElementById("nebisInputStatus").style.display = "none";
         nebisusernumber.parentNode.className = "form-group has-success has-feedback";
         document.getElementById("nebisIcon").className = "glyphicon glyphicon-ok form-control-feedback";
-        checkValidation(1);
+        // checkValidation(1);
         return true;
     // }
 }

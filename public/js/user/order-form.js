@@ -378,7 +378,7 @@ function checkValidation(order_carousel_status) {
         var cansubmit = true;
 
         $("#personal-data-box :input").each(function () {
-            console.log(this);
+            console.log(this.parent());
             if ($(this).parent().attr('class') != "form-group has-success has-feedback") {
                 cansubmit = false;
             }

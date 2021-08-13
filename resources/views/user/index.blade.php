@@ -190,7 +190,7 @@
                                         <div id="delivery-data-box">
                                             <p id="user-delivery-info"><span class="glyphicon glyphicon-info-sign"></span>  Die Themenkiste kann an der Infotheke der FHNW Bibliothek Brugg-Windisch abgeholt werden.</p>
                                             <div id="school-Address">
-                                                <p id="user-delivery-info"><span class="glyphicon glyphicon-info-sign"></span>  Die Lieferung an Aargauer Schulen ist kostenpflichtig und es muss zusätzlich telefonisch mit der <a href=https://www.fhnw.ch/de/die-fhnw/bibliotheken/bibliothek-brugg-windisch> Infotheke der FHNW Bibliothek Brugg-Windisch </a> Kontakt aufgenommen werden.</p>
+                                                <p id="user-delivery-info"><span class="glyphicon glyphicon-info-sign"></span>  Die Lieferung an Aargauer Schulen ist kostenpflichtig.</p>
                                                 <div class="form-group has-feedback">
                                                     <label class="form-control-label" for="schoolNameInput">Name der Schule *</label>
                                                     <input type="text" class="form-control" name="schoolname" id="schoolNameInput" maxlength="60" placeholder="Sekundarschule Lenzburg" onblur="schoolnameValidate()"/>

@@ -251,6 +251,7 @@ $(document).ready(function () {
             return [ listOfBlockedDates.indexOf(string) === -1 ]
         },
         onSelect: function (date) {
+            console.log(date);
             addEvent();
         }
     });

@@ -161,27 +161,28 @@ function phoneValidate() {
 
 function nebisValidate() {
     if (nebisusernumber.value == "") {
-        document.getElementById("nebisInputStatus").innerHTML = "Nebisnummer wird benötigt!";
-        document.getElementById("nebisInputStatus").style.display = "block";
-        nebisusernumber.parentNode.className = "form-group has-error has-feedback";
-        document.getElementById("nebisIcon").className = "glyphicon glyphicon-remove form-control-feedback";
+        // document.getElementById("nebisInputStatus").innerHTML = "Nebisnummer wird benötigt!";
+        // document.getElementById("nebisInputStatus").style.display = "block";
+        // nebisusernumber.parentNode.className = "form-group has-error has-feedback";
+        // document.getElementById("nebisIcon").className = "glyphicon glyphicon-remove form-control-feedback";
         checkValidation(0);
         return true;
     } else
     if (!notEmpty(nebisusernumber.value)) {
-        document.getElementById("nebisInputStatus").innerHTML = "Falsches Nebisnummer Format!";
-        document.getElementById("nebisInputStatus").style.display = "block";
-        nebisusernumber.parentNode.className = "form-group has-warning has-feedback";
-        document.getElementById("nebisIcon").className = "glyphicon glyphicon-warning-sign form-control-feedback";
+        // document.getElementById("nebisInputStatus").innerHTML = "Falsches Nebisnummer Format!";
+        // document.getElementById("nebisInputStatus").style.display = "block";
+        // nebisusernumber.parentNode.className = "form-group has-warning has-feedback";
+        // document.getElementById("nebisIcon").className = "glyphicon glyphicon-warning-sign form-control-feedback";
         checkValidation(0);
         return true;
     } else {
-        document.getElementById("nebisInputStatus").style.display = "none";
-        nebisusernumber.parentNode.className = "form-group has-success has-feedback";
-        document.getElementById("nebisIcon").className = "glyphicon glyphicon-ok form-control-feedback";
+        // document.getElementById("nebisInputStatus").style.display = "none";
+        // nebisusernumber.parentNode.className = "form-group has-success has-feedback";
+        // document.getElementById("nebisIcon").className = "glyphicon glyphicon-ok form-control-feedback";
         checkValidation(0);
         return true;
     }
+    
 }
 
 /**

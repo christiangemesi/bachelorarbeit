@@ -107,6 +107,7 @@ function lastNameValidate() {
 }
 
 function emailValidate() {
+    let emailInput = document.getElementById("emailInput");
 
     if (emailInput.value == "") {
         document.getElementById("emailInputStatus").innerHTML = "Email Adresse wird benötigt!";
@@ -133,6 +134,8 @@ function emailValidate() {
 
 function phoneValidate() {
 
+    let phone = document.getElementById("phone")
+
     if (phone.value == "") {
         document.getElementById("phoneInputStatus").innerHTML = "Telefonnummer wird benötigt!";
         document.getElementById("phoneInputStatus").style.display = "block";
@@ -157,30 +160,28 @@ function phoneValidate() {
 }
 
 function nebisValidate() {
-    var nebisusernumber = document.getElementById("nebisusernumber");
-
-    // if (nebisusernumber.value == "") {
-    //     document.getElementById("nebisInputStatus").innerHTML = "Nebisnummer wird benötigt!";
-    //     document.getElementById("nebisInputStatus").style.display = "block";
-    //     nebisusernumber.parentNode.className = "form-group has-error has-feedback";
-    //     document.getElementById("nebisIcon").className = "glyphicon glyphicon-remove form-control-feedback";
-    //     checkValidation(0);
-    //     return false;
-    // } else
-    // if (!notEmpty(nebisusernumber.value)) {
-    //     document.getElementById("nebisInputStatus").innerHTML = "Falsches Nebisnummer Format!";
-    //     document.getElementById("nebisInputStatus").style.display = "block";
-    //     nebisusernumber.parentNode.className = "form-group has-warning has-feedback";
-    //     document.getElementById("nebisIcon").className = "glyphicon glyphicon-warning-sign form-control-feedback";
-    //     checkValidation(0);
-    //     return false;
-    // } else {
-    //     document.getElementById("nebisInputStatus").style.display = "none";
+    if (nebisusernumber.value == "") {
+        document.getElementById("nebisInputStatus").innerHTML = "Nebisnummer wird benötigt!";
+        document.getElementById("nebisInputStatus").style.display = "block";
+        nebisusernumber.parentNode.className = "form-group has-error has-feedback";
+        document.getElementById("nebisIcon").className = "glyphicon glyphicon-remove form-control-feedback";
+        checkValidation(0);
+        return true;
+    } else
+    if (!notEmpty(nebisusernumber.value)) {
+        document.getElementById("nebisInputStatus").innerHTML = "Falsches Nebisnummer Format!";
+        document.getElementById("nebisInputStatus").style.display = "block";
+        nebisusernumber.parentNode.className = "form-group has-warning has-feedback";
+        document.getElementById("nebisIcon").className = "glyphicon glyphicon-warning-sign form-control-feedback";
+        checkValidation(0);
+        return true;
+    } else {
+        document.getElementById("nebisInputStatus").style.display = "none";
         nebisusernumber.parentNode.className = "form-group has-success has-feedback";
         document.getElementById("nebisIcon").className = "glyphicon glyphicon-ok form-control-feedback";
-        // checkValidation(1);
+        checkValidation(0);
         return true;
-    // }
+    }
 }
 
 /**

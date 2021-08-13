@@ -246,6 +246,7 @@ $(document).ready(function () {
     $("#end-date").datepicker({
         dateFormat: "dd.mm.yy",
         beforeShowDay: function(date){
+            console.log(date);
             var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
             return [ listOfBlockedDates.indexOf(string) === -1 ]
         },

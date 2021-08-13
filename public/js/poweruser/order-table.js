@@ -12,7 +12,7 @@ $(document).ready(function () {
     $('#end-date').keydown(function () {
         return false;
     });
-
+    $('#end-date').datepicker
     $('#orderAdd-start-date').keydown(function () {
         return false;
     });

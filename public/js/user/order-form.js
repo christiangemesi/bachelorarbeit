@@ -178,7 +178,7 @@ function nebisValidate() {
         document.getElementById("nebisInputStatus").style.display = "none";
         nebisusernumber.parentNode.className = "form-group has-success has-feedback";
         document.getElementById("nebisIcon").className = "glyphicon glyphicon-ok form-control-feedback";
-        checkValidation(0);
+        checkValidation(1);
         return true;
     // }
 }

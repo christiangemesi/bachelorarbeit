@@ -165,7 +165,7 @@
 
                                         <div class="form-group has-feedback">
                                             <label class="form-control-label" for="nebisusernumber">Bibliotheksausweisnummer</label>
-                                            <input name="nebisusernumber" type="text" class="form-control" id="nebisusernumber" maxlength="40" placeholder="S98134827348" onblur="nebisValidate()" />
+                                            <input name="nebisusernumber" type="text" class="form-control" id="nebisusernumber" maxlength="40" placeholder="S98134827348"  />
                                             <span id="nebisIcon" aria-hidden="true"></span>
                                             <span id="nebisInputStatus" class="errorHeader">Bibliotheksausweisnummer wird benötigt!</span>
                                         </div>

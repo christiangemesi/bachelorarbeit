@@ -231,6 +231,8 @@ $(document).ready(function () {
         minDate: 1,
         beforeShowDay: function(date){
             var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+            console.log(string);
+            console.log(listOfBlockedDates);
             return [ listOfBlockedDates.indexOf(string) === -1 ]
         },
         onSelect: function (date) {

@@ -229,13 +229,13 @@ $(document).ready(function () {
     $("#start-date").datepicker({
         dateFormat: "dd.mm.yy",
         minDate: 1,
-        beforeShowDay: function(date){
+        beforeShowDay: (function(date){
             let string = jQuery.datepicker.formatDate('yy-mm-dd', date);
             console.log(date);
             console.log(string);
             console.log(listOfBlockedDates);
             return [ listOfBlockedDates.indexOf(string) === -1 ]
-        },
+        }),
         onSelect: function() {
             bindEndData();
             addEvent();

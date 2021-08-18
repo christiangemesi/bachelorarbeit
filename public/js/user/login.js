@@ -104,26 +104,26 @@ $(document).ready(function () {
                 orders = "";
 
                 if (response["order"][0]["fk_status"] != 1) {
-                     editable = true;
+                    editable = true;
                 }
 
                 $("#order-id").val(response["order"][0]["pk_order"]);
                 $("#ordernumber-edit").val($('#ordernumber').val());
                 $("#themebox-title").val(response["themebox"]["title"]);
-                $("#start-date").val(formatDate(response["order"][0]["startdate"])).prop('disabled',  editable);
-                $("#end-date").val(formatDate(response["order"][0]["enddate"])).prop('disabled',  editable);
+                $("#start-date").val(formatDate(response["order"][0]["startdate"])).prop('disabled', editable);
+                $("#end-date").val(formatDate(response["order"][0]["enddate"])).prop('disabled', editable);
                 $("#datecreated-login").val(formatDate(response["order"][0]["datecreated"]));
 
                 $("#status").val(response["status"]["name"]);
-                $("#lastNameInput").val(response["order"][0]["name"]).prop('disabled',  editable);
-                $("#firstNameInput").val(response["order"][0]["surname"]).prop('disabled',  editable);
-                $("#emailInput").val(response["order"][0]["email"]).prop('disabled',  editable);
-                $("#phone").val(response["order"][0]["phonenumber"]).prop('disabled',  editable);
-                $("#nebisusernumber").val(response["order"][0]["nebisusernumber"]).prop('disabled',  editable);
+                $("#lastNameInput").val(response["order"][0]["name"]).prop('disabled', editable);
+                $("#firstNameInput").val(response["order"][0]["surname"]).prop('disabled', editable);
+                $("#emailInput").val(response["order"][0]["email"]).prop('disabled', editable);
+                $("#phone").val(response["order"][0]["phonenumber"]).prop('disabled', editable);
+                $("#nebisusernumber").val(response["order"][0]["nebisusernumber"]).prop('disabled', editable);
                 $("#delivery").val(response["delivery"]["type"]);
 
 
-                if (response["order"][0]["fk_status"] === 1){
+                if (response["order"][0]["fk_status"] === 1) {
                     lastNameValidate();
                     firstNameValidate();
                     emailValidate();
@@ -222,53 +222,37 @@ $(document).ready(function () {
             }
         })
     }
+
+    /**
+     * Datepicker start date onselect
+     */
     $("#start-date").datepicker({
-        format: "dd.mm.yy",
-        beforeShowDay: blockdates
-
-    })
-
-    function blockdates(in_date){
-        in_date = in_date.getDate();
-        var string = jQuery.datepicker.formatDate('yy-mm-dd', in_date);
-        console.log(in_date);
-        console.log(string);
-        console.log(listOfBlockedDates);
-        return [ listOfBlockedDates.indexOf(string) === -1 ]
-    }
-
-    // /**
-    //  * Datepicker start date onselect
-    //  */
-    // $("#start-date").datepicker({
-    //     dateFormat: "dd.mm.yy",
-    //     minDate: 1,
-    //     beforeShowDay: function(date){
-    //         var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
-    //         console.log(date);
-    //         console.log(string);
-    //         console.log(listOfBlockedDates);
-    //         listOfBlockedDates.push("2021-8-19");
-    //         return [ listOfBlockedDates.indexOf(string) === -1 ]
-    //     },
-    //     onSelect: function (date) {
-    //         bindEndData();
-    //         addEvent();
-    //
-    //     }
-    // });
+        dateFormat: "dd.mm.yy",
+        minDate: 1,
+        beforeShowDay: function(date){
+            let string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+            console.log(date);
+            console.log(string);
+            console.log(listOfBlockedDates);
+            return [ listOfBlockedDates.indexOf(string) === -1 ]
+        },
+        onSelect: function() {
+            bindEndData();
+            addEvent();
+        }
+    });
 
     /**
      * Datepicker end date onselect
      */
     $("#end-date").datepicker({
         dateFormat: "dd.mm.yy",
-        beforeShowDay: function(date){
+        beforeShowDay: (function(date){
             var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
             console.log(string);
             console.log(listOfBlockedDates);
             return [ $.inArray(string, listOfBlockedDates)=== -1 ]
-        },
+        }),
         onSelect: function (date) {
             console.log("aa");
             addEvent();

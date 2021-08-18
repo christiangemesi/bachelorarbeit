@@ -222,27 +222,34 @@ $(document).ready(function () {
             }
         })
     }
-
-    /**
-     * Datepicker start date onselect
-     */
     $("#start-date").datepicker({
         dateFormat: "dd.mm.yy",
         minDate: 1,
-        beforeShowDay: function(date){
-            var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+        beforeShowDay: function (date){
             console.log(date);
-            console.log(string);
-            console.log(listOfBlockedDates);
-            listOfBlockedDates.push("2021-8-19");
-            return [ listOfBlockedDates.indexOf(string) === -1 ]
-        },
-        onSelect: function (date) {
-            bindEndData();
-            addEvent();
-
         }
-    });
+    })
+
+    // /**
+    //  * Datepicker start date onselect
+    //  */
+    // $("#start-date").datepicker({
+    //     dateFormat: "dd.mm.yy",
+    //     minDate: 1,
+    //     beforeShowDay: function(date){
+    //         var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+    //         console.log(date);
+    //         console.log(string);
+    //         console.log(listOfBlockedDates);
+    //         listOfBlockedDates.push("2021-8-19");
+    //         return [ listOfBlockedDates.indexOf(string) === -1 ]
+    //     },
+    //     onSelect: function (date) {
+    //         bindEndData();
+    //         addEvent();
+    //
+    //     }
+    // });
 
     /**
      * Datepicker end date onselect

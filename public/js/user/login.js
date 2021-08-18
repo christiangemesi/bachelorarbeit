@@ -225,9 +225,8 @@ $(document).ready(function () {
     $("#start-date").datepicker({
         // // dateFormat: "dd.mm.yy",
         // minDate: 1,
-        beforeShowDay: function (date){
-            console.log(date);
-        }
+        beforeShowDay: console.log(date + "adfasf")
+
     })
 
     // /**

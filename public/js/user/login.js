@@ -223,11 +223,19 @@ $(document).ready(function () {
         })
     }
     $("#start-date").datepicker({
-        // // dateFormat: "dd.mm.yy",
-        // minDate: 1,
-        beforeShowDay: console.log(date + "adfasf")
+        format: "dd.mm.yy",
+        beforeShowDay: blockdates()
 
     })
+
+    function blockdates(in_date){
+        in_date = in_date.getDate();
+        var string = jQuery.datepicker.formatDate('yy-mm-dd', in_date);
+        console.log(in_date);
+        console.log(string);
+        console.log(listOfBlockedDates);
+        return [ listOfBlockedDates.indexOf(string) === -1 ]
+    }
 
     // /**
     //  * Datepicker start date onselect

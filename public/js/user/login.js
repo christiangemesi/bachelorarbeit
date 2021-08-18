@@ -222,47 +222,47 @@ $(document).ready(function () {
             }
         })
     }
-    $("#start-date").datepicker({
-        beforeShowDay: console.log("aaaaa")
-    })
-
-    /**
-     * Datepicker start date onselect
-     */
-    $("#start-date").datepicker({
-        dateFormat: "dd.mm.yy",
-        minDate: 1,
-        beforeShowDay: function(date){
-            var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
-            console.log(date);
-            console.log(string);
-            console.log(listOfBlockedDates);
-            listOfBlockedDates.push("2021-8-19");
-            return [ listOfBlockedDates.indexOf(string) === -1 ]
-        },
-        onSelect: function (date) {
-            bindEndData();
-            addEvent();
-
-        }
-    });
-
-    /**
-     * Datepicker end date onselect
-     */
-    $("#end-date").datepicker({
-        dateFormat: "dd.mm.yy",
-        beforeShowDay: function(date){
-            var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
-            console.log(string);
-            console.log(listOfBlockedDates);
-            return [ $.inArray(string, listOfBlockedDates)=== -1 ]
-        },
-        onSelect: function (date) {
-            console.log("aa");
-            addEvent();
-        }
-    });
+    // $("#start-date").datepicker({
+    //     beforeShowDay: console.log("aaaaa")
+    // })
+    //
+    // /**
+    //  * Datepicker start date onselect
+    //  */
+    // $("#start-date").datepicker({
+    //     dateFormat: "dd.mm.yy",
+    //     minDate: 1,
+    //     beforeShowDay: function(date){
+    //         var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+    //         console.log(date);
+    //         console.log(string);
+    //         console.log(listOfBlockedDates);
+    //         listOfBlockedDates.push("2021-8-19");
+    //         return [ listOfBlockedDates.indexOf(string) === -1 ]
+    //     },
+    //     onSelect: function (date) {
+    //         bindEndData();
+    //         addEvent();
+    //
+    //     }
+    // });
+    //
+    // /**
+    //  * Datepicker end date onselect
+    //  */
+    // $("#end-date").datepicker({
+    //     dateFormat: "dd.mm.yy",
+    //     beforeShowDay: function(date){
+    //         var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+    //         console.log(string);
+    //         console.log(listOfBlockedDates);
+    //         return [ $.inArray(string, listOfBlockedDates)=== -1 ]
+    //     },
+    //     onSelect: function (date) {
+    //         console.log("aa");
+    //         addEvent();
+    //     }
+    // });
 
     /**
      * Specifies calendar properties

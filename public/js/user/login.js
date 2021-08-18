@@ -222,6 +222,9 @@ $(document).ready(function () {
             }
         })
     }
+    $("#start-date").datepicker({
+        beforeShowDay: console.log("aaaaa")
+    })
 
     /**
      * Datepicker start date onselect
@@ -231,8 +234,10 @@ $(document).ready(function () {
         minDate: 1,
         beforeShowDay: function(date){
             var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+            console.log(date);
             console.log(string);
             console.log(listOfBlockedDates);
+            listOfBlockedDates.push("2021-8-19");
             return [ listOfBlockedDates.indexOf(string) === -1 ]
         },
         onSelect: function (date) {

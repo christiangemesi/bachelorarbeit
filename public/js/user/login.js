@@ -222,9 +222,9 @@ $(document).ready(function () {
             }
         })
     }
-    // $("#start-date").datepicker({
-    //     beforeShowDay: console.log("aaaaa")
-    // })
+    $("#start-date").datepicker({
+        beforeShowDay: console.log("aaaaa")
+    })
     //
     // /**
     //  * Datepicker start date onselect

@@ -6,6 +6,7 @@
     <script src="{{ asset('js/user/themebox-data.js') }}"></script>
     <script src="{{ asset('js/calendar/moment.min.js') }}"></script>
     <script src="{{ asset('js/user/order-form.js') }}"></script>
+    <script src="{{asset('js/user/login.js')}}"></script>
     <link rel="stylesheet" href="{{ asset('css/calendar/fullcalendar.css') }}">
     <script src="{{ asset('js/calendar/fullcalendar.js') }}"></script>
     <script src="{{ asset('js/calendar/de-ch.js') }}"></script>

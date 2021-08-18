@@ -224,7 +224,7 @@ $(document).ready(function () {
     }
     $("#start-date").datepicker({
         format: "dd.mm.yy",
-        beforeShowDay: blockdates()
+        beforeShowDay: blockdates
 
     })
 

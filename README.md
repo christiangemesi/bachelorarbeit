@@ -134,7 +134,7 @@ the problem is that your systhem is using the auth_socket plugin enter:
 
 ```bash
 USE mysql;
-UPDATE user SET pluin='mysql_native_password' WHERE User='root';
+UPDATE user SET plugin='mysql_native_password' WHERE User='root';
 ```
 Now you can set your new password at the position of NEWPASSWORD:
 

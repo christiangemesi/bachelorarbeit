@@ -62,6 +62,6 @@ function addBlockDateFromToday() {
  */
 function getNextDayOfWeek(date, dayOfWeek) {
     var resultDate = new Date(date.getTime());
-    resultDate.setDate(date.getDate() + (7 + dayOfWeek - date.getDay()) % 7);
+    resultDate.setDate(date.getDate() + (dayOfWeek - date.getDay() + 6) % 7 + 1);
     return resultDate;
 }

@@ -215,7 +215,7 @@ DATABASE_PASSWORD=cSCdrkd1VNEbk8PW
 
 #### Source Code
 
-The source code is on [Gitlab](https://gitlab.fhnw.ch/nick.koch/ThekRe).
+The source code is on [Gitlab](https://gitlab.fhnw.ch/thekre/ThekRe).
 
 Change in to the Apache directory.
 
@@ -430,6 +430,29 @@ postmap hash:/etc/postfix/sender_canonical
 
 After every change of the files the hashes have to generated again.
 
+## Update Server
+### Update Source Code
+
+The source code is on [Gitlab](https://gitlab.fhnw.ch/thekre/ThekRe).
+
+Change in to the Apache directory.
+
+```bash
+cd /var/www/html
+```
+
+Change in to the project directory.
+
+```bash
+cd ThekRe
+```
+
+Checkout the branch **develop**.
+
+```bash
+sudo git checkout develop
+sudo git pull
+```
 
 
 ## Architecture

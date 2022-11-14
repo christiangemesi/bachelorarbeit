@@ -123,7 +123,7 @@
                                 <button type="button" class="button-delete-order btn btn-danger inner" value="{{$order["order_id"]}}" aria-label="delete"  data-toggle="tooltip" data-placement="top" title="Bestellung löschen">
                                     <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                 </button>
-                                </button>
+                                
                                 <button type="button" class="button-print-order btn btn-warning inner" value="{{$order["order_id"]}}" aria-label="print" data-toggle="tooltip" data-placement="top" title="Bestellung ausdrucken">
                                     <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
                                 </button>
@@ -215,16 +215,16 @@
                                             <span id="emailInputStatus" class="errorHeader">Email wird benötigt!</span>
                                         </div>
                                         <div class="form-group has-feedback">
-                                            <label class="float-left" for="phonenumber">Tel</label>
+                                            <label class="float-left" for="phonenumber">Telefonnummer</label>
                                             <input type="text" class="form-control phonenumber" id="phonenumber" name="phonenumber" maxlength="40" onkeyup = "phoneValidate()" onblur="phoneValidate()"/>
                                             <span id="phoneIcon" aria-hidden="true"></span>
                                             <span id="phoneInputStatus" class="errorHeader">Telefonnummer wird benötigt!</span>
                                         </div>
                                         <div class="form-group has-feedback">
-                                            <label class="float-left" for="nebisusernumber">NEBIS Nummer</label>
+                                            <label class="float-left" for="nebisusernumber">Bibliotheksausweisnummer</label>
                                             <input type="text" class="form-control nebisusernumber" id="nebisusernumber" name="nebisusernumber" maxlength="40" onkeyup = "nebisValidate()" onblur="nebisValidate()"/>
                                             <span id="nebisIcon" aria-hidden="true"></span>
-                                            <span id="nebisInputStatus" class="errorHeader">Nebisnummer wird benötigt!</span>
+                                            <span id="nebisInputStatus" class="errorHeader">Nummer wird benötigt!</span>
                                         </div>
                                     </div>
 
@@ -294,7 +294,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div id="order-calendar-legend-blocked-period">
-                                            <div class="order-calendar-legend-text">Geschlossenl</div>
+                                            <div class="order-calendar-legend-text">Geschlossen</div>
                                         </div>
                                     </div>
                                 </div>

@@ -40,7 +40,7 @@ function lastNameValidate() {
         document.getElementById("lastNameIcon").className = "glyphicon glyphicon-remove form-control-feedback";
         checkformOrder(0);
         return false;
-    } else if (!onlyLetters(lastNameInput.value)) {
+    } else if (!onlyLettersNumbers(lastNameInput.value)) {
         document.getElementById("lastNameInputStatus").innerHTML = "Nur Buchstaben sind erlaubt!";
         document.getElementById("lastNameInputStatus").style.display = "block";
         lastNameInput.parentNode.className = "form-group has-warning has-feedback";
@@ -234,7 +234,7 @@ function placeofhandoverValidate() {
         checkformOrder(1);
         return false;
     } else if (!onlyLettersNumbers(placeofhandoverInput.value)) {
-        document.getElementById("placeofhandoverInputStatus").innerHTML = "Falsches Telefonnummer Format";
+        document.getElementById("placeofhandoverInputStatus").innerHTML = "Falsches Format. Nur Buchstaben und Zahlen erlaubt.";
         document.getElementById("placeofhandoverInputStatus").style.display = "block";
         placeofhandoverInput.parentNode.className = "form-group has-warning has-feedback";
         document.getElementById("placeofhandoverIcon").className = "glyphicon glyphicon-warning-sign form-control-feedback";

@@ -49,7 +49,7 @@
                                 </div>
                                 <div class="form-group has-feedback">
                                     <label class="themebox-form-label" for="themebox-form-schoollevel">Schulstufe * </label>
-                                    <input type="text" class="form-control" name="schoollevel" id="themebox-form-schoollevel" maxlength="100" placeholder="KiGa/US"
+                                    <input type="text" class="form-control" name="schoollevel" id="themebox-form-schoollevel" maxlength="100" placeholder="Zyklus 1 - 2"
                                            onblur="notEmptyValidate('themebox-form-schoollevel','themebox-form-schoollevel-status','themebox-form-schoollevel-icon')"
                                            onkeyup="notEmptyValidate('themebox-form-schoollevel','themebox-form-schoollevel-status','themebox-form-schoollevel-icon')"/>
                                     <span id="themebox-form-schoollevel-icon"></span>

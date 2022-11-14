@@ -163,14 +163,14 @@
                                             <span id="phoneIcon" aria-hidden="true"></span>
                                             <span id="phoneInputStatus" class="errorHeader">Telefonnummer wird benötigt!</span>
                                         </div>
-
+                                        <label class="required">* Pflichtfeld</label>
+                                        
                                         <div class="form-group has-success has-feedback">
                                             <label class="form-control-label" for="nebisusernumber">Bibliotheksausweisnummer</label>
                                             <input name="nebisusernumber" type="text" class="form-control" id="nebisusernumber" maxlength="40" placeholder="S98134827348"/>
                                             <span id="nebisIcon" aria-hidden="true"></span>
-                                            <span id="nebisInputStatus" class="errorHeader">Bibliotheksausweisnummer wird benötigt!</span>
+                                            <span id="nebisInputStatus" class="errorHeader">Bibliothekskarte kann bei der Abholung der THKI verlangt werden.</span>
                                         </div>
-                                        <label class="required">* Pflichtfeld</label>
                                     </div>
                                 </div>
                             </div>
@@ -194,19 +194,19 @@
                                                 <p id="user-delivery-info"><span class="glyphicon glyphicon-info-sign"></span>  Die Lieferung an Aargauer Schulen ist kostenpflichtig.</p>
                                                 <div class="form-group has-feedback">
                                                     <label class="form-control-label" for="schoolNameInput">Name der Schule *</label>
-                                                    <input type="text" class="form-control" name="schoolname" id="schoolNameInput" maxlength="60" placeholder="Sekundarschule Lenzburg" onblur="schoolnameValidate()"/>
+                                                    <input type="text" class="form-control" name="schoolname" id="schoolNameInput" maxlength="60" placeholder="Musterschule" onblur="schoolnameValidate()"/>
                                                     <span id="schoolNameIcon" aria-hidden="true"></span>
                                                     <span id="schoolNameInputStatus" class="errorHeader">Name der Schule wird benötigt!</span>
                                                 </div>
                                                 <div class="form-group has-feedback">
                                                     <label class="form-control-label" for="schoolstreetInput">Strasse und Nr *</label>
-                                                    <input type="text" class="form-control" name="schoolstreet" id="schoolstreetInput"  maxlength="60" placeholder="Mühlegasse 2" onblur="schoolstreetValidate()"/>
+                                                    <input type="text" class="form-control" name="schoolstreet" id="schoolstreetInput"  maxlength="60" placeholder="Musterstrasse 2" onblur="schoolstreetValidate()"/>
                                                     <span id="schoolstreetIcon" aria-hidden="true"></span>
                                                     <span id="schoolstreetInputStatus" class="errorHeader">Strasse und Nr wird benötigt!</span>
                                                 </div>
                                                 <div class="form-group has-feedback">
                                                     <label class="form-control-label" for="schoolcityInput">PLZ und Ort *</label>
-                                                    <input type="text" class="form-control" name="schoolcity" id="schoolcityInput"  maxlength="60" placeholder="2438 Lenzburg" onblur="schoolcityValidate()"/>
+                                                    <input type="text" class="form-control" name="schoolcity" id="schoolcityInput"  maxlength="60" placeholder="2030 Musterstadt " onblur="schoolcityValidate()"/>
                                                     <span id="schoolcityIcon" aria-hidden="true"></span>
                                                     <span id="schoolcityInputStatus" class="errorHeader">PLZ und Ort wird benötigt!</span>
                                                 </div>

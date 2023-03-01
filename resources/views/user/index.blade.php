@@ -24,7 +24,7 @@
         <div class="col-md-12 main-Panel">
             <div class="row">
                 <div class="col-md-12">
-                    <h1>Themenkisten Bibliothek Brugg-Windisch</h1>
+                    <h1>Themenkisten und Lernroboter Bibliothek Brugg-Windisch</h1>
 
                     <div class="progress">
                         <div id="order-progress-bar" class="progress-bar thekre-progress" role="progressbar" aria-valuenow="40"

@@ -162,15 +162,14 @@
                                             <input name="phone" type="text" class="form-control" id="phone" maxlength="40" placeholder="0629231323" onblur="phoneValidate()"/>
                                             <span id="phoneIcon" aria-hidden="true"></span>
                                             <span id="phoneInputStatus" class="errorHeader">Telefonnummer wird benötigt!</span>
-                                        </div>
-                                        <label class="required">* Pflichtfeld</label>
-                                        
+                                        </div>                          
                                         <div class="form-group has-success has-feedback">
                                             <label class="form-control-label" for="nebisusernumber">Bibliotheksausweisnummer</label>
                                             <input name="nebisusernumber" type="text" class="form-control" id="nebisusernumber" maxlength="40" placeholder="S98134827348"/>
                                             <span id="nebisIcon" aria-hidden="true"></span>
-                                            <span id="nebisInputStatus" class="errorHeader">Bibliothekskarte kann bei der Abholung der THKI verlangt werden.</span>
+                                            <p><i>Bibliothekskarte kann bei der Abholung der THKI verlangt werden.</i></p>
                                         </div>
+                                        <label class="required">* Pflichtfeld</label>
                                     </div>
                                 </div>
                             </div>

@@ -161,7 +161,7 @@ function phoneValidate() {
 
 //function nebisValidate() {
     // if (nebisusernumber.value == "") {
-    //     document.getElementById("nebisInputStatus").innerHTML = "Nebisnummer wird benötigt!";
+    //     document.getElementById("nebisInputStatus").innerHTML = "Bibliotheksausweisnummer wird benötigt!";
     //     document.getElementById("nebisInputStatus").style.display = "block";
     //     nebisusernumber.parentNode.className = "form-group has-error has-feedback";
     //     document.getElementById("nebisIcon").className = "glyphicon glyphicon-remove form-control-feedback";
@@ -169,7 +169,7 @@ function phoneValidate() {
     //     return false;
     // } else
     // if (!notEmpty(nebisusernumber.value)) {
-    //     document.getElementById("nebisInputStatus").innerHTML = "Falsches Nebisnummer Format!";
+    //     document.getElementById("nebisInputStatus").innerHTML = "Falsches Bibliotheksausweisnummer Format!";
     //     document.getElementById("nebisInputStatus").style.display = "block";
     //     nebisusernumber.parentNode.className = "form-group has-warning has-feedback";
     //     document.getElementById("nebisIcon").className = "glyphicon glyphicon-warning-sign form-control-feedback";

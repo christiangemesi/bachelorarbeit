@@ -307,7 +307,7 @@ class UserController extends Controller
                     'surname' => $request->order_data[4]["value"],
                     'email' => $request->order_data[5]["value"],
                     'phonenumber' => $request->order_data[6]["value"],
-                    'nebisusernumber' => $request->order_data[7]["value"]
+                   // 'nebisusernumber' => $request->order_data[7]["value"]
                 ]
             );
 

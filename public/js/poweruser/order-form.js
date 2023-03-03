@@ -47,7 +47,7 @@ function lastNameValidate(input,status,icon) {
         checkformOrder(0);
         checkFormOrderAdd(0);
         return false;
-    } else if (!onlyLetters(lastNameInput.value)) {
+    } else if (!onlyLettersNumbers(lastNameInput.value)) {
         lastNameInputStatus.innerHTML = "Nur Buchstaben sind erlaubt!";
         lastNameInputStatus.style.display = "block";
         lastNameInput.parentNode.className = "form-group has-warning has-feedback";
@@ -136,7 +136,7 @@ function nebisValidate(input,status,icon) {
     var nebisusernumberIcon = convertToObject(icon);
 
     if (nebisusernumber.value == "") {
-        nebisusernumberStatus.innerHTML = "Nebisnummer wird benötigt!";
+        nebisusernumberStatus.innerHTML = "Bibliotheksausweisnummer wird benötigt!";
         nebisusernumberStatus.style.display = "block";
         nebisusernumber.parentNode.className = "form-group has-error has-feedback";
         nebisusernumberIcon.className = "glyphicon glyphicon-remove form-control-feedback";
@@ -144,7 +144,7 @@ function nebisValidate(input,status,icon) {
         checkFormOrderAdd(0);
         return false;
     } else if (!notEmpty(nebisusernumber.value)) {
-        nebisusernumberStatus.innerHTML = "Falsches Nebisnummer Format!";
+        nebisusernumberStatus.innerHTML = "Falsches Nummer Format!";
         nebisusernumberStatus.style.display = "block";
         nebisusernumber.parentNode.className = "form-group has-warning has-feedback";
         nebisusernumberIcon.className = "glyphicon glyphicon-warning-sign form-control-feedback";
@@ -276,7 +276,7 @@ function placeofhandoverValidate(input,status,icon) {
         checkFormOrderAdd(1);
         return false;
     } else if (!onlyLettersNumbers(placeofhandoverInput.value)) {
-        placeofhandoverInputStatus.innerHTML = "Falsches Telefonnummer Format";
+        placeofhandoverInputStatus.innerHTML = "Falsches Format";
         placeofhandoverInputStatus.style.display = "block";
         placeofhandoverInput.parentNode.className = "form-group has-warning has-feedback";
         placeofhandoverInputIcon.className = "glyphicon glyphicon-warning-sign form-control-feedback";

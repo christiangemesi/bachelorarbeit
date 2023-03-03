@@ -44,6 +44,10 @@ $(document).ready(function () {
     $("#start-date").datepicker({
         dateFormat: "dd.mm.yy",
         minDate: 1,
+        beforeShowDay: function(date){
+            var string = $.datepicker.formatDate('yy-mm-dd', date)
+            return [ listOfBlockedDates.indexOf(string) == -1 ]
+        },
         onSelect: function (date) {
             bindEndData();
             if($("#end-date").datepicker("getDate") != null){
@@ -195,7 +199,7 @@ $(document).ready(function () {
         dayToCalculateNextSundays = getNextDayOfWeek(new Date, 7);
         dayToCalculatePreviousSundays = getNextDayOfWeek(new Date, 7);
         $.ajax({
-            url: "../themenkisten/user/getThemebox",
+            url: "./user/getThemebox",
             type:"POST",
             data: {themeboxId: themebox_Id},
             success: function(response) {
@@ -251,7 +255,7 @@ $(document).ready(function () {
 
             },
             error: function(xhr, status, error) {
-                errorHandling("Es ist ein Fehler bei der Datenverarbeitung passiert. Bitte kontaktieren Sie die FHNW Bibliothek unter bibliothek.windisch@fhnw.ch", "#error-message-box");
+                errorHandling("Es ist ein Fehler bei der Datenverarbeitung aufgetreten. Bitte kontaktieren Sie die FHNW Bibliothek unter bibliothek.windisch@fhnw.ch", "#error-message-box");
             }
         });
     }
@@ -361,7 +365,7 @@ $(document).ready(function () {
     function loadBlockedDates() {
 
         $.ajax({
-            url: "../themenkisten/user/getBlockedPeriods",
+            url: "./user/getBlockedPeriods",
             type:"POST",
             data: {},
             success: function(data) {
@@ -376,7 +380,7 @@ $(document).ready(function () {
                 });
             },
             error: function(xhr, status, error) {
-                errorHandling("Es ist ein Fehler bei der Datenverarbeitung passiert. Bitte kontaktieren Sie die FHNW Bibliothek unter bibliothek.windisch@fhnw.ch", "#error-message-box");
+                errorHandling("Es ist ein Fehler bei der Datenverarbeitung aufgetreten. Bitte kontaktieren Sie die FHNW Bibliothek unter bibliothek.windisch@fhnw.ch", "#error-message-box");
             }
         });
     }
@@ -396,7 +400,7 @@ $(document).ready(function () {
                 $('#themebox-content-modal-box').html(response["content"]);
             },
             error: function(xhr, status, error) {
-                errorHandling("Es ist ein Fehler bei der Datenverarbeitung passiert. Bitte kontaktieren Sie die FHNW Bibliothek unter bibliothek.windisch@fhnw.ch", "#error-message-box");
+                errorHandling("Es ist ein Fehler bei der Datenverarbeitung aufgetreten. Bitte kontaktieren Sie die FHNW Bibliothek unter bibliothek.windisch@fhnw.ch", "#error-message-box");
                 console.log(process.env.APP_URL);
             }
         });
@@ -417,7 +421,7 @@ $(document).ready(function () {
                 $('#themebox-extra-text-modal-box').html(response["extra_text"]);
             },
             error: function(xhr, status, error) {
-                errorHandling("Es ist ein Fehler bei der Datenverarbeitung passiert. Bitte kontaktieren Sie die FHNW Bibliothek unter bibliothek.windisch@fhnw.ch", "#error-message-box");
+                errorHandling("Es ist ein Fehler bei der Datenverarbeitung aufgetreten. Bitte kontaktieren Sie die FHNW Bibliothek unter bibliothek.windisch@fhnw.ch", "#error-message-box");
                 console.log(process.env.APP_URL);
             }
         });
@@ -663,7 +667,7 @@ $(document).ready(function () {
         var end_date = $('#end-date');
         var start_date = $("#start-date").datepicker('getDate');
         var min_date = $("#start-date").datepicker('getDate');
-        start_date.setDate(start_date.getDate + 42);
+        start_date.setDate(start_date.getDate() + 42);
         end_date.datepicker('option', 'maxDate', start_date);
         end_date.datepicker('option', 'minDate', min_date);
         $("#start-date").datepicker('option', 'minDate', new Date());
@@ -714,12 +718,12 @@ $(document).ready(function () {
      */
     $(".button-confirm-order").click(function () {
         if($('#thekre-dropdown').val() == 2){
-            $('#delete-warning-header-text').text("Die Lieferung an Aargauer Schulen ist kostenpflichtig und es muss zusätzlich telefonisch mit der Infotheke der FHNW Bibliothek Brugg-Windisch Kontakt aufgenommen werden.");
-            $('#button-submit-order').text("Themenkiste liefern lassen");
+            $('#delete-warning-header-text').text("Die Lieferung an Aargauer Schulen ist kostenpflichtig.");
+            $('#button-submit-order').text("Liefern lassen");
         }
         else{
-            $('#delete-warning-header-text').text("Wollen Sie die Themenkiste wirklich bestellen und selbst Abholen?");
-            $('#button-submit-order').text("Themenkiste bestellen");
+            $('#delete-warning-header-text').text("Wollen Sie die Themenkiste/Lernroboter wirklich bestellen und selbst Abholen?");
+            $('#button-submit-order').text("Bestellen");
         }
         prepareOrderConfirmModal();
 

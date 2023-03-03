@@ -6,6 +6,7 @@
     <script src="{{ asset('js/user/themebox-data.js') }}"></script>
     <script src="{{ asset('js/calendar/moment.min.js') }}"></script>
     <script src="{{ asset('js/user/order-form.js') }}"></script>
+    <script src="{{asset('js/user/login.js')}}"></script>
     <link rel="stylesheet" href="{{ asset('css/calendar/fullcalendar.css') }}">
     <script src="{{ asset('js/calendar/fullcalendar.js') }}"></script>
     <script src="{{ asset('js/calendar/de-ch.js') }}"></script>
@@ -23,7 +24,7 @@
         <div class="col-md-12 main-Panel">
             <div class="row">
                 <div class="col-md-12">
-                    <h1>Themenkisten Bibliothek Brugg-Windisch</h1>
+                    <h1>Themenkisten und Lernroboter Bibliothek Brugg-Windisch</h1>
 
                     <div class="progress">
                         <div id="order-progress-bar" class="progress-bar thekre-progress" role="progressbar" aria-valuenow="40"
@@ -161,13 +162,12 @@
                                             <input name="phone" type="text" class="form-control" id="phone" maxlength="40" placeholder="0629231323" onblur="phoneValidate()"/>
                                             <span id="phoneIcon" aria-hidden="true"></span>
                                             <span id="phoneInputStatus" class="errorHeader">Telefonnummer wird benötigt!</span>
-                                        </div>
-
-                                        <div class="form-group has-feedback">
-                                            <label class="form-control-label" for="nebisusernumber">Bibliotheksausweisnummer *</label>
-                                            <input name="nebisusernumber" type="text" class="form-control" id="nebisusernumber" maxlength="40" placeholder="S98134827348" onblur="nebisValidate()" />
+                                        </div>                          
+                                        <div class="form-group has-success has-feedback">
+                                            <label class="form-control-label" for="nebisusernumber">Bibliotheksausweisnummer</label>
+                                            <input name="nebisusernumber" type="text" class="form-control" id="nebisusernumber" maxlength="40" placeholder="S98134827348"/>
                                             <span id="nebisIcon" aria-hidden="true"></span>
-                                            <span id="nebisInputStatus" class="errorHeader">Bibliotheksausweisnummer wird benötigt!</span>
+                                            <p><i>Bibliothekskarte kann bei der Abholung der THKI verlangt werden.</i></p>
                                         </div>
                                         <label class="required">* Pflichtfeld</label>
                                     </div>
@@ -190,22 +190,22 @@
                                         <div id="delivery-data-box">
                                             <p id="user-delivery-info"><span class="glyphicon glyphicon-info-sign"></span>  Die Themenkiste kann an der Infotheke der FHNW Bibliothek Brugg-Windisch abgeholt werden.</p>
                                             <div id="school-Address">
-                                                <p id="user-delivery-info"><span class="glyphicon glyphicon-info-sign"></span>  Die Lieferung an Aargauer Schulen ist kostenpflichtig und es muss zusätzlich telefonisch mit der <a href=https://www.fhnw.ch/de/die-fhnw/bibliotheken/bibliothek-brugg-windisch> Infotheke der FHNW Bibliothek Brugg-Windisch </a> Kontakt aufgenommen werden.</p>
+                                                <p id="user-delivery-info"><span class="glyphicon glyphicon-info-sign"></span>  Die Lieferung an Aargauer Schulen ist kostenpflichtig.</p>
                                                 <div class="form-group has-feedback">
                                                     <label class="form-control-label" for="schoolNameInput">Name der Schule *</label>
-                                                    <input type="text" class="form-control" name="schoolname" id="schoolNameInput" maxlength="60" placeholder="Sekundarschule Lenzburg" onblur="schoolnameValidate()"/>
+                                                    <input type="text" class="form-control" name="schoolname" id="schoolNameInput" maxlength="60" placeholder="Musterschule" onblur="schoolnameValidate()"/>
                                                     <span id="schoolNameIcon" aria-hidden="true"></span>
                                                     <span id="schoolNameInputStatus" class="errorHeader">Name der Schule wird benötigt!</span>
                                                 </div>
                                                 <div class="form-group has-feedback">
                                                     <label class="form-control-label" for="schoolstreetInput">Strasse und Nr *</label>
-                                                    <input type="text" class="form-control" name="schoolstreet" id="schoolstreetInput"  maxlength="60" placeholder="Mühlegasse 2" onblur="schoolstreetValidate()"/>
+                                                    <input type="text" class="form-control" name="schoolstreet" id="schoolstreetInput"  maxlength="60" placeholder="Musterstrasse 2" onblur="schoolstreetValidate()"/>
                                                     <span id="schoolstreetIcon" aria-hidden="true"></span>
                                                     <span id="schoolstreetInputStatus" class="errorHeader">Strasse und Nr wird benötigt!</span>
                                                 </div>
                                                 <div class="form-group has-feedback">
                                                     <label class="form-control-label" for="schoolcityInput">PLZ und Ort *</label>
-                                                    <input type="text" class="form-control" name="schoolcity" id="schoolcityInput"  maxlength="60" placeholder="2438 Lenzburg" onblur="schoolcityValidate()"/>
+                                                    <input type="text" class="form-control" name="schoolcity" id="schoolcityInput"  maxlength="60" placeholder="2030 Musterstadt " onblur="schoolcityValidate()"/>
                                                     <span id="schoolcityIcon" aria-hidden="true"></span>
                                                     <span id="schoolcityInputStatus" class="errorHeader">PLZ und Ort wird benötigt!</span>
                                                 </div>
@@ -278,8 +278,8 @@
                                             </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="submit" id="button-submit-order" class="btn btn-lg btn-warning float-right">Themenkiste bestellen</button>
-                                            <button type="button" class="btn btn-lg btn-default btn-modal float-left" data-dismiss="modal">Schliessen</button>
+                                            <button type="submit" id="button-submit-order" class="btn btn-lg btn-warning float-right">Bestellen</button>
+                                            <button type="button" class="btn btn-lg btn-default btn-modal float-left" data-dismiss="modal">Abbrechen</button>
                                         </div>
                                     </div>
                                 </div>

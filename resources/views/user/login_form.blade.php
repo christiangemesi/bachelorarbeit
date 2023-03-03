@@ -118,10 +118,10 @@
                                             <span id="phoneInputStatus" class="errorHeader">Telefonnummer wird benötigt!</span>
                                         </div>
                                         <div class="form-group has-feedback">
-                                            <label class="float-left" for="nebisusernumber">NEBIS Nummer</label>
+                                            <label class="float-left" for="nebisusernumber">Bibliotheksausweisnummer</label>
                                             <input type="text" class="form-control nebisusernumber" id="nebisusernumber" name="nebisusernumber" maxlength="40" onkeyup = "nebisValidate()" onblur="nebisValidate()"/>
                                             <span id="nebisIcon" aria-hidden="true"></span>
-                                            <span id="nebisInputStatus" class="errorHeader">Nebisnummer wird benötigt!</span>
+                                            <span id="nebisInputStatus" class="errorHeader">Bibliotheksausweisnummer wird benötigt!</span>
                                         </div>
                                     </div>
 

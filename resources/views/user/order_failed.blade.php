@@ -19,7 +19,7 @@
 
                 <div class="col-md-10">
                     <br>
-                    <p class="order_feeback_text">Kontaktieren Sie bitte die Campusbibliothek unter <a href="mailto:bibliothek.windisch@fhnw.ch">bibliothek.windisch@fhnw.ch</a></p>
+                    <p class="order_feeback_text">Kontaktieren Sie bitte die FHNW Bibliothek Brugg-Windisch unter <a href="mailto:bibliothek.windisch@fhnw.ch">bibliothek.windisch@fhnw.ch</a></p>
                 </div>
             </div>
         </div>

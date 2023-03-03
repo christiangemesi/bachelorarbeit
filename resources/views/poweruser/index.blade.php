@@ -198,16 +198,16 @@
                                                 <span id="orderAdd-emailInputStatus" class="errorHeader">Email wird benötigt!</span>
                                             </div>
                                             <div class="form-group">
-                                                <label class="float-left" for="orderAdd-phone">Phonenumber</label>
+                                                <label class="float-left" for="orderAdd-phone">Telefonnummer</label>
                                                 <input type="tel" class="form-control" id="orderAdd-phone" name="orderAdd-phone" onkeyup="phoneValidate('orderAdd-phone','orderAdd-phoneInputStatus','orderAdd-phoneIcon')" onblur="phoneValidate('orderAdd-phone','orderAdd-phoneInputStatus','orderAdd-phoneIcon')"/>
                                                 <span id="orderAdd-phoneIcon" aria-hidden="true"></span>
                                                 <span id="orderAdd-phoneInputStatus" class="errorHeader">Telefonnummer wird benötigt!</span>
                                             </div>
                                             <div class="form-group">
-                                                <label class="float-left" for="orderAdd-Nebisnumber" >Nebisnumber</label>
+                                                <label class="float-left" for="orderAdd-Nebisnumber" >Bibliotheksausweisnumber</label>
                                                 <input type="text" class="form-control" id="orderAdd-Nebisnumber" name="orderAdd-Nebisnumber" onkeyup="nebisValidate('orderAdd-Nebisnumber','orderAdd-nebisInputStatus','orderAdd-nebisIcon')" onblur="nebisValidate('orderAdd-Nebisnumber','orderAdd-nebisInputStatus','orderAdd-nebisIcon')">
                                                 <span id="orderAdd-nebisIcon" aria-hidden="true"></span>
-                                                <span id="orderAdd-nebisInputStatus" class="errorHeader">Nebisnummer wird benötigt!</span>
+                                                <span id="orderAdd-nebisInputStatus" class="errorHeader">Nummer wird benötigt!</span>
                                             </div>
                                         </div>
 
@@ -280,7 +280,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div id="order-calendar-legend-blocked-period">
-                                            <div class="order-calendar-legend-text">Geschlossenl</div>
+                                            <div class="order-calendar-legend-text">Geschlossen</div>
                                         </div>
                                     </div>
                                 </div>
@@ -382,16 +382,16 @@
                                                 <span id="emailInputStatus" class="errorHeader">Email wird benötigt!</span>
                                             </div>
                                             <div class="form-group has-feedback">
-                                                <label class="float-left" for="phonenumber">Tel</label>
+                                                <label class="float-left" for="phonenumber">Telefonnummer</label>
                                                 <input type="text" class="form-control phonenumber" id="phonenumber" name="phonenumber" maxlength="40" onkeyup = "phoneValidate('phonenumber','phoneInputStatus','phoneIcon')" onblur="phoneValidate('phonenumber','phoneInputStatus','phoneIcon')"/>
                                                 <span id="phoneIcon" aria-hidden="true"></span>
                                                 <span id="phoneInputStatus" class="errorHeader">Telefonnummer wird benötigt!</span>
                                             </div>
                                             <div class="form-group has-feedback">
-                                                <label class="float-left" for="nebisusernumber">NEBIS Nummer</label>
+                                                <label class="float-left" for="nebisusernumber">Bibliotheksnummer</label>
                                                 <input type="text" class="form-control nebisusernumber" id="nebisusernumber" name="nebisusernumber" maxlength="40" onkeyup = "nebisValidate('nebisnumber','nebisInputStatus','nebisIcon')" onblur="nebisValidate('nebisnumber','nebisInputStatus','nebisIcon')"/>
                                                 <span id="nebisIcon" aria-hidden="true"></span>
-                                                <span id="nebisInputStatus" class="errorHeader">Nebisnummer wird benötigt!</span>
+                                                <span id="nebisInputStatus" class="errorHeader">Nummer wird benötigt!</span>
                                             </div>
                                         </div>
 
@@ -462,7 +462,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div id="order-calendar-legend-blocked-period">
-                                            <div class="order-calendar-legend-text">Geschlossenl</div>
+                                            <div class="order-calendar-legend-text">Geschlossen</div>
                                         </div>
                                     </div>
                                 </div>

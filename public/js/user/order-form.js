@@ -90,7 +90,7 @@ function lastNameValidate() {
         document.getElementById("lastNameIcon").className = "glyphicon glyphicon-remove form-control-feedback";
         checkValidation(0);
         return false;
-    } else if (!onlyLetters(lastNameInput.value)) {
+    } else if (!onlyLettersNumbers(lastNameInput.value)) {
         document.getElementById("lastNameInputStatus").innerHTML = "Nur Buchstaben sind erlaubt!";
         document.getElementById("lastNameInputStatus").style.display = "block";
         lastNameInput.parentNode.className = "form-group has-warning has-feedback";
@@ -107,6 +107,7 @@ function lastNameValidate() {
 }
 
 function emailValidate() {
+    let emailInput = document.getElementById("emailInput");
 
     if (emailInput.value == "") {
         document.getElementById("emailInputStatus").innerHTML = "Email Adresse wird benötigt!";
@@ -116,7 +117,7 @@ function emailValidate() {
         checkValidation(0);
         return false;
     } else if (!validEmailAddress(emailInput.value)) {
-        document.getElementById("emailInputStatus").innerHTML = "Falsches EMail Adressen Format!";
+        document.getElementById("emailInputStatus").innerHTML = "Falsches Email Adressen Format!";
         document.getElementById("emailInputStatus").style.display = "block";
         emailInput.parentNode.className = "form-group has-warning has-feedback";
         document.getElementById("emailIcon").className = "glyphicon glyphicon-warning-sign form-control-feedback";
@@ -132,6 +133,8 @@ function emailValidate() {
 }
 
 function phoneValidate() {
+
+    let phone = document.getElementById("phone")
 
     if (phone.value == "") {
         document.getElementById("phoneInputStatus").innerHTML = "Telefonnummer wird benötigt!";
@@ -156,30 +159,32 @@ function phoneValidate() {
     }
 }
 
-function nebisValidate() {
-
-    if (nebisusernumber.value == "") {
-        document.getElementById("nebisInputStatus").innerHTML = "Nebisnummer wird benötigt!";
-        document.getElementById("nebisInputStatus").style.display = "block";
-        nebisusernumber.parentNode.className = "form-group has-error has-feedback";
-        document.getElementById("nebisIcon").className = "glyphicon glyphicon-remove form-control-feedback";
-        checkValidation(0);
-        return false;
-    } else if (!notEmpty(nebisusernumber.value)) {
-        document.getElementById("nebisInputStatus").innerHTML = "Falsches Nebisnummer Format!";
-        document.getElementById("nebisInputStatus").style.display = "block";
-        nebisusernumber.parentNode.className = "form-group has-warning has-feedback";
-        document.getElementById("nebisIcon").className = "glyphicon glyphicon-warning-sign form-control-feedback";
-        checkValidation(0);
-        return false;
-    } else {
-        document.getElementById("nebisInputStatus").style.display = "none";
-        nebisusernumber.parentNode.className = "form-group has-success has-feedback";
-        document.getElementById("nebisIcon").className = "glyphicon glyphicon-ok form-control-feedback";
-        checkValidation(0);
-        return true;
-    }
-}
+//function nebisValidate() {
+    // if (nebisusernumber.value == "") {
+    //     document.getElementById("nebisInputStatus").innerHTML = "Bibliotheksausweisnummer wird benötigt!";
+    //     document.getElementById("nebisInputStatus").style.display = "block";
+    //     nebisusernumber.parentNode.className = "form-group has-error has-feedback";
+    //     document.getElementById("nebisIcon").className = "glyphicon glyphicon-remove form-control-feedback";
+    //     checkValidation(0);
+    //     return false;
+    // } else
+    // if (!notEmpty(nebisusernumber.value)) {
+    //     document.getElementById("nebisInputStatus").innerHTML = "Falsches Bibliotheksausweisnummer Format!";
+    //     document.getElementById("nebisInputStatus").style.display = "block";
+    //     nebisusernumber.parentNode.className = "form-group has-warning has-feedback";
+    //     document.getElementById("nebisIcon").className = "glyphicon glyphicon-warning-sign form-control-feedback";
+    //     checkValidation(0);
+    //     return false;
+    // } else {
+    //     document.getElementById("nebisInputStatus").style.display = "none";
+    //     nebisusernumber.parentNode.className = "form-group has-success has-feedback";
+    //     document.getElementById("nebisIcon").className = "glyphicon glyphicon-ok form-control-feedback";
+    //     checkValidation(0);
+    //     return true;
+    // }
+    //checkValidation(0);
+    //return true;
+//}
 
 /**
  * 2.Form School Address
@@ -278,7 +283,7 @@ function placeofhandoverValidate() {
         checkValidation(1);
         return false;
     } else if (!onlyLettersNumbers(placeofhandoverInput.value)) {
-        document.getElementById("placeofhandoverInputStatus").innerHTML = "Falsches Telefonnummer Format";
+        document.getElementById("placeofhandoverInputStatus").innerHTML = "Falsches Format. Nur Buchstaben und Zahlen erlaubt.";
         document.getElementById("placeofhandoverInputStatus").style.display = "block";
         placeofhandoverInput.parentNode.className = "form-group has-warning has-feedback";
         document.getElementById("placeofhandoverIcon").className = "glyphicon glyphicon-warning-sign form-control-feedback";
@@ -332,7 +337,7 @@ function notEmpty(word) {
 }
 
 function onlyLetters(word) {
-    var pattern = /^[a-zA-ZäöüÄÖÜéèêàÈÉÀ-]+$/;
+    var pattern = /^[a-zA-ZäöüÄÖÜéèêàÈÉÀ- ]+$/;
     return pattern.test(word);
 }
 
@@ -375,6 +380,7 @@ function checkValidation(order_carousel_status) {
         var cansubmit = true;
 
         $("#personal-data-box :input").each(function () {
+            console.log(this.parentNode)
             if ($(this).parent().attr('class') != "form-group has-success has-feedback") {
                 cansubmit = false;
             }

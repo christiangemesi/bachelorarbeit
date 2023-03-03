@@ -159,7 +159,7 @@ function phoneValidate() {
     }
 }
 
-function nebisValidate() {
+//function nebisValidate() {
     // if (nebisusernumber.value == "") {
     //     document.getElementById("nebisInputStatus").innerHTML = "Nebisnummer wird benötigt!";
     //     document.getElementById("nebisInputStatus").style.display = "block";
@@ -182,9 +182,9 @@ function nebisValidate() {
     //     checkValidation(0);
     //     return true;
     // }
-    checkValidation(0);
-    return true;
-}
+    //checkValidation(0);
+    //return true;
+//}
 
 /**
  * 2.Form School Address
@@ -337,7 +337,7 @@ function notEmpty(word) {
 }
 
 function onlyLetters(word) {
-    var pattern = /^[a-zA-ZäöüÄÖÜéèêàÈÉÀ-]+$/;
+    var pattern = /^[a-zA-ZäöüÄÖÜéèêàÈÉÀ- ]+$/;
     return pattern.test(word);
 }
 

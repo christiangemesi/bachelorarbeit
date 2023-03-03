@@ -278,8 +278,8 @@
                                             </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="submit" id="button-submit-order" class="btn btn-lg btn-warning float-right">Themenkiste bestellen</button>
-                                            <button type="button" class="btn btn-lg btn-default btn-modal float-left" data-dismiss="modal">Schliessen</button>
+                                            <button type="submit" id="button-submit-order" class="btn btn-lg btn-warning float-right">Bestellen</button>
+                                            <button type="button" class="btn btn-lg btn-default btn-modal float-left" data-dismiss="modal">Abbrechen</button>
                                         </div>
                                     </div>
                                 </div>

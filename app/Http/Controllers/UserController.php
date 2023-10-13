@@ -228,7 +228,7 @@ class UserController extends Controller
         }
 
         Mail::send($view, $mail_data, function ($message) use ($mail_data) {
-            $message->to($mail_data['receiver_mail'], $mail_data['receiver_name'] . " " . $mail_data['receiver_surname'])->bcc('bibliothek.windisch@fhnw.ch', 'Bibliothek Windisch')->subject('Bestellbestätigung Themenkiste');
+            $message->to($mail_data['receiver_mail'], $mail_data['receiver_name'] . " " . $mail_data['receiver_surname'])->bcc('christian.hasley1337@gmail.com', 'Bibliothek Windisch')->subject('Bestellbestätigung Themenkiste');
         });
     }
 

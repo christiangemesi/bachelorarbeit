@@ -122,7 +122,7 @@ class UserControllerTest extends TestCase
         $response = $this->controller->getThemeboxContent($request);
         $themebox->forceDelete();
 
-        $this->assertEquals(count($response), 1);
+        $this->assertEquals(count(array($response)), 1);
     }
 
     public function tearDown(){

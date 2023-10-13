@@ -166,7 +166,7 @@ class AdminControllerTest extends TestCase
         $request = new Request(array("themebox_id" => $new_themebox->pk_themebox));
         $json_response = $this->controller->getThemebox($request);
         $themebox->forceDelete();
-        $this->assertEquals(count($json_response), 1);
+        $this->assertEquals(count(array($json_response)), 1);
     }
 
     public function tearDown(){

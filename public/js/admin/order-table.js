@@ -120,7 +120,7 @@ $(document).ready(function () {
                     '<tr><td> </td></tr>' +
                     '<tr class="print-table-user"><td class="print-table-title">Nachname: </td><td class="print-table-text">' + response["order"]["name"] +'</td></tr>' +
                     '<tr class="print-table-user"><td class="print-table-title">Vorname: </td><td class="print-table-text">' + response["order"]["surname"] +'</td></tr>' +
-                    '<tr class="print-table-user"><td class="print-table-title">Bibliotheksausweisnummer: </td><td class="print-table-text">' + response["order"]["nebisusernumber"] +'</td></tr>' +
+                    '<tr class="print-table-user"><td class="print-table-title">Bibliotheksausweis: </td><td class="print-table-text">' + response["order"]["nebisusernumber"] +'</td></tr>' +
                     '<tr class="print-table-user"><td class="print-table-title">Email: </td><td class="print-table-text">' + response["order"]["email"] +'</td></tr>' +
                     '<tr class="print-table-user"><td class="print-table-title">Telefonnummer: </td><td class="print-table-text">' + response["order"]["phonenumber"] +'</td></tr>';
 
@@ -269,7 +269,7 @@ $(document).ready(function () {
 
             },
             error: function (xhr, status, error) {
-                showFailureModal("Es ist ein Fehler beim Laden der Daten aufgetreten", xhr);
+                showFailureModal("Es ist ein Fehler beim Laden der Daten vorgekommen", xhr);
             }
         })
     });
@@ -484,7 +484,7 @@ $(document).ready(function () {
                 });
             },
             error: function(xhr, status, error) {
-                errorHandling("Es ist ein Fehler bei der Datenverarbeitung aufgetreten. Bitte kontaktieren Sie die FHNW Bibliothek unter bibliothek.windisch@fhnw.ch", "#error-message-box");
+                errorHandling("Es ist ein Fehler bei der Datenverarbeitung passiert. Bitte kontaktieren Sie die FHNW Bibliothek unter bibliothek.windisch@fhnw.ch", "#error-message-box");
             }
         });
     }

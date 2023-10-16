@@ -101,7 +101,7 @@ class AdminController extends Controller
      */
     public function getAdminPassword(){
         $passwordJSON = Login::where('pk_login', 1)->get();
-        return $passwordJSON[0]{'password'};
+        return $passwordJSON[0]['password'];
     }
 
 

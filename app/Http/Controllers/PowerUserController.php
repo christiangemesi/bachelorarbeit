@@ -73,7 +73,7 @@ class PowerUserController extends Controller
      */
     public function getPoweruserPassword(){
         $passwordJSON = Login::where('pk_login', 2)->get();
-        return $passwordJSON[0]{'password'};
+        return $passwordJSON[0]['password'];
     }
 
     public function getOrders()

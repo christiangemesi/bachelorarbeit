@@ -14,7 +14,7 @@ use ThekRe\Themebox;
 
 class UserControllerTest extends TestCase
 {
-    public function setUp() {
+    public function setUp(): void {
         parent::setUp();
 
         @$user_controller = new UserController();;
@@ -125,6 +125,6 @@ class UserControllerTest extends TestCase
         $this->assertEquals(count(array($response)), 1);
     }
 
-    public function tearDown(){
+    public function tearDown(): void{
     }
 }

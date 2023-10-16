@@ -13,7 +13,7 @@ use ThekRe\Themebox;
 
 class AdminControllerTest extends TestCase
 {
-    public function setUp() {
+    public function setUp() : void {
         parent::setUp();
 
         @$admin_controller = new AdminController();;
@@ -169,6 +169,6 @@ class AdminControllerTest extends TestCase
         $this->assertEquals(count(array($json_response)), 1);
     }
 
-    public function tearDown(){
+    public function tearDown(): void{
     }
 }

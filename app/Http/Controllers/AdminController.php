@@ -24,13 +24,7 @@ class AdminController extends Controller
     {
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
-            // set admin passwort to "admin"
-            $password = "root";
-            $hashed_password = Hash::make($password);
 
-            $pass = Login::find(1);
-            $pass->password=$hashed_password;
-            $pass->save();
 
         }
     }

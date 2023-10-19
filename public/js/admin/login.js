@@ -41,7 +41,7 @@ $(document).ready(function() {
                 if(response == "failure"){
                     $('#login-error-message-box').css('display', 'block');
                 }else{
-                    window.location = "../admin";
+                    window.location = "";
                 }
             },
             error: function(xhr, status, error) {

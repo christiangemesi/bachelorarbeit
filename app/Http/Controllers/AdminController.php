@@ -24,8 +24,6 @@ class AdminController extends Controller
     {
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
-
-
         }
     }
 

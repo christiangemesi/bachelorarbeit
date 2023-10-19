@@ -5,10 +5,8 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": ">=7.4.0",
-        "fruitcake/laravel-cors": "^1.0",
-        "fideloper/proxy": "^4.0",
-        "laravel/framework": "^8.0",
+        "php": ">=8.0.0",
+        "laravel/framework": "^9.0",
         "laravel/helpers": "^1.6",
         "laravel/tinker": "^2.0"
     },

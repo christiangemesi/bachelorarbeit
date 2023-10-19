@@ -44,7 +44,6 @@ class AdminControllerTest extends TestCase
         $request = new Request(array("password" => config('admin_auth.admin_password')));
 
         $json_response = $this->controller->login($request);
-
         $this->assertEquals($json_response->content(), '"success"');
     }
 

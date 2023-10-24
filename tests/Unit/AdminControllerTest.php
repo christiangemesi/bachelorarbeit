@@ -1,11 +1,8 @@
 <?php
 
-namespace Tests\Feature;
-
 use Tests\TestCase;
 use ThekRe\Http\Controllers\AdminController;
 use Illuminate\Http\Request;
-use ThekRe\Requests;
 use ThekRe\Order;
 use ThekRe\Status;
 use ThekRe\Themebox;

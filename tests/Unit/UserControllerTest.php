@@ -1,14 +1,9 @@
 <?php
 
-namespace Tests\Feature;
-
 use Tests\TestCase;
 use ThekRe\Http\Controllers\UserController;
 use Illuminate\Http\Request;
-use ThekRe\Delivery;
-use ThekRe\Requests;
 use ThekRe\Order;
-use ThekRe\Status;
 use ThekRe\Themebox;
 
 

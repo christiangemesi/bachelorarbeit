@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  # Application Service
+  laravel:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:80"
+
+  mysql_db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: thekre2
+    ports:
+      - "3306:3306"
+
+
+  phpmyadmin:
+    image: phpmyadmin:5.2.1
+    ports:
+      - "9001:80"
+    environment:
+      - PMA_ARBITRARY=1

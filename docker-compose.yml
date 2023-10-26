@@ -1,26 +1,33 @@
 version: '3'
 
 services:
-  # Application Service
-  thekre:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "8000:80"
+    # Application Service
+    thekre:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        ports:
+            - "8000:80"
 
-  mysql_db:
-    image: mysql:8.0
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: thekre
-    ports:
-      - "3306:3306"
+    mysql_db:
+        image: mysql:8.0
+        environment:
+            MYSQL_ROOT_PASSWORD: cSCdrkd1VNEbk8PW
+            MYSQL_DATABASE: thekre
+        ports:
+            - "3306:80"
 
 
-  phpmyadmin:
-    image: phpmyadmin:5.2.1
-    ports:
-      - "3307:3307"
-    environment:
-      - PMA_ARBITRARY=1
+    phpmyadmin:
+        image: phpmyadmin:5.2.1
+        ports:
+            - "9001:80"
+        environment:
+            - PMA_ARBITRARY=1
+
+networks:
+    sail:
+        driver: bridge
+volumes:
+    sail-mysql:
+        driver: local

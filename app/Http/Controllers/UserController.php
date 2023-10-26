@@ -1,7 +1,9 @@
 <?php
 namespace ThekRe\Http\Controllers;
 
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 use League\Flysystem\Exception;
 use ThekRe\Blocked_Period;
 use ThekRe\Delivery;
@@ -9,7 +11,7 @@ use ThekRe\Http\Requests;
 use ThekRe\Order;
 use ThekRe\Themebox;
 use ThekRe\Status;
-use Mail;
+use Illuminate\Support\Facades\Mail;
 use ThekRe\EditMail;
 use Carbon\Carbon;
 
@@ -17,7 +19,7 @@ class UserController extends Controller
 {
     /**
      * render user start page
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index()
     {
@@ -63,7 +65,7 @@ class UserController extends Controller
     /**
      * create new order
      * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function createOrder(Request $request)
     {     
@@ -129,7 +131,7 @@ class UserController extends Controller
 
     /**
      * render order success view
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function orderSuccess()
     {
@@ -138,7 +140,7 @@ class UserController extends Controller
 
     /**
      * render order failed view
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function orderFailed()
     {
@@ -244,7 +246,7 @@ class UserController extends Controller
 
     /**
      * load user login view
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function loginForm()
     {

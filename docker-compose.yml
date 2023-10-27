@@ -8,7 +8,10 @@ services:
             dockerfile: Dockerfile
         ports:
             - "8000:80"
+        volumes:
+            - .:/var/www/html
 
+    # Database Service
     mysql:
         image: mysql:8.0
         container_name: mysql
@@ -22,6 +25,7 @@ services:
             MYSQL_PASSWORD: "password"
             MYSQL_ROOT_PASSWORD: "root"
 
+    # PhpMyAdmin Service
     phpmyadmin:
         image: phpmyadmin/phpmyadmin
         container_name: phpmyadmin

@@ -34,7 +34,7 @@ return [
     'connections' => [
         'mysql' => [
             'driver' => 'mysql',
-            'host' => '127.0.0.1',
+            'host' => 'mysql',
             'port' => '3306',
             'database' => env('DATABASE', false),
             'username' => env('DATABASE_USERNAME', false),

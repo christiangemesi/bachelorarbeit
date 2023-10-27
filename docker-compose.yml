@@ -9,25 +9,24 @@ services:
         ports:
             - "8000:80"
 
-    mysql_db:
+    mysql:
         image: mysql:8.0
-        environment:
-            MYSQL_ROOT_PASSWORD: cSCdrkd1VNEbk8PW
-            MYSQL_DATABASE: thekre
+        container_name: mysql
+        volumes:
+            - ./data/thekre:/var/lib/mysql
         ports:
-            - "3306:80"
-
+            - "3306:3306"
+        environment:
+            MYSQL_DATABASE: "thekre"
+            MYSQL_USER: "user"
+            MYSQL_PASSWORD: "password"
+            MYSQL_ROOT_PASSWORD: "root"
 
     phpmyadmin:
-        image: phpmyadmin:5.2.1
+        image: phpmyadmin/phpmyadmin
+        container_name: phpmyadmin
         ports:
             - "9001:80"
         environment:
-            - PMA_ARBITRARY=1
-
-networks:
-    sail:
-        driver: bridge
-volumes:
-    sail-mysql:
-        driver: local
+            PMA_HOST: mysql
+            PMA_PORT: 3306

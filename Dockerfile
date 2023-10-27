@@ -17,7 +17,7 @@ RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-av
 RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 
 # Copy the application code
-COPY . /var/www/html
+COPY ../.. /var/www/html
 
 # Set the working directory
 WORKDIR /var/www/html

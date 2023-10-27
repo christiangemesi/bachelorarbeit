@@ -1,0 +1,16 @@
+create folder
+cd into it
+git clone
+git switch -c poc origin/poc
+cp 'Link to .env' .
+docker compose build / docker compose -f docker-compose.prod.yml build
+
+cd ..
+mkdir deployment
+cd deployment
+cp 'Link to docker-compose.prod.yml' .
+cp 'Link to .env' .
+
+then delete folder where we cloned git repo
+docker compose up -d / docker compose -f docker-compose.prod.yml up
+docker compose exec thekre php artisan migrate

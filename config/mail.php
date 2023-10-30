@@ -10,8 +10,8 @@ return [
 
 
     'from' => [
-        'address' => 'christian.hasley1337@gmail.com',
-        'name' => 'Christians dev mail',
+        'address' => env('EMAILS_FROM',false),
+        'name' => env('EMAILS_FROM_NAME',false)
     ],
 
     'encryption' => env('MAIL_ENCRYPTION', 'tls'),

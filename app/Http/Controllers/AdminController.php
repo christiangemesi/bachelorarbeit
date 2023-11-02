@@ -24,13 +24,12 @@ class AdminController extends Controller
     {
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
-
         }
     }
 
     /**
      * render admin start page
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function index()
     {
@@ -88,7 +87,7 @@ class AdminController extends Controller
     public function login(Request $request)
     {
 
-        if (Hash::check($request->password, $this->getAdminPassword())) {
+        if (Hash::check($request->password, $this->getAdminPassword()) && $request->email == $this->getAdminEmail()) {
             $_SESSION['ThekRe_Admin'] = true;
             return response()->json('success');
         } else {
@@ -103,6 +102,11 @@ class AdminController extends Controller
     public function getAdminPassword(){
         $passwordJSON = Login::where('pk_login', 1)->get();
         return $passwordJSON[0]['password'];
+    }
+
+    public function getAdminEmail(){
+        $emailJSON = Login::where('pk_login', 1)->get();
+        return $emailJSON[0]['email'];
     }
 
 

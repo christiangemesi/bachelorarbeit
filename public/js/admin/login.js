@@ -36,7 +36,10 @@ $(document).ready(function() {
         $.ajax({
             url: "login",
             type:'POST',
-            data: {password: $('#admin-password').val()},
+            data: {
+                email: $('#admin-email').val(),
+                password: $('#admin-password').val()
+            },
             success:  function(response) {
                 if(response == "failure"){
                     $('#login-error-message-box').css('display', 'block');

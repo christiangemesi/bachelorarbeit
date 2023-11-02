@@ -13,6 +13,10 @@
     <div class="col-md-12 admin-panel">
         <h1 class="admin-header">Administrator Login</h1>
         <div class="form-group">
+            <label for="email">E-Mail:</label>
+            <input type="email" class="form-control" id="admin-email" name="email"/>
+        </div>
+        <div class="form-group">
             <label for="password">Passwort:</label>
             <input type="password" class="form-control" id="admin-password" name="password"/>
         </div>

@@ -20,6 +20,9 @@
             <label for="password">Passwort:</label>
             <input type="password" class="form-control" id="admin-password" name="password"/>
         </div>
+        <div>
+            <a href="<?php echo e(url('/admin/forgetPasswordForm')); ?>">Passwort vergessen?</a>
+        </div>
         <button type="submit" id="login-button" class="btn btn-success btn-lg">Login</button>
     </div>
 <?php $__env->stopSection(); ?>

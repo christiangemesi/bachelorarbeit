@@ -24,6 +24,11 @@ Route::get('/', function () {
 Route::get('/admin', 'AdminController@index')->name('adminIndex');
 Route::get('/admin/loginForm', 'AdminController@loginForm')->name('loginForm');
 Route::post('/admin/login', 'AdminController@login');
+
+Route::get('/admin/forgetPasswordForm', 'AdminController@ForgetPasswordForm')->name('forgetPasswordForm');
+Route::post('/admin/forgotPassword', 'AdminController@forgotPassword');
+
+
 Route::get('/admin/logout', 'AdminController@logout');
 Route::get('/admin/themeboxes', 'AdminController@getThemeboxes');
 Route::post('/admin/updateState','AdminController@updateThemeboxState');
@@ -49,7 +54,6 @@ Route::post('/admin/updatePassword', 'AdminController@updatePassword');
 Route::post('/admin/updatePoweruserPassword', 'AdminController@updatePoweruserPassword');
 Route::post('/admin/getMail', 'AdminController@getMail');
 Route::post('/admin/updateMail', 'AdminController@updateMail');
-
 
 Route::get('/poweruser','PowerUserController@index')->name('poweruserIndex');
 Route::get('/poweruser/themboxes','PowerUserController@getThemeboxes');

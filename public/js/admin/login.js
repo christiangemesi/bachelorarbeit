@@ -4,7 +4,7 @@
 $(document).ready(function() {
 
     //set focus to password field
-    $("#admin-password").focus();
+    $("#admin-email").focus();
     $('#login-button').prop("disabled", true);
 
     /**

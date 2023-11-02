@@ -26,7 +26,7 @@ Route::get('/admin/loginForm', 'AdminController@loginForm')->name('loginForm');
 Route::post('/admin/login', 'AdminController@login');
 
 Route::get('/admin/forgetPasswordForm', 'AdminController@ForgetPasswordForm')->name('forgetPasswordForm');
-Route::post('/admin/forgotPassword', 'AdminController@forgotPassword');
+Route::post('/admin/forgotPassword', 'AdminController@forgetPassword');
 
 
 Route::get('/admin/logout', 'AdminController@logout');

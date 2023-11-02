@@ -16,8 +16,7 @@ $(document).ready(function() {
     });
 
     function checkPasswordReset() {
-        var email = $('#forgot-password-email').val();
-
+        var email = $('#forget-password-email').val();
         $.ajax({
             url: "forgetPassword", // Ensure the correct endpoint is specified here
             type: 'POST',

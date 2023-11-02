@@ -26,6 +26,8 @@ class VerifyCsrfToken extends Middleware
         '/poweruser/updateState',
 
         'admin/login',
+        'admin/forgetPassword',
+
         'admin/updateState',
         'admin/createThemebox',
         'admin/removeOrder',

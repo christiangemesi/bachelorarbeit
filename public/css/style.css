@@ -111,6 +111,10 @@ body{
     display: none;
 }
 
+#passwort-reset-error-message-box{
+    display: none;
+}
+
 #error-calendar-message-box{
     margin-top: 10px;
 }

@@ -14,9 +14,9 @@
         <h1 class="admin-header">Passwort zurücksetzen</h1>
         <div class="form-group">
             <label for="email">E-Mail:</label>
-            <input type="email" class="form-control" id="forgot-password-email" name="email"/>
+            <input type="email" class="form-control" id="forget-password-email" name="email"/>
         </div>
-        <button type="submit" id="forgot-password-button" class="btn btn-success btn-lg">Send Reset Link</button>
+        <button type="submit" id="forget-password-button" class="btn btn-success btn-lg">Send Reset Link</button>
     </div>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\leihmich\thek-re-2\resources\views/admin/forget-password_form.blade.php ENDPATH**/ ?>

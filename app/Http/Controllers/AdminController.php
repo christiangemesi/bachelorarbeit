@@ -67,7 +67,7 @@ class AdminController extends Controller
         }
     }
 
-    public function forgotPassword(Request $request): void
+    public function forgetPassword(Request $request): void
     {
         error_log('forgotPassword called.');
     }

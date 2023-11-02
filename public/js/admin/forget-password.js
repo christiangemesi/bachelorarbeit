@@ -1,17 +1,17 @@
 $(document).ready(function() {
-    $("#forgot-password-email").focus();
-    $('#forgot-password-button').prop("disabled", true);
+    $("#forget-password-email").focus();
+    $('#forget-password-button').prop("disabled", true);
 
-    $('#forgot-password-email').keyup(function(e) {
+    $('#forget-password-email').keyup(function(e) {
         if ($(this).val()) {
-            $('#forgot-password-button').prop("disabled", false);
+            $('#forget-password-button').prop("disabled", false);
             if (e.keyCode === 13) {
                 checkPasswordReset();
             }
         }
     });
 
-    $('#forgot-password-button').click(function(e) {
+    $('#forget-password-button').click(function(e) {
         checkPasswordReset();
     });
 
@@ -19,7 +19,7 @@ $(document).ready(function() {
         var email = $('#forgot-password-email').val();
 
         $.ajax({
-            url: "/admin/forgotPassword", // Ensure the correct endpoint is specified here
+            url: "forgetPassword", // Ensure the correct endpoint is specified here
             type: 'POST',
             data: { email: email },
             success: function(response) {

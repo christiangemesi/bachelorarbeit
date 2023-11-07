@@ -2,11 +2,13 @@
 
 namespace ThekRe\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Str;
 use League\Flysystem\Exception;
 use PhpParser\Node\Expr\Array_;
 use ThekRe\Blocked_Period;
@@ -17,7 +19,9 @@ use ThekRe\Order;
 use ThekRe\Status;
 use ThekRe\Themebox;
 use ThekRe\EditMail;
-use Mail;
+use ThekRe\PasswordResets;
+use Illuminate\Support\Facades\Mail;
+use Throwable;
 
 class AdminController extends Controller
 {
@@ -67,9 +71,43 @@ class AdminController extends Controller
         }
     }
 
-    public function forgetPassword(Request $request): void
+    public function forgetPassword(Request $request)
     {
-        error_log('forgotPassword called.');
+
+        try {
+            error_log($request->email);
+            error_log($this->getAdminEmail());
+
+            if ($request->email == $this->getAdminEmail()) {
+                $email = $request->email;
+
+                $token = Str::random(64);
+
+                // insert token into password_resets table
+                $password_reset = new PasswordResets();
+                $password_reset->email = $email;
+                $password_reset->token = $token;
+                $password_reset->created_at = Carbon::now();
+                $password_reset->save();
+
+                Mail::send('admin.mail-forget-password', ['token' => $token], function ($message) use ($email) {
+                    $message->to($email)->subject('Passwort zurücksetzen');
+                });
+
+                return redirect()->route('loginForm')->with('success-message', 'Sie erhalten in Kürze eine E-Mail mit einem Link zum Zurücksetzen Ihres Passworts.');
+
+            }
+        }catch (Throwable $e) {
+            // Log the error for debugging purposes
+            error_log($e->getMessage());
+            // You can also return a response or perform error handling as needed
+        }
+    }
+
+    public function resetPassword($token) {
+        error_log("resetPassword");
+        error_log($token);
+        return view('admin/new-password', compact('token'));
     }
 
     public function forgetPasswordForm()

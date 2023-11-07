@@ -71,6 +71,11 @@ class AdminController extends Controller
         }
     }
 
+    public function forgetPasswordForm()
+    {
+        return view('admin/forget-password_form');
+    }
+
     public function forgetPassword(Request $request)
     {
 
@@ -103,7 +108,7 @@ class AdminController extends Controller
         }
     }
 
-    public function resetPasswordForm($token) {
+    public function ResetPasswordForm($token) {
         error_log("resetPasswordForm");
         error_log($token);
         return view('admin/new-password_form', compact('token'));
@@ -111,11 +116,8 @@ class AdminController extends Controller
 
     public function resetPassword(Request $request){
         error_log("resetPassword");
-    }
-
-    public function forgetPasswordForm()
-    {
-        return view('admin/forget-password_form');
+        error_log($request->token);
+        error_log($request->password);
     }
 
 

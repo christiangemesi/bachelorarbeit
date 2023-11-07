@@ -28,8 +28,8 @@ Route::post('/admin/login', 'AdminController@login');
 Route::get('/admin/forgetPasswordForm', 'AdminController@ForgetPasswordForm')->name('forgetPasswordForm');
 Route::post('/admin/forgetPassword', 'AdminController@forgetPassword');
 
-Route::get('/admin/resetPasswordForm/{token}', 'AdminController@resetPasswordForm')->name('resetPasswordForm');
-Route::post('/admin/resetPassword', 'AdminController@resetPassword')->name('resetPassword');
+Route::get('/admin/resetPasswordForm/{token}', 'AdminController@ResetPasswordForm')->name('resetPasswordForm');
+Route::post('/admin/resetPassword', 'AdminController@resetPassword');
 
 Route::get('/admin/logout', 'AdminController@logout');
 Route::get('/admin/themeboxes', 'AdminController@getThemeboxes');

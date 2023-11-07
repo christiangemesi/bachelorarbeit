@@ -14,16 +14,17 @@ $(document).ready(function() {
     });
 
     $('#reset-password-button').click(function(e) {
-        resetPassword();
+        sendToBackend();
     });
 
-    function resetPassword() {
+    function sendToBackend() {
         const password = $('#reset-password-password').val();
         const password_confirmation = $('#reset-password-confirmed').val();
+        const token = $('#reset-password-token').val();
         $.ajax({
-            url: "resetPassword", // Ensure the correct endpoint is specified here
+            url: "/admin/resetPassword", // Ensure the correct endpoint is specified here
             type: 'POST',
-            data: { password: password, password_confirmation: password_confirmation },
+            data: { password: password, password_confirmation: password_confirmation, token: token },
             success: function(response) {
                 console.log("Success: " + response);
                 // Add your logic to handle the success response here

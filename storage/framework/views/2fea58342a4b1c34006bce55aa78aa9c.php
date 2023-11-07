@@ -14,6 +14,10 @@
         <input type ='text' name="token" hidden value = '<?php echo e($token); ?>'>
         <h1 class="admin-header">Passwort zurücksetzen</h1>
         <div class="form-group">
+            <label for="email">Enter Email:</label>
+            <input type="email" class="form-control" name="email" id = "reset-password-email"/>
+        </div>
+        <div class="form-group">
             <label for="password">Enter new Password:</label>
             <input type="password" class="form-control" name="password" id = "new-password-password"/>
         </div>

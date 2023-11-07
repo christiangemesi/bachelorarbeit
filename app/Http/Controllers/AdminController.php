@@ -116,8 +116,10 @@ class AdminController extends Controller
 
     public function resetPassword(Request $request){
         error_log("resetPassword");
-        error_log($request->token);
+        error_log($request->email);
         error_log($request->password);
+        error_log($request->token);
+
     }
 
 
@@ -157,6 +159,13 @@ class AdminController extends Controller
     {
         $passwordJSON = Login::where('pk_login', 1)->get();
         return $passwordJSON[0]['password'];
+    }
+
+    public function setAdminPassword($email,$password)
+    {
+        $login = Login::where('email', $email)->get();
+        $login[0]['password'] = Hash::make($password);
+        $login->save();
     }
 
     /**

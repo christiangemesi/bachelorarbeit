@@ -1,12 +1,13 @@
 $(document).ready(function() {
-    $("#new-password-password").focus();
+    $("#reset-password-email").focus();
     $('#reset-password-button').prop("disabled", true);
 
-    $('#new-password-password, #new-password-confirmed').on('input', function(e) {
+    $('#reset-password-email, #new-password-confirmed, #new-password-password').on('input', function() {
+        const email = $('#reset-password-email').val();
         const password = $('#new-password-password').val();
         const password_confirmation = $('#new-password-confirmed').val();
 
-        if (password && password_confirmation) {
+        if (email && password && password_confirmation) {
             $('#reset-password-button').prop("disabled", false);
         } else {
             $('#reset-password-button').prop("disabled", true);
@@ -18,13 +19,13 @@ $(document).ready(function() {
     });
 
     function sendToBackend() {
+        const email = $('#reset-password-email').val();
         const password = $('#reset-password-password').val();
         const password_confirmation = $('#reset-password-confirmed').val();
-        const token = $('#reset-password-token').val();
         $.ajax({
-            url: "/admin/resetPassword", // Ensure the correct endpoint is specified here
+            url: "/admin/resetPassword",
             type: 'POST',
-            data: { password: password, password_confirmation: password_confirmation, token: token },
+            data: { email: email, password: password, password_confirmation: password_confirmation },
             success: function(response) {
                 console.log("Success: " + response);
                 // Add your logic to handle the success response here

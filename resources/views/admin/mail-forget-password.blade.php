@@ -1,2 +1,2 @@
-<a href="{{ url('admin/reset-password',$token)  }}"> Reset Password</a>
+<a href="{{ url('admin/resetPasswordForm',$token)  }}"> Reset Password</a>
 

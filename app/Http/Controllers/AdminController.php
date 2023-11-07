@@ -95,7 +95,6 @@ class AdminController extends Controller
                 });
 
                 return redirect()->route('loginForm')->with('success-message', 'Sie erhalten in Kürze eine E-Mail mit einem Link zum Zurücksetzen Ihres Passworts.');
-
             }
         }catch (Throwable $e) {
             // Log the error for debugging purposes
@@ -104,10 +103,14 @@ class AdminController extends Controller
         }
     }
 
-    public function resetPassword($token) {
-        error_log("resetPassword");
+    public function resetPasswordForm($token) {
+        error_log("resetPasswordForm");
         error_log($token);
-        return view('admin/new-password', compact('token'));
+        return view('admin/new-password_form', compact('token'));
+    }
+
+    public function resetPassword(Request $request){
+        error_log("resetPassword");
     }
 
     public function forgetPasswordForm()

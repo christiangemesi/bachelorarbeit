@@ -83,8 +83,11 @@ class AdminController extends Controller
      */
     public function forgetPassword(Request $request)
     {
+        //normalisieren
+        $email = strtolower($request->email);
+
         //validation
-        if ($request->email != $this->getAdminEmail()) {
+        if ($email != $this->getAdminEmail()) {
             return response()->json('failure'); //email not found
         }
 
@@ -97,8 +100,8 @@ class AdminController extends Controller
         $password_reset_db->created_at = Carbon::now();
         $password_reset_db->save();
 
-        Mail::send('admin.mail-forget-password', ['token' => $token], function ($message) use ($request) {
-            $message->to($request->email)->subject('Passwort zurücksetzen');
+        Mail::send('admin.mail-forget-password', ['token' => $token], function ($message) use ($email) {
+            $message->to($email)->subject('Passwort zurücksetzen');
         });
         return response()->json('success');
     }
@@ -122,10 +125,17 @@ class AdminController extends Controller
 
     public function resetPassword(Request $request)
     {
+        $email = strtolower($request->email);
+
         error_log($request);
         //validation
+        //check if token exists in password_resets table
+        $password_reset = PasswordResets::where('token', $request->token)->get();
+        if (count($password_reset) == 0) {
+            return response()->json('failure_token'); //token not found
+        }
         //check if email is the same as in Login table
-        if ($request->email != $this->getAdminEmail()) {
+        if ($email != $this->getAdminEmail()) {
             return response()->json('failure_email'); //email is not the same as in Login table
         }
         //check if both passwords match
@@ -137,8 +147,9 @@ class AdminController extends Controller
             return response()->json('failure_pw_short'); //password is too short
         }
 
+
         //change the password in the database login
-        $this->setAdminPassword($request->email, $request->password);
+        $this->setAdminPassword($email , $request->password);
 
         //delete token from password_resets table
         PasswordResets::where('token', $request->token)->delete();
@@ -167,7 +178,10 @@ class AdminController extends Controller
      */
     public function login(Request $request)
     {
-        if (Hash::check($request->password, $this->getAdminPassword()) && $request->email == $this->getAdminEmail()) {
+        $password = $request->password;
+        $email = strtolower($request->email);
+
+        if (Hash::check($password, $this->getAdminPassword()) && $email == $this->getAdminEmail()) {
             $_SESSION['ThekRe_Admin'] = true;
             return response()->json('success');
         } else {
@@ -187,6 +201,8 @@ class AdminController extends Controller
 
     public function setAdminPassword($email, $password): void
     {
+        $email = strtolower($email);
+
         Login::where('email', $email)->update( array('password'=>Hash::make($password)));
     }
 

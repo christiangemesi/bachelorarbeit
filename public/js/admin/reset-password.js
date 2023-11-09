@@ -54,6 +54,10 @@ $(document).ready(function () {
                     $('#reset-password-notMatch-message-box-2').hide();
                     $('#reset-password-8character-message-box').hide();
                     console.log(response);
+                    // TODO: redirect to login page with timeout is this okay?
+                    setTimeout(function () {
+                        window.location = "../loginForm";
+                    } , 3000);
                 }
             },
             error: function (xhr, status, error) {

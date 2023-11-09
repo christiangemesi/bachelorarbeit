@@ -23,7 +23,7 @@ $(document).ready(function () {
             type: 'POST',
             data: {email: email},
             success: function (response) {
-
+/*
                 if(response === "failure"){
                     $('#passwort-reset-error-message-box').show();
                     $('#forget-password-button').prop("disabled", true);
@@ -31,6 +31,13 @@ $(document).ready(function () {
                     $('#passwort-reset-error-message-box').show();
                     $('#forget-password-button').prop("disabled", true);
                 }
+
+ */
+                $('#passwort-reset-error-message-box').show();
+                $('#forget-password-button').prop("disabled", true);
+                setTimeout(function () {
+                    window.location = "/admin/loginForm";
+                } , 3000);
             },
             error: function (xhr, status, error) {
                 console.log("Error: " + error);

@@ -4,26 +4,37 @@
 @section('content')
 
     @include('layouts.nav_background')
-    <div class="alert alert-success" id="passwort-reset-error-message-box">
+    <div class="alert alert-success" id="passwort-reset-success-message-box">
         Successfully changed password.
     </div>
 
-     <script src="{{ asset('js/admin/reset-password.js') }}"></script>
+    <div class="alert alert-danger" id="reset-password-8character-message-box">
+        Password must be at least 8 characters.
+    </div>
+
+    <div class="alert alert-danger" id="reset-password-notMatch-message-box-2">
+        Passwords do not match.
+    </div>
+
+    <script src="{{ asset('js/admin/reset-password.js') }}"></script>
 
     <div class="col-md-12 admin-panel">
-        <input type ='text' name="token" hidden value = '{{$token}}'>
+        <input type="text" name="token" hidden value="{{$token}}">
         <h1 class="admin-header">Passwort zurücksetzen</h1>
         <div class="form-group">
             <label for="email">Enter Email:</label>
-            <input type="email" class="form-control" name="email" id = "reset-password-email"/>
+            <input type="email" class="form-control" name="email" id="reset-password-email"/>
         </div>
         <div class="form-group">
             <label for="password">Enter new Password:</label>
-            <input type="password" class="form-control" name="password" id = "new-password-password"/>
+            <input type="password" class="form-control" name="password" id="new-password-password"/>
         </div>
         <div class="form-group">
             <label for="password">Repeat new Password:</label>
-            <input type="password" class="form-control" name="password_confirmation" id = "new-password-confirmed"/>
+            <input type="password" class="form-control" name="password_confirmation" id="new-password-confirmed"/>
+        </div>
+        <div>
+            <span class="tooltiptext">Password must be at least 8 characters</span>
         </div>
         <button type="submit" id="reset-password-button" class="btn btn-success btn-lg">Change</button>
     </div>

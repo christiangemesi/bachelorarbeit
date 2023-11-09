@@ -3,6 +3,7 @@
 namespace ThekRe\Http\Controllers;
 
 use Carbon\Carbon;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
@@ -34,12 +35,11 @@ class AdminController extends Controller
 
     /**
      * render admin start page
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function index()
     {
         if ($this->checkLogin()) {
-
             return view('admin/index', ['orders' => $this->getOrders(), 'statuses' => $this->getStatuses()]);
         } else {
             return redirect()->route('loginForm');
@@ -76,9 +76,9 @@ class AdminController extends Controller
         return view('admin/forget-password_form');
     }
 
+
     public function forgetPassword(Request $request)
     {
-
         try {
             error_log($request->email);
             error_log($this->getAdminEmail());
@@ -98,14 +98,19 @@ class AdminController extends Controller
                 Mail::send('admin.mail-forget-password', ['token' => $token], function ($message) use ($email) {
                     $message->to($email)->subject('Passwort zurücksetzen');
                 });
+                return redirect()->to('admin/loginForm');
 
-                return redirect()->route('loginForm')->with('success-message', 'Sie erhalten in Kürze eine E-Mail mit einem Link zum Zurücksetzen Ihres Passworts.');
+            } else {
+                error_log("email not found");
+
+                return redirect()->to('admin/loginForm');
             }
         }catch (Throwable $e) {
             // Log the error for debugging purposes
             error_log($e->getMessage());
             // You can also return a response or perform error handling as needed
         }
+        return redirect()->to('admin/loginForm');
     }
 
     public function ResetPasswordForm($token) {

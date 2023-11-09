@@ -23,14 +23,18 @@ $(document).ready(function() {
             data: { email: email },
             success: function(response) {
                 console.log("Success: " + response);
-                // Add your logic to handle the success response here
+
+                $('#passwort-reset-error-message-box').css('display', 'block');
+                $('#forget-password-button').prop("disabled", true);
             },
             error: function(xhr, status, error) {
                 console.log("Error: " + error);
                 console.log("Status: " + status);
                 console.log("xhr: " + xhr.responseText);
 
-                // Add your logic to handle the error response here
+                $('#passwort-reset-error-message-box').css('display', 'block');
+                $('#passwort-reset-error-message-box').html(error);
+
             }
         });
     }

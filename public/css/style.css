@@ -115,6 +115,18 @@ body{
     display: none;
 }
 
+#passwort-reset-success-message-box{
+    display: none;
+}
+
+#reset-password-8character-message-box{
+    display: none;
+}
+
+#reset-password-notMatch-message-box-2{
+    display: none;
+}
+
 #error-calendar-message-box{
     margin-top: 10px;
 }

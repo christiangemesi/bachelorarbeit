@@ -206,6 +206,13 @@ class AdminController extends Controller
         Login::where('email', $email)->update( array('password'=>Hash::make($password)));
     }
 
+    public function setAdminEmail($email): void
+    {
+        $email = strtolower($email);
+
+        Login::where('pk_login', 1)->update( array('email'=>$email));
+    }
+
     /**
      * get admin email from db
      */
@@ -781,10 +788,9 @@ class AdminController extends Controller
             return redirect('admin/changePassword')->with('alert-message', 'E-Mail stimmen nicht überein!');
         }
 
-        error_log($request);
+        $this->setAdminEmail($request->email);
 
-
-        return redirect('admin/changePassword')->with('success-message', 'Bestätigungsmail wuerde!');
+        return redirect('admin/changePassword')->with('success-message', 'E-Mail geändert!');
     }
 
     /**

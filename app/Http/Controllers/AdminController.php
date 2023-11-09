@@ -98,25 +98,37 @@ class AdminController extends Controller
                 Mail::send('admin.mail-forget-password', ['token' => $token], function ($message) use ($email) {
                     $message->to($email)->subject('Passwort zurücksetzen');
                 });
-                return redirect()->to('admin/loginForm');
+                return redirect()->route('loginForm');
 
             } else {
                 error_log("email not found");
 
-                return redirect()->to('admin/loginForm');
+                return redirect()->route('loginForm');
             }
         }catch (Throwable $e) {
             // Log the error for debugging purposes
             error_log($e->getMessage());
             // You can also return a response or perform error handling as needed
         }
-        return redirect()->to('admin/loginForm');
+        return redirect()->route('loginForm');
     }
 
     public function ResetPasswordForm($token) {
-        error_log("resetPasswordForm");
-        error_log($token);
-        return view('admin/new-password_form', compact('token'));
+
+        //check if token exists in password_resets table
+        $password_reset = PasswordResets::where('token', $token)->get();
+
+        $created_at = $password_reset[0]['created_at'];
+        $diff = Carbon::now()->diffInMinutes($created_at);
+
+        if (count($password_reset) == 0) {
+            return view('errors/404');
+        } else if($diff > 15) {
+            return view('errors/404');
+        } else {
+            return view('admin/new-password_form', compact('token'));
+        }
+
     }
 
     public function resetPassword(Request $request){

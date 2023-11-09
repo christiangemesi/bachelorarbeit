@@ -36,14 +36,15 @@ $(document).ready(function() {
             $('#reset-password-8character-message-box').hide();
             $('#reset-password-notMatch-message-box-2').hide();
 
-            // If no error, proceed with the AJAX request
             $.ajax({
                 url: "/admin/resetPassword",
                 type: 'POST',
                 data: { email: email, password: password, password_confirmation: password_confirmation },
                 success: function(response) {
                     console.log("Success: " + response);
+
                     // Add your logic to handle the success response here
+                    window.location = "";
                 },
                 error: function(xhr, status, error) {
                     console.log("Error: " + error);

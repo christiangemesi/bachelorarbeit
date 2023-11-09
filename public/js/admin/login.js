@@ -41,7 +41,7 @@ $(document).ready(function() {
                 password: $('#admin-password').val()
             },
             success:  function(response) {
-                if(response == "failure"){
+                if(response === "failure"){
                     $('#login-error-message-box').css('display', 'block');
                 }else{
                     window.location = "";

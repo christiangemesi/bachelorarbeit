@@ -18,6 +18,7 @@ class AdminControllerTest extends TestCase
     }
 
 
+
     public function test_checkLogin()
     {
         $_SESSION['ThekRe_Admin'] = true;

@@ -26,9 +26,41 @@
             {{ session()->get('success-message') }}
         </div>
     @endif
-    
+
+    <div class="col-md-12 admin-panel data-table-thekre">
+        <h1 class="admin-header">Admin-E-Mail ändern</h1>
+        <div class="panel panel-default no-border margin-top-less" id="table-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="panel-body margin-less">
+                        <div class="row thekre-row">
+                            <form action="updateAdminEmail" method="post" id="email-change-form" autocomplete="off">
+                                <span class="email-now">
+                                    <label class="float-left" for="email-now">Aktuelle E-Mail:</label>
+                                    <input type="text" name="email-now" class="form-control" id="email-now"  value="<?php echo $currentAdminEmail; ?>" readonly  />
+                                </span>
+                                <div class="form-group">
+                                    <label class="float-left" for="email">Neue E-Mail:</label>
+                                    <input type="email" name="email" class="form-control" id="email" onchange="checkAdminEmail()" required />
+                                </div>
+                                <div class="form-group">
+                                    <label class="float-left" for="confirm_email">E-Mail erneut eingeben:</label>
+                                    <input type="email" name="confirm_email" class="form-control" id="confirm_email" onchange="checkAdminEmail()" required />
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" class="btn btn-primary float-right" value="Speichern" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <div class="col-md-12 admin-panel  data-table-thekre">
-        <h1 class="admin-header">Passwort ändern</h1>
+        <h1 class="admin-header">Admin-Passwort ändern</h1>
         <div class="panel panel-default no-border  margin-top-less" id="table-content">
             <div class="modal-body">
                 <div class="row">
@@ -57,6 +89,7 @@
             </div>
         </div>
     </div>
+
     <div class="col-md-12 admin-panel  data-table-thekre">
         <h1 class="admin-header">Poweruser Passwort ändern</h1>
         <div class="panel panel-default no-border  margin-top-less" id="table-content">

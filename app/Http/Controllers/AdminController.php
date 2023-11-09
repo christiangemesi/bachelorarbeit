@@ -748,7 +748,7 @@ class AdminController extends Controller
     public function indexChangePassword()
     {
         if ($this->checkLogin()) {
-            return view('admin/indexChangePassword');
+            return view('admin/indexChangePassword', ['currentAdminEmail' => $this->getAdminEmail()]);
         } else {
             return view('admin/login_form');
         }
@@ -773,6 +773,19 @@ class AdminController extends Controller
         return $login->password;
     }
 
+    public function updateAdminEmail(Request $request)
+    {
+        //validation
+        //check if email and confirmation email are the same
+        if ($request->email != $request->confirm_email) {
+            return redirect('admin/changePassword')->with('alert-message', 'E-Mail stimmen nicht überein!');
+        }
+
+        error_log($request);
+
+
+        return redirect('admin/changePassword')->with('success-message', 'Bestätigungsmail wuerde!');
+    }
 
     /**
      * update password

@@ -23,16 +23,7 @@ $(document).ready(function () {
             type: 'POST',
             data: {email: email},
             success: function (response) {
-/*
-                if(response === "failure"){
-                    $('#passwort-reset-error-message-box').show();
-                    $('#forget-password-button').prop("disabled", true);
-                } else {
-                    $('#passwort-reset-error-message-box').show();
-                    $('#forget-password-button').prop("disabled", true);
-                }
 
- */
                 $('#passwort-reset-error-message-box').show();
                 $('#forget-password-button').prop("disabled", true);
                 setTimeout(function () {

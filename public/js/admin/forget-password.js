@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    $('#passwort-reset-error-message-box').hide();
     $("#forget-password-email").focus();
     $('#forget-password-button').prop("disabled", true);
 
@@ -22,11 +23,12 @@ $(document).ready(function () {
             type: 'POST',
             data: {email: email},
             success: function (response) {
+
                 if(response === "failure"){
-                    $('#passwort-reset-error-message-box').css('display', 'block');
+                    $('#passwort-reset-error-message-box').show();
                     $('#forget-password-button').prop("disabled", true);
                 } else {
-                    $('#passwort-reset-error-message-box').css('display', 'block');
+                    $('#passwort-reset-error-message-box').show();
                     $('#forget-password-button').prop("disabled", true);
                 }
             },
@@ -35,9 +37,7 @@ $(document).ready(function () {
                 console.log("Status: " + status);
                 console.log("xhr: " + xhr.responseText);
 
-                $('#passwort-reset-error-message-box').css('display', 'block');
-                $('#passwort-reset-error-message-box').html(error);
-
+                $('#passwort-reset-error-message-box').show();
             }
         });
     }

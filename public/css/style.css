@@ -110,20 +110,20 @@ body{
 #login-error-message-box{
     display: none;
 }
-
-#passwort-reset-error-message-box{
-    display: none;
-}
-
+/* passwort reset */
 #passwort-reset-success-message-box{
     display: none;
 }
-
+#email-reset-notExistent-message-box{
+    display: none;
+}
 #reset-password-8character-message-box{
     display: none;
 }
-
 #reset-password-notMatch-message-box-2{
+    display: none;
+}
+#reset-password-Failed-message-box{
     display: none;
 }
 

@@ -5,15 +5,23 @@
 
     @include('layouts.nav_background')
     <div class="alert alert-success" id="passwort-reset-success-message-box">
-        Successfully changed password.
+        Passwort erfolgreich geändert.
+    </div>
+
+    <div class="alert alert-danger" id="email-reset-notExistent-message-box">
+        Email stimmt nicht mit der Email überein, die mit diesem Account verknüpft ist.
     </div>
 
     <div class="alert alert-danger" id="reset-password-8character-message-box">
-        Password must be at least 8 characters.
+        Passwort muss mindestens 8 Zeichen lang sein.
     </div>
 
     <div class="alert alert-danger" id="reset-password-notMatch-message-box-2">
-        Passwords do not match.
+        Passwort und Passwortwiederholung stimmen nicht überein.
+    </div>
+
+    <div class="alert alert-danger" id="reset-password-Failed-message-box">
+        Passwort zurücksetzen fehlgeschlagen.
     </div>
 
     <script src="{{ asset('js/admin/reset-password.js') }}"></script>

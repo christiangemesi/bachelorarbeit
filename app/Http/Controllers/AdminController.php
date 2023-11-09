@@ -84,7 +84,7 @@ class AdminController extends Controller
     public function forgetPassword(Request $request)
     {
         //validation
-        if($request->email != $this->getAdminEmail()){
+        if ($request->email != $this->getAdminEmail()) {
             return response()->json('failure'); //email not found
         }
 
@@ -106,50 +106,41 @@ class AdminController extends Controller
     public function ResetPasswordForm($token)
     {
         //validation
-
-
         //check if token exists in password_resets table
         $password_reset = PasswordResets::where('token', $token)->get();
-
-        $created_at = $password_reset[0]['created_at'];
-        $diff = Carbon::now()->diffInMinutes($created_at);
-
         if (count($password_reset) == 0) {
             return view('errors/404');
         }
+        //check if token is older than 15 minutes
+        $created_at = $password_reset[0]['created_at'];
+        $diff = Carbon::now()->diffInMinutes($created_at);
         if ($diff > 15) {
             return view('errors/404');
-        } else {
-            return view('admin/new-password_form', compact('token'));
         }
-
+        return view('admin/new-password_form', compact('token'));
     }
 
     public function resetPassword(Request $request)
     {
-        $email = $request->email;
-
-        if($email != $this->getAdminEmail()){
-            error_log("email not found");
+        //validation
+        //check if email is the same as in Login table
+        if ($request->email != $this->getAdminEmail()) {
+            return response()->json('failure_email'); //email is not the same as in Login table
+        }
+        //check if both passwords match
+        if ($request->password != $request->password_confirmation) {
+            return response()->json('failure_pw_noMatch'); //passwords do not match
+        }
+        //check if password is at least 8 characters long
+        if (strlen($request->password) < 8) {
+            return response()->json('failure_pw_short'); //password is too short
         }
 
-
-        $password = $request->password;
-        $password_confirmed = $request->password_confirmation;
-
-        if ($password == $password_confirmed) {
-            $hashed_password = Hash::make($password);
-
-            $login = Login::where('email', $email)->get();
-            $login[0]['password'] = $hashed_password;
-            $login->save();
-
-            return redirect()->route('loginForm');
-        } else {
-            return redirect()->route('ResetPasswordForm', ['token' => $request->token]);
-        }
+        //change the password in the database login
+        $this->setAdminPassword($request->email, $request->password);
 
 
+        return response()->json('success');
     }
 
 
@@ -191,11 +182,9 @@ class AdminController extends Controller
         return $passwordJSON[0]['password'];
     }
 
-    public function setAdminPassword($email, $password)
+    public function setAdminPassword($email, $password): void
     {
-        $login = Login::where('email', $email)->get();
-        $login[0]['password'] = Hash::make($password);
-        $login->save();
+        Login::where('email', $email)->update( array('password'=>Hash::make($password)));
     }
 
     /**

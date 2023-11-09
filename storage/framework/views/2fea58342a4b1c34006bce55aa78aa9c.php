@@ -27,7 +27,7 @@
     <script src="<?php echo e(asset('js/admin/reset-password.js')); ?>"></script>
 
     <div class="col-md-12 admin-panel">
-        <input type="text" name="token" hidden value="<?php echo e($token); ?>">
+        <input type="text" name="token" id="reset-password-token" hidden value="<?php echo e($token); ?>">
         <h1 class="admin-header">Passwort zurücksetzen</h1>
         <div class="form-group">
             <label for="email">Enter Email:</label>

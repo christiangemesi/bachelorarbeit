@@ -122,6 +122,7 @@ class AdminController extends Controller
 
     public function resetPassword(Request $request)
     {
+        error_log($request);
         //validation
         //check if email is the same as in Login table
         if ($request->email != $this->getAdminEmail()) {
@@ -139,6 +140,8 @@ class AdminController extends Controller
         //change the password in the database login
         $this->setAdminPassword($request->email, $request->password);
 
+        //delete token from password_resets table
+        PasswordResets::where('token', $request->token)->delete();
 
         return response()->json('success');
     }

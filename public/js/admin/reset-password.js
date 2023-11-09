@@ -22,12 +22,13 @@ $(document).ready(function () {
         const email = $('#reset-password-email').val();
         const password = $('#new-password-password').val();
         const password_confirmation = $('#new-password-confirmed').val();
+        const token = $('#reset-password-token').val();
 
 
         $.ajax({
             url: "/admin/resetPassword",
             type: 'POST',
-            data: {email: email, password: password, password_confirmation: password_confirmation},
+            data: {email: email, password: password, password_confirmation: password_confirmation, token: token},
             success: function (response) {
                 if (response === "failure_email") {
                     $('#email-reset-notExistent-message-box').show();

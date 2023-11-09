@@ -2,12 +2,11 @@ $(document).ready(function() {
     $("#reset-password-email").focus();
     $('#reset-password-button').prop("disabled", true);
 
-    $('#reset-password-email, #new-password-confirmed, #new-password-password').on('input', function() {
-        const email = $('#reset-password-email').val();
+    $('#new-password-confirmed, #new-password-password').on('input', function() {
         const password = $('#new-password-password').val();
         const password_confirmation = $('#new-password-confirmed').val();
 
-        if (email && password && password_confirmation) {
+        if (password && password_confirmation) {
             $('#reset-password-button').prop("disabled", false);
         } else {
             $('#reset-password-button').prop("disabled", true);
@@ -43,8 +42,11 @@ $(document).ready(function() {
                 success: function(response) {
                     console.log("Success: " + response);
 
+
                     // Add your logic to handle the success response here
-                    window.location = "";
+                    //window.location = "";
+
+
                 },
                 error: function(xhr, status, error) {
                     console.log("Error: " + error);

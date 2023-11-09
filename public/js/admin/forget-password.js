@@ -22,15 +22,13 @@ $(document).ready(function () {
             type: 'POST',
             data: {email: email},
             success: function (response) {
-                console.log("Success: " + response);
-
-                $('#passwort-reset-error-message-box').css('display', 'block');
-                $('#forget-password-button').prop("disabled", true);
-
-                //TODO: make it sleep or so?
-
-                window.location = "loginForm";
-
+                if(response === "failure"){
+                    $('#passwort-reset-error-message-box').css('display', 'block');
+                    $('#forget-password-button').prop("disabled", true);
+                } else {
+                    $('#passwort-reset-error-message-box').css('display', 'block');
+                    $('#forget-password-button').prop("disabled", true);
+                }
             },
             error: function (xhr, status, error) {
                 console.log("Error: " + error);

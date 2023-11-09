@@ -5,6 +5,7 @@ namespace ThekRe\Http\Controllers;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Log;
@@ -77,43 +78,35 @@ class AdminController extends Controller
     }
 
 
+    /**
+     * send email with token
+     */
     public function forgetPassword(Request $request)
     {
-        try {
-            error_log($request->email);
-            error_log($this->getAdminEmail());
-
-            if ($request->email == $this->getAdminEmail()) {
-                $email = $request->email;
-
-                $token = Str::random(64);
-
-                // insert token into password_resets table
-                $password_reset = new PasswordResets();
-                $password_reset->email = $email;
-                $password_reset->token = $token;
-                $password_reset->created_at = Carbon::now();
-                $password_reset->save();
-
-                Mail::send('admin.mail-forget-password', ['token' => $token], function ($message) use ($email) {
-                    $message->to($email)->subject('Passwort zurücksetzen');
-                });
-                return redirect()->route('loginForm');
-
-            } else {
-                error_log("email not found");
-
-                return redirect()->route('loginForm');
-            }
-        }catch (Throwable $e) {
-            // Log the error for debugging purposes
-            error_log($e->getMessage());
-            // You can also return a response or perform error handling as needed
+        //validation
+        if($request->email != $this->getAdminEmail()){
+            return response()->json('failure'); //email not found
         }
-        return redirect()->route('loginForm');
+
+        $token = Str::random(64);
+
+        //save token in password_resets table
+        $password_reset_db = new PasswordResets();
+        $password_reset_db->email = $request->email;
+        $password_reset_db->token = $token;
+        $password_reset_db->created_at = Carbon::now();
+        $password_reset_db->save();
+
+        Mail::send('admin.mail-forget-password', ['token' => $token], function ($message) use ($request) {
+            $message->to($request->email)->subject('Passwort zurücksetzen');
+        });
+        return response()->json('success');
     }
 
-    public function ResetPasswordForm($token) {
+    public function ResetPasswordForm($token)
+    {
+        //validation
+
 
         //check if token exists in password_resets table
         $password_reset = PasswordResets::where('token', $token)->get();
@@ -123,7 +116,8 @@ class AdminController extends Controller
 
         if (count($password_reset) == 0) {
             return view('errors/404');
-        } else if($diff > 15) {
+        }
+        if ($diff > 15) {
             return view('errors/404');
         } else {
             return view('admin/new-password_form', compact('token'));
@@ -131,11 +125,30 @@ class AdminController extends Controller
 
     }
 
-    public function resetPassword(Request $request){
-        error_log("resetPassword");
-        error_log($request->email);
-        error_log($request->password);
-        error_log($request->token);
+    public function resetPassword(Request $request)
+    {
+        $email = $request->email;
+
+        if($email != $this->getAdminEmail()){
+            error_log("email not found");
+        }
+
+
+        $password = $request->password;
+        $password_confirmed = $request->password_confirmation;
+
+        if ($password == $password_confirmed) {
+            $hashed_password = Hash::make($password);
+
+            $login = Login::where('email', $email)->get();
+            $login[0]['password'] = $hashed_password;
+            $login->save();
+
+            return redirect()->route('loginForm');
+        } else {
+            return redirect()->route('ResetPasswordForm', ['token' => $request->token]);
+        }
+
 
     }
 
@@ -178,7 +191,7 @@ class AdminController extends Controller
         return $passwordJSON[0]['password'];
     }
 
-    public function setAdminPassword($email,$password)
+    public function setAdminPassword($email, $password)
     {
         $login = Login::where('email', $email)->get();
         $login[0]['password'] = Hash::make($password);

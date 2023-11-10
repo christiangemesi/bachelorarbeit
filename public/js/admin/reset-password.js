@@ -49,15 +49,9 @@ $(document).ready(function () {
                     $('#passwort-reset-success-message-box').hide();
                     console.log(response);
                 } else {
-                    $('#passwort-reset-success-message-box').show();
-                    $('#email-reset-notExistent-message-box').hide();
-                    $('#reset-password-notMatch-message-box-2').hide();
-                    $('#reset-password-8character-message-box').hide();
                     console.log(response);
-                    // TODO: redirect to login page with timeout is this okay?
-                    setTimeout(function () {
-                        window.location = "../loginForm";
-                    } , 3000);
+                    localStorage.setItem("passwort-reset-success-message-box", "true");
+                    window.location = "../loginForm";
                 }
             },
             error: function (xhr, status, error) {

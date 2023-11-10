@@ -110,6 +110,11 @@ body{
 #login-error-message-box{
     display: none;
 }
+
+#passwort-reset-error-message-box{
+    display: none;
+}
+
 /* passwort reset */
 #passwort-reset-success-message-box{
     display: none;

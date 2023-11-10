@@ -43,9 +43,9 @@
                                 <td style="padding:0 35px;">
                                     <h1 style="color:#1e1e2d; font-weight:500; margin:0;font-size:32px;font-family:'Rubik',sans-serif;">Sie haben eine Anfrage zum Zurücksetzen Ihres Passworts gestellt</h1>
                                     <span
-                                            style="display:inline-block; vertical-align:middle; margin:29px 0 26px; border-bottom:1px solid #cecece; width:100px;"></span>
+                                            style="display:inline-block; vertical-align:middle; margin:29px 0 26px; border-bottom:2px solid #fde70e; width:100px;"></span>
                                     <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
-                                        Wir können Ihnen nicht einfach Ihr altes Passwort zusenden. Es wurde ein eindeutiger Link zum Zurücksetzen Ihres Passworts für Sie generiert. Um Ihr Passwort zurückzusetzen, klicken Sie auf den folgenden Link und befolgen Sie die Anweisungen.
+                                        Wir können Ihnen nicht einfach Ihr altes Passwort zusenden. Es wurde ein Link zum Zurücksetzen Ihres Passworts für Sie generiert, welcher 15 Minuten gültig ist. Um Ihr Passwort zurückzusetzen, klicken Sie auf den folgenden Link und befolgen Sie die Anweisungen.
                                     </p>
                                     <a href="<?php echo e(url('admin/resetPasswordForm',$token)); ?>"
                                        style="background:#fde70e;text-decoration:none !important; font-weight:500; margin-top:35px; color:#fff;text-transform:uppercase; font-size:14px;padding:10px 24px;display:inline-block;border-radius:50px;">Passwort zurücksetzen</a>

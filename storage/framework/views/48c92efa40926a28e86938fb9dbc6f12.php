@@ -8,6 +8,14 @@
         Login Fehlgeschlagen.
     </div>
 
+    <div class="alert alert-success" id="passwort-reset-error-message-box">
+        Wenn eine E-Mail-Adresse mit diesem Account verknüpft ist, wurde eine E-Mail mit einem Link zum Zurücksetzen des Passworts versendet.
+    </div>
+
+    <div class="alert alert-success" id="passwort-reset-success-message-box">
+        Passwort erfolgreich geändert.
+    </div>
+
     <script src="<?php echo e(asset('/js/admin/login.js')); ?>"></script>
 
     <div class="col-md-12 admin-panel">

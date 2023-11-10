@@ -20,6 +20,15 @@ $(document).ready(function() {
        }
     });
 
+    if(localStorage.getItem("passwort-reset-error-message-box") === "true"){
+        $('#passwort-reset-error-message-box').show();
+        localStorage.setItem("passwort-reset-error-message-box", "false");
+    }
+
+    if(localStorage.getItem("passwort-reset-success-message-box") === "true"){
+        $('#passwort-reset-success-message-box').show();
+        localStorage.setItem("passwort-reset-success-message-box", "false");
+    }
 
     /**
      * login button click

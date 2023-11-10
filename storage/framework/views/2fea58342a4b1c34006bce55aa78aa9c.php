@@ -4,10 +4,6 @@
 <?php $__env->startSection('content'); ?>
 
     <?php echo $__env->make('layouts.nav_background', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-    <div class="alert alert-success" id="passwort-reset-success-message-box">
-        Passwort erfolgreich geändert.
-    </div>
-
     <div class="alert alert-danger" id="email-reset-notExistent-message-box">
         Email stimmt nicht mit der Email überein, die mit diesem Account verknüpft ist.
     </div>

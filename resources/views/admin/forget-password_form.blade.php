@@ -4,10 +4,6 @@
 @section('content')
 
     @include('layouts.nav_background')
-    <div class="alert alert-success" id="passwort-reset-error-message-box">
-        Wenn eine E-Mail-Adresse mit diesem Account verknüpft ist, wurde eine E-Mail mit einem Link zum Zurücksetzen des Passworts versendet.
-    </div>
-
     <script src="{{ asset('js/admin/forget-password.js') }}"></script>
 
     <div class="col-md-12 admin-panel">

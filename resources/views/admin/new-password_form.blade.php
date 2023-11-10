@@ -4,10 +4,6 @@
 @section('content')
 
     @include('layouts.nav_background')
-    <div class="alert alert-success" id="passwort-reset-success-message-box">
-        Passwort erfolgreich geändert.
-    </div>
-
     <div class="alert alert-danger" id="email-reset-notExistent-message-box">
         Email stimmt nicht mit der Email überein, die mit diesem Account verknüpft ist.
     </div>

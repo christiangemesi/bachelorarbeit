@@ -23,8 +23,8 @@ $(document).ready(function () {
             type: 'POST',
             data: {email: email},
             success: function (response) {
-                window.location = "";
-
+                localStorage.setItem("passwort-reset-error-message-box", "true");
+                window.location = "/admin/loginForm";
             },
             error: function (xhr, status, error) {
                 console.log("Error: " + error);

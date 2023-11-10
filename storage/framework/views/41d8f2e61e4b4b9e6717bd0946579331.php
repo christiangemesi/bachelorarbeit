@@ -4,10 +4,6 @@
 <?php $__env->startSection('content'); ?>
 
     <?php echo $__env->make('layouts.nav_background', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-    <div class="alert alert-success" id="passwort-reset-error-message-box">
-        Wenn eine E-Mail-Adresse mit diesem Account verknüpft ist, wurde eine E-Mail mit einem Link zum Zurücksetzen des Passworts versendet.
-    </div>
-
     <script src="<?php echo e(asset('js/admin/forget-password.js')); ?>"></script>
 
     <div class="col-md-12 admin-panel">

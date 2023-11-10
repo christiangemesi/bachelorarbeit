@@ -90,6 +90,7 @@ class AdminController extends Controller
         //validation
         if ($email != $this->getAdminEmail()) {
             return response()->json('failure'); //email not found
+            //return redirect()->route('loginForm')->with('success', 'Wenn die E-Mail-Adresse in unserer Datenbank vorhanden ist, wird eine E-Mail mit Anweisungen gesendet.');
         }
 
         $token = Str::random(64);
@@ -104,7 +105,7 @@ class AdminController extends Controller
         Mail::send('admin.mail-forget-password', ['token' => $token], function ($message) use ($email) {
             $message->to($email)->subject('Passwort zurücksetzen');
         });
-
+        //return redirect()->route('loginForm')->with('success', 'Wenn die E-Mail-Adresse in unserer Datenbank vorhanden ist, wird eine E-Mail mit Anweisungen gesendet.');
         return response()->json('success');
     }
 

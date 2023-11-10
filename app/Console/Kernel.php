@@ -4,6 +4,7 @@ namespace ThekRe\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use ThekRe\PasswordResets;
 
 class Kernel extends ConsoleKernel
 {
@@ -25,6 +26,12 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('cache:prune-stale-tags')->hourly();
+
+        // Delete expired password reset tokens
+        $schedule->call(function () {
+            // Delete tokens older than 15 minutes
+            PasswordResets::where('created_at', '<', now()->subMinutes(15))->delete();
+        })->everyFiveMinutes();
     }
 
     /**

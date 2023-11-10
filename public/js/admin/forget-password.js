@@ -23,12 +23,8 @@ $(document).ready(function () {
             type: 'POST',
             data: {email: email},
             success: function (response) {
+                window.location = "";
 
-                $('#passwort-reset-error-message-box').show();
-                $('#forget-password-button').prop("disabled", true);
-                setTimeout(function () {
-                    window.location = "/admin/loginForm";
-                } , 3000);
             },
             error: function (xhr, status, error) {
                 console.log("Error: " + error);

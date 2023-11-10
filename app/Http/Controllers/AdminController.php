@@ -74,6 +74,7 @@ class AdminController extends Controller
 
     public function forgetPasswordForm()
     {
+        //if the forgetPassword function returned success, redirect to login form
         return view('admin/forget-password_form');
     }
 
@@ -103,6 +104,7 @@ class AdminController extends Controller
         Mail::send('admin.mail-forget-password', ['token' => $token], function ($message) use ($email) {
             $message->to($email)->subject('Passwort zurücksetzen');
         });
+
         return response()->json('success');
     }
 
@@ -147,7 +149,6 @@ class AdminController extends Controller
             return response()->json('failure_pw_short'); //password is too short
         }
 
-
         //change the password in the database login
         $this->setAdminPassword($email , $request->password);
 
@@ -158,20 +159,6 @@ class AdminController extends Controller
     }
 
 
-    /**
-     * check admin login
-     * @param Request $request
-     * @return mixed
-     */
-    public function loginOld(Request $request)
-    {
-        if ($request->password == $this->getAdminPassword()) {
-            $_SESSION['ThekRe_Admin'] = true;
-            return response()->json('success');
-        } else {
-            return response()->json('failure');
-        }
-    }
 
     /**
      * compare input against hashed password and email

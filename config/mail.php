@@ -10,7 +10,7 @@ return [
 
 
     'from' => [
-        'address' => env('EMAILS_FROM',false),
+        'address' => env('MAIL_USERNAME',false),
         'name' => env('EMAILS_FROM_NAME',false)
     ],
 

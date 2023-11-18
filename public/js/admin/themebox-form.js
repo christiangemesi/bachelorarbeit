@@ -14,7 +14,7 @@ function notEmptyValidate(namevar, statusvar, iconvar) {
         icon.className = "glyphicon glyphicon-remove form-control-feedback";
         checkform();
         return false;
-    } else if(namevar == "themebox-form-weight" || namevar == "themebox-edit-form-weight"){
+    } else if (namevar == "themebox-form-weight" || namevar == "themebox-edit-form-weight") {
 
         if (!onlyNumbers(name.value)) {
             status.innerHTML = "Falsches Gewicht Format - nur Nummern und Punkt erlaubt!";
@@ -23,7 +23,7 @@ function notEmptyValidate(namevar, statusvar, iconvar) {
             icon.className = "glyphicon glyphicon-warning-sign form-control-feedback";
             checkform();
             return false;
-        }  else{
+        } else {
             status.style.display = "none";
             name.parentNode.className = "form-group has-success has-feedback";
             icon.className = "glyphicon glyphicon-ok form-control-feedback";
@@ -44,19 +44,16 @@ function canEmptyValidate(namevar, statusvar, iconvar) {
     var status = document.getElementById(statusvar);
     var icon = document.getElementById(iconvar);
 
-    // You can customize the conditions for allowing empty values based on your requirements
-    if (name.value === "") {
-        // Additional conditions can be added here if needed
-        status.style.display = "none";
-        name.parentNode.className = "form-group has-success has-feedback";
-        icon.className = "glyphicon glyphicon-ok form-control-feedback";
-        checkform();
-        return true;
-    } else {
-        // Perform other validations if needed
-        return notEmptyValidate(namevar, statusvar, iconvar);
-    }
+    status.style.display = "none";
+    name.parentNode.className = "form-group has-success has-feedback";
+
+    icon.className = "glyphicon glyphicon-ok form-control-feedback";
+
+    checkform();
+    return true;
 }
+
+
 
 function checkform() {
     document.getElementById("create-themebox-button").disabled = true;
@@ -68,30 +65,30 @@ function checkform() {
 
     const NUMBER_OF_FIELDS_TO_BE_CHECKED = 7;
 
-        for (var i = 0; i < NUMBER_OF_FIELDS_TO_BE_CHECKED; i++) {
+    for (var i = 0; i < NUMBER_OF_FIELDS_TO_BE_CHECKED; i++) {
 
-            if (f[i].value.length === 0){
-                cansubmitf = false;
-            }
-
-        }
-        for (var a = 0; a < NUMBER_OF_FIELDS_TO_BE_CHECKED; a++) {
-
-            if (s[a].value.length === 0){
-                cansubmits = false;
-            }
+        if (f[i].value.length === 0) {
+            cansubmitf = false;
         }
 
-        if(onlyNumbers(document.getElementById("themebox-form-weight").value)) {
-            if (cansubmitf) {
-                document.getElementById("create-themebox-button").disabled = !cansubmitf;
-            }
+    }
+    for (var a = 0; a < NUMBER_OF_FIELDS_TO_BE_CHECKED; a++) {
+
+        if (s[a].value.length === 0) {
+            cansubmits = false;
         }
-        if(onlyNumbers(document.getElementById("themebox-edit-form-weight").value)){
-            if (cansubmits) {
-                document.getElementById("button-save-themebox-change").disabled = !cansubmits;
-            }
-}
+    }
+
+    if (onlyNumbers(document.getElementById("themebox-form-weight").value)) {
+        if (cansubmitf) {
+            document.getElementById("create-themebox-button").disabled = !cansubmitf;
+        }
+    }
+    if (onlyNumbers(document.getElementById("themebox-edit-form-weight").value)) {
+        if (cansubmits) {
+            document.getElementById("button-save-themebox-change").disabled = !cansubmits;
+        }
+    }
 
 }
 

@@ -253,9 +253,9 @@
                                     <span id="themebox-edit-form-weight-status" class="errorHeader">Gewicht wird benötigt!</span>
                                 </div>
                                 <div class="form-group has-feedback">
-                                    <label class="themebox-form-label" for="themebox-edit-form-category">Kategorie</label>
-                                    <select class="form-control" name="category" id="themebox-form-category"
-                                            onchange="canEmptyValidate('themebox-form-category', 'themebox-form-category-status', 'themebox-form-category-icon')">
+                                    <label class="themebox-form-label" for="themebox-edit-form-category">Kategorie </label>
+                                    <select class="form-control" name="category" id="themebox-edit-form-category"
+                                            onchange="canEmptyValidate('themebox-edit-form-category','themebox-edit-form-category-status','themebox-edit-form-category-icon')">
                                         <option value="" selected disabled>Bitte Kategorie auswählen</option>
                                         <option value="none">Keine</option>
                                         @foreach ($categories as $category)

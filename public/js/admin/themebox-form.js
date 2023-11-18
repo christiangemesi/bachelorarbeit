@@ -39,6 +39,25 @@ function notEmptyValidate(namevar, statusvar, iconvar) {
     }
 }
 
+function canEmptyValidate(namevar, statusvar, iconvar) {
+    var name = document.getElementById(namevar);
+    var status = document.getElementById(statusvar);
+    var icon = document.getElementById(iconvar);
+
+    // You can customize the conditions for allowing empty values based on your requirements
+    if (name.value === "") {
+        // Additional conditions can be added here if needed
+        status.style.display = "none";
+        name.parentNode.className = "form-group has-success has-feedback";
+        icon.className = "glyphicon glyphicon-ok form-control-feedback";
+        checkform();
+        return true;
+    } else {
+        // Perform other validations if needed
+        return notEmptyValidate(namevar, statusvar, iconvar);
+    }
+}
+
 function checkform() {
     document.getElementById("create-themebox-button").disabled = true;
     document.getElementById("button-save-themebox-change").disabled = true;

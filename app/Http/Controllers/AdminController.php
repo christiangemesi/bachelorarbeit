@@ -14,6 +14,7 @@ use Illuminate\Support\Str;
 use League\Flysystem\Exception;
 use PhpParser\Node\Expr\Array_;
 use ThekRe\Blocked_Period;
+use ThekRe\Category;
 use ThekRe\Delivery;
 use ThekRe\Http\Requests;
 use ThekRe\Login;
@@ -228,9 +229,12 @@ class AdminController extends Controller
     public function indexThemebox()
     {
         if ($this->checkLogin()) {
-            return view('admin.themebox_index', ['themeboxes' => $this->getThemeboxes()]);
+            $themeboxes = $this->getThemeboxes();
+            $categories = $this->getCategories(); // Assuming you have a getCategories function
+
+            return view('admin.themebox_index', ['themeboxes' => $themeboxes, 'categories' => $categories]);
         } else {
-            return view('admin/login_form');
+            return view('admin.login_form');
         }
     }
 
@@ -374,7 +378,14 @@ class AdminController extends Controller
     public function getThemeboxes()
     {
         $themeboxes = Themebox::get();
+        error_log($themeboxes);
         return $themeboxes;
+    }
+
+    public function getCategories()
+    {
+        $categories = Category::all(); // Assuming 'Category' is the model for your categories
+        return $categories;
     }
 
     /**

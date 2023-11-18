@@ -1,26 +1,26 @@
-@extends('layouts.master')
-@section('title', 'ThekRe - Admin')
 
-@section('content')
+<?php $__env->startSection('title', 'ThekRe - Admin'); ?>
 
-    @include('layouts.nav_admin')
+<?php $__env->startSection('content'); ?>
 
-    <script src="{{ asset('/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('/js/dataTables.bootstrap.min.js') }}"></script>
-    <link rel="stylesheet" href="{{ asset('css/dataTables.bootstrap.min.css') }}">
+    <?php echo $__env->make('layouts.nav_admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
-    <script src="{{ asset('/js/admin/themebox-form.js') }}"></script>
-    <script src="{{ asset('js/admin/themebox-table.js') }}"></script>
-    <script src="{{ asset('js/callback-modal.js') }}"></script>
+    <script src="<?php echo e(asset('/js/jquery.dataTables.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('/js/dataTables.bootstrap.min.js')); ?>"></script>
+    <link rel="stylesheet" href="<?php echo e(asset('css/dataTables.bootstrap.min.css')); ?>">
 
-    <link href="{{ asset('/summernote/summernote.css') }}" rel="stylesheet">
-    <script src="{{ asset('/summernote/summernote.js') }}"></script>
+    <script src="<?php echo e(asset('/js/admin/themebox-form.js')); ?>"></script>
+    <script src="<?php echo e(asset('js/admin/themebox-table.js')); ?>"></script>
+    <script src="<?php echo e(asset('js/callback-modal.js')); ?>"></script>
+
+    <link href="<?php echo e(asset('/summernote/summernote.css')); ?>" rel="stylesheet">
+    <script src="<?php echo e(asset('/summernote/summernote.js')); ?>"></script>
 
     <div class="modal fade" id="callback-modal" tabindex="-1">
         <div class="modal-dialog " role="document">
             <div class="modal-content">
 
-                @include("layouts.callback_messages")
+                <?php echo $__env->make("layouts.callback_messages", \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
                 <div id="modal-delete-themebox-warning">
                     <div class="panel-heading modal-header-warning"> <span class="glyphicon glyphicon-flash" id="thekmodal-glyphicon-flash" aria-hidden="true"></span>
@@ -265,47 +265,55 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach ($themeboxes as $themebox)
+                <?php $__currentLoopData = $themeboxes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $themebox): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <tr>
                         <td>
-                            {{$themebox["title"]}}
+                            <?php echo e($themebox["title"]); ?>
+
                         </td>
                         <td>
-                            {{$themebox["signatur"]}}
+                            <?php echo e($themebox["signatur"]); ?>
+
                         </td>
                         <td>
-                            {{$themebox["schoollevel"]}}
+                            <?php echo e($themebox["schoollevel"]); ?>
+
                         </td>
                         <td>
-                            {{$themebox["barcode"]}}
+                            <?php echo e($themebox["barcode"]); ?>
+
                         </td>
                         <td>
-                            {{$themebox["size"]}}
+                            <?php echo e($themebox["size"]); ?>
+
                         </td>
                         <td>
-                            {{$themebox["weight"]}} kg
+                            <?php echo e($themebox["weight"]); ?> kg
                         </td>
                         <td>
-                            @if ($themebox["complete"])
+                            <?php if($themebox["complete"]): ?>
                                 Ja
-                            @else
+                            <?php else: ?>
                                 Nein
-                            @endif
+                            <?php endif; ?>
                         </td>
                         <td>
-                            {{$themebox["category"]}}
+                            <?php echo e($themebox["category"]); ?>
+
                         <td>
-                            <button type="button" class="button-update btn btn-primary button-edit-themebox" aria-label="edit"  value="{{$themebox["pk_themebox"]}}" data-toggle="tooltip" data-placement="top" title="Themenkiste bearbeiten">
+                            <button type="button" class="button-update btn btn-primary button-edit-themebox" aria-label="edit"  value="<?php echo e($themebox["pk_themebox"]); ?>" data-toggle="tooltip" data-placement="top" title="Themenkiste bearbeiten">
                                 <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                             </button>
-                            <button type="button" class="button-delete-themebox btn btn-danger" value="{{$themebox["pk_themebox"]}}" aria-label="delete" data-toggle="tooltip" data-placement="top" title="Bestellung löschen">
+                            <button type="button" class="button-delete-themebox btn btn-danger" value="<?php echo e($themebox["pk_themebox"]); ?>" aria-label="delete" data-toggle="tooltip" data-placement="top" title="Bestellung löschen">
                                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                             </button>
                         </td>
                     </tr>
-                @endforeach
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </tbody>
             </table>
         </div>
     </div>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\thek-re-2\resources\views/admin/themebox_index.blade.php ENDPATH**/ ?>

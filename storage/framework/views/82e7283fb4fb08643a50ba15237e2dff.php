@@ -259,37 +259,21 @@
                     <th>Strichcode</th>
                     <th>Grösse</th>
                     <th>Gewicht</th>
-                    <th>Vollständig</th>
-                    <th>Kategorie</th>
+                    <th>Kategorie</th> <!-- Move this before "Vollständig" -->
+                    <th>Vollständig</th> <!-- Move this after "Kategorie" -->
                     <th class="edit-column-width"></th>
                 </tr>
                 </thead>
                 <tbody>
                 <?php $__currentLoopData = $themeboxes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $themebox): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <tr>
-                        <td>
-                            <?php echo e($themebox["title"]); ?>
-
-                        </td>
-                        <td>
-                            <?php echo e($themebox["signatur"]); ?>
-
-                        </td>
-                        <td>
-                            <?php echo e($themebox["schoollevel"]); ?>
-
-                        </td>
-                        <td>
-                            <?php echo e($themebox["barcode"]); ?>
-
-                        </td>
-                        <td>
-                            <?php echo e($themebox["size"]); ?>
-
-                        </td>
-                        <td>
-                            <?php echo e($themebox["weight"]); ?> kg
-                        </td>
+                        <td><?php echo e($themebox["title"]); ?></td>
+                        <td><?php echo e($themebox["signatur"]); ?></td>
+                        <td><?php echo e($themebox["schoollevel"]); ?></td>
+                        <td><?php echo e($themebox["barcode"]); ?></td>
+                        <td><?php echo e($themebox["size"]); ?></td>
+                        <td><?php echo e($themebox["weight"]); ?> kg</td>
+                        <td><?php echo e($themebox["category"]); ?></td> <!-- Move this before the "complete" column -->
                         <td>
                             <?php if($themebox["complete"]): ?>
                                 Ja
@@ -298,10 +282,7 @@
                             <?php endif; ?>
                         </td>
                         <td>
-                            <?php echo e($themebox["category"]); ?>
-
-                        <td>
-                            <button type="button" class="button-update btn btn-primary button-edit-themebox" aria-label="edit"  value="<?php echo e($themebox["pk_themebox"]); ?>" data-toggle="tooltip" data-placement="top" title="Themenkiste bearbeiten">
+                            <button type="button" class="button-update btn btn-primary button-edit-themebox" aria-label="edit" value="<?php echo e($themebox["pk_themebox"]); ?>" data-toggle="tooltip" data-placement="top" title="Themenkiste bearbeiten">
                                 <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                             </button>
                             <button type="button" class="button-delete-themebox btn btn-danger" value="<?php echo e($themebox["pk_themebox"]); ?>" aria-label="delete" data-toggle="tooltip" data-placement="top" title="Bestellung löschen">

@@ -259,32 +259,21 @@
                     <th>Strichcode</th>
                     <th>Grösse</th>
                     <th>Gewicht</th>
-                    <th>Vollständig</th>
-                    <th>Kategorie</th>
+                    <th>Kategorie</th> <!-- Move this before "Vollständig" -->
+                    <th>Vollständig</th> <!-- Move this after "Kategorie" -->
                     <th class="edit-column-width"></th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach ($themeboxes as $themebox)
                     <tr>
-                        <td>
-                            {{$themebox["title"]}}
-                        </td>
-                        <td>
-                            {{$themebox["signatur"]}}
-                        </td>
-                        <td>
-                            {{$themebox["schoollevel"]}}
-                        </td>
-                        <td>
-                            {{$themebox["barcode"]}}
-                        </td>
-                        <td>
-                            {{$themebox["size"]}}
-                        </td>
-                        <td>
-                            {{$themebox["weight"]}} kg
-                        </td>
+                        <td>{{$themebox["title"]}}</td>
+                        <td>{{$themebox["signatur"]}}</td>
+                        <td>{{$themebox["schoollevel"]}}</td>
+                        <td>{{$themebox["barcode"]}}</td>
+                        <td>{{$themebox["size"]}}</td>
+                        <td>{{$themebox["weight"]}} kg</td>
+                        <td>{{$themebox["category"]}}</td> <!-- Move this before the "complete" column -->
                         <td>
                             @if ($themebox["complete"])
                                 Ja
@@ -293,9 +282,7 @@
                             @endif
                         </td>
                         <td>
-                            {{$themebox["category"]}}
-                        <td>
-                            <button type="button" class="button-update btn btn-primary button-edit-themebox" aria-label="edit"  value="{{$themebox["pk_themebox"]}}" data-toggle="tooltip" data-placement="top" title="Themenkiste bearbeiten">
+                            <button type="button" class="button-update btn btn-primary button-edit-themebox" aria-label="edit" value="{{$themebox["pk_themebox"]}}" data-toggle="tooltip" data-placement="top" title="Themenkiste bearbeiten">
                                 <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                             </button>
                             <button type="button" class="button-delete-themebox btn btn-danger" value="{{$themebox["pk_themebox"]}}" aria-label="delete" data-toggle="tooltip" data-placement="top" title="Bestellung löschen">

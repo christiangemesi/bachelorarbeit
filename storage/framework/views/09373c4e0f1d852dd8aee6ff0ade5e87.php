@@ -133,7 +133,6 @@
                                             <option value="<?php echo e($category['pk_category']); ?>"><?php echo e($category['name']); ?></option>
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </select>
-
                                     <span id="themebox-form-category-icon"></span>
                                     <span id="themebox-form-category-status" class="errorHeader">Kategorie wird benötigt!</span>
                                 </div>
@@ -341,7 +340,14 @@
                         <td><?php echo e($themebox["barcode"]); ?></td>
                         <td><?php echo e($themebox["size"]); ?></td>
                         <td><?php echo e($themebox["weight"]); ?> kg</td>
-                        <td><?php echo e($themebox["fk_category"]); ?></td>
+                        <td>
+                            <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <?php if($category["pk_category"] == $themebox["fk_category"]): ?>
+                                    <?php echo e($category["name"]); ?>
+
+                                <?php endif; ?>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        </td>
                         <td>
                             <?php if($themebox["complete"]): ?>
                                 Ja

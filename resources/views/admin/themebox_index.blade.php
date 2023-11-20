@@ -340,7 +340,13 @@
                         <td>{{$themebox["barcode"]}}</td>
                         <td>{{$themebox["size"]}}</td>
                         <td>{{$themebox["weight"]}} kg</td>
-                        <td>{{$themebox["fk_category"]}}</td>
+                        <td>
+                            @foreach ($categories as $category)
+                                @if ($category["pk_category"] == $themebox["fk_category"])
+                                    {{$category["name"]}}
+                                @endif
+                            @endforeach
+                        </td>
                         <td>
                             @if ($themebox["complete"])
                                 Ja

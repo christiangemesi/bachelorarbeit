@@ -1326,3 +1326,235 @@ Array
 
 )
 
+Array
+(
+    [0] => Array
+        (
+            [name] => name
+            [value] => d
+        )
+
+    [1] => Array
+        (
+            [name] => signature
+            [value] => d
+        )
+
+    [2] => Array
+        (
+            [name] => schoollevel
+            [value] => d
+        )
+
+    [3] => Array
+        (
+            [name] => barcode
+            [value] => d
+        )
+
+    [4] => Array
+        (
+            [name] => size
+            [value] => 2
+        )
+
+    [5] => Array
+        (
+            [name] => weight
+            [value] => 2
+        )
+
+    [6] => Array
+        (
+            [name] => category
+            [value] => 1
+        )
+
+    [7] => Array
+        (
+            [name] => content
+            [value] => 2
+        )
+
+    [8] => Array
+        (
+            [name] => extra_text_create
+            [value] => <p><br></p>
+        )
+
+)
+
+Array
+(
+    [0] => Array
+        (
+            [name] => name
+            [value] => d
+        )
+
+    [1] => Array
+        (
+            [name] => signature
+            [value] => d
+        )
+
+    [2] => Array
+        (
+            [name] => schoollevel
+            [value] => d
+        )
+
+    [3] => Array
+        (
+            [name] => barcode
+            [value] => d
+        )
+
+    [4] => Array
+        (
+            [name] => size
+            [value] => d
+        )
+
+    [5] => Array
+        (
+            [name] => weight
+            [value] => 2
+        )
+
+    [6] => Array
+        (
+            [name] => category
+            [value] => 1
+        )
+
+    [7] => Array
+        (
+            [name] => content
+            [value] => 2
+        )
+
+    [8] => Array
+        (
+            [name] => extra_text_create
+            [value] => <p><br></p>
+        )
+
+)
+
+Array
+(
+    [0] => Array
+        (
+            [name] => name
+            [value] => d
+        )
+
+    [1] => Array
+        (
+            [name] => signature
+            [value] => d
+        )
+
+    [2] => Array
+        (
+            [name] => schoollevel
+            [value] => d
+        )
+
+    [3] => Array
+        (
+            [name] => barcode
+            [value] => d
+        )
+
+    [4] => Array
+        (
+            [name] => size
+            [value] => d
+        )
+
+    [5] => Array
+        (
+            [name] => weight
+            [value] => 2
+        )
+
+    [6] => Array
+        (
+            [name] => category
+            [value] => 1
+        )
+
+    [7] => Array
+        (
+            [name] => content
+            [value] => 2
+        )
+
+    [8] => Array
+        (
+            [name] => extra_text_create
+            [value] => <p><br></p>
+        )
+
+)
+
+Array
+(
+    [0] => Array
+        (
+            [name] => name
+            [value] => d
+        )
+
+    [1] => Array
+        (
+            [name] => signature
+            [value] => d
+        )
+
+    [2] => Array
+        (
+            [name] => schoollevel
+            [value] => d
+        )
+
+    [3] => Array
+        (
+            [name] => barcode
+            [value] => d
+        )
+
+    [4] => Array
+        (
+            [name] => size
+            [value] => d
+        )
+
+    [5] => Array
+        (
+            [name] => weight
+            [value] => 2
+        )
+
+    [6] => Array
+        (
+            [name] => category
+            [value] => 2
+        )
+
+    [7] => Array
+        (
+            [name] => content
+            [value] => 2
+        )
+
+    [8] => Array
+        (
+            [name] => extra_text_create
+            [value] => <p><br></p>
+        )
+
+)
+

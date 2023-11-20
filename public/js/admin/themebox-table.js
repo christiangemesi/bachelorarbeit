@@ -83,6 +83,8 @@ $(document).ready(function () {
     $(".button-edit-themebox").click(function () {
         $('#themebox-edit-modal').modal('show');
 
+        console.log("opened modal");
+
         $.ajax({
             url: "../admin/getThemebox",
             type: 'POST',

@@ -252,10 +252,10 @@
                                     <span id="themebox-edit-form-weight-status" class="errorHeader">Gewicht wird benötigt!</span>
                                 </div>
                                 <div class="form-group has-feedback">
-                                    <label class="themebox-form-label"
-                                           for="themebox-edit-form-category">Kategorie </label>
-                                    <select class="form-control" name="category" id="themebox-form-category"
-                                            onchange="notEmptyValidate('themebox-form-category', 'themebox-form-category-status', 'themebox-form-category-icon')">
+                                    <label class="themebox-form-label" for="themebox-edit-form-category">Kategorie </label>
+                                    <select class="form-control" name="category" id="themebox-edit-form-category"
+                                            onblur="notEmptyValidate('themebox-edit-form-category', 'themebox-edit-form-category-status', 'themebox-edit-form-category-icon')"
+                                            onkeyup="notEmptyValidate('themebox-edit-form-category', 'themebox-edit-form-category-status', 'themebox-edit-form-category-icon')">
                                         <option value="none" disabled selected>Bitte Kategorie auswählen</option>
                                         <?php $__currentLoopData = $themeboxes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $themebox): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>

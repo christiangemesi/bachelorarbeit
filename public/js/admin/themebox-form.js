@@ -7,6 +7,19 @@ function notEmptyValidate(namevar, statusvar, iconvar) {
     var status = document.getElementById(statusvar);
     var icon = document.getElementById(iconvar);
 
+    console.log(name.tagName);
+    console.log(status);
+    console.log(icon);
+
+
+    if (name.tagName === "SELECT") { // Check if the element is a dropdown
+        status.style.display = "none";
+        name.parentNode.className = "form-group has-success has-feedback";
+        icon.className = "glyphicon glyphicon-ok form-control-feedback";
+        checkform();
+        return true;
+    }
+
     if (name.value == "") {
         status.innerHTML = "Feld wird benötigt!";
         status.style.display = "block";
@@ -39,20 +52,6 @@ function notEmptyValidate(namevar, statusvar, iconvar) {
     }
 }
 
-function canEmptyValidate(namevar, statusvar, iconvar) {
-    var name = document.getElementById(namevar);
-    var status = document.getElementById(statusvar);
-    var icon = document.getElementById(iconvar);
-
-    status.style.display = "none";
-    name.parentNode.className = "form-group has-success has-feedback";
-
-    icon.className = "glyphicon glyphicon-ok form-control-feedback";
-
-    checkform();
-    return true;
-}
-
 
 
 function checkform() {
@@ -63,19 +62,29 @@ function checkform() {
     var cansubmitf = true;
     var cansubmits = true;
 
-    const NUMBER_OF_FIELDS_TO_BE_CHECKED = 7;
+    const NUMBER_OF_FIELDS_TO_BE_CHECKED = 8;
 
     for (var i = 0; i < NUMBER_OF_FIELDS_TO_BE_CHECKED; i++) {
-
-        if (f[i].value.length === 0) {
-            cansubmitf = false;
+        if (f[i].type === "select-one") { // Check if the element is a dropdown
+            if (f[i].selectedIndex === 0) { // Check if any option is selected
+                cansubmitf = false;
+            }
+        } else {
+            if (f[i].value.length === 0) {
+                cansubmitf = false;
+            }
         }
-
     }
-    for (var a = 0; a < NUMBER_OF_FIELDS_TO_BE_CHECKED; a++) {
 
-        if (s[a].value.length === 0) {
-            cansubmits = false;
+    for (var a = 0; a < NUMBER_OF_FIELDS_TO_BE_CHECKED; a++) {
+        if (s[a].type === "select-one") { // Check if the element is a dropdown
+            if (s[a].selectedIndex === 0) { // Check if any option is selected
+                cansubmits = false;
+            }
+        } else {
+            if (s[a].value.length === 0) {
+                cansubmits = false;
+            }
         }
     }
 

@@ -128,11 +128,12 @@
                                     <label class="themebox-form-label" for="themebox-form-category">Kategorie </label>
                                     <select class="form-control" name="category" id="themebox-form-category"
                                             onchange="notEmptyValidate('themebox-form-category', 'themebox-form-category-status', 'themebox-form-category-icon')">
-                                        <option value="" selected disabled>Bitte Kategorie auswählen</option>
+                                        <option value="none" disabled selected>Bitte Kategorie auswählen</option>
                                         <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                            <option value="<?php echo e($category['id']); ?>"><?php echo e($category['name']); ?></option>
+                                            <option value="<?php echo e($category['pk_category']); ?>"><?php echo e($category['name']); ?></option>
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </select>
+
                                     <span id="themebox-form-category-icon"></span>
                                     <span id="themebox-form-category-status" class="errorHeader">Kategorie wird benötigt!</span>
                                 </div>

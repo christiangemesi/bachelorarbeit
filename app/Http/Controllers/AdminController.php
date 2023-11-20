@@ -131,7 +131,6 @@ class AdminController extends Controller
     {
         $email = strtolower($request->email);
 
-        error_log($request);
         //validation
         //check if token exists in password_resets table
         $password_reset = PasswordResets::where('token', $request->token)->get();
@@ -378,7 +377,6 @@ class AdminController extends Controller
     public function getThemeboxes()
     {
         $themeboxes = Themebox::get();
-        error_log($themeboxes);
         return $themeboxes;
     }
 
@@ -502,6 +500,9 @@ class AdminController extends Controller
      */
     public function createThemebox(Request $request)
     {
+        //error log themebox_data
+        error_log(print_r($request->themebox_data, true) . "\n", 3, "error.log");
+
         $themebox = new Themebox();
         $themebox->title = $request->themebox_data[0]["value"];
         $themebox->signatur = $request->themebox_data[1]["value"];

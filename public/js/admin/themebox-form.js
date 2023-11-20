@@ -3,16 +3,23 @@
  */
 function notEmptyValidate(namevar, statusvar, iconvar) {
 
+
     var name = document.getElementById(namevar);
     var status = document.getElementById(statusvar);
     var icon = document.getElementById(iconvar);
 
-    console.log(name.tagName);
-    console.log(status);
-    console.log(icon);
-
-
     if (name.tagName === "SELECT") { // Check if the element is a dropdown
+        //console .log the selected option's value
+        var selectElement = document.getElementById('themebox-form-category');
+        selectElement.addEventListener('change', function() {
+            // Accessing the selected option
+            var selectedOption = selectElement.options[selectElement.selectedIndex];
+
+            // Logging the value of the selected option
+            console.log('Selected Option Value:', selectedOption.value);
+        });
+
+
         status.style.display = "none";
         name.parentNode.className = "form-group has-success has-feedback";
         icon.className = "glyphicon glyphicon-ok form-control-feedback";

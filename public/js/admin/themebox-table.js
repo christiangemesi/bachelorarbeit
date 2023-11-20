@@ -59,6 +59,9 @@ $(document).ready(function () {
      */
     $('#create-themebox-button').click(function () {
 
+        console.log($('#create-themebox-form').serializeArray());
+
+
         document.getElementById('extra_text_create').value = $('#summernote_create').summernote('code');
 
         $.ajax({

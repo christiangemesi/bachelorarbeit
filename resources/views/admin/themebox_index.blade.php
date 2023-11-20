@@ -128,9 +128,9 @@
                                     <label class="themebox-form-label" for="themebox-form-category">Kategorie </label>
                                     <select class="form-control" name="category" id="themebox-form-category"
                                             onchange="notEmptyValidate('themebox-form-category', 'themebox-form-category-status', 'themebox-form-category-icon')">
-                                        <option value="" selected disabled>Bitte Kategorie auswählen</option>
+                                        <option value="none" disabled selected>Bitte Kategorie auswählen</option>
                                         @foreach ($categories as $category)
-                                            <option value="{{$category['id']}}">{{$category['name']}}</option>
+                                            <option value="{{$category['pk_category']}}">{{$category['name']}}</option>
                                         @endforeach
                                     </select>
                                     <span id="themebox-form-category-icon"></span>

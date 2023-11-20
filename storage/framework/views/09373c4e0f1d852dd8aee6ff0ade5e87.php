@@ -252,19 +252,14 @@
                                     <span id="themebox-edit-form-weight-status" class="errorHeader">Gewicht wird benötigt!</span>
                                 </div>
                                 <div class="form-group has-feedback">
-                                    <label class="themebox-form-label" for="themebox-edit-form-category">Kategorie </label>
+                                    <label class="themebox-form-label"
+                                           for="themebox-edit-form-category">Kategorie </label>
                                     <select class="form-control" name="category" id="themebox-edit-form-category"
                                             onblur="notEmptyValidate('themebox-edit-form-category', 'themebox-edit-form-category-status', 'themebox-edit-form-category-icon')"
                                             onkeyup="notEmptyValidate('themebox-edit-form-category', 'themebox-edit-form-category-status', 'themebox-edit-form-category-icon')">
                                         <option value="none" disabled selected>Bitte Kategorie auswählen</option>
-                                        <?php $__currentLoopData = $themeboxes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $themebox): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                            <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                <option value="<?php echo e($category['pk_category']); ?>"
-                                                        <?php if($category['pk_category'] == $themebox['fk_category']): ?> selected <?php endif; ?>>
-                                                    <?php echo e($category['name']); ?>
-
-                                                </option>
-                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <option value="<?php echo e($category['pk_category']); ?>"><?php echo e($category['name']); ?></option>
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </select>
                                     <span id="themebox-edit-form-category-icon"></span>

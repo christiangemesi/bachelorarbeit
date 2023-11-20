@@ -151,14 +151,13 @@ class AdminController extends Controller
         }
 
         //change the password in the database login
-        $this->setAdminPassword($email , $request->password);
+        $this->setAdminPassword($email, $request->password);
 
         //delete token from password_resets table
         PasswordResets::where('token', $request->token)->delete();
 
         return response()->json('success');
     }
-
 
 
     /**
@@ -191,14 +190,14 @@ class AdminController extends Controller
     {
         $email = strtolower($email);
 
-        Login::where('email', $email)->update( array('password'=>Hash::make($password)));
+        Login::where('email', $email)->update(array('password' => Hash::make($password)));
     }
 
     public function setAdminEmail($email): void
     {
         $email = strtolower($email);
 
-        Login::where('pk_login', 1)->update( array('email'=>$email));
+        Login::where('pk_login', 1)->update(array('email' => $email));
     }
 
     /**
@@ -534,7 +533,9 @@ class AdminController extends Controller
         $themebox_Id = $request["themebox_id"];
         $themebox = Themebox::find($themebox_Id);
 
-        return response()->json($themebox, 200);
+        $category = Category::find($themebox->fk_category);
+
+        return response()->json([$themebox,$category], 200);
     }
 
     /**

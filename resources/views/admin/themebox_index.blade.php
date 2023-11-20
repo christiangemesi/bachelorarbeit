@@ -252,18 +252,14 @@
                                     <span id="themebox-edit-form-weight-status" class="errorHeader">Gewicht wird benötigt!</span>
                                 </div>
                                 <div class="form-group has-feedback">
-                                    <label class="themebox-form-label" for="themebox-edit-form-category">Kategorie </label>
+                                    <label class="themebox-form-label"
+                                           for="themebox-edit-form-category">Kategorie </label>
                                     <select class="form-control" name="category" id="themebox-edit-form-category"
                                             onblur="notEmptyValidate('themebox-edit-form-category', 'themebox-edit-form-category-status', 'themebox-edit-form-category-icon')"
                                             onkeyup="notEmptyValidate('themebox-edit-form-category', 'themebox-edit-form-category-status', 'themebox-edit-form-category-icon')">
                                         <option value="none" disabled selected>Bitte Kategorie auswählen</option>
-                                        @foreach ($themeboxes as $themebox)
-                                            @foreach ($categories as $category)
-                                                <option value="{{$category['pk_category']}}"
-                                                        @if ($category['pk_category'] == $themebox['fk_category']) selected @endif>
-                                                    {{$category['name']}}
-                                                </option>
-                                            @endforeach
+                                        @foreach ($categories as $category)
+                                            <option value="{{$category['pk_category']}}">{{$category['name']}}</option>
                                         @endforeach
                                     </select>
                                     <span id="themebox-edit-form-category-icon"></span>

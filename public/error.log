@@ -1674,3 +1674,235 @@ Array
 
 )
 
+Array
+(
+    [0] => Array
+        (
+            [name] => name
+            [value] => d
+        )
+
+    [1] => Array
+        (
+            [name] => signature
+            [value] => d
+        )
+
+    [2] => Array
+        (
+            [name] => schoollevel
+            [value] => d
+        )
+
+    [3] => Array
+        (
+            [name] => barcode
+            [value] => d
+        )
+
+    [4] => Array
+        (
+            [name] => size
+            [value] => d
+        )
+
+    [5] => Array
+        (
+            [name] => weight
+            [value] => 2
+        )
+
+    [6] => Array
+        (
+            [name] => category
+            [value] => 1
+        )
+
+    [7] => Array
+        (
+            [name] => content
+            [value] => 2
+        )
+
+    [8] => Array
+        (
+            [name] => extra_text_create
+            [value] => <p>2</p>
+        )
+
+)
+
+Array
+(
+    [0] => Array
+        (
+            [name] => name
+            [value] => 1
+        )
+
+    [1] => Array
+        (
+            [name] => signature
+            [value] => 2
+        )
+
+    [2] => Array
+        (
+            [name] => schoollevel
+            [value] => 3
+        )
+
+    [3] => Array
+        (
+            [name] => barcode
+            [value] => 4
+        )
+
+    [4] => Array
+        (
+            [name] => size
+            [value] => 5
+        )
+
+    [5] => Array
+        (
+            [name] => weight
+            [value] => 6
+        )
+
+    [6] => Array
+        (
+            [name] => category
+            [value] => 3
+        )
+
+    [7] => Array
+        (
+            [name] => content
+            [value] => 7
+        )
+
+    [8] => Array
+        (
+            [name] => extra_text_create
+            [value] => <p>8</p>
+        )
+
+)
+
+Array
+(
+    [0] => Array
+        (
+            [name] => name
+            [value] => themenkiste
+        )
+
+    [1] => Array
+        (
+            [name] => signature
+            [value] => signatur
+        )
+
+    [2] => Array
+        (
+            [name] => schoollevel
+            [value] => schulstufe
+        )
+
+    [3] => Array
+        (
+            [name] => barcode
+            [value] => strichcode
+        )
+
+    [4] => Array
+        (
+            [name] => size
+            [value] => groesse
+        )
+
+    [5] => Array
+        (
+            [name] => weight
+            [value] => 100
+        )
+
+    [6] => Array
+        (
+            [name] => category
+            [value] => 3
+        )
+
+    [7] => Array
+        (
+            [name] => content
+            [value] => inhalt
+        )
+
+    [8] => Array
+        (
+            [name] => extra_text_create
+            [value] => <p>extra</p>
+        )
+
+)
+
+Array
+(
+    [0] => Array
+        (
+            [name] => name
+            [value] => Themenkiste Name *
+        )
+
+    [1] => Array
+        (
+            [name] => signature
+            [value] => Signatur *
+        )
+
+    [2] => Array
+        (
+            [name] => schoollevel
+            [value] => Schulstufe *
+        )
+
+    [3] => Array
+        (
+            [name] => barcode
+            [value] => Strichcode *
+        )
+
+    [4] => Array
+        (
+            [name] => size
+            [value] => Grösse *
+        )
+
+    [5] => Array
+        (
+            [name] => weight
+            [value] => 100
+        )
+
+    [6] => Array
+        (
+            [name] => category
+            [value] => 1
+        )
+
+    [7] => Array
+        (
+            [name] => content
+            [value] => Inhalt *
+        )
+
+    [8] => Array
+        (
+            [name] => extra_text_create
+            [value] => <p>EXTRA TEXT</p>
+        )
+
+)
+

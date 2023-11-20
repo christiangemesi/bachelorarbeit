@@ -95,6 +95,8 @@ $(document).ready(function () {
                 $("#themebox-edit-form-size").val(response["size"]);
                 $("#themebox-edit-form-weight").val(response["weight"]);
                 $("#themebox-edit-form-content").val(response["content"]);
+                $("#themebox-edit-form-category").val(response["category"]);
+
                 $("#themebox-edit-form-extra_text").val(response["extra_text"]);
 
                 $('#summernote_edit').summernote("code", response["extra_text"]);
@@ -115,6 +117,7 @@ $(document).ready(function () {
                 notEmptyValidate('themebox-edit-form-size','themebox-edit-form-size-status','themebox-edit-form-size-icon');
                 notEmptyValidate('themebox-edit-form-weight','themebox-edit-form-weight-status','themebox-edit-form-weight-icon');
                 notEmptyValidate('themebox-edit-form-content','themebox-edit-form-content-status','themebox-edit-form-content-icon');
+                notEmptyValidate('themebox-edit-form-category','themebox-edit-form-category-status','themebox-edit-form-category-icon');
 
             },
             error: function (xhr, status, error) {

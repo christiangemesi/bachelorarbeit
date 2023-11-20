@@ -252,19 +252,27 @@
                                     <span id="themebox-edit-form-weight-status" class="errorHeader">Gewicht wird benötigt!</span>
                                 </div>
                                 <div class="form-group has-feedback">
-                                    <label class="themebox-form-label" for="themebox-edit-form-category">Kategorie </label>
-                                    <select class="form-control" name="category" id="themebox-edit-form-category"
-                                            onchange="notEmptyValidate('themebox-edit-form-category','themebox-edit-form-category-status','themebox-edit-form-category-icon')">
-                                        <option value="" selected disabled>Bitte Kategorie auswählen</option>
-                                        <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                            <option value="<?php echo e($category['id']); ?>"><?php echo e($category['name']); ?></option>
+                                    <label class="themebox-form-label"
+                                           for="themebox-edit-form-category">Kategorie </label>
+                                    <select class="form-control" name="category" id="themebox-form-category"
+                                            onchange="notEmptyValidate('themebox-form-category', 'themebox-form-category-status', 'themebox-form-category-icon')">
+                                        <option value="none" disabled selected>Bitte Kategorie auswählen</option>
+                                        <?php $__currentLoopData = $themeboxes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $themebox): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                <option value="<?php echo e($category['pk_category']); ?>"
+                                                        <?php if($category['pk_category'] == $themebox['fk_category']): ?> selected <?php endif; ?>>
+                                                    <?php echo e($category['name']); ?>
+
+                                                </option>
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </select>
                                     <span id="themebox-edit-form-category-icon"></span>
                                     <span id="themebox-edit-form-category-status" class="errorHeader">Kategorie wird benötigt!</span>
                                 </div>
                                 <div class="form-group has-feedback">
-                                    <label class="themebox-form-label" for="themebox-edit-form-content">Inhalt * </label>
+                                    <label class="themebox-form-label" for="themebox-edit-form-content">Inhalt
+                                        * </label>
                                     <textarea class="form-control themebox-edit-form-content" name="content"
                                               id="themebox-edit-form-content" class="form-control" rows="5"
                                               onblur="notEmptyValidate('themebox-edit-form-content','themebox-edit-form-content-status','themebox-edit-form-content-icon')"
@@ -326,8 +334,8 @@
                     <th>Strichcode</th>
                     <th>Grösse</th>
                     <th>Gewicht</th>
-                    <th>Kategorie</th> <!-- Move this before "Vollständig" -->
-                    <th>Vollständig</th> <!-- Move this after "Kategorie" -->
+                    <th>Kategorie</th>
+                    <th>Vollständig</th>
                     <th class="edit-column-width"></th>
                 </tr>
                 </thead>

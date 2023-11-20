@@ -1558,3 +1558,119 @@ Array
 
 )
 
+Array
+(
+    [0] => Array
+        (
+            [name] => name
+            [value] => r
+        )
+
+    [1] => Array
+        (
+            [name] => signature
+            [value] => r
+        )
+
+    [2] => Array
+        (
+            [name] => schoollevel
+            [value] => r
+        )
+
+    [3] => Array
+        (
+            [name] => barcode
+            [value] => r
+        )
+
+    [4] => Array
+        (
+            [name] => size
+            [value] => r
+        )
+
+    [5] => Array
+        (
+            [name] => weight
+            [value] => 2
+        )
+
+    [6] => Array
+        (
+            [name] => category
+            [value] => 3
+        )
+
+    [7] => Array
+        (
+            [name] => content
+            [value] => 2
+        )
+
+    [8] => Array
+        (
+            [name] => extra_text_create
+            [value] => <p><br></p>
+        )
+
+)
+
+Array
+(
+    [0] => Array
+        (
+            [name] => name
+            [value] => HoloLens
+        )
+
+    [1] => Array
+        (
+            [name] => signature
+            [value] => Signatur
+        )
+
+    [2] => Array
+        (
+            [name] => schoollevel
+            [value] => Zyklus
+        )
+
+    [3] => Array
+        (
+            [name] => barcode
+            [value] => 1
+        )
+
+    [4] => Array
+        (
+            [name] => size
+            [value] => 2
+        )
+
+    [5] => Array
+        (
+            [name] => weight
+            [value] => 2
+        )
+
+    [6] => Array
+        (
+            [name] => category
+            [value] => 3
+        )
+
+    [7] => Array
+        (
+            [name] => content
+            [value] => d
+        )
+
+    [8] => Array
+        (
+            [name] => extra_text_create
+            [value] => <p>d</p>
+        )
+
+)
+

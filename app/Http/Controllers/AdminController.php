@@ -552,12 +552,13 @@ class AdminController extends Controller
                     'barcode' => $request->themebox_data[4]["value"],
                     'size' => $request->themebox_data[5]["value"],
                     'weight' => $request->themebox_data[6]["value"],
-                    'content' => $request->themebox_data[7]["value"],
-                    'extra_text' => $request->themebox_data[8]["value"]]
+                    'fk_category' => $request->themebox_data[7]["value"],
+                    'content' => $request->themebox_data[8]["value"],
+                    'extra_text' => $request->themebox_data[9]["value"]]
             );
 
             $status = 0;
-            if (!empty($request->themebox_data[9]["value"])) {
+            if (!empty($request->themebox_data[10]["value"])) {
                 $status = 1;
             }
 

@@ -10,16 +10,7 @@ function notEmptyValidate(namevar, statusvar, iconvar) {
 
     if (name.tagName === "SELECT") { // Check if the element is a dropdown
         //console .log the selected option's value
-        var selectElement = document.getElementById('themebox-form-category');
-        selectElement.addEventListener('change', function() {
-            // Accessing the selected option
-            var selectedOption = selectElement.options[selectElement.selectedIndex];
-
-            // Logging the value of the selected option
-            console.log('Selected Option Value:', selectedOption.value);
-        });
-
-
+        console.log("name.options[name.selectedIndex].value");
         status.style.display = "none";
         name.parentNode.className = "form-group has-success has-feedback";
         icon.className = "glyphicon glyphicon-ok form-control-feedback";
@@ -27,14 +18,14 @@ function notEmptyValidate(namevar, statusvar, iconvar) {
         return true;
     }
 
-    if (name.value == "") {
+    if (name.value === "") {
         status.innerHTML = "Feld wird benötigt!";
         status.style.display = "block";
         name.parentNode.className = "form-group has-error has-feedback";
         icon.className = "glyphicon glyphicon-remove form-control-feedback";
         checkform();
         return false;
-    } else if (namevar == "themebox-form-weight" || namevar == "themebox-edit-form-weight") {
+    } else if (namevar === "themebox-form-weight" || namevar === "themebox-edit-form-weight") {
 
         if (!onlyNumbers(name.value)) {
             status.innerHTML = "Falsches Gewicht Format - nur Nummern und Punkt erlaubt!";

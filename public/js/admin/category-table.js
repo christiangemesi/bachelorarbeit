@@ -127,21 +127,13 @@ $(document).ready(function () {
 
 
     /**
-     * show callback error text
-     */
-    $("#modal-failure-message-show").click(function () {
-        $(".modal-content-failure-message-background").slideToggle("slow");
-    });
-
-
-    /**
      * show delete warning modal
      */
     function prepareCategoryDeleteWarningModal() {
         $('#callback-modal').modal('show');
         $('#modal-content-failure').css('display', 'none');
         $('#modal-content-success').css('display', 'none');
-        $('#modal-delete-category-warning').css('display', 'block');
+        //$('#modal-delete-category-warning').css('display', 'block');
     }
 
     /**

@@ -95,6 +95,54 @@
         </div>
     </div>
 
+    <div class="modal fade" id="category-edit-modal" tabindex="-1">
+        <div class="modal-dialog " role="document">
+            <div class="modal-content">
+                <div class="modal-header modal-header-primary">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <div class="panel-heading category-new-title">
+                        Kategorie Bearbeiten
+                    </div>
+                </div>
+                <div class="model-body">
+                    <form id="edit-category-form" autocomplete="off">
+                        <input type="hidden" value="" name="category_id" id="category_id"/>
+                        <div class="panel-body">
+                            <div class="row thekre-row category-create-form-background" id="category-data-box">
+                                <div class="form-group has-feedback">
+                                    <label class="category-form-label" for="category-edit-form-name">Kategorie Name
+                                        * </label>
+                                    <input type="text" class="form-control" name="name" id="category-edit-form-name"
+                                           maxlength="100"
+                                           onblur="checkCategoryForm('category-edit-form-name','category-edit-form-name-status','category-edit-form-name-icon')"
+                                           onkeyup="checkCategoryForm('category-edit-form-name','category-edit-form-name-status','category-edit-form-name-icon')"
+                                           autofocus="autofocus"/>
+                                    <span id="category-edit-form-name-icon"></span>
+                                    <span id="category-edit-form-name-status" class="errorHeader">Kategoriename wird benötigt!</span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Schliessen</button>
+                        </div>
+                        <div class="col-md-10">
+                            <button type="button" id="button-save-category-change" class="btn btn-primary float-right"
+                                    data-dismiss="modal">Speichern
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="col-md-12 admin-panel data-table-thekre">
         <h1 class="admin-header">Kategorien</h1>
         <div class="row">

@@ -236,6 +236,18 @@ class AdminController extends Controller
         }
     }
 
+    public function indexCategories()
+    {
+        if ($this->checkLogin()) {
+            $themeboxes = $this->getThemeboxes();
+            $categories = $this->getCategories();
+
+            return view('admin.category_index', ['themeboxes' => $themeboxes, 'categories' => $categories]);
+        } else {
+            return view('admin.login_form');
+        }
+    }
+
     /**
      * load statistic view
      * @return mixed

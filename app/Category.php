@@ -9,6 +9,5 @@ class Category extends Model
     protected $table = "tbl_category";
     protected $primaryKey = "pk_category";
     public $timestamps = false;
-
     protected $guarded = ['pk_category'];
 }

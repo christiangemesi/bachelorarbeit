@@ -1906,3 +1906,61 @@ Array
 
 )
 
+Array
+(
+    [0] => Array
+        (
+            [name] => name
+            [value] => ll
+        )
+
+    [1] => Array
+        (
+            [name] => signature
+            [value] => l
+        )
+
+    [2] => Array
+        (
+            [name] => schoollevel
+            [value] => l
+        )
+
+    [3] => Array
+        (
+            [name] => barcode
+            [value] => l
+        )
+
+    [4] => Array
+        (
+            [name] => size
+            [value] => l
+        )
+
+    [5] => Array
+        (
+            [name] => weight
+            [value] => 2
+        )
+
+    [6] => Array
+        (
+            [name] => category
+            [value] => 1
+        )
+
+    [7] => Array
+        (
+            [name] => content
+            [value] => thgh
+        )
+
+    [8] => Array
+        (
+            [name] => extra_text_create
+            [value] => <p><br></p>
+        )
+
+)
+

@@ -160,20 +160,17 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tbody>
                 @foreach ($categories as $category)
                     <tr>
                         <td>
                             {{$category["name"]}}
                         </td>
                         <td>
-
                             @foreach ($themeboxes as $themebox)
                                 @if ($themebox["fk_category"] == $category["pk_category"])
                                     {{$themebox["title"]}},
                                 @endif
                             @endforeach
-
                         </td>
                         <td>
                             <button type="button" class="button-update btn btn-primary button-edit-category"
@@ -189,8 +186,6 @@
                         </td>
                     </tr>
                 @endforeach
-
-
                 </tbody>
             </table>
         </div>

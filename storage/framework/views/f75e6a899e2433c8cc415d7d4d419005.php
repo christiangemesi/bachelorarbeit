@@ -160,7 +160,6 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tbody>
                 <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <tr>
                         <td>
@@ -168,13 +167,11 @@
 
                         </td>
                         <td>
-
                             <?php $__currentLoopData = $themeboxes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $themebox): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <?php if($themebox["fk_category"] == $category["pk_category"]): ?>
                                     <?php echo e($themebox["title"]); ?>,
                                 <?php endif; ?>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-
                         </td>
                         <td>
                             <button type="button" class="button-update btn btn-primary button-edit-category"
@@ -190,8 +187,6 @@
                         </td>
                     </tr>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-
-
                 </tbody>
             </table>
         </div>

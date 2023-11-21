@@ -140,6 +140,31 @@ $(document).ready(function () {
     });
 
     /**
+     * initial datatable settings
+     */
+    $('#new-category-table').DataTable({
+        "lengthChange": false,
+        "paging": false,
+        "pageLength": 10,
+        "info": false,
+        "language": {
+            "search": "Suchen nach: ",
+            "sEmptyTable": "Keine Themenkisten vorhanden",
+            "zeroRecords": "Keine Themenkisten gefunden",
+            "paginate": {
+                "previous": "Vorherige Seite",
+                "next": "Nächste Seite"
+            }
+        },
+        "columnDefs": [
+            {
+                "searchable": false, "targets": 2,
+                "orderable": false, "targets": 2
+            }
+        ]
+    });
+
+    /**
      * refresh page after modal close
      */
     $('.callback-close').click(function () {

@@ -149,8 +149,8 @@ $(document).ready(function () {
         "info": false,
         "language": {
             "search": "Suchen nach: ",
-            "sEmptyTable": "Keine Themenkisten vorhanden",
-            "zeroRecords": "Keine Themenkisten gefunden",
+            "sEmptyTable": "Keine Kategorie vorhanden",
+            "zeroRecords": "Keine Kategorie gefunden",
             "paginate": {
                 "previous": "Vorherige Seite",
                 "next": "Nächste Seite"

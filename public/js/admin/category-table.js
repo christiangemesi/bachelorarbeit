@@ -1,7 +1,31 @@
 $(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip();
 
+    /**
+     * remove themebox
+     */
+    $(".button-delete-category").click(function () {
+        prepareCategoryDeleteWarningModal();
+        $('#delete-warning-header-text').val("Wollen Sie die Kategorie wirklich löschen?");
+        $('#object-remove-id').val($(this).val());
+    });
 
+    /**
+     * confirm remove themebox
+     */
+    $('#button-delete-category-confirm').click(function () {
+        $.ajax({
+            url: "removeCategory",
+            type: 'POST',
+            data: {category_id: $('#object-remove-id').val()},
+            success: function (response) {
+                showSuccessModal("Kategorie wurde erfolgreich gelöscht");
+            },
+            error: function (xhr, status, error) {
+                showFailureModal("Es ist ein Fehler beim Löschen passiert", xhr);
+            }
+        });
+    });
 
 
     /**
@@ -116,17 +140,6 @@ $(document).ready(function () {
     });
 
     /**
-     * mark themebox as complete / incomplete
-     */
-    $("#themebox-edit-form-complete").change(function () {
-        if ($(this).is(':checked')) {
-            $(this).val(1);
-        } else {
-            $(this).val(0);
-        }
-    });
-
-    /**
      * save themebox changes
      */
     $("#button-save-themebox-change").click(function () {
@@ -188,11 +201,11 @@ $(document).ready(function () {
     /**
      * show delete warning modal
      */
-    function prepareDeleteWarningModal() {
+    function prepareCategoryDeleteWarningModal() {
         $('#callback-modal').modal('show');
         $('#modal-content-failure').css('display', 'none');
         $('#modal-content-success').css('display', 'none');
-        $('#modal-delete-themebox-warning').css('display', 'block');
+        $('#modal-delete-category-warning').css('display', 'block');
     }
 
     /**

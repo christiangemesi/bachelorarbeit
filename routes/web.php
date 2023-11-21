@@ -34,6 +34,7 @@ Route::get('/admin/logout', 'AdminController@logout');
 
 Route::get('/admin/categories', 'AdminController@indexCategories');
 Route::post('/admin/createCategory', 'AdminController@createCategory');
+Route::post('/admin/removeCategory', 'AdminController@removeCategory');
 
 Route::get('/admin/themeboxes', 'AdminController@getThemeboxes');
 Route::post('/admin/updateState','AdminController@updateThemeboxState');

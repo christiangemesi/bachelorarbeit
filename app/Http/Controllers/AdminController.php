@@ -480,6 +480,26 @@ class AdminController extends Controller
         }
     }
 
+    public function removeCategory(Request $request){
+        $category_id = $request->category_id;
+        $category = Category::find($category_id);
+
+        $themeboxes = Themebox::where('fk_category', $category_id)->get();
+
+        if (count($themeboxes) != 0) {
+            foreach ($themeboxes as $themebox) {
+                $themebox->forceDelete();
+            }
+        }
+
+        try {
+            $category->forceDelete();
+            return response()->json([], 200);
+        } catch (Exception $e) {
+            return response()->json($e, 500);
+        }
+    }
+
     /**
      * load amount orders from themebox for statistics
      * @param Request $request

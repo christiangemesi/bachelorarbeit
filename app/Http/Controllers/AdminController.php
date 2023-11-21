@@ -480,7 +480,8 @@ class AdminController extends Controller
         }
     }
 
-    public function removeCategory(Request $request){
+    public function removeCategory(Request $request)
+    {
         $category_id = $request->category_id;
         $category = Category::find($category_id);
 
@@ -535,9 +536,6 @@ class AdminController extends Controller
      */
     public function createThemebox(Request $request)
     {
-        //error log themebox_data
-        error_log(print_r($request->themebox_data, true) . "\n", 3, "error.log");
-
         $themebox = new Themebox();
         $themebox->title = $request->themebox_data[0]["value"];
         $themebox->signatur = $request->themebox_data[1]["value"];
@@ -558,7 +556,8 @@ class AdminController extends Controller
         }
     }
 
-    public function createCategory(Request $request){
+    public function createCategory(Request $request)
+    {
         $category = new Category();
         $category->name = $request->category_data[0]["value"];
         $category->save();
@@ -578,10 +577,11 @@ class AdminController extends Controller
 
         $category = Category::find($themebox->fk_category);
 
-        return response()->json([$themebox,$category], 200);
+        return response()->json([$themebox, $category], 200);
     }
 
-    public function getCategory(Request $request){
+    public function getCategory(Request $request)
+    {
         $category_Id = $request["category_id"];
         $category = Category::find($category_Id);
 
@@ -616,6 +616,26 @@ class AdminController extends Controller
 
             Themebox::find($request->themebox_data[0]["value"])->update(
                 ['complete' => $status]);
+
+            return response()->json($request, 200);
+
+        } catch (Exception $e) {
+            return response()->json($e, 500);
+        }
+    }
+
+    public function updateCategory(Request $request)
+    {
+        try {
+            $category_id = $request->category_data[0]["value"];
+            $category_name = $request->category_data[1]["value"];
+
+            error_log($category_id);
+            error_log($category_name);
+
+            Category::find($category_id)->update(
+                ['name' => $category_name]
+            );
 
             return response()->json($request, 200);
 

@@ -2,7 +2,7 @@ $(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip();
 
     /**
-     * remove themebox
+     * remove category
      */
     $(".button-delete-category").click(function () {
         prepareCategoryDeleteWarningModal();
@@ -11,7 +11,7 @@ $(document).ready(function () {
     });
 
     /**
-     * confirm remove themebox
+     * confirm remove category
      */
     $('#button-delete-category-confirm').click(function () {
         $.ajax({
@@ -56,11 +56,10 @@ $(document).ready(function () {
     });
 
     /**
-     * create themebox
+     * create category
      */
     $('#create-category-button').click(function () {
 
-        console.log($('#create-category-form').serializeArray());
 
         $.ajax({
             url: "../admin/createCategory",
@@ -75,23 +74,26 @@ $(document).ready(function () {
         })
     });
 
-    /**
-     * get themebox data for edit modal
-     */
     $(".button-edit-category").click(function () {
+        var categoryId = $(this).val();
+
+        console.log(categoryId);
+
+        // Set the category_id in the hidden input field
+        $("#category_id").val(categoryId);
+
         $('#category-edit-modal').modal('show');
 
         $.ajax({
             url: "../admin/getCategory",
             type: 'POST',
-            data: {category_id: $(this).val()},
+            data: { category_id: categoryId },
             success: function (response) {
-                console.log(response)
-
                 $("#category-edit-form-name").val(response["name"]);
 
-                checkCategoryForm('category-edit-form-name','category-edit-form-name-status','category-edit-form-name-icon');
+                console.log(response);
 
+                checkCategoryForm('category-edit-form-name', 'category-edit-form-name-status', 'category-edit-form-name-icon');
             },
             error: function (xhr, status, error) {
                 showFailureModal("Es ist ein Server Problem aufgetreten", xhr);
@@ -100,31 +102,25 @@ $(document).ready(function () {
     });
 
     /**
-     * save themebox changes
+     * save category changes
      */
-    $("#button-save-themebox-change").click(function () {
-
-        document.getElementById('extra_text_edit').value = $('#summernote_edit').summernote('code');
-
-        rawText = document.getElementById('extra_text_edit').value.replace(/<\/?[^>]+(>|$)/g, "");
-
-        if (rawText === "") {
-            document.getElementById('extra_text_edit').value = null;
-        }
+    $("#button-save-category-change").click(function () {
+        var formData = $('#edit-category-form').serializeArray();
+        console.log(formData);
 
         $.ajax({
-            url: "../admin/updateThemebox",
+            url: "../admin/updateCategory",
             type: 'POST',
-            data: {themebox_data: $('#edit-themebox-form').serializeArray()},
+            data: { category_data: formData },
             success: function (response) {
                 showSuccessModal("Änderungen konnten erfolgreich gespeichert werden");
             },
             error: function (xhr, status, error) {
                 showFailureModal("Änderungen konnten nicht gespeichert werden", xhr);
             }
-
         });
     });
+
 
     /**
      * show callback error text

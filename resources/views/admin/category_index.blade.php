@@ -133,7 +133,7 @@
                             <button type="button" class="btn btn-default" data-dismiss="modal">Schliessen</button>
                         </div>
                         <div class="col-md-10">
-                            <button type="button" id="button-save-themebox-change" class="btn btn-primary float-right"
+                            <button type="button" id="button-save-category-change" class="btn btn-primary float-right"
                                     data-dismiss="modal">Speichern
                             </button>
                         </div>

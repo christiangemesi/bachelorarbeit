@@ -78,59 +78,19 @@ $(document).ready(function () {
     /**
      * get themebox data for edit modal
      */
-    $(".button-edit-themebox").click(function () {
-        $('#themebox-edit-modal').modal('show');
-
-        console.log("opened modal");
+    $(".button-edit-category").click(function () {
+        $('#category-edit-modal').modal('show');
 
         $.ajax({
-            url: "../admin/getThemebox",
+            url: "../admin/getCategory",
             type: 'POST',
-            data: {themebox_id: $(this).val()},
+            data: {category_id: $(this).val()},
             success: function (response) {
                 console.log(response)
-                $("#themebox-edit-form-name").val(response[0]["title"]);
-                $("#themebox-edit-form-signature").val(response[0]["signatur"]);
-                $("#themebox-edit-form-schoollevel").val(response[0]["schoollevel"]);
-                $("#themebox-edit-form-barcode").val(response[0]["barcode"]);
-                $("#themebox-edit-form-size").val(response[0]["size"]);
-                $("#themebox-edit-form-weight").val(response[0]["weight"]);
-                $("#themebox-edit-form-content").val(response[0]["content"]);
-                $("#themebox-edit-form-extra_text").val(response[0]["extra_text"]);
-                $('#summernote_edit').summernote("code", response[0]["extra_text"]);
 
-                const categoryElement = document.getElementById("themebox-edit-form-category");
-                const categoryOptions = categoryElement.options;
-                for (var i = 0; i < categoryOptions.length; i++) {
-                    // Convert both values to integers for strict comparison
-                    if (parseInt(categoryOptions[i].value, 10) === parseInt(response[1]["pk_category"], 10)) {
-                        // Set the selected attribute for the matched option
-                        categoryOptions[i].selected = true;
-                        break;
-                    }
-                }
+                $("#category-edit-form-name").val(response["name"]);
 
-                console.log(response[0])
-
-
-                if (1 === response[0]["complete"]) {
-                    $("#themebox-edit-form-complete").prop('checked', true);
-                    $("#themebox-edit-form-complete").val(1);
-                } else {
-                    $("#themebox-edit-form-complete").prop('checked', false);
-                    $("#themebox-edit-form-complete").val(0);
-                }
-                $("#themebox_id").val(response[0]["pk_themebox"]);
-
-                notEmptyValidate('themebox-edit-form-name','themebox-edit-form-name-status','themebox-edit-form-name-icon');
-                notEmptyValidate('themebox-edit-form-signature','themebox-edit-form-signature-status','themebox-edit-form-signature-icon');
-                notEmptyValidate('themebox-edit-form-schoollevel','themebox-edit-form-schoollevel-status','themebox-edit-form-schoollevel-icon');
-                notEmptyValidate('themebox-edit-form-barcode','themebox-edit-form-barcode-status','themebox-edit-form-barcode-icon');
-                notEmptyValidate('themebox-edit-form-size','themebox-edit-form-size-status','themebox-edit-form-size-icon');
-                notEmptyValidate('themebox-edit-form-weight','themebox-edit-form-weight-status','themebox-edit-form-weight-icon');
-                notEmptyValidate('themebox-edit-form-content','themebox-edit-form-content-status','themebox-edit-form-content-icon');
-                notEmptyValidate('themebox-edit-form-category','themebox-edit-form-category-status','themebox-edit-form-category-icon');
-
+                checkCategoryForm('category-edit-form-name','category-edit-form-name-status','category-edit-form-name-icon');
 
             },
             error: function (xhr, status, error) {
@@ -173,30 +133,6 @@ $(document).ready(function () {
         $(".modal-content-failure-message-background").slideToggle("slow");
     });
 
-    /**
-     * initial datatable settings
-     */
-    $('#new-themebox-table').DataTable({
-        "lengthChange": false,
-        "paging": false,
-        "pageLength": 10,
-        "info": false,
-        "language": {
-            "search": "Suchen nach: ",
-            "sEmptyTable": "Keine Themenkisten vorhanden",
-            "zeroRecords": "Keine Themenkisten gefunden",
-            "paginate": {
-                "previous": "Vorherige Seite",
-                "next": "Nächste Seite"
-            }
-        },
-        "columnDefs": [
-            {
-                "searchable": false, "targets": 7,
-                "orderable": false, "targets": 7
-            }
-        ]
-    });
 
     /**
      * show delete warning modal

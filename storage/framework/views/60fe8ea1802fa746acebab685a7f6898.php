@@ -14,6 +14,9 @@
                 <a href="<?php echo e(env('APP_URL')); ?>/admin/themeboxes"></span><div class="nav-text"> Themenkisten</div></a>
             </li>
             <li class="sidebar-nav-text">
+                <a href="<?php echo e(env('APP_URL')); ?>/admin/categories"></span><div class="nav-text"> Kategorien</div></a>
+            </li>
+            <li class="sidebar-nav-text">
                 <a href="<?php echo e(env('APP_URL')); ?>/admin/statistics"></span><div class="nav-text"> Statistiken</div></a>
             </li>
             <li class="sidebar-nav-text">

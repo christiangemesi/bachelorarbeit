@@ -1,26 +1,26 @@
-@extends('layouts.master')
-@section('title', 'ThekRe - Admin')
 
-@section('content')
+<?php $__env->startSection('title', 'ThekRe - Admin'); ?>
 
-    @include('layouts.nav_admin')
+<?php $__env->startSection('content'); ?>
 
-    <script src="{{ asset('/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('/js/dataTables.bootstrap.min.js') }}"></script>
-    <link rel="stylesheet" href="{{ asset('css/dataTables.bootstrap.min.css') }}">
+    <?php echo $__env->make('layouts.nav_admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
-    <script src="{{ asset('/js/admin/category-form.js') }}"></script>
-    <script src="{{ asset('js/admin/category-table.js') }}"></script>
-    <script src="{{ asset('js/callback-modal.js') }}"></script>
+    <script src="<?php echo e(asset('/js/jquery.dataTables.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('/js/dataTables.bootstrap.min.js')); ?>"></script>
+    <link rel="stylesheet" href="<?php echo e(asset('css/dataTables.bootstrap.min.css')); ?>">
 
-    <link href="{{ asset('/summernote/summernote.css') }}" rel="stylesheet">
-    <script src="{{ asset('/summernote/summernote.js') }}"></script>
+    <script src="<?php echo e(asset('/js/admin/category-form.js')); ?>"></script>
+    <script src="<?php echo e(asset('js/admin/category-table.js')); ?>"></script>
+    <script src="<?php echo e(asset('js/callback-modal.js')); ?>"></script>
+
+    <link href="<?php echo e(asset('/summernote/summernote.css')); ?>" rel="stylesheet">
+    <script src="<?php echo e(asset('/summernote/summernote.js')); ?>"></script>
 
     <div class="modal fade" id="callback-modal" tabindex="-1">
         <div class="modal-dialog " role="document">
             <div class="modal-content">
 
-                @include("layouts.callback_messages")
+                <?php echo $__env->make("layouts.callback_messages", \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
                 <div id="modal-delete-category-warning">
                     <div class="panel-heading modal-header-warning"><span class="glyphicon glyphicon-flash"
@@ -161,38 +161,41 @@
                 </thead>
                 <tbody>
                 <tbody>
-                @foreach ($categories as $category)
+                <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <tr>
                         <td>
-                            {{$category["name"]}}
+                            <?php echo e($category["name"]); ?>
+
                         </td>
                         <td>
 
-                            @foreach ($themeboxes as $themebox)
-                                @if ($themebox["fk_category"] == $category["pk_category"])
-                                    {{$themebox["title"]}},
-                                @endif
-                            @endforeach
+                            <?php $__currentLoopData = $themeboxes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $themebox): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <?php if($themebox["fk_category"] == $category["pk_category"]): ?>
+                                    <?php echo e($themebox["title"]); ?>,
+                                <?php endif; ?>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                         </td>
                         <td>
                             <button type="button" class="button-update btn btn-primary button-edit-category"
-                                    aria-label="edit" value="{{$category["pk_category"]}}" data-toggle="tooltip"
+                                    aria-label="edit" value="<?php echo e($category["pk_category"]); ?>" data-toggle="tooltip"
                                     data-placement="top" title="Kategorie bearbeiten">
                                 <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                             </button>
                             <button type="button" class="button-delete-category btn btn-danger"
-                                    value="{{$category["pk_category"]}}" aria-label="delete" data-toggle="tooltip"
+                                    value="<?php echo e($category["pk_category"]); ?>" aria-label="delete" data-toggle="tooltip"
                                     data-placement="top" title="Kategorie löschen">
                                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                             </button>
                         </td>
                     </tr>
-                @endforeach
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
 
                 </tbody>
             </table>
         </div>
     </div>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\thek-re-2\resources\views/admin/category_index.blade.php ENDPATH**/ ?>

@@ -31,6 +31,7 @@ class VerifyCsrfToken extends Middleware
 
         'admin/createCategory',
         'admin/removeCategory',
+        'admin/getCategory',
 
         'admin/updateState',
         'admin/createThemebox',

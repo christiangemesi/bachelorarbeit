@@ -581,6 +581,14 @@ class AdminController extends Controller
         return response()->json([$themebox,$category], 200);
     }
 
+    public function getCategory(Request $request){
+        $category_Id = $request["category_id"];
+        $category = Category::find($category_Id);
+
+
+        return response()->json($category, 200);
+    }
+
     /**
      * update themebox
      * @param Request $request

@@ -22,7 +22,11 @@ $(document).ready(function () {
                 showSuccessModal("Kategorie wurde erfolgreich gelöscht");
             },
             error: function (xhr, status, error) {
-                showFailureModal("Es ist ein Fehler beim Löschen passiert", xhr);
+                if(xhr.status === 409) {
+                    showFailureModal("Kategorie konnte nicht gelöscht werden, da sie noch Themenboxen enthält", xhr)
+                } else {
+                    showFailureModal("Es ist ein Fehler beim Löschen passiert", xhr);
+                }
             }
         });
     });

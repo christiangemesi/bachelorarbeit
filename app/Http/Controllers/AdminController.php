@@ -488,11 +488,11 @@ class AdminController extends Controller
         $themeboxes = Themebox::where('fk_category', $category_id)->get();
 
         if (count($themeboxes) != 0) {
-            foreach ($themeboxes as $themebox) {
-                $themebox->forceDelete();
-            }
+            // If there are associated themeboxes, return an error response
+            return response()->json(['error' => 'Cannot delete category with associated themeboxes.'], 409);
         }
 
+        // If no associated themeboxes, proceed with deletion
         try {
             $category->forceDelete();
             return response()->json([], 200);

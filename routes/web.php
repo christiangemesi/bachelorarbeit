@@ -33,6 +33,7 @@ Route::post('/admin/resetPassword', 'AdminController@resetPassword');
 Route::get('/admin/logout', 'AdminController@logout');
 
 Route::get('/admin/categories', 'AdminController@indexCategories');
+Route::post('/admin/createCategory', 'AdminController@createCategory');
 
 Route::get('/admin/themeboxes', 'AdminController@getThemeboxes');
 Route::post('/admin/updateState','AdminController@updateThemeboxState');

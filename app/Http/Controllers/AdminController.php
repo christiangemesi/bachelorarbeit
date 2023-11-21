@@ -25,6 +25,7 @@ use ThekRe\EditMail;
 use ThekRe\PasswordResets;
 use Illuminate\Support\Facades\Mail;
 use Throwable;
+use function MongoDB\BSON\toJSON;
 
 class AdminController extends Controller
 {
@@ -241,6 +242,9 @@ class AdminController extends Controller
         if ($this->checkLogin()) {
             $themeboxes = $this->getThemeboxes();
             $categories = $this->getCategories();
+
+            error_log($themeboxes);
+            error_log($categories);
 
             return view('admin.category_index', ['themeboxes' => $themeboxes, 'categories' => $categories]);
         } else {
@@ -532,6 +536,13 @@ class AdminController extends Controller
         } catch (Exception $e) {
             return response()->json($e, 500);
         }
+    }
+
+    public function createCategory(Request $request){
+        $category = new Category();
+        $category->name = $request->category_data[0]["value"];
+        $category->save();
+        return response()->json([], 200);
     }
 
 

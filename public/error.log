@@ -1964,3 +1964,863 @@ Array
 
 )
 
+Array
+(
+    [themeboxes] => Illuminate\Database\Eloquent\Collection Object
+        (
+            [items:protected] => Array
+                (
+                    [0] => ThekRe\Themebox Object
+                        (
+                            [connection:protected] => mysql
+                            [table:protected] => tbl_themebox
+                            [primaryKey:protected] => pk_themebox
+                            [keyType:protected] => int
+                            [incrementing] => 1
+                            [with:protected] => Array
+                                (
+                                )
+
+                            [withCount:protected] => Array
+                                (
+                                )
+
+                            [preventsLazyLoading] => 
+                            [perPage:protected] => 15
+                            [exists] => 1
+                            [wasRecentlyCreated] => 
+                            [escapeWhenCastingToString:protected] => 
+                            [attributes:protected] => Array
+                                (
+                                    [pk_themebox] => 97
+                                    [title] => 1
+                                    [signatur] => 2
+                                    [schoollevel] => 3
+                                    [barcode] => 4
+                                    [size] => 5
+                                    [weight] => 6
+                                    [content] => 7
+                                    [complete] => 1
+                                    [extra_text] => <p>8</p>
+                                    [fk_category] => 1
+                                )
+
+                            [original:protected] => Array
+                                (
+                                    [pk_themebox] => 97
+                                    [title] => 1
+                                    [signatur] => 2
+                                    [schoollevel] => 3
+                                    [barcode] => 4
+                                    [size] => 5
+                                    [weight] => 6
+                                    [content] => 7
+                                    [complete] => 1
+                                    [extra_text] => <p>8</p>
+                                    [fk_category] => 1
+                                )
+
+                            [changes:protected] => Array
+                                (
+                                )
+
+                            [casts:protected] => Array
+                                (
+                                )
+
+                            [classCastCache:protected] => Array
+                                (
+                                )
+
+                            [attributeCastCache:protected] => Array
+                                (
+                                )
+
+                            [dateFormat:protected] => 
+                            [appends:protected] => Array
+                                (
+                                )
+
+                            [dispatchesEvents:protected] => Array
+                                (
+                                )
+
+                            [observables:protected] => Array
+                                (
+                                )
+
+                            [relations:protected] => Array
+                                (
+                                )
+
+                            [touches:protected] => Array
+                                (
+                                )
+
+                            [timestamps] => 
+                            [usesUniqueIds] => 
+                            [hidden:protected] => Array
+                                (
+                                )
+
+                            [visible:protected] => Array
+                                (
+                                )
+
+                            [fillable:protected] => Array
+                                (
+                                )
+
+                            [guarded:protected] => Array
+                                (
+                                    [0] => pk_themebox
+                                )
+
+                        )
+
+                )
+
+            [escapeWhenCastingToString:protected] => 
+        )
+
+    [categories] => Illuminate\Database\Eloquent\Collection Object
+        (
+            [items:protected] => Array
+                (
+                    [0] => ThekRe\Category Object
+                        (
+                            [connection:protected] => mysql
+                            [table:protected] => tbl_category
+                            [primaryKey:protected] => pk_category
+                            [keyType:protected] => int
+                            [incrementing] => 1
+                            [with:protected] => Array
+                                (
+                                )
+
+                            [withCount:protected] => Array
+                                (
+                                )
+
+                            [preventsLazyLoading] => 
+                            [perPage:protected] => 15
+                            [exists] => 1
+                            [wasRecentlyCreated] => 
+                            [escapeWhenCastingToString:protected] => 
+                            [attributes:protected] => Array
+                                (
+                                    [pk_category] => 1
+                                    [name] => Themenbox
+                                )
+
+                            [original:protected] => Array
+                                (
+                                    [pk_category] => 1
+                                    [name] => Themenbox
+                                )
+
+                            [changes:protected] => Array
+                                (
+                                )
+
+                            [casts:protected] => Array
+                                (
+                                )
+
+                            [classCastCache:protected] => Array
+                                (
+                                )
+
+                            [attributeCastCache:protected] => Array
+                                (
+                                )
+
+                            [dateFormat:protected] => 
+                            [appends:protected] => Array
+                                (
+                                )
+
+                            [dispatchesEvents:protected] => Array
+                                (
+                                )
+
+                            [observables:protected] => Array
+                                (
+                                )
+
+                            [relations:protected] => Array
+                                (
+                                )
+
+                            [touches:protected] => Array
+                                (
+                                )
+
+                            [timestamps] => 
+                            [usesUniqueIds] => 
+                            [hidden:protected] => Array
+                                (
+                                )
+
+                            [visible:protected] => Array
+                                (
+                                )
+
+                            [fillable:protected] => Array
+                                (
+                                )
+
+                            [guarded:protected] => Array
+                                (
+                                    [0] => pk_category
+                                )
+
+                        )
+
+                    [1] => ThekRe\Category Object
+                        (
+                            [connection:protected] => mysql
+                            [table:protected] => tbl_category
+                            [primaryKey:protected] => pk_category
+                            [keyType:protected] => int
+                            [incrementing] => 1
+                            [with:protected] => Array
+                                (
+                                )
+
+                            [withCount:protected] => Array
+                                (
+                                )
+
+                            [preventsLazyLoading] => 
+                            [perPage:protected] => 15
+                            [exists] => 1
+                            [wasRecentlyCreated] => 
+                            [escapeWhenCastingToString:protected] => 
+                            [attributes:protected] => Array
+                                (
+                                    [pk_category] => 2
+                                    [name] => -
+                                )
+
+                            [original:protected] => Array
+                                (
+                                    [pk_category] => 2
+                                    [name] => -
+                                )
+
+                            [changes:protected] => Array
+                                (
+                                )
+
+                            [casts:protected] => Array
+                                (
+                                )
+
+                            [classCastCache:protected] => Array
+                                (
+                                )
+
+                            [attributeCastCache:protected] => Array
+                                (
+                                )
+
+                            [dateFormat:protected] => 
+                            [appends:protected] => Array
+                                (
+                                )
+
+                            [dispatchesEvents:protected] => Array
+                                (
+                                )
+
+                            [observables:protected] => Array
+                                (
+                                )
+
+                            [relations:protected] => Array
+                                (
+                                )
+
+                            [touches:protected] => Array
+                                (
+                                )
+
+                            [timestamps] => 
+                            [usesUniqueIds] => 
+                            [hidden:protected] => Array
+                                (
+                                )
+
+                            [visible:protected] => Array
+                                (
+                                )
+
+                            [fillable:protected] => Array
+                                (
+                                )
+
+                            [guarded:protected] => Array
+                                (
+                                    [0] => pk_category
+                                )
+
+                        )
+
+                    [2] => ThekRe\Category Object
+                        (
+                            [connection:protected] => mysql
+                            [table:protected] => tbl_category
+                            [primaryKey:protected] => pk_category
+                            [keyType:protected] => int
+                            [incrementing] => 1
+                            [with:protected] => Array
+                                (
+                                )
+
+                            [withCount:protected] => Array
+                                (
+                                )
+
+                            [preventsLazyLoading] => 
+                            [perPage:protected] => 15
+                            [exists] => 1
+                            [wasRecentlyCreated] => 
+                            [escapeWhenCastingToString:protected] => 
+                            [attributes:protected] => Array
+                                (
+                                    [pk_category] => 3
+                                    [name] => Elektronisches Gerät
+                                )
+
+                            [original:protected] => Array
+                                (
+                                    [pk_category] => 3
+                                    [name] => Elektronisches Gerät
+                                )
+
+                            [changes:protected] => Array
+                                (
+                                )
+
+                            [casts:protected] => Array
+                                (
+                                )
+
+                            [classCastCache:protected] => Array
+                                (
+                                )
+
+                            [attributeCastCache:protected] => Array
+                                (
+                                )
+
+                            [dateFormat:protected] => 
+                            [appends:protected] => Array
+                                (
+                                )
+
+                            [dispatchesEvents:protected] => Array
+                                (
+                                )
+
+                            [observables:protected] => Array
+                                (
+                                )
+
+                            [relations:protected] => Array
+                                (
+                                )
+
+                            [touches:protected] => Array
+                                (
+                                )
+
+                            [timestamps] => 
+                            [usesUniqueIds] => 
+                            [hidden:protected] => Array
+                                (
+                                )
+
+                            [visible:protected] => Array
+                                (
+                                )
+
+                            [fillable:protected] => Array
+                                (
+                                )
+
+                            [guarded:protected] => Array
+                                (
+                                    [0] => pk_category
+                                )
+
+                        )
+
+                )
+
+            [escapeWhenCastingToString:protected] => 
+        )
+
+)
+
+Array
+(
+    [themeboxes] => Illuminate\Database\Eloquent\Collection Object
+        (
+            [items:protected] => Array
+                (
+                    [0] => ThekRe\Themebox Object
+                        (
+                            [connection:protected] => mysql
+                            [table:protected] => tbl_themebox
+                            [primaryKey:protected] => pk_themebox
+                            [keyType:protected] => int
+                            [incrementing] => 1
+                            [with:protected] => Array
+                                (
+                                )
+
+                            [withCount:protected] => Array
+                                (
+                                )
+
+                            [preventsLazyLoading] => 
+                            [perPage:protected] => 15
+                            [exists] => 1
+                            [wasRecentlyCreated] => 
+                            [escapeWhenCastingToString:protected] => 
+                            [attributes:protected] => Array
+                                (
+                                    [pk_themebox] => 97
+                                    [title] => 1
+                                    [signatur] => 2
+                                    [schoollevel] => 3
+                                    [barcode] => 4
+                                    [size] => 5
+                                    [weight] => 6
+                                    [content] => 7
+                                    [complete] => 1
+                                    [extra_text] => <p>8</p>
+                                    [fk_category] => 1
+                                )
+
+                            [original:protected] => Array
+                                (
+                                    [pk_themebox] => 97
+                                    [title] => 1
+                                    [signatur] => 2
+                                    [schoollevel] => 3
+                                    [barcode] => 4
+                                    [size] => 5
+                                    [weight] => 6
+                                    [content] => 7
+                                    [complete] => 1
+                                    [extra_text] => <p>8</p>
+                                    [fk_category] => 1
+                                )
+
+                            [changes:protected] => Array
+                                (
+                                )
+
+                            [casts:protected] => Array
+                                (
+                                )
+
+                            [classCastCache:protected] => Array
+                                (
+                                )
+
+                            [attributeCastCache:protected] => Array
+                                (
+                                )
+
+                            [dateFormat:protected] => 
+                            [appends:protected] => Array
+                                (
+                                )
+
+                            [dispatchesEvents:protected] => Array
+                                (
+                                )
+
+                            [observables:protected] => Array
+                                (
+                                )
+
+                            [relations:protected] => Array
+                                (
+                                )
+
+                            [touches:protected] => Array
+                                (
+                                )
+
+                            [timestamps] => 
+                            [usesUniqueIds] => 
+                            [hidden:protected] => Array
+                                (
+                                )
+
+                            [visible:protected] => Array
+                                (
+                                )
+
+                            [fillable:protected] => Array
+                                (
+                                )
+
+                            [guarded:protected] => Array
+                                (
+                                    [0] => pk_themebox
+                                )
+
+                        )
+
+                )
+
+            [escapeWhenCastingToString:protected] => 
+        )
+
+    [categories] => Illuminate\Database\Eloquent\Collection Object
+        (
+            [items:protected] => Array
+                (
+                    [0] => ThekRe\Category Object
+                        (
+                            [connection:protected] => mysql
+                            [table:protected] => tbl_category
+                            [primaryKey:protected] => pk_category
+                            [keyType:protected] => int
+                            [incrementing] => 1
+                            [with:protected] => Array
+                                (
+                                )
+
+                            [withCount:protected] => Array
+                                (
+                                )
+
+                            [preventsLazyLoading] => 
+                            [perPage:protected] => 15
+                            [exists] => 1
+                            [wasRecentlyCreated] => 
+                            [escapeWhenCastingToString:protected] => 
+                            [attributes:protected] => Array
+                                (
+                                    [pk_category] => 1
+                                    [name] => Themenbox
+                                )
+
+                            [original:protected] => Array
+                                (
+                                    [pk_category] => 1
+                                    [name] => Themenbox
+                                )
+
+                            [changes:protected] => Array
+                                (
+                                )
+
+                            [casts:protected] => Array
+                                (
+                                )
+
+                            [classCastCache:protected] => Array
+                                (
+                                )
+
+                            [attributeCastCache:protected] => Array
+                                (
+                                )
+
+                            [dateFormat:protected] => 
+                            [appends:protected] => Array
+                                (
+                                )
+
+                            [dispatchesEvents:protected] => Array
+                                (
+                                )
+
+                            [observables:protected] => Array
+                                (
+                                )
+
+                            [relations:protected] => Array
+                                (
+                                )
+
+                            [touches:protected] => Array
+                                (
+                                )
+
+                            [timestamps] => 
+                            [usesUniqueIds] => 
+                            [hidden:protected] => Array
+                                (
+                                )
+
+                            [visible:protected] => Array
+                                (
+                                )
+
+                            [fillable:protected] => Array
+                                (
+                                )
+
+                            [guarded:protected] => Array
+                                (
+                                    [0] => pk_category
+                                )
+
+                        )
+
+                    [1] => ThekRe\Category Object
+                        (
+                            [connection:protected] => mysql
+                            [table:protected] => tbl_category
+                            [primaryKey:protected] => pk_category
+                            [keyType:protected] => int
+                            [incrementing] => 1
+                            [with:protected] => Array
+                                (
+                                )
+
+                            [withCount:protected] => Array
+                                (
+                                )
+
+                            [preventsLazyLoading] => 
+                            [perPage:protected] => 15
+                            [exists] => 1
+                            [wasRecentlyCreated] => 
+                            [escapeWhenCastingToString:protected] => 
+                            [attributes:protected] => Array
+                                (
+                                    [pk_category] => 2
+                                    [name] => -
+                                )
+
+                            [original:protected] => Array
+                                (
+                                    [pk_category] => 2
+                                    [name] => -
+                                )
+
+                            [changes:protected] => Array
+                                (
+                                )
+
+                            [casts:protected] => Array
+                                (
+                                )
+
+                            [classCastCache:protected] => Array
+                                (
+                                )
+
+                            [attributeCastCache:protected] => Array
+                                (
+                                )
+
+                            [dateFormat:protected] => 
+                            [appends:protected] => Array
+                                (
+                                )
+
+                            [dispatchesEvents:protected] => Array
+                                (
+                                )
+
+                            [observables:protected] => Array
+                                (
+                                )
+
+                            [relations:protected] => Array
+                                (
+                                )
+
+                            [touches:protected] => Array
+                                (
+                                )
+
+                            [timestamps] => 
+                            [usesUniqueIds] => 
+                            [hidden:protected] => Array
+                                (
+                                )
+
+                            [visible:protected] => Array
+                                (
+                                )
+
+                            [fillable:protected] => Array
+                                (
+                                )
+
+                            [guarded:protected] => Array
+                                (
+                                    [0] => pk_category
+                                )
+
+                        )
+
+                    [2] => ThekRe\Category Object
+                        (
+                            [connection:protected] => mysql
+                            [table:protected] => tbl_category
+                            [primaryKey:protected] => pk_category
+                            [keyType:protected] => int
+                            [incrementing] => 1
+                            [with:protected] => Array
+                                (
+                                )
+
+                            [withCount:protected] => Array
+                                (
+                                )
+
+                            [preventsLazyLoading] => 
+                            [perPage:protected] => 15
+                            [exists] => 1
+                            [wasRecentlyCreated] => 
+                            [escapeWhenCastingToString:protected] => 
+                            [attributes:protected] => Array
+                                (
+                                    [pk_category] => 3
+                                    [name] => Elektronisches Gerät
+                                )
+
+                            [original:protected] => Array
+                                (
+                                    [pk_category] => 3
+                                    [name] => Elektronisches Gerät
+                                )
+
+                            [changes:protected] => Array
+                                (
+                                )
+
+                            [casts:protected] => Array
+                                (
+                                )
+
+                            [classCastCache:protected] => Array
+                                (
+                                )
+
+                            [attributeCastCache:protected] => Array
+                                (
+                                )
+
+                            [dateFormat:protected] => 
+                            [appends:protected] => Array
+                                (
+                                )
+
+                            [dispatchesEvents:protected] => Array
+                                (
+                                )
+
+                            [observables:protected] => Array
+                                (
+                                )
+
+                            [relations:protected] => Array
+                                (
+                                )
+
+                            [touches:protected] => Array
+                                (
+                                )
+
+                            [timestamps] => 
+                            [usesUniqueIds] => 
+                            [hidden:protected] => Array
+                                (
+                                )
+
+                            [visible:protected] => Array
+                                (
+                                )
+
+                            [fillable:protected] => Array
+                                (
+                                )
+
+                            [guarded:protected] => Array
+                                (
+                                    [0] => pk_category
+                                )
+
+                        )
+
+                )
+
+            [escapeWhenCastingToString:protected] => 
+        )
+
+)
+
+Array
+(
+    [0] => Array
+        (
+            [name] => name
+            [value] => Bienen
+        )
+
+    [1] => Array
+        (
+            [name] => signature
+            [value] => d
+        )
+
+    [2] => Array
+        (
+            [name] => schoollevel
+            [value] => d
+        )
+
+    [3] => Array
+        (
+            [name] => barcode
+            [value] => d
+        )
+
+    [4] => Array
+        (
+            [name] => size
+            [value] => d
+        )
+
+    [5] => Array
+        (
+            [name] => weight
+            [value] => 2
+        )
+
+    [6] => Array
+        (
+            [name] => category
+            [value] => 1
+        )
+
+    [7] => Array
+        (
+            [name] => content
+            [value] => 2
+        )
+
+    [8] => Array
+        (
+            [name] => extra_text_create
+            [value] => <p><br></p>
+        )
+
+)
+
+
+

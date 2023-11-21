@@ -243,9 +243,6 @@ class AdminController extends Controller
             $themeboxes = $this->getThemeboxes();
             $categories = $this->getCategories();
 
-            error_log($themeboxes);
-            error_log($categories);
-
             return view('admin.category_index', ['themeboxes' => $themeboxes, 'categories' => $categories]);
         } else {
             return view('admin.login_form');
@@ -461,6 +458,8 @@ class AdminController extends Controller
      */
     public function removeThemebox(Request $request)
     {
+
+        Throw new Exception("Test");
         $themebox_id = $request->themebox_id;
         $themebox = Themebox::find($themebox_id);
 
@@ -489,10 +488,9 @@ class AdminController extends Controller
 
         if (count($themeboxes) != 0) {
             // If there are associated themeboxes, return an error response
-            return response()->json(['error' => 'Cannot delete category with associated themeboxes.'], 409);
+            return response()->json(["message" => "Cannot delete category with associated themeboxes."], 409);
         }
 
-        // If no associated themeboxes, proceed with deletion
         try {
             $category->forceDelete();
             return response()->json([], 200);
@@ -629,9 +627,6 @@ class AdminController extends Controller
         try {
             $category_id = $request->category_data[0]["value"];
             $category_name = $request->category_data[1]["value"];
-
-            error_log($category_id);
-            error_log($category_name);
 
             Category::find($category_id)->update(
                 ['name' => $category_name]

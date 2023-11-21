@@ -31,6 +31,7 @@ function showFailureModal(msg, xhr) {
     $('#modal-delete-themebox-warning').css('display', 'none');
     $('#modal-delete-blocked-period-warning').css('display', 'none');
     $('#modal-edit-mail-modal').css('display', 'none');
+    $('#modal-delete-category-warning').css('display', 'none');
 }
 
 function refresh() {

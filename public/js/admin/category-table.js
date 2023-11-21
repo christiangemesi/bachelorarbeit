@@ -22,6 +22,7 @@ $(document).ready(function () {
                 showSuccessModal("Kategorie wurde erfolgreich gelöscht");
             },
             error: function (xhr, status, error) {
+                console.log(xhr)
                 if(xhr.status === 409) {
                     showFailureModal("Kategorie konnte nicht gelöscht werden, da sie noch Themenboxen enthält", xhr)
                 } else {
@@ -33,7 +34,7 @@ $(document).ready(function () {
 
 
     /**
-     * show create themebox modal
+     * show create category modal
      */
     $("#button-create-category").click(function () {
 
@@ -81,8 +82,6 @@ $(document).ready(function () {
     $(".button-edit-category").click(function () {
         var categoryId = $(this).val();
 
-        console.log(categoryId);
-
         // Set the category_id in the hidden input field
         $("#category_id").val(categoryId);
 
@@ -94,9 +93,6 @@ $(document).ready(function () {
             data: { category_id: categoryId },
             success: function (response) {
                 $("#category-edit-form-name").val(response["name"]);
-
-                console.log(response);
-
                 checkCategoryForm('category-edit-form-name', 'category-edit-form-name-status', 'category-edit-form-name-icon');
             },
             error: function (xhr, status, error) {
@@ -133,8 +129,15 @@ $(document).ready(function () {
         $('#callback-modal').modal('show');
         $('#modal-content-failure').css('display', 'none');
         $('#modal-content-success').css('display', 'none');
-        //$('#modal-delete-category-warning').css('display', 'block');
+        $('#modal-delete-category-warning').css('display', 'block');
     }
+
+    /**
+     * show callback error text
+     */
+    $("#modal-failure-message-show").click(function () {
+        $(".modal-content-failure-message-background").slideToggle("slow");
+    });
 
     /**
      * refresh page after modal close

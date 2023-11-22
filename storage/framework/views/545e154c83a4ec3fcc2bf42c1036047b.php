@@ -50,14 +50,14 @@
                                         </div>
 
                                         <div class="filter">
-                                            <select id="dropdown1" class="form-control" onchange="updateText('dropdown1', 'selectedText1')">
+                                            <select id="dropdown1" class="form-control" onchange="updateSelectionList('dropdown1', 'selectedText1')">
                                                 <option value="" disabled selected hidden>Kategorie</option>
                                                 <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                     <option value="<?php echo e($category->id); ?>"><?php echo e($category->name); ?></option>
                                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                             </select>
 
-                                            <select id="dropdown2" class="form-control" onchange="updateText('dropdown2', 'selectedText2')">
+                                            <select id="dropdown2" class="form-control" onchange="updateSelectionList('dropdown2', 'selectedText2')">
                                                 <option value="" disabled selected hidden>Schulklasse</option>
                                                 <?php $__currentLoopData = $schulklassen; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $schulklasse): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                     <option value="<?php echo e($schulklasse->schoollevel); ?>"><?php echo e($schulklasse->schoollevel); ?></option>

@@ -50,14 +50,14 @@
                                         </div>
 
                                         <div class="filter">
-                                            <select id="dropdown1" class="form-control" onchange="updateText('dropdown1', 'selectedText1')">
+                                            <select id="dropdown1" class="form-control" onchange="updateSelectionList('dropdown1', 'selectedText1')">
                                                 <option value="" disabled selected hidden>Kategorie</option>
                                                 @foreach ($categories as $category)
                                                     <option value="{{ $category->id }}">{{ $category->name }}</option>
                                                 @endforeach
                                             </select>
 
-                                            <select id="dropdown2" class="form-control" onchange="updateText('dropdown2', 'selectedText2')">
+                                            <select id="dropdown2" class="form-control" onchange="updateSelectionList('dropdown2', 'selectedText2')">
                                                 <option value="" disabled selected hidden>Schulklasse</option>
                                                 @foreach ($schulklassen as $schulklasse)
                                                     <option value="{{ $schulklasse->schoollevel }}">{{ $schulklasse->schoollevel }}</option>

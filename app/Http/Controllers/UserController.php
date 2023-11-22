@@ -211,7 +211,10 @@ class UserController extends Controller
             $view = 'user.mail_delivery_school';
         } else {
 
+            error_log("delivery_type: " . $delivery_type);
+
             $mail = EditMail::find(1);
+            error_log("mail: " . $mail);
             $html_db = $mail->mail_text;
 
             $html_replaced = str_replace("!titel!", $mail_data['title'], $html_db);

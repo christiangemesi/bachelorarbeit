@@ -229,7 +229,7 @@ class AdminController extends Controller
     {
         if ($this->checkLogin()) {
             $themeboxes = $this->getThemeboxes();
-            $categories = $this->getCategories(); // Assuming you have a getCategories function
+            $categories = $this->getCategories();
 
             return view('admin.themebox_index', ['themeboxes' => $themeboxes, 'categories' => $categories]);
         } else {
@@ -394,7 +394,7 @@ class AdminController extends Controller
 
     public function getCategories()
     {
-        $categories = Category::all(); // Assuming 'Category' is the model for your categories
+        $categories = Category::all();
         return $categories;
     }
 
@@ -459,7 +459,6 @@ class AdminController extends Controller
     public function removeThemebox(Request $request)
     {
 
-        Throw new Exception("Test");
         $themebox_id = $request->themebox_id;
         $themebox = Themebox::find($themebox_id);
 

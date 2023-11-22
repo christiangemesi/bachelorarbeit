@@ -582,7 +582,6 @@ class AdminController extends Controller
         $category_Id = $request["category_id"];
         $category = Category::find($category_Id);
 
-
         return response()->json($category, 200);
     }
 

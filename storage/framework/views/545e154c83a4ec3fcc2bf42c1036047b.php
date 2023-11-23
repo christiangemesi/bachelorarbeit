@@ -55,10 +55,17 @@
                                                     <option value="<?php echo e($category->id); ?>" data-category="<?php echo e($category); ?>"><?php echo e($category->name); ?></option>
                                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                             </select>
-                                            <button type="button" id="resetFilterBtn">X</button>
+
+                                            <select id="dropdown2" class="form-control" onchange="updateSelectionList('dropdown2', 'selectedText2')">
+                                                <option value="" disabled selected hidden>Schulklasse</option>
+                                                <?php $__currentLoopData = $schulklassen; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $schulklasse): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                    <option value="<?php echo e($schulklasse->schoollevel); ?>"><?php echo e($schulklasse->schoollevel); ?></option>
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                            </select>
+
+                                            <button type="button" id="resetCategoryFilterBtn">Filter Zurücksetzen</button>
                                         </div>
-
-
+                                        
                                         <div class="list-group thekre-list">
                                             <ul id="themebox-list-ul">
                                                 <?php $__currentLoopData = $themeboxes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $themebox): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -177,7 +184,7 @@
                                             <input name="phone" type="text" class="form-control" id="phone" maxlength="40" placeholder="0629231323" onblur="phoneValidate()"/>
                                             <span id="phoneIcon" aria-hidden="true"></span>
                                             <span id="phoneInputStatus" class="errorHeader">Telefonnummer wird benötigt!</span>
-                                        </div>                          
+                                        </div>
                                         <div class="form-group has-success has-feedback">
                                             <label class="form-control-label" for="nebisusernumber">Bibliotheksausweisnummer</label>
                                             <input name="nebisusernumber" type="text" class="form-control" id="nebisusernumber" maxlength="40" placeholder="S98134827348"/>

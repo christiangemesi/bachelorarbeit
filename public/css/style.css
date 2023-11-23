@@ -536,6 +536,14 @@ h2{
     margin-left: 25px;
 }
 
+.filter {
+    display: flex;
+    margin: 25px 25px 25px 25px;
+}
+
+
+
+
 .btn-create-blocked-period{
     margin-left: 25px;
 }

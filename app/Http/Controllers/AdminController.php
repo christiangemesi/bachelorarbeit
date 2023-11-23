@@ -389,12 +389,14 @@ class AdminController extends Controller
     public function getThemeboxes()
     {
         $themeboxes = Themebox::get();
+        $themeboxes = $themeboxes->sortBy('title');
         return $themeboxes;
     }
 
     public function getCategories()
     {
         $categories = Category::all();
+        $categories = $categories->sortBy('name');
         return $categories;
     }
 

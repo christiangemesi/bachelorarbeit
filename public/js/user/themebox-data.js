@@ -266,7 +266,7 @@ $(document).ready(function () {
         });
     }
 
-    $("#resetFilterBtn").on("click", function () {
+    $("#resetCategoryFilterBtn").on("click", function () {
         // Reset the dropdown to its initial state
         $("#dropdown1").val("");
 

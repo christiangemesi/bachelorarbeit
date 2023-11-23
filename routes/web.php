@@ -90,6 +90,8 @@ Route::post('/user/login', 'UserController@login');
 Route::get('/user/loginForm', 'UserController@loginForm');
 Route::post('/user/updateOrderDates', 'UserController@updateOrderDates');
 Route::post('/user/getBlockedPeriods', 'UserController@getBlockedPeriods');
+Route::post('/user/getThemeboxesByCategory', 'UserController@getThemeboxesByCategory');
+
 
 
 

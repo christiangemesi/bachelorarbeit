@@ -7,7 +7,6 @@
     <script src="<?php echo e(asset('js/calendar/moment.min.js')); ?>"></script>
     <script src="<?php echo e(asset('js/user/order-form.js')); ?>"></script>
     <script src="<?php echo e(asset('js/user/login.js')); ?>"></script>
-    <script src="<?php echo e(asset('js/user/filter.js')); ?>"></script>
     <link rel="stylesheet" href="<?php echo e(asset('css/calendar/fullcalendar.css')); ?>">
     <script src="<?php echo e(asset('js/calendar/fullcalendar.js')); ?>"></script>
     <script src="<?php echo e(asset('js/calendar/de-ch.js')); ?>"></script>
@@ -50,21 +49,14 @@
                                         </div>
 
                                         <div class="filter">
-                                            <select id="dropdown1" class="form-control" onchange="updateSelectionList('dropdown1', 'selectedText1')">
+                                            <select id="dropdown1" class="form-control" onchange="updateSelectionListFromCategory(this)">
                                                 <option value="" disabled selected hidden>Kategorie</option>
                                                 <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                    <option value="<?php echo e($category->id); ?>"><?php echo e($category->name); ?></option>
+                                                    <option value="<?php echo e($category->id); ?>" data-category="<?php echo e($category); ?>"><?php echo e($category->name); ?></option>
                                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                             </select>
-
-                                            <select id="dropdown2" class="form-control" onchange="updateSelectionList('dropdown2', 'selectedText2')">
-                                                <option value="" disabled selected hidden>Schulklasse</option>
-                                                <?php $__currentLoopData = $schulklassen; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $schulklasse): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                    <option value="<?php echo e($schulklasse->schoollevel); ?>"><?php echo e($schulklasse->schoollevel); ?></option>
-                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                            </select>
-
                                         </div>
+
 
                                         <div class="list-group thekre-list">
                                             <ul id="themebox-list-ul">

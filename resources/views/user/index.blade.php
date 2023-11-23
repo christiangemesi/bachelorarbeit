@@ -7,7 +7,6 @@
     <script src="{{ asset('js/calendar/moment.min.js') }}"></script>
     <script src="{{ asset('js/user/order-form.js') }}"></script>
     <script src="{{asset('js/user/login.js')}}"></script>
-    <script src="{{asset('js/user/filter.js')}}"></script>
     <link rel="stylesheet" href="{{ asset('css/calendar/fullcalendar.css') }}">
     <script src="{{ asset('js/calendar/fullcalendar.js') }}"></script>
     <script src="{{ asset('js/calendar/de-ch.js') }}"></script>
@@ -50,21 +49,14 @@
                                         </div>
 
                                         <div class="filter">
-                                            <select id="dropdown1" class="form-control" onchange="updateSelectionList('dropdown1', 'selectedText1')">
+                                            <select id="dropdown1" class="form-control" onchange="updateSelectionListFromCategory(this)">
                                                 <option value="" disabled selected hidden>Kategorie</option>
                                                 @foreach ($categories as $category)
-                                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                                    <option value="{{ $category->id }}" data-category="{{ $category }}">{{ $category->name }}</option>
                                                 @endforeach
                                             </select>
-
-                                            <select id="dropdown2" class="form-control" onchange="updateSelectionList('dropdown2', 'selectedText2')">
-                                                <option value="" disabled selected hidden>Schulklasse</option>
-                                                @foreach ($schulklassen as $schulklasse)
-                                                    <option value="{{ $schulklasse->schoollevel }}">{{ $schulklasse->schoollevel }}</option>
-                                                @endforeach
-                                            </select>
-
                                         </div>
+
 
                                         <div class="list-group thekre-list">
                                             <ul id="themebox-list-ul">

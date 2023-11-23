@@ -51,6 +51,20 @@ class UserController extends Controller
         return $schulklassen;
     }
 
+    public function getThemeboxesByCategory(Request $request)
+    {
+
+        $selectedCategory = json_decode($request->selectedCategoryData, true);
+        $categoryID = $selectedCategory['pk_category'];
+
+        // Assuming fk_category is the column in the Themebox model that represents the category relationship
+        $themeboxes = Themebox::where('fk_category', $categoryID)->get();
+        error_log("themeboxes: " . $themeboxes);
+
+        return response()->json(['themeboxes' => $themeboxes], 200);
+    }
+
+
     /**
      * get themebox data from selected themebox
      * @param Request $request

@@ -123,6 +123,11 @@ $(document).ready(function () {
         });
     });
 
+    // Update the themebox list when the category is changed
+    $("#dropdown1").change(function() {
+        updateSelectionListFromCategory(this);
+    });
+
 
     /**
      * order calendar
@@ -259,6 +264,49 @@ $(document).ready(function () {
             }
         });
     }
+
+    function updateSelectionListFromCategory(selectElement) {
+        let selectedCategoryData = selectElement.options[selectElement.selectedIndex].getAttribute('data-category');
+
+        // Make an Ajax request to get the list of themeboxes for the selected category
+        $.ajax({
+            type: "POST",
+            url: "./user/getThemeboxesByCategory",
+            data: {
+                selectedCategoryData: selectedCategoryData
+            },
+            success: function(response) {
+                console.log(response);
+                // Assuming response.themeboxes contains the updated list of themeboxes
+                let themeboxesList = response.themeboxes;
+                console.log(themeboxesList)
+
+                // Clear the existing themebox list
+                $("#themebox-list-ul").empty();
+
+                // Append the new themeboxes to the list
+                themeboxesList.forEach(function(themebox) {
+                    $("#themebox-list-ul").append('<li><a href="#" class="list-group-item list-group-item-action themebox-list" id="' + themebox.pk_themebox + '">' + themebox.title + '</a></li>');
+                });
+
+                // clear the themebox info box
+                $("#themebox-infobox").empty();
+
+                // on click of the themebox list item, load the themebox info box
+                $(".themebox-list").each(function () {
+                    $(this).on("click", function () {
+                        loadThemeboxInfoBox($(this).attr("id"))
+                    });
+                });
+
+
+            },
+            error: function(error) {
+                console.error("Error fetching themeboxes:", error);
+            }
+        });
+    }
+
 
     $(".fc-corner-right").click(function () {
         blockNextFiveSundaysInCalendar();

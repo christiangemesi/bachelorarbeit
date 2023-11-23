@@ -1,5 +1,0 @@
-function updateSelectionList(dropdownId, displayId) {
-
-
-
-}

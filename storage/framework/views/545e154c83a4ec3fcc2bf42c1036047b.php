@@ -55,6 +55,7 @@
                                                     <option value="<?php echo e($category->id); ?>" data-category="<?php echo e($category); ?>"><?php echo e($category->name); ?></option>
                                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                             </select>
+                                            <button type="button" id="resetFilterBtn">X</button>
                                         </div>
 
 
@@ -67,6 +68,9 @@
                                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                             </ul>
                                         </div>
+
+
+
                                     </div>
 
                                     <div class="col-md-8">

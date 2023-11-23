@@ -80,6 +80,7 @@ Route::post('/poweruser/updateState', 'PowerUserController@updateThemeboxState')
 
 
 
+
 Route::get('/user', 'UserController@index');
 Route::post('/user/getThemebox','UserController@getThemebox');
 Route::post('/user/getThemeboxContent','UserController@getThemeboxContent');
@@ -91,6 +92,7 @@ Route::get('/user/loginForm', 'UserController@loginForm');
 Route::post('/user/updateOrderDates', 'UserController@updateOrderDates');
 Route::post('/user/getBlockedPeriods', 'UserController@getBlockedPeriods');
 Route::post('/user/getThemeboxesByCategory', 'UserController@getThemeboxesByCategory');
+Route::get('/user/getAllThemeboxes', 'UserController@getAllThemeboxes');
 
 
 

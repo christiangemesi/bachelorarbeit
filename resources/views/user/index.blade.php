@@ -55,6 +55,7 @@
                                                     <option value="{{ $category->id }}" data-category="{{ $category }}">{{ $category->name }}</option>
                                                 @endforeach
                                             </select>
+                                            <button type="button" id="resetFilterBtn">X</button>
                                         </div>
 
 
@@ -67,6 +68,9 @@
                                                 @endforeach
                                             </ul>
                                         </div>
+
+
+
                                     </div>
 
                                     <div class="col-md-8">

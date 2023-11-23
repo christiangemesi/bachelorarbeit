@@ -197,6 +197,10 @@ CREATE TABLE `tbl_themebox`
     `extra_text`  text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
+
+
+
+
 --
 -- Indizes der exportierten Tabellen
 --

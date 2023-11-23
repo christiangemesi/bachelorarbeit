@@ -129,6 +129,7 @@ $(document).ready(function () {
     });
 
 
+
     /**
      * order calendar
      */
@@ -264,6 +265,45 @@ $(document).ready(function () {
             }
         });
     }
+
+    $("#resetFilterBtn").on("click", function () {
+        // Reset the dropdown to its initial state
+        $("#dropdown1").val("");
+
+        // Reset the themebox list to its initial state
+        $.ajax({
+            type: "GET",
+            url: "./user/getAllThemeboxes",
+            success: function(response) {
+                console.log(response);
+
+                // Load all themeboxes into the list
+                let themeboxesList = response; // Assuming the response contains the list of themeboxes
+                console.log(themeboxesList);
+
+                // Clear the existing themebox list
+                $("#themebox-list-ul").empty();
+
+                // Append the new themeboxes to the list
+                themeboxesList.forEach(function(themebox) {
+                    $("#themebox-list-ul").append('<li><a href="#" class="list-group-item list-group-item-action themebox-list" id="' + themebox.pk_themebox + '">' + themebox.title + '</a></li>');
+                });
+
+                // Clear the themebox info box
+                $("#themebox-infobox").empty();
+
+                // On click of the themebox list item, load the themebox info box
+                $(".themebox-list").each(function () {
+                    $(this).on("click", function () {
+                        loadThemeboxInfoBox($(this).attr("id"));
+                    });
+                });
+            },
+            error: function(error) {
+                console.error("Error fetching themeboxes:", error);
+            }
+        });
+    });
 
     function updateSelectionListFromCategory(selectElement) {
         let selectedCategoryData = selectElement.options[selectElement.selectedIndex].getAttribute('data-category');

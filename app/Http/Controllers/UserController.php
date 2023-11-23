@@ -38,6 +38,14 @@ class UserController extends Controller
         ]);
     }
 
+    public function getAllThemeboxes()
+    {
+        $themeboxes = Themebox::orderBy('title', 'asc')->get();
+
+        return response()->json($themeboxes, 200);
+    }
+
+
     // get all the Schulklassen (select distinct from themebox)
     public function getAllSchoolLevel()
     {

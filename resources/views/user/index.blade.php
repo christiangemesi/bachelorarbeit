@@ -11,6 +11,11 @@
     <script src="{{ asset('js/calendar/fullcalendar.js') }}"></script>
     <script src="{{ asset('js/calendar/de-ch.js') }}"></script>
     <script src="{{ asset('js/calendar/add-first-block.js') }}"></script>
+   <link rel="stylesheet" href="{{ asset('css/filter.css') }}">
+    <script src="{{ asset('js/user/filter.js') }}"></script>
+
+
+
 
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -49,21 +54,21 @@
                                         </div>
 
                                         <div class="filter">
-                                            <select id="dropdown1" class="form-control" onchange="updateSelectionListFromCategory(this)">
+                                            <select id="dropdown1" class="form-control custom-height" onchange="updateSelectionListFromCategory(this)">
                                                 <option value="" disabled selected hidden>Kategorie</option>
                                                 @foreach ($categories as $category)
                                                     <option value="{{ $category->id }}" data-category="{{ $category }}">{{ $category->name }}</option>
                                                 @endforeach
                                             </select>
 
-                                            <select id="dropdown2" class="form-control" onchange="updateSelectionList('dropdown2', 'selectedText2')">
+                                            <select id="dropdown2" class="form-control custom-height" multiple="multiple">
                                                 <option value="" disabled selected hidden>Schulklasse</option>
                                                 @foreach ($schulklassen as $schulklasse)
                                                     <option value="{{ $schulklasse->schoollevel }}">{{ $schulklasse->schoollevel }}</option>
                                                 @endforeach
                                             </select>
 
-                                            <button type="button" id="resetCategoryFilterBtn">Filter Zurücksetzen</button>
+                                            <button type="button" id="resetCategoryFilterBtn" class="btn btn-default custom-height">Filter Zurücksetzen</button>
                                         </div>
 
                                         <div class="list-group thekre-list">

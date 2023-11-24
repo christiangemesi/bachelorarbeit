@@ -314,7 +314,7 @@
 
     <div class="col-md-12 admin-panel data-table-thekre">
         <h1 class="admin-header">Themenkisten</h1>
-        <div class="row">
+        <div class="row" style="display: none;">
             <button type="button" class="btn btn-success btn-create-themebox" id="button-create-themebox"><span class="glyphicon glyphicon-plus"></span> Themenkiste erstellen</button>
         </div>
         <div class="panel panel-default no-border" id="table-content">
@@ -329,7 +329,7 @@
                     <th>Gewicht</th>
                     <th>Kategorie</th>
                     <th>Vollständig</th>
-                    <th class="edit-column-width"></th>
+                    <th class="edit-column-width" style="display: none;"></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -367,7 +367,7 @@
                                 Nein
                             @endif
                         </td>
-                        <td>
+                        <td style="display: none;">
                             <button type="button" class="button-update btn btn-primary button-edit-themebox" aria-label="edit"  value="{{$themebox["pk_themebox"]}}" data-toggle="tooltip" data-placement="top" title="Themenkiste bearbeiten">
                                 <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                             </button>

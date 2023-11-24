@@ -336,8 +336,6 @@ $(document).ready(function () {
                 $("#themebox-infobox").empty();
                 // clear themebox-order-info-title
                 $("#themebox-order-info-title").empty();
-                // clear the themebox-infobox-select-date-container
-                $("#themebox-infobox-select-date-container").empty();
                 // clear calendar-view
                 $("#calendar").fullCalendar( "removeEvents");
 

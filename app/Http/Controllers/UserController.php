@@ -25,7 +25,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $themeboxes = Themebox::orderBy('title')->get();
+
+        $themeboxes = Themebox::all();
         $deliveries = Delivery::all();
         $categories = Category::all();
         $schoollevel = $this->getAllSchoolLevel();
@@ -40,7 +41,7 @@ class UserController extends Controller
 
     public function getAllThemeboxes()
     {
-        $themeboxes = Themebox::orderBy('title', 'asc')->get();
+        $themeboxes = Themebox::all();
 
         return response()->json($themeboxes, 200);
     }
@@ -49,11 +50,10 @@ class UserController extends Controller
     // get all the Schulklassen (select distinct from themebox)
     public function getAllSchoolLevel()
     {
-        // Select all schoollevel from themebox
-        $schulklassen = Themebox::select('schoollevel')->distinct()->get();
+        // Select all schoollevel from themebox in alphabetical order
+        $schulklassen = Themebox::select('schoollevel')->distinct()->orderBy('schoollevel', 'asc')->get();
 
         foreach ($schulklassen as $schulklasse) {
-            error_log("schoollevel: " . $schulklasse->schoollevel);
         }
 
         return $schulklassen;
@@ -67,7 +67,6 @@ class UserController extends Controller
 
         // Assuming fk_category is the column in the Themebox model that represents the category relationship
         $themeboxes = Themebox::where('fk_category', $categoryID)->get();
-        error_log("themeboxes: " . $themeboxes);
 
         return response()->json(['themeboxes' => $themeboxes], 200);
     }
@@ -80,7 +79,7 @@ class UserController extends Controller
      */
     public function getThemebox(Request $request)
     {
-        error_log("getThemebox");
+
         $themebox_Id = $request["themeboxId"];
         $themebox = Themebox::find($themebox_Id);
 

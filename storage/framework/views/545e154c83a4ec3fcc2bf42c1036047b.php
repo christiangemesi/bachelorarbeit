@@ -65,7 +65,7 @@
 
                                             <button type="button" id="resetCategoryFilterBtn">Filter Zurücksetzen</button>
                                         </div>
-                                        
+
                                         <div class="list-group thekre-list">
                                             <ul id="themebox-list-ul">
                                                 <?php $__currentLoopData = $themeboxes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $themebox): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -75,9 +75,6 @@
                                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                             </ul>
                                         </div>
-
-
-
                                     </div>
 
                                     <div class="col-md-8">

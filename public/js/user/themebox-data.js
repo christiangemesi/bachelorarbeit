@@ -14,11 +14,6 @@ $(document).ready(function () {
     var dayToCalculateNextSundays = getNextDayOfWeek(new Date, 7);
     var dayToCalculatePreviousSundays = getNextDayOfWeek(new Date, 7);
 
-    /**
-     * variable needs to be set correspondently to the url
-     */
-    // var unique_url = "themenkisten/";
-
 
     loadThemeboxInfoBox($(".themebox-list").first().attr('id')); //load themebox data from the first list element
     $(".themebox-list")[0].focus(); //set focus to the first list element
@@ -113,6 +108,7 @@ $(document).ready(function () {
         updateProgressBar(carousel_counter);
         checkValidation(0);
     });
+
 
     /**
      * load themebox data on list click
@@ -283,21 +279,30 @@ $(document).ready(function () {
 
                 // Clear the existing themebox list
                 $("#themebox-list-ul").empty();
+                // Clear the themebox info box
+                $("#themebox-infobox").empty();
+                // Clear the themebox search field
 
                 // Append the new themeboxes to the list
                 themeboxesList.forEach(function(themebox) {
                     $("#themebox-list-ul").append('<li><a href="#" class="list-group-item list-group-item-action themebox-list" id="' + themebox.pk_themebox + '">' + themebox.title + '</a></li>');
                 });
 
-                // Clear the themebox info box
-                $("#themebox-infobox").empty();
-
                 // On click of the themebox list item, load the themebox info box
                 $(".themebox-list").each(function () {
                     $(this).on("click", function () {
+                        $(".themebox-list.active").removeClass("active"); // Remove active class from all list items
+                        $(this).addClass("active"); // Add active class to the clicked list item
                         loadThemeboxInfoBox($(this).attr("id"));
                     });
                 });
+
+                // After updating the themebox list, reapply the "active" class
+                $(".themebox-list.active").removeClass("active"); // Remove active class from all list items
+                $(".themebox-list").first().addClass("active"); // Add active class to the first list item
+                loadThemeboxInfoBox($(".themebox-list").first().attr('id')); // Load themebox data from the first list element
+                $(".themebox-list")[0].focus(); // Set focus to the first list element
+
             },
             error: function(error) {
                 console.error("Error fetching themeboxes:", error);
@@ -317,9 +322,7 @@ $(document).ready(function () {
             },
             success: function(response) {
                 console.log(response);
-                // Assuming response.themeboxes contains the updated list of themeboxes
                 let themeboxesList = response.themeboxes;
-                console.log(themeboxesList)
 
                 // Clear the existing themebox list
                 $("#themebox-list-ul").empty();
@@ -331,14 +334,27 @@ $(document).ready(function () {
 
                 // clear the themebox info box
                 $("#themebox-infobox").empty();
+                // clear themebox-order-info-title
+                $("#themebox-order-info-title").empty();
+                // clear the themebox-infobox-select-date-container
+                $("#themebox-infobox-select-date-container").empty();
+                // clear calendar-view
+                $("#calendar").fullCalendar( "removeEvents");
 
                 // on click of the themebox list item, load the themebox info box
                 $(".themebox-list").each(function () {
                     $(this).on("click", function () {
-                        loadThemeboxInfoBox($(this).attr("id"))
+                        $(".themebox-list.active").removeClass("active"); // Remove active class from all list items
+                        $(this).addClass("active"); // Add active class to the clicked list item
+                        loadThemeboxInfoBox($(this).attr("id"));
                     });
                 });
 
+                // After updating the themebox list, reapply the "active" class
+                $(".themebox-list.active").removeClass("active"); // Remove active class from all list items
+                $(".themebox-list").first().addClass("active"); // Add active class to the first list item
+                loadThemeboxInfoBox($(".themebox-list").first().attr('id')); // Load themebox data from the first list element
+                $(".themebox-list")[0].focus(); // Set focus to the first list element
 
             },
             error: function(error) {
@@ -346,6 +362,8 @@ $(document).ready(function () {
             }
         });
     }
+
+
 
 
     $(".fc-corner-right").click(function () {

@@ -1,0 +1,1 @@
+<?php echo $html; ?><?php /**PATH C:\xampp\htdocs\thek-re-2\resources\views/user/mail_delivery_pickup.blade.php ENDPATH**/ ?>

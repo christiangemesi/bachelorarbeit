@@ -61,12 +61,28 @@ class UserController extends Controller
 
     public function getThemeboxesByCategory(Request $request)
     {
-
+        // Decode the selected category data
         $selectedCategory = json_decode($request->selectedCategoryData, true);
-        $categoryID = $selectedCategory['pk_category'];
+        $categoryID = !empty($selectedCategory) ? $selectedCategory['pk_category'] : null;
 
-        // Assuming fk_category is the column in the Themebox model that represents the category relationship
-        $themeboxes = Themebox::where('fk_category', $categoryID)->get();
+        // Get an array of selected school levels
+        $selectedSchoolLevels = !empty($request->selectedSchoolLevels) ? explode(",", $request->selectedSchoolLevels) : [];
+
+        // Start building the query
+        $query = Themebox::query();
+
+        // Apply category filter if available
+        if (!is_null($categoryID)) {
+            $query->where('fk_category', $categoryID);
+        }
+
+        // Apply school level filter if available
+        if (!empty($selectedSchoolLevels)) {
+            $query->whereIn('schoollevel', $selectedSchoolLevels);
+        }
+
+        // Get the theme boxes based on the applied filters
+        $themeboxes = $query->get();
 
         return response()->json(['themeboxes' => $themeboxes], 200);
     }

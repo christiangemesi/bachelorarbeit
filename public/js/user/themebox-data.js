@@ -118,10 +118,6 @@ $(document).ready(function () {
         });
     });
 
-    // Update the themebox list when the category is changed
-    $("#dropdown1").change(function () {
-        updateSelectionListFromCategory(this);
-    });
 
 
     /**
@@ -190,19 +186,7 @@ $(document).ready(function () {
 
 
     // Initialize Bootstrap Multiselect
-    $('#dropdown2').multiselect({
-        //on change it should print the selected values
-        onChange: function (option, checked, select) {
-
-
-            var selectedOptions = $('#dropdown2 option:selected');
-            var selectedValues = $.map(selectedOptions, function (option) {
-                return option.value;
-            });
-            var selectedValuesString = selectedValues.join(', ');
-            console.log(selectedValuesString);
-        }
-    });
+    $('#dropdown2').multiselect({});
 
 
     /**
@@ -302,6 +286,7 @@ $(document).ready(function () {
                 // Clear the themebox info box
                 $("#themebox-infobox").empty();
                 // Clear the themebox search field
+                $("#themebox-list-search").val("");
 
                 // Append the new themeboxes to the list
                 themeboxesList.forEach(function (themebox) {
@@ -330,19 +315,31 @@ $(document).ready(function () {
         });
     });
 
-    $("#dropdown1").on("change", function () {
-        updateSelectionListFromCategory(this);
-    });
-
-    function updateSelectionListFromCategory(selectElement) {
+    $("#dropdown1, #dropdown2").on("change", function () {
+        let selectElement = document.getElementById("dropdown1");
         let selectedCategoryData = selectElement.options[selectElement.selectedIndex].getAttribute('data-category');
 
-        // Make an Ajax request to get the list of themeboxes for the selected category
+        //get selected values from multiselect
+        let selectedSchoolLevels = $('#dropdown2').val();
+        // add selected values into an array coma seperated
+        selectedSchoolLevels = selectedSchoolLevels.join(",");
+
+        //call updateSelectionListFromCategory function
+        updateSelectionListFromCategory(selectedCategoryData, selectedSchoolLevels);
+
+    });
+
+    function updateSelectionListFromCategory(selectedCategoryData, selectedSchoolLevels) {
+        console.log("selectedCategoryData: " + selectedCategoryData);
+        console.log("selectedSchoolLevels: " + selectedSchoolLevels);
+
+
         $.ajax({
             type: "POST",
             url: "./user/getThemeboxesByCategory",
             data: {
-                selectedCategoryData: selectedCategoryData
+                selectedCategoryData: selectedCategoryData,
+                selectedSchoolLevels: selectedSchoolLevels
             },
             success: function (response) {
                 console.log(response);
@@ -350,35 +347,41 @@ $(document).ready(function () {
 
                 // Clear the existing themebox list
                 $("#themebox-list-ul").empty();
-
-                // Append the new themeboxes to the list
-                themeboxesList.forEach(function (themebox) {
-                    $("#themebox-list-ul").append('<li><a href="#" class="list-group-item list-group-item-action themebox-list" id="' + themebox.pk_themebox + '">' + themebox.title + '</a></li>');
-                });
-
-                // clear the themebox info box
+                // Clear the themebox info box
                 $("#themebox-infobox").empty();
-                // clear themebox-order-info-title
-                $("#themebox-order-info-title").empty();
-                // clear calendar-view
+                // Clear the calendar
                 $("#calendar").fullCalendar("removeEvents");
+                // disable the startDate filed
+                $("#start-date").prop("disabled", true);
 
-                // on click of the themebox list item, load the themebox info box
-                $(".themebox-list").each(function () {
-                    $(this).on("click", function () {
-                        $(".themebox-list.active").removeClass("active"); // Remove active class from all list items
-                        $(this).addClass("active"); // Add active class to the clicked list item
-                        loadThemeboxInfoBox($(this).attr("id"));
+                if (themeboxesList.length > 0) {
+                    // Append the new themeboxes to the list
+                    themeboxesList.forEach(function (themebox) {
+                        $("#themebox-list-ul").append('<li><a href="#" class="list-group-item list-group-item-action themebox-list" id="' + themebox.pk_themebox + '">' + themebox.title + '</a></li>');
                     });
-                });
 
-                // After updating the themebox list, reapply the "active" class
-                $(".themebox-list.active").removeClass("active"); // Remove active class from all list items
-                $(".themebox-list").first().addClass("active"); // Add active class to the first list item
-                loadThemeboxInfoBox($(".themebox-list").first().attr('id')); // Load themebox data from the first list element
-                $(".themebox-list")[0].focus(); // Set focus to the first list element
+                    // on click of the themebox list item, load the themebox info box
+                    $(".themebox-list").each(function () {
+                        $(this).on("click", function () {
+                            $(".themebox-list.active").removeClass("active"); // Remove active class from all list items
+                            $(this).addClass("active"); // Add active class to the clicked list item
+                            loadThemeboxInfoBox($(this).attr("id"));
+                        });
+                    });
 
+                    $("#start-date").prop("disabled", false);
+
+                    // After updating the themebox list, reapply the "active" class
+                    $(".themebox-list.active").removeClass("active"); // Remove active class from all list items
+                    $(".themebox-list").first().addClass("active"); // Add active class to the first list item
+                    loadThemeboxInfoBox($(".themebox-list").first().attr('id')); // Load themebox data from the first list element
+                    $(".themebox-list")[0].focus(); // Set focus to the first list element
+                } else {
+                    // Handle the case when no theme boxes are found
+                    console.log("No theme boxes found");
+                }
             },
+
             error: function (error) {
                 console.error("Error fetching themeboxes:", error);
             }

@@ -330,6 +330,10 @@ $(document).ready(function () {
         });
     });
 
+    $("#dropdown1").on("change", function () {
+        updateSelectionListFromCategory(this);
+    });
+
     function updateSelectionListFromCategory(selectElement) {
         let selectedCategoryData = selectElement.options[selectElement.selectedIndex].getAttribute('data-category');
 

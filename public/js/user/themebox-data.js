@@ -269,6 +269,9 @@ $(document).ready(function () {
     $("#resetCategoryFilterBtn").on("click", function () {
         // Reset the dropdown to its initial state
         $("#dropdown1").val("");
+        // Reset the multiselect to its initial state
+        $("#dropdown2").multiselect("deselectAll", false);
+        $("#dropdown2").multiselect("updateButtonText");
 
         // Reset the themebox list to its initial state
         $.ajax({
@@ -287,6 +290,7 @@ $(document).ready(function () {
                 $("#themebox-infobox").empty();
                 // Clear the themebox search field
                 $("#themebox-list-search").val("");
+
 
                 // Append the new themeboxes to the list
                 themeboxesList.forEach(function (themebox) {

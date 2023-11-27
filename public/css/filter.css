@@ -2,13 +2,37 @@
 .filter {
     display: flex;
     margin: 25px 25px 25px 25px;
-    cursor: pointer;
 }
 
 
 .multiselect-container > li {
     padding: 0
 }
+
+.multiselect-container {
+    border-radius: 0px; /* Set border-radius to 0 to remove rounded corners */
+    padding: 0;
+    margin: 0;
+}
+
+#dropdown1, #dropdown1 ~ .multiselect-container, #dropdown1 ~ .multiselect-container li {
+    cursor: pointer;
+}
+
+#dropdown1:hover, #dropdown1 ~ .multiselect-container:hover {
+    cursor: pointer;
+    background-color: #f1f1ee;
+}
+
+#dropdown1:focus,
+#dropdown1 ~ .multiselect-container:focus {
+    box-shadow: none;
+    outline: 0;
+    border-color: #CCCCCC;
+    background-color: white; /* Set the background color when dropdown is open */
+}
+
+
 
 .multiselect-container > li > a > label:hover {
     background-color: #1967d2; /* Default Bootstrap hover color */
@@ -46,9 +70,6 @@
 .multiselect {
     height: 50px;
 }
-
-
-
 
 .multiselect-container > li > a > label {
     margin: 0;

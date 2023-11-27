@@ -57,7 +57,9 @@
                                             <select id="dropdown1" class="form-control custom-height">
                                                 <option value="" disabled selected hidden>Kategorie</option>
                                                 @foreach ($categories as $category)
-                                                    <option value="{{ $category->id }}" data-category="{{ $category }}">{{ $category->name }}</option>
+                                                    @if ($category->name !== '-')
+                                                        <option value="{{ $category->id }}" data-category="{{ $category }}">{{ $category->name }}</option>
+                                                    @endif
                                                 @endforeach
                                             </select>
 

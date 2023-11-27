@@ -57,7 +57,9 @@
                                             <select id="dropdown1" class="form-control custom-height">
                                                 <option value="" disabled selected hidden>Kategorie</option>
                                                 <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                    <option value="<?php echo e($category->id); ?>" data-category="<?php echo e($category); ?>"><?php echo e($category->name); ?></option>
+                                                    <?php if($category->name !== '-'): ?>
+                                                        <option value="<?php echo e($category->id); ?>" data-category="<?php echo e($category); ?>"><?php echo e($category->name); ?></option>
+                                                    <?php endif; ?>
                                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                             </select>
 

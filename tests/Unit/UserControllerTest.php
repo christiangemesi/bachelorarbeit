@@ -29,7 +29,7 @@ class UserControllerTest extends TestCase
 
     public function test_getOrder(){
         $order = new Order();
-        $order->fk_themebox = 1;
+        $order->fk_themebox = 75; // use existing themebox
         $order->startdate = "2010-12-12";
         $order->enddate = "2010-12-24";
         $order->name = "mueller";
@@ -53,7 +53,7 @@ class UserControllerTest extends TestCase
 
     public function test_getOrder_datecreated(){
         $order = new Order();
-        $order->fk_themebox = 1;
+        $order->fk_themebox = 75; // use existing themebox
         $order->startdate = "2010-12-12";
         $order->enddate = "2010-12-24";
         $order->name = "mueller";
@@ -77,7 +77,7 @@ class UserControllerTest extends TestCase
 
     public function test_getOrder_name(){
         $order = new Order();
-        $order->fk_themebox = 1;
+        $order->fk_themebox = 75; // use existing themebox
         $order->startdate = "2010-12-12";
         $order->enddate = "2010-12-24";
         $order->name = "mueller";
@@ -118,6 +118,58 @@ class UserControllerTest extends TestCase
         $themebox->forceDelete();
 
         $this->assertEquals(count(array($response)), 1);
+    }
+
+    public function test_getThemeboxesByFilter()
+    {
+        // Create a mock request with selected category data
+        $request = new Request([
+            'selectedCategoryData' => json_encode(['pk_category' => 1]),
+            'selectedSchoolLevels' => 'Sek1,Sek2',
+        ]);
+
+        // Call the controller method
+        $response = $this->controller->getThemeboxesByFilter($request);
+
+        // Check if the response is successful
+        $this->assertEquals(200, $response->getStatusCode());
+
+        // Decode the JSON response
+        $data = json_decode($response->getContent(), true);
+
+        // Check if the 'themeboxes' key exists in the response
+        $this->assertArrayHasKey('themeboxes', $data);
+    }
+
+    public function test_getAllThemeboxes()
+    {
+        // Call the controller method
+        $response = $this->controller->getAllThemeboxes();
+
+        // Check if the response is successful
+        $this->assertEquals(200, $response->getStatusCode());
+
+        // Decode the JSON response
+        $themeboxes = json_decode($response->getContent(), true);
+
+        // Check if the themeboxes are returned correctly
+        $this->assertIsArray($themeboxes);
+    }
+
+    public function test_getAllSchoolLevel()
+    {
+        // Call the controller method
+        $response = $this->controller->getAllThemeboxes();
+
+        // Check if the response is successful
+        $this->assertEquals(200, $response->getStatusCode());
+
+        // Decode the JSON response
+        $schoollevel = json_decode($response->getContent(), true);
+
+        // Check if the schoolclasses are returned correctly
+        $this->assertIsArray($schoollevel);
+
     }
 
     public function tearDown(): void{

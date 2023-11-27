@@ -5,6 +5,9 @@ namespace ThekRe;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @method static where(string $string, string $string1, \Illuminate\Support\Carbon $subMinutes)
+ */
 class PasswordResets extends Model
 {
     protected $table = "tbl_password_resets";

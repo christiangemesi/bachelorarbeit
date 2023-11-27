@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use League\Flysystem\Exception;
+use ThekRe\Category;
 use ThekRe\Delivery;
 use ThekRe\EditMail;
 use ThekRe\Login;
@@ -136,21 +137,21 @@ class PowerUserController extends Controller
         return $themeboxes;
     }
 
-//    public function console_log($data){
-//        echo '<script>';
-//        echo 'console.log('. json_encode( $data ) .')';
-//        echo '</script>';
-//    }
-    function console_log($data) {
-        $output = $data;
-        if (is_array($output))
-            $output = implode(',', $output);
-
-        echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
+    public function getCategories()
+    {
+        $categories = Category::all();
+        return $categories;
     }
 
     public function indexThembox(){
-        return view('poweruser/themebox_index',['themeboxes' => $this->getThemeboxes()]);
+        if ($this->checkLogin()) {
+            $themeboxes = $this->getThemeboxes();
+            $categories = $this->getCategories();
+
+            return view('poweruser/themebox_index', ['themeboxes' => $themeboxes, 'categories' => $categories]);
+        }else {
+            return view('poweruser.login_form');
+        }
     }
 
     public function updateOrder(Request $request){

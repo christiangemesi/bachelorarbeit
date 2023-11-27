@@ -188,6 +188,7 @@ body{
     width: 120px;
 }
 
+.category-name-column-width,
 .themebox-name-column-width{
     width: 300px;
 }
@@ -530,9 +531,12 @@ h2{
     margin-top: -50px;
 }
 
+.btn-create-cateogry,
 .btn-create-themebox{
     margin-left: 25px;
 }
+
+
 
 .btn-create-blocked-period{
     margin-left: 25px;
@@ -775,3 +779,6 @@ h2{
 #themebox-extra-text-modal-box{
     display: inline-table;
 }
+
+
+

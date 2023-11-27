@@ -1,4 +1,5 @@
 <?php
+
 namespace ThekRe\Http\Controllers;
 
 use Illuminate\Contracts\View\Factory;
@@ -6,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use League\Flysystem\Exception;
 use ThekRe\Blocked_Period;
+use ThekRe\Category;
 use ThekRe\Delivery;
 use ThekRe\Http\Requests;
 use ThekRe\Order;
@@ -23,10 +25,73 @@ class UserController extends Controller
      */
     public function index()
     {
-        $themeboxes = Themebox::orderBy('title')->get();
+
+        $themeboxes = Themebox::all();
         $deliveries = Delivery::all();
-        return view('user/index', ['themeboxes' => $themeboxes, "deliveries" => $deliveries]);
+        $categories = Category::all();
+        $schoollevel = $this->getAllSchoolLevel();
+
+        return view('user/index', [
+            'themeboxes' => $themeboxes,
+            'deliveries' => $deliveries,
+            'categories' => $categories,
+            'schulklassen' => $schoollevel,
+        ]);
     }
+
+    /**
+     * get all the themeboxes
+     */
+    public function getAllThemeboxes()
+    {
+        $themeboxes = Themebox::all();
+
+        return response()->json($themeboxes, 200);
+    }
+
+
+    /**
+     * get all the school levels
+     */
+    public function getAllSchoolLevel()
+    {
+        // Select all schoollevel from themebox in alphabetical order
+        $schulklassen = Themebox::select('schoollevel')->distinct()->orderBy('schoollevel', 'asc')->get();
+
+        return $schulklassen;
+    }
+
+    /**
+     * get all themeboxes with present category and school level
+     */
+    public function getThemeboxesByFilter(Request $request)
+    {
+        // Decode the selected category data
+        $selectedCategory = json_decode($request->selectedCategoryData, true);
+        $categoryID = !empty($selectedCategory) ? $selectedCategory['pk_category'] : null;
+
+        // Get an array of selected school levels
+        $selectedSchoolLevels = !empty($request->selectedSchoolLevels) ? explode(",", $request->selectedSchoolLevels) : [];
+
+        // Start building the query
+        $query = Themebox::query();
+
+        // Apply category filter if available
+        if (!is_null($categoryID)) {
+            $query->where('fk_category', $categoryID);
+        }
+
+        // Apply school level filter if available
+        if (!empty($selectedSchoolLevels)) {
+            $query->whereIn('schoollevel', $selectedSchoolLevels);
+        }
+
+        // Get the theme boxes based on the applied filters
+        $themeboxes = $query->get();
+
+        return response()->json(['themeboxes' => $themeboxes], 200);
+    }
+
 
     /**
      * get themebox data from selected themebox
@@ -35,14 +100,16 @@ class UserController extends Controller
      */
     public function getThemebox(Request $request)
     {
+
         $themebox_Id = $request["themeboxId"];
         $themebox = Themebox::find($themebox_Id);
 
-        $orders = Order::select('startdate','enddate')->where('fk_themebox', '=', $themebox_Id)->get();
+
+        $orders = Order::select('startdate', 'enddate')->where('fk_themebox', '=', $themebox_Id)->get();
 
         $data = array(
             "themebox" => $themebox,
-            "orders" => $orders
+            "orders" => $orders,
         );
 
         return response()->json(['data' => $data], 200);
@@ -60,7 +127,7 @@ class UserController extends Controller
 
         return response()->json($themebox, 200);
     }
-    
+
 
     /**
      * create new order
@@ -68,8 +135,8 @@ class UserController extends Controller
      * @return Factory|View
      */
     public function createOrder(Request $request)
-    {     
-        
+    {
+
         $order = new Order();
         $order->fk_themebox = $request->themeboxId;
         $order->startdate = $this->formatDate($request->startdate);
@@ -80,7 +147,7 @@ class UserController extends Controller
         $order->phonenumber = $request->phone;
         $order->nebisusernumber = $request->nebisusernumber;
         $order->fk_delivery = $request->delivery;
-        
+
         if ($request->delivery == 2) {
             $order->schoolname = $request->schoolname;
             $order->schoolstreet = $request->schoolstreet;
@@ -91,11 +158,11 @@ class UserController extends Controller
 
         $order->fk_status = 1;
         $order->ordernumber = $this->createOrdernumber();
-        $dt = Carbon::now();    
+        $dt = Carbon::now();
         $order->datecreated = $dt;
 
-    $themebox = Themebox::find($order->fk_themebox);
-        
+        $themebox = Themebox::find($order->fk_themebox);
+
         $mail_data = array(
             'title' => $themebox->title,
             'signatur' => $themebox->signatur,
@@ -211,7 +278,10 @@ class UserController extends Controller
             $view = 'user.mail_delivery_school';
         } else {
 
+            error_log("delivery_type: " . $delivery_type);
+
             $mail = EditMail::find(1);
+            error_log("mail: " . $mail);
             $html_db = $mail->mail_text;
 
             $html_replaced = str_replace("!titel!", $mail_data['title'], $html_db);
@@ -276,10 +346,10 @@ class UserController extends Controller
                     "orders" => $orders);
 
                 return response()->json($data);
-            }else{
+            } else {
                 return response()->json($request, 500);
             }
-        }catch (Exception $e){
+        } catch (Exception $e) {
             return response()->json([], 500);
         }
     }
@@ -300,8 +370,9 @@ class UserController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function updateOrderDates(Request $request){
-        try{
+    public function updateOrderDates(Request $request)
+    {
+        try {
             Order::find($request->order_data[0]["value"])->update(
                 ['startdate' => $this->formatDate($request->order_data[1]["value"]),
                     'enddate' => $this->formatDate($request->order_data[2]["value"]),
@@ -309,12 +380,12 @@ class UserController extends Controller
                     'surname' => $request->order_data[4]["value"],
                     'email' => $request->order_data[5]["value"],
                     'phonenumber' => $request->order_data[6]["value"],
-                   // 'nebisusernumber' => $request->order_data[7]["value"]
+                    // 'nebisusernumber' => $request->order_data[7]["value"]
                 ]
             );
 
             return response()->json([], 200);
-        }catch (Exception $e){
+        } catch (Exception $e) {
             return response()->json([], 500);
         }
     }
@@ -370,4 +441,7 @@ class UserController extends Controller
 
         return response()->json(['data' => $data]);
     }
+
+
+
 }

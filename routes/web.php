@@ -30,8 +30,14 @@ Route::post('/admin/forgetPassword', 'AdminController@forgetPassword');
 
 Route::get('/admin/resetPasswordForm/{token}', 'AdminController@ResetPasswordForm')->name('resetPasswordForm');
 Route::post('/admin/resetPassword', 'AdminController@resetPassword');
-
 Route::get('/admin/logout', 'AdminController@logout');
+
+Route::get('/admin/categories', 'AdminController@indexCategories');
+Route::post('/admin/createCategory', 'AdminController@createCategory');
+Route::post('/admin/removeCategory', 'AdminController@removeCategory');
+Route::post('/admin/getCategory', 'AdminController@getCategory');
+Route::post('/admin/updateCategory', 'AdminController@updateCategory');
+
 Route::get('/admin/themeboxes', 'AdminController@getThemeboxes');
 Route::post('/admin/updateState','AdminController@updateThemeboxState');
 Route::post('/admin/removeOrder','AdminController@removeOrder');
@@ -74,6 +80,7 @@ Route::post('/poweruser/updateState', 'PowerUserController@updateThemeboxState')
 
 
 
+
 Route::get('/user', 'UserController@index');
 Route::post('/user/getThemebox','UserController@getThemebox');
 Route::post('/user/getThemeboxContent','UserController@getThemeboxContent');
@@ -84,6 +91,9 @@ Route::post('/user/login', 'UserController@login');
 Route::get('/user/loginForm', 'UserController@loginForm');
 Route::post('/user/updateOrderDates', 'UserController@updateOrderDates');
 Route::post('/user/getBlockedPeriods', 'UserController@getBlockedPeriods');
+Route::post('/user/getThemeboxesByFilter', 'UserController@getThemeboxesByFilter');
+Route::get('/user/getAllThemeboxes', 'UserController@getAllThemeboxes');
+
 
 
 

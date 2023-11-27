@@ -85,25 +85,36 @@ $(document).ready(function () {
             type: 'POST',
             data: {themebox_id: $(this).val()},
             success: function (response) {
-                $("#themebox-edit-form-name").val(response["title"]);
-                $("#themebox-edit-form-signature").val(response["signatur"]);
-                $("#themebox-edit-form-schoollevel").val(response["schoollevel"]);
-                $("#themebox-edit-form-barcode").val(response["barcode"]);
-                $("#themebox-edit-form-size").val(response["size"]);
-                $("#themebox-edit-form-weight").val(response["weight"]);
-                $("#themebox-edit-form-content").val(response["content"]);
-                $("#themebox-edit-form-extra_text").val(response["extra_text"]);
+                $("#themebox-edit-form-name").val(response[0]["title"]);
+                $("#themebox-edit-form-signature").val(response[0]["signatur"]);
+                $("#themebox-edit-form-schoollevel").val(response[0]["schoollevel"]);
+                $("#themebox-edit-form-barcode").val(response[0]["barcode"]);
+                $("#themebox-edit-form-size").val(response[0]["size"]);
+                $("#themebox-edit-form-weight").val(response[0]["weight"]);
+                $("#themebox-edit-form-content").val(response[0]["content"]);
+                $("#themebox-edit-form-extra_text").val(response[0]["extra_text"]);
+                $('#summernote_edit').summernote("code", response[0]["extra_text"]);
 
-                $('#summernote_edit').summernote("code", response["extra_text"]);
+                const categoryElement = document.getElementById("themebox-edit-form-category");
+                const categoryOptions = categoryElement.options;
+                for (var i = 0; i < categoryOptions.length; i++) {
+                    // Convert both values to integers for strict comparison
+                    if (parseInt(categoryOptions[i].value, 10) === parseInt(response[1]["pk_category"], 10)) {
+                        // Set the selected attribute for the matched option
+                        categoryOptions[i].selected = true;
+                        break;
+                    }
+                }
 
-                if (1 === response["complete"]) {
+
+                if (1 === response[0]["complete"]) {
                     $("#themebox-edit-form-complete").prop('checked', true);
                     $("#themebox-edit-form-complete").val(1);
                 } else {
                     $("#themebox-edit-form-complete").prop('checked', false);
                     $("#themebox-edit-form-complete").val(0);
                 }
-                $("#themebox_id").val(response["pk_themebox"]);
+                $("#themebox_id").val(response[0]["pk_themebox"]);
 
                 notEmptyValidate('themebox-edit-form-name','themebox-edit-form-name-status','themebox-edit-form-name-icon');
                 notEmptyValidate('themebox-edit-form-signature','themebox-edit-form-signature-status','themebox-edit-form-signature-icon');
@@ -112,6 +123,8 @@ $(document).ready(function () {
                 notEmptyValidate('themebox-edit-form-size','themebox-edit-form-size-status','themebox-edit-form-size-icon');
                 notEmptyValidate('themebox-edit-form-weight','themebox-edit-form-weight-status','themebox-edit-form-weight-icon');
                 notEmptyValidate('themebox-edit-form-content','themebox-edit-form-content-status','themebox-edit-form-content-icon');
+                notEmptyValidate('themebox-edit-form-category','themebox-edit-form-category-status','themebox-edit-form-category-icon');
+
 
             },
             error: function (xhr, status, error) {

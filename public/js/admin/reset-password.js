@@ -13,11 +13,16 @@ $(document).ready(function () {
         }
     });
 
+
     $('#reset-password-button').click(function (e) {
         e.preventDefault(); // Prevent default form submission
         sendToBackend();
     });
 
+    /**
+     * Sends reset password data to the backend for processing.
+     * Updates UI based on the backend response.
+     */
     function sendToBackend() {
         const email = $('#reset-password-email').val();
         const password = $('#new-password-password').val();
@@ -35,30 +40,22 @@ $(document).ready(function () {
                     $('#reset-password-notMatch-message-box-2').hide();
                     $('#reset-password-8character-message-box').hide();
                     $('#passwort-reset-success-message-box').hide();
-                    console.log(response);
                 } else if (response === "failure_pw_noMatch") {
                     $('#reset-password-notMatch-message-box-2').show();
                     $('#email-reset-notExistent-message-box').hide();
                     $('#reset-password-8character-message-box').hide();
                     $('#passwort-reset-success-message-box').hide();
-                    console.log(response);
                 } else if (response === "failure_pw_short") {
                     $('#reset-password-8character-message-box').show();
                     $('#email-reset-notExistent-message-box').hide();
                     $('#reset-password-notMatch-message-box-2').hide();
                     $('#passwort-reset-success-message-box').hide();
-                    console.log(response);
                 } else {
-                    console.log(response);
                     localStorage.setItem("passwort-reset-success-message-box", "true");
                     window.location = "../loginForm";
                 }
             },
             error: function (xhr, status, error) {
-                console.log("Error: " + error);
-                console.log("Status: " + status);
-                console.log("xhr: " + xhr.responseText);
-
                 $('#reset-password-Failed-message-box').show();
             }
         });

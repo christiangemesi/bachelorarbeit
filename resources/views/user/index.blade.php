@@ -69,7 +69,9 @@
                                                 @endforeach
                                             </select>
 
-                                            <button type="button" id="resetCategoryFilterBtn" class="btn btn-default custom-height">Filter Zurücksetzen</button>
+                                            <button type="button" id="resetCategoryFilterBtn" class="btn btn-default custom-height">
+                                                Filter<br> Zurücksetzen
+                                            </button>
                                         </div>
 
                                         <div class="list-group thekre-list">

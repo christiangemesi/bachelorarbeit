@@ -6,9 +6,18 @@
 }
 
 
-
 .multiselect-container > li {
     padding: 0
+}
+
+.multiselect-container > li > a > label:hover {
+    background-color: #337ab7; /* Default Bootstrap hover color */
+    color: white; /* Optional: Set text color to white for better visibility */
+}
+
+.multiselect-container > li > a > label:active {
+    background-color: #286090; /* Default Bootstrap active color */
+    color: white; /* Optional: Set text color to white for better visibility */
 }
 
 .multiselect-container > li > a.multiselect-all label {

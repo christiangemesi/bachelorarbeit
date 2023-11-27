@@ -22,7 +22,6 @@ $(document).ready(function () {
                 showSuccessModal("Kategorie wurde erfolgreich gelöscht");
             },
             error: function (xhr, status, error) {
-                console.log(xhr)
                 if(xhr.status === 409) {
                     showFailureModal("Kategorie konnte nicht gelöscht werden, da sie noch Themenboxen enthält", xhr)
                 } else {
@@ -80,6 +79,9 @@ $(document).ready(function () {
         })
     });
 
+    /**
+     * show edit category modal
+     */
     $(".button-edit-category").click(function () {
         var categoryId = $(this).val();
 
@@ -107,8 +109,6 @@ $(document).ready(function () {
      */
     $("#button-save-category-change").click(function () {
         var formData = $('#edit-category-form').serializeArray();
-        console.log(formData);
-
         $.ajax({
             url: "../admin/updateCategory",
             type: 'POST',
@@ -141,7 +141,7 @@ $(document).ready(function () {
     });
 
     /**
-     * initial datatable settings
+     * initial search
      */
     $('#new-category-table').DataTable({
         "lengthChange": false,

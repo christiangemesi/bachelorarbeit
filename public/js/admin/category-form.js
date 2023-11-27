@@ -1,5 +1,5 @@
 /**
- * Create Themenbox Form
+ * Create Category Form
  */
 function nonEmptyCategoryValidate(namevar, statusvar, iconvar) {
     var name = document.getElementById(namevar);
@@ -23,7 +23,9 @@ function nonEmptyCategoryValidate(namevar, statusvar, iconvar) {
 }
 
 
-
+/**
+ * check if all fields are filled
+ */
 function checkCategoryForm() {
     document.getElementById("create-category-button").disabled = true;
     var f = document.forms['create-category-form'].elements;

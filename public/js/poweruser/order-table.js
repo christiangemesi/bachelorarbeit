@@ -170,7 +170,6 @@ $(document).ready(function () {
                     }
                 );
 
-                console.log(response["order"]["startdate"]);
                 $('#order-edit-form').trigger("reset");
                 $("#order-id").val(response["order"]["pk_order"]);
                 $("#ordernumber-edit").val(response["order"]["ordernumber"]);
@@ -515,7 +514,6 @@ $(document).ready(function () {
     }
 
     function bindEndDataOrderAdd() {
-        console.log("worki torki");
         var end_date = $('#orderAdd-end-date');
         var start_date = $("#orderAdd-start-date").datepicker('getDate');
         var min_date = $("#orderAdd-start-date").datepicker('getDate');

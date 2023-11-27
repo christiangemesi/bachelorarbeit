@@ -16,6 +16,10 @@ $(document).ready(function () {
         checkPasswordReset();
     });
 
+    /**
+     * Sends a request to the backend to initiate the password reset process.
+     * Updates UI based on the backend response.
+     */
     function checkPasswordReset() {
         var email = $('#forget-password-email').val();
         $.ajax({
@@ -27,10 +31,6 @@ $(document).ready(function () {
                 window.location = "/admin/loginForm";
             },
             error: function (xhr, status, error) {
-                console.log("Error: " + error);
-                console.log("Status: " + status);
-                console.log("xhr: " + xhr.responseText);
-
                 $('#passwort-reset-error-message-box').show();
             }
         });

@@ -7,9 +7,6 @@
     function e(t, e) {
         for (var i = 0; i < t.length; ++i) e(t[i], i)
     }
-    
-
-
 
     function i(e, i) {
         this.$select = t(e), this.$select.attr("data-placeholder") && (i.nonSelectedText = this.$select.data("placeholder")), this.options = this.mergeOptions(t.extend({}, i, this.$select.data())), this.originalOptions = this.$select.clone()[0].options, this.query = "", this.searchTimeout = null, this.lastToggledInput = null, this.options.multiple = "multiple" === this.$select.attr("multiple"), this.options.onChange = t.proxy(this.options.onChange, this), this.options.onDropdownShow = t.proxy(this.options.onDropdownShow, this), this.options.onDropdownHide = t.proxy(this.options.onDropdownHide, this), this.options.onDropdownShown = t.proxy(this.options.onDropdownShown, this), this.options.onDropdownHidden = t.proxy(this.options.onDropdownHidden, this), this.options.onInitialized = t.proxy(this.options.onInitialized, this), this.buildContainer(), this.buildButton(), this.buildDropdown(), this.buildSelectAll(), this.buildDropdownOptions(), this.buildFilter(), this.updateButtonText(), this.updateSelectAll(!0), this.options.disableIfEmpty && t("option", this.$select).length <= 0 && this.disable(), this.$select.hide().after(this.$container), this.options.onInitialized(this.$select, this.$container)
@@ -144,7 +141,6 @@
             filterBehavior: "text",
             includeFilterClearBtn: !0,
             preventInputChangeEvent: !1,
-            //nonSelectedText if id =dropdown1 Kategorie, else Schulstufe
             nonSelectedText: "Schulstufe",
             nSelectedText: "ausgewählt",
             //allSelectedText: "Alle ausgewählt",
@@ -236,7 +232,7 @@
                     e.stopPropagation(), e.preventDefault()
                 }
             }, this)), this.options.enableClickableOptGroups && this.options.multiple && t("li.multiselect-group", this.$ul).on("click", t.proxy(function (e) {
-                e.stopPropagation(), console.log("test");
+                e.stopPropagation();
                 var i = t(e.target).parent(), s = i.nextUntil("li.multiselect-group"),
                     l = s.filter(":visible:not(.disabled)"), o = !0, n = l.find("input"), a = [];
                 n.each(function () {

@@ -6,9 +6,8 @@ function notEmptyValidate(namevar, statusvar, iconvar) {
     var status = document.getElementById(statusvar);
     var icon = document.getElementById(iconvar);
 
-    if (name.tagName === "SELECT") { // Check if the element is a dropdown
-        //console .log the selected option's value
-        console.log("name.options[name.selectedIndex].value");
+    // Check if the element is a dropdown (for Category selection)
+    if (name.tagName === "SELECT") {
         status.style.display = "none";
         name.parentNode.className = "form-group has-success has-feedback";
         icon.className = "glyphicon glyphicon-ok form-control-feedback";
@@ -61,36 +60,28 @@ function checkform() {
     const NUMBER_OF_FIELDS_TO_BE_CHECKED = 7;
 
     for (var i = 0; i < NUMBER_OF_FIELDS_TO_BE_CHECKED; i++) {
-        //console.log(f[i].value)
         if (f[i].type === "select-one") { // Check if the element is a dropdown
             if (f[i].selectedIndex === 0) { // Check if any option is selected
-                console.log("Dropdown " + i + " is not selected");
                 cansubmitf = false;
             }
         } else {
             if (f[i].value.length === 0) {
-                console.log("Field " + i + " is empty");
                 cansubmitf = false;
             }
         }
     }
 
     for (var a = 0; a < NUMBER_OF_FIELDS_TO_BE_CHECKED; a++) {
-        console.log(f[i].value)
         if (s[a].type === "select-one") { // Check if the element is a dropdown
             if (s[a].selectedIndex === 0) { // Check if any option is selected
-                //console.log("Dropdown " + a + " is not selected");
                 cansubmits = false;
             }
         } else {
             if (s[a].value.length === 0) {
-                //console.log("Field " + a + " is empty");
                 cansubmits = false;
             }
         }
     }
-    //console.log all elements of the form
-    console.log("weight: " + document.getElementById("themebox-form-weight").value);
 
     if (onlyNumbers(document.getElementById("themebox-form-weight").value)) {
         if (cansubmitf) {

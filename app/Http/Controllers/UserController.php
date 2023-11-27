@@ -39,6 +39,9 @@ class UserController extends Controller
         ]);
     }
 
+    /**
+     * get all the themeboxes
+     */
     public function getAllThemeboxes()
     {
         $themeboxes = Themebox::all();
@@ -47,19 +50,21 @@ class UserController extends Controller
     }
 
 
-    // get all the Schulklassen (select distinct from themebox)
+    /**
+     * get all the school levels
+     */
     public function getAllSchoolLevel()
     {
         // Select all schoollevel from themebox in alphabetical order
         $schulklassen = Themebox::select('schoollevel')->distinct()->orderBy('schoollevel', 'asc')->get();
 
-        foreach ($schulklassen as $schulklasse) {
-        }
-
         return $schulklassen;
     }
 
-    public function getThemeboxesByCategory(Request $request)
+    /**
+     * get all themeboxes with present category and school level
+     */
+    public function getThemeboxesByFilter(Request $request)
     {
         // Decode the selected category data
         $selectedCategory = json_decode($request->selectedCategoryData, true);
@@ -436,4 +441,7 @@ class UserController extends Controller
 
         return response()->json(['data' => $data]);
     }
+
+
+
 }

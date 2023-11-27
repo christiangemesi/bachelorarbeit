@@ -14,9 +14,13 @@ $(document).ready(function () {
     var dayToCalculateNextSundays = getNextDayOfWeek(new Date, 7);
     var dayToCalculatePreviousSundays = getNextDayOfWeek(new Date, 7);
 
+    // Initialize Bootstrap Multiselect
+    $('#dropdown2').multiselect({});
 
-    loadThemeboxInfoBox($(".themebox-list").first().attr('id')); //load themebox data from the first list element
-    $(".themebox-list")[0].focus(); //set focus to the first list element
+    //load themebox data from the first list element
+    loadThemeboxInfoBox($(".themebox-list").first().attr('id'));
+    //set focus to the first list element
+    $(".themebox-list")[0].focus();
 
     var carousel_counter = 1;
     var current_date = new Date();
@@ -119,7 +123,6 @@ $(document).ready(function () {
     });
 
 
-
     /**
      * order calendar
      */
@@ -183,10 +186,6 @@ $(document).ready(function () {
 
         return year + '-' + month + '-' + day;
     }
-
-
-    // Initialize Bootstrap Multiselect
-    $('#dropdown2').multiselect({});
 
 
     /**
@@ -266,6 +265,10 @@ $(document).ready(function () {
         });
     }
 
+    /**
+     * Event handler for the click event on the resetCategoryFilterBtn button.
+     * Resets the dropdowns and themebox list to their initial states. (i.e. no filters applied, shows all themeboxes)
+     */
     $("#resetCategoryFilterBtn").on("click", function () {
         // Reset the dropdown to its initial state
         $("#dropdown1").val("");
@@ -278,11 +281,8 @@ $(document).ready(function () {
             type: "GET",
             url: "./user/getAllThemeboxes",
             success: function (response) {
-                console.log(response);
-
                 // Load all themeboxes into the list
                 let themeboxesList = response; // Assuming the response contains the list of themeboxes
-                console.log(themeboxesList);
 
                 // Clear the existing themebox list
                 $("#themebox-list-ul").empty();
@@ -319,6 +319,11 @@ $(document).ready(function () {
         });
     });
 
+    /**
+     * Event handler for changes in dropdown1 and dropdown2 elements.
+     * Retrieves selected category data and school levels, then calls
+     * the updateSelectionListFromFilter function to update the themebox list.
+     */
     $("#dropdown1, #dropdown2").on("change", function () {
         let selectElement = document.getElementById("dropdown1");
         let selectedCategoryData = selectElement.options[selectElement.selectedIndex].getAttribute('data-category');
@@ -336,23 +341,28 @@ $(document).ready(function () {
         }
 
         // Call updateSelectionListFromCategory function
-        updateSelectionListFromCategory(selectedCategoryData, selectedSchoolLevels);
+        updateSelectionListFromFilter(selectedCategoryData, selectedSchoolLevels);
     });
 
-    function updateSelectionListFromCategory(selectedCategoryData, selectedSchoolLevels) {
-        console.log("selectedCategoryData: " + selectedCategoryData);
-        console.log("selectedSchoolLevels: " + selectedSchoolLevels);
-
+    /**
+     * Updates the themebox list based on selected category data and school levels.
+     *
+     * Makes an AJAX request to retrieve themeboxes matching the provided filters,
+     * then updates the themebox list, info box, and calendar accordingly.
+     *
+     * @param {string} selectedCategoryData - The selected category data for filtering themeboxes.
+     * @param {string} selectedSchoolLevels - The selected school levels for filtering themeboxes.
+     */
+    function updateSelectionListFromFilter(selectedCategoryData, selectedSchoolLevels) {
 
         $.ajax({
             type: "POST",
-            url: "./user/getThemeboxesByCategory",
+            url: "./user/getThemeboxesByFilter",
             data: {
                 selectedCategoryData: selectedCategoryData,
                 selectedSchoolLevels: selectedSchoolLevels
             },
             success: function (response) {
-                console.log(response);
                 let themeboxesList = response.themeboxes;
 
                 // Clear the existing themebox list
@@ -387,13 +397,10 @@ $(document).ready(function () {
                     loadThemeboxInfoBox($(".themebox-list").first().attr('id')); // Load themebox data from the first list element
                     $(".themebox-list")[0].focus(); // Set focus to the first list element
                 } else {
-                    // Handle the case when no theme boxes are found
-                    console.log("No theme boxes found");
                 }
             },
 
             error: function (error) {
-                console.error("Error fetching themeboxes:", error);
             }
         });
     }
@@ -539,7 +546,6 @@ $(document).ready(function () {
             },
             error: function (xhr, status, error) {
                 errorHandling("Es ist ein Fehler bei der Datenverarbeitung passiert. Bitte kontaktieren Sie die FHNW Bibliothek unter bibliothek.windisch@fhnw.ch", "#error-message-box");
-                console.log(process.env.APP_URL);
             }
         });
     });
@@ -560,7 +566,6 @@ $(document).ready(function () {
             },
             error: function (xhr, status, error) {
                 errorHandling("Es ist ein Fehler bei der Datenverarbeitung passiert. Bitte kontaktieren Sie die FHNW Bibliothek unter bibliothek.windisch@fhnw.ch", "#error-message-box");
-                console.log(process.env.APP_URL);
             }
         });
     });
@@ -872,6 +877,4 @@ $(document).ready(function () {
         $('#modal-content-success').css('display', 'none');
         $('#modal-confirm-order-warning').css('display', 'block');
     }
-
-
 });

@@ -59,9 +59,6 @@ $(document).ready(function () {
      */
     $('#create-themebox-button').click(function () {
 
-        console.log($('#create-themebox-form').serializeArray());
-
-
         document.getElementById('extra_text_create').value = $('#summernote_create').summernote('code');
 
         $.ajax({
@@ -83,14 +80,11 @@ $(document).ready(function () {
     $(".button-edit-themebox").click(function () {
         $('#themebox-edit-modal').modal('show');
 
-        console.log("opened modal");
-
         $.ajax({
             url: "../admin/getThemebox",
             type: 'POST',
             data: {themebox_id: $(this).val()},
             success: function (response) {
-                console.log(response)
                 $("#themebox-edit-form-name").val(response[0]["title"]);
                 $("#themebox-edit-form-signature").val(response[0]["signatur"]);
                 $("#themebox-edit-form-schoollevel").val(response[0]["schoollevel"]);
@@ -111,8 +105,6 @@ $(document).ready(function () {
                         break;
                     }
                 }
-
-                console.log(response[0])
 
 
                 if (1 === response[0]["complete"]) {

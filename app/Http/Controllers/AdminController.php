@@ -3,6 +3,8 @@
 namespace ThekRe\Http\Controllers;
 
 use Carbon\Carbon;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -37,8 +39,8 @@ class AdminController extends Controller
     }
 
     /**
-     * render admin start page
-     * @return RedirectResponse
+     * load admin index view
+     * @return Factory|\Illuminate\View\View|RedirectResponse
      */
     public function index()
     {
@@ -53,7 +55,7 @@ class AdminController extends Controller
      * check if admin is logged in
      * @return bool
      */
-    public function checkLogin()
+    public function checkLogin(): bool
     {
         if (isset($_SESSION['ThekRe_Admin'])) {
             return true;
@@ -63,7 +65,7 @@ class AdminController extends Controller
 
     /**
      * render admin login form
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|\Illuminate\View\View
      */
     public function loginForm()
     {
@@ -74,6 +76,10 @@ class AdminController extends Controller
         }
     }
 
+    /**
+     * render admin forget password form
+     * @return Factory|\Illuminate\View\View
+     */
     public function forgetPasswordForm()
     {
         //if the forgetPassword function returned success, redirect to login form
@@ -82,7 +88,7 @@ class AdminController extends Controller
 
 
     /**
-     * send email with token
+     * send email with token to reset password (token 15 minutes valid)
      */
     public function forgetPassword(Request $request)
     {
@@ -91,8 +97,7 @@ class AdminController extends Controller
 
         //validation
         if ($email != $this->getAdminEmail()) {
-            return response()->json('failure'); //email not found
-            //return redirect()->route('loginForm')->with('success', 'Wenn die E-Mail-Adresse in unserer Datenbank vorhanden ist, wird eine E-Mail mit Anweisungen gesendet.');
+            return response()->json('failure');
         }
 
         $token = Str::random(64);
@@ -107,18 +112,23 @@ class AdminController extends Controller
         Mail::send('admin.mail-forget-password', ['token' => $token], function ($message) use ($email) {
             $message->to($email)->subject('Passwort zurücksetzen');
         });
-        //return redirect()->route('loginForm')->with('success', 'Wenn die E-Mail-Adresse in unserer Datenbank vorhanden ist, wird eine E-Mail mit Anweisungen gesendet.');
+
         return response()->json('success');
     }
 
+    /**
+     * render new password form
+     * @return Factory|\Illuminate\View\View
+     */
     public function ResetPasswordForm($token)
     {
-        //validation
+
         //check if token exists in password_resets table
         $password_reset = PasswordResets::where('token', $token)->get();
         if (count($password_reset) == 0) {
             return view('errors/404');
         }
+
         //check if token is older than 15 minutes
         $created_at = $password_reset[0]['created_at'];
         $diff = Carbon::now()->diffInMinutes($created_at);
@@ -128,6 +138,11 @@ class AdminController extends Controller
         return view('admin/new-password_form', compact('token'));
     }
 
+    /**
+     * reset password
+     * @param Request $request
+     * @return mixed
+     */
     public function resetPassword(Request $request)
     {
         $email = strtolower($request->email);
@@ -194,6 +209,10 @@ class AdminController extends Controller
         Login::where('email', $email)->update(array('password' => Hash::make($password)));
     }
 
+    /**
+     * set admin email in db
+     * @param $email
+     */
     public function setAdminEmail($email): void
     {
         $email = strtolower($email);
@@ -237,6 +256,9 @@ class AdminController extends Controller
         }
     }
 
+    /**
+     * load all categories
+     */
     public function indexCategories()
     {
         if ($this->checkLogin()) {
@@ -349,7 +371,6 @@ class AdminController extends Controller
      */
     public function updateOrder(Request $request)
     {
-
         try {
             //if new status is "ready"
             if (2 == $request->order_data[3]["value"] && 1 == $request->order_data[9]["value"]) {
@@ -819,7 +840,7 @@ class AdminController extends Controller
 
     /**
      * render change password form
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|\Illuminate\View\View
      */
     public function indexChangePassword()
     {
@@ -842,6 +863,9 @@ class AdminController extends Controller
         return $login->password;
     }
 
+    /**
+     * return the poweruser password
+     */
     public function getPoweruserPassword()
     {
         $login = Login::find(2);
@@ -849,9 +873,14 @@ class AdminController extends Controller
         return $login->password;
     }
 
+    /**
+     * update email
+     * @param Request $request
+     * @return mixed
+     */
     public function updateAdminEmail(Request $request)
     {
-        //validation
+
         //check if email and confirmation email are the same
         if ($request->email != $request->confirm_email) {
             return redirect('admin/changePassword')->with('alert-message', 'E-Mail stimmen nicht überein!');
@@ -896,6 +925,11 @@ class AdminController extends Controller
         }
     }
 
+    /**
+     * update poweruser password
+     * @param Request $request
+     * @return mixed
+     */
     public function updatePoweruserPassword(Request $request)
     {
 
@@ -928,7 +962,7 @@ class AdminController extends Controller
 
     /**
      * render index email
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|\Illuminate\View\View
      */
     public function indexEmail()
     {

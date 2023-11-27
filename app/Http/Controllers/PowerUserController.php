@@ -154,8 +154,6 @@ class PowerUserController extends Controller
         }
     }
 
-
-
     public function updateOrder(Request $request){
         try {
             //if new status is "ready"

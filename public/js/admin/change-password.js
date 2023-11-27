@@ -19,13 +19,6 @@ function checkAdminEmail() {
     } else {
         confirm_email.setCustomValidity("");
     }
-
-    console.log(email.value);
-
-    //TODO: make it so that it checks if its a valid email
-
-
-
 }
 
 function checkPoweruserPassword() {

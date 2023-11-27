@@ -54,15 +54,16 @@
                                         </div>
 
                                         <div class="filter">
-                                            <select id="dropdown1" class="form-control custom-height" onchange="updateSelectionListFromCategory(this)">
+                                            <select id="dropdown1" class="form-control custom-height">
                                                 <option value="" disabled selected hidden>Kategorie</option>
                                                 <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                    <option value="<?php echo e($category->id); ?>" data-category="<?php echo e($category); ?>"><?php echo e($category->name); ?></option>
+                                                    <?php if($category->name !== '-'): ?>
+                                                        <option value="<?php echo e($category->id); ?>" data-category="<?php echo e($category); ?>"><?php echo e($category->name); ?></option>
+                                                    <?php endif; ?>
                                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                             </select>
 
                                             <select id="dropdown2" class="form-control custom-height" multiple="multiple">
-                                                <option value="" disabled selected hidden>Schulklasse</option>
                                                 <?php $__currentLoopData = $schulklassen; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $schulklasse): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                     <option value="<?php echo e($schulklasse->schoollevel); ?>"><?php echo e($schulklasse->schoollevel); ?></option>
                                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

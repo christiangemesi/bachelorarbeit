@@ -323,14 +323,20 @@ $(document).ready(function () {
         let selectElement = document.getElementById("dropdown1");
         let selectedCategoryData = selectElement.options[selectElement.selectedIndex].getAttribute('data-category');
 
-        //get selected values from multiselect
+        // Get selected values from multiselect
         let selectedSchoolLevels = $('#dropdown2').val();
-        // add selected values into an array coma seperated
-        selectedSchoolLevels = selectedSchoolLevels.join(",");
 
-        //call updateSelectionListFromCategory function
+        // Check if any value is selected in the multiselect
+        if (selectedSchoolLevels && selectedSchoolLevels.length > 0) {
+            // Add selected values into a comma-separated string
+            selectedSchoolLevels = selectedSchoolLevels.join(",");
+        } else {
+            // If no value is selected, set it to null or an empty string
+            selectedSchoolLevels = null; // or selectedSchoolLevels = "";
+        }
+
+        // Call updateSelectionListFromCategory function
         updateSelectionListFromCategory(selectedCategoryData, selectedSchoolLevels);
-
     });
 
     function updateSelectionListFromCategory(selectedCategoryData, selectedSchoolLevels) {

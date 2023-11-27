@@ -64,7 +64,6 @@
                                             </select>
 
                                             <select id="dropdown2" class="form-control custom-height" multiple="multiple">
-                                                <option value="" disabled selected hidden>Schulklasse</option>
                                                 @foreach ($schulklassen as $schulklasse)
                                                     <option value="{{ $schulklasse->schoollevel }}">{{ $schulklasse->schoollevel }}</option>
                                                 @endforeach

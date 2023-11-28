@@ -976,7 +976,6 @@ class AdminController extends Controller
                 $mails[] = $all_mail;
             }
 
-
             return view('admin/indexEmail')->with('mails', $mails);
         } else {
             return view('admin/login_form');
@@ -991,7 +990,6 @@ class AdminController extends Controller
      */
     public function getMail(Request $request)
     {
-
         $mail = EditMail::find($request->mail_id);
 
         try {
@@ -1019,9 +1017,7 @@ class AdminController extends Controller
      */
     public function updateMail(Request $request)
     {
-
         try {
-
             EditMail::find($request->mailIdAndText[0]["value"])->update(
                 ['mail_text' => $request->mailIdAndText[1]["value"]]);
 
@@ -1029,7 +1025,5 @@ class AdminController extends Controller
         } catch (Exception $e) {
             return response()->json($e, 500);
         }
-
-
     }
 }

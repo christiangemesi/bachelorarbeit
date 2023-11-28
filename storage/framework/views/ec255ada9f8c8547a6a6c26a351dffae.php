@@ -11,6 +11,11 @@
     <script src="<?php echo e(asset('js/calendar/fullcalendar.js')); ?>"></script>
     <script src="<?php echo e(asset('js/calendar/de-ch.js')); ?>"></script>
     <script src="<?php echo e(asset('js/calendar/add-first-block.js')); ?>"></script>
+   <link rel="stylesheet" href="<?php echo e(asset('css/filter.css')); ?>">
+    <script src="<?php echo e(asset('js/user/filter.js')); ?>"></script>
+
+
+
 
 
     <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
@@ -47,6 +52,28 @@
                                         <div class="input-group col-md-12">
                                             <input type="text" class="form-control" id="themebox-list-search" placeholder="Suche nach Themenkiste..">
                                         </div>
+
+                                        <div class="filter">
+                                            <select id="dropdown1" class="form-control custom-height">
+                                                <option value="" disabled selected hidden>Kategorie</option>
+                                                <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                    <?php if($category->name !== '-'): ?>
+                                                        <option value="<?php echo e($category->id); ?>" data-category="<?php echo e($category); ?>"><?php echo e($category->name); ?></option>
+                                                    <?php endif; ?>
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                            </select>
+
+                                            <select id="dropdown2" class="form-control custom-height" multiple="multiple">
+                                                <?php $__currentLoopData = $schulklassen; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $schulklasse): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                    <option value="<?php echo e($schulklasse->schoollevel); ?>"><?php echo e($schulklasse->schoollevel); ?></option>
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                            </select>
+
+                                            <button type="button" id="resetCategoryFilterBtn" class="btn btn-default custom-height">
+                                                Filter<br> Zurücksetzen
+                                            </button>
+                                        </div>
+
                                         <div class="list-group thekre-list">
                                             <ul id="themebox-list-ul">
                                                 <?php $__currentLoopData = $themeboxes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $themebox): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -162,7 +189,7 @@
                                             <input name="phone" type="text" class="form-control" id="phone" maxlength="40" placeholder="0629231323" onblur="phoneValidate()"/>
                                             <span id="phoneIcon" aria-hidden="true"></span>
                                             <span id="phoneInputStatus" class="errorHeader">Telefonnummer wird benötigt!</span>
-                                        </div>                          
+                                        </div>
                                         <div class="form-group has-success has-feedback">
                                             <label class="form-control-label" for="nebisusernumber">Bibliotheksausweisnummer</label>
                                             <input name="nebisusernumber" type="text" class="form-control" id="nebisusernumber" maxlength="40" placeholder="S98134827348"/>

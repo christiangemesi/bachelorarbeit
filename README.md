@@ -82,6 +82,8 @@ Christian Gémesi and Ramanan Rasaiah in the course of an IP6 Project.
 > DATABASE=thekre
 > DATABASE_USERNAME=thekre_admin
 > DATABASE_PASSWORD=cSCdrkd1VNEbk8PW
+> 
+> DATABASE_ROOT_PASSWORD="156deq1ws56dwq5e245864e5w6qe45w61cw5dw"
 > ```
 
 > 6. Setup Database <br>

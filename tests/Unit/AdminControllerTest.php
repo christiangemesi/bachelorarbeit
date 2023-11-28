@@ -11,7 +11,7 @@ use ThekRe\Themebox;
 
 class AdminControllerTest extends TestCase
 {
-    public function setUp() : void {
+    public function setUp(): void{
         parent::setUp();
 
         @$admin_controller = new AdminController();;

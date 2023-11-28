@@ -36,7 +36,7 @@ services:
     container_name: phpmyadmin
     environment:
       PMA_HOST: ${DATABASE_DRIVER}
-      PMA_PORT: ${DATABASE_PORT$
+      PMA_PORT: ${DATABASE_PORT}$
     env_file:
       - .env
 

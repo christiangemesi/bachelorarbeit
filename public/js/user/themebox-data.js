@@ -275,6 +275,7 @@ $(document).ready(function () {
         // Reset the multiselect to its initial state
         $("#dropdown2").multiselect("deselectAll", false);
         $("#dropdown2").multiselect("updateButtonText");
+        $("#start-date").prop("disabled", false);
 
         // Reset the themebox list to its initial state
         $.ajax({

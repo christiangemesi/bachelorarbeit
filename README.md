@@ -27,7 +27,7 @@ Christian Gémesi and Ramanan Rasaiah in the course of an IP6 Project.
 > - Click Next and wait for the installation to finish. <br>
 
 > 3. Install IDE <br>
-> We used PhpStorm as our IDE. You can download it [here](https://www.jetbrains.com/phpstorm/promo/?source=google&medium=cpc&campaign=EMEA_en_WEST_PhpStorm_Branded&term=phpstorm&content=540241555657&gad=1&gclid=CjwKCAiAu9yqBhBmEiwAHTx5p_-YKFcsyOTPxAGrIfE1WHnAthv_sVX5m3J2UateyTXIhXwNSPysJRoCWwQQAvD_BwE) <br>
+> We used PhpStorm as our IDE. You can download it [here](https://www.jetbrains.com/phpstorm/) <br>
 > - No special settings needed <br>
 
 > 4. Clone the Repository <br>
@@ -86,23 +86,23 @@ Christian Gémesi and Ramanan Rasaiah in the course of an IP6 Project.
 > DATABASE_ROOT_PASSWORD="156deq1ws56dwq5e245864e5w6qe45w61cw5dw"
 > ```
 
-> 6. Setup Database <br>
+> 7. Setup Database <br>
 > - Open XAMPP Control Panel and start Apache and MySQL <br>
 > - Go to http://127.0.0.1/phpmyadmin/ and create a new database called "thekre" and select "utf8_general_ci" <br>
 > ![create_database_thekre.JPG](images_readme%2Fcreate_database_thekre.JPG)
-> - Import the database from the file database\thekre.sql <br>
+> - Import the database from the file database\thekre_empty.sql <br>
 > ![import_db_phpmyadmin.png](images_readme%2Fimport_db_phpmyadmin.png)
 > - Now the database thekre with the 7 tables got generated. <br>
 > ![tables_thekre.png](images_readme%2Ftables_thekre.png)
 > - After that we have to create a new database user for the system access. Go to Benutzerkonten in the navigation bar and klick Benutzerkonten hinzufügen.
 > ![add_user_phpmyadmin.png](images_readme%2Fadd_user_phpmyadmin.png)
 > - The hostname is localhost and the username and password are defined in the .env file.
-> ![add_user_name_password_phpmyadmin.png](..%2F..%2F..%2F..%2FUsers%2FCHRIST%7E1%2FAppData%2FLocal%2FTemp%2Fadd_user_name_password_phpmyadmin.png)
+> ![add_user_name_password_phpmyadmin.png](images_readme%2Fadd_user_name_password_phpmyadmin.png)
 > - Choose the following user privilege's and klick OK.
 > ![user_privileges_phpmyadmin.png](images_readme%2Fuser_privileges_phpmyadmin.png)
 > 
 
-> 7. Run the application <br>
+> 8. Run the application <br>
 > - Open the file C:\xampp\php\php.ini and search for the line ";extension=zip". Remove the ";" at the beginning of the line to enable the extension. <br>
 > - In Your IDE open the terminal and run the following commands: <br>
 > - ```composer install``` <br>

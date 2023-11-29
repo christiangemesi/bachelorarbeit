@@ -70,7 +70,7 @@
                                             </select>
 
                                             <button type="button" id="resetCategoryFilterBtn" class="btn btn-default custom-height">
-                                                Filter<br> Zurücksetzen
+                                                Filter<br> zurücksetzen
                                             </button>
                                         </div>
 

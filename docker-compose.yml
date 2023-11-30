@@ -3,7 +3,7 @@ version: '3'
 services:
     # Application Service
     thekre:
-        image: thekre2
+        image: thekre
         build:
             context: .
             dockerfile: Dockerfile

@@ -7,6 +7,7 @@ Christian Gémesi and Ramanan Rasaiah in the course of an IP6 Project.
 ## Table of content
 [Installation](#installation)
 - [Installation Development Environment](#Installation Development Environment)
+- [Installation Dockerized Environment](#Installation Development Environment)
 
 
 ## Installation
@@ -112,3 +113,70 @@ Christian Gémesi and Ramanan Rasaiah in the course of an IP6 Project.
 > ![homepage.jpg](images_readme%2Fhomepage.jpg)
 > - PS: the username and password for the admin under http://127.0.0.1:8000/admin/loginForm are: username: "root", password: "root" <br>
 > - PS: the password for the poweruser under http://127.0.0.1:8000/poweruser/loginForm is: "poweruser" <br>
+
+### Installation Dockerized Environment
+The exact same Commandline commands can be copied into the Terminal
+
+> 1. Install [Docker](https://www.docker.com/) <br>
+> 2. Follow the Installation instructions from below <br>
+>```
+>  mkdir thekre # create a new folder
+>  cd thekre # change into the new folder
+>  git clone https://gitlab.fhnw.ch/christian.gemesi/thek-re-2.git # clone the repository
+>  cd thek-re-2 # change into the repository folder
+>  git switch -c poc origin/poc # switch branch
+>  cp '<<Link to .env>>' . # copy the .env file into the folder
+>  docker compose build # build the docker image
+>
+>  cd .. # change into the parent folder
+>  mkdir deployment # create a new folder
+>  cp '../thek-re-2/docker-compose.yml' . # copy the docker-compose.yml file into the folder
+>  cp '../thek-re-2/.env' . # copy the .env file into the folder
+>  cd .. # change into the parent folder
+>  rm -rf thek-re-2 # remove the thek-re-2 folder
+>  cd deployment # change into the deployment folder
+>  docker compose up # start the docker container
+>```
+> 3. Open the application in your browser at http://127.0.0.1:8000 
+
+>.env file:
+> ``` 
+> APP_NAME=ThekRe
+> APP_ENV=local
+> APP_KEY=base64:OXiQSLCrUXYKg8PH2U7ulTM8cg8e5POG+H+wX4hXK4A=
+> APP_DEBUG=true
+> APP_LOG_LEVEL=debug
+> APP_URL=http://127.0.0.1:8000
+> 
+> UNIQUE_SERVER_URL=themenkisten/
+> 
+> BROADCAST_DRIVER=log
+> CACHE_DRIVER=file
+> SESSION_DRIVER=file
+> QUEUE_DRIVER=sync
+> 
+> REDIS_HOST=127.0.0.1
+> REDIS_PASSWORD=null
+> REDIS_PORT=6379
+> 
+> PUSHER_APP_ID=
+> PUSHER_APP_KEY=
+> PUSHER_APP_SECRET=
+> 
+> EMAILS_FROM_NAME="<<YOUR NAME HERE>>"
+> MAIL_DRIVER=smtp
+> MAIL_HOST=smtp.gmail.com
+> MAIL_PORT=587
+> MAIL_USERNAME="<<YOUR EMAIL HERE>>"
+> MAIL_PASSWORD="<<YOUR APP PASSWORD HERE>>"
+> MAIL_ENCRYPTION=tls
+> 
+> DATABASE_DRIVER=mysql
+> DATABASE_HOST=mysql
+> DATABASE_PORT=3306
+> DATABASE=thekre
+> DATABASE_USERNAME="thekre_user"
+> DATABASE_PASSWORD="cSCdrkd1VNEbk8PW"
+> #Database root user in mysql per default is root
+> DATABASE_ROOT_PASSWORD="156deq1ws56dwq5e245864e5w6qe45w61cw5dw"
+> ``` 

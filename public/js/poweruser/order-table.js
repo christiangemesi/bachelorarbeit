@@ -66,7 +66,7 @@ $(document).ready(function () {
             },
             error: function (xhr, status, error) {
                 $('#modal-order-edit-progress').modal('toggle');
-                showFailureModal("Es ist ein Fehler bei der Statusänderung passiert", xhr);
+                showFailureModal("Es ist ein Fehler bei der Statusänderung aufgetreten", xhr);
             }
         })
     });
@@ -137,7 +137,7 @@ $(document).ready(function () {
 
             },
             error: function (xhr, status, error) {
-                showFailureModal("Es ist ein Fehler beim Laden der Daten vorgekommen", xhr);
+                showFailureModal("Es ist ein Fehler beim Laden der Daten aufgetreten", xhr);
             },
             complete: function () {
 
@@ -263,7 +263,7 @@ $(document).ready(function () {
                 blockPreviousFiveSundaysInCalendar();
                 },
             error: function (xhr, status, error) {
-                showFailureModal("Es ist ein Fehler beim Laden der Daten vorgekommen", xhr);
+                showFailureModal("Es ist ein Fehler beim Laden der Daten aufgetreten", xhr);
             }
         })
     });
@@ -718,7 +718,7 @@ $(document).ready(function () {
                 });
             },
             error: function(xhr, status, error) {
-                errorHandling("Es ist ein Fehler bei der Datenverarbeitung passiert. Bitte kontaktieren Sie die FHNW Bibliothek unter bibliothek.windisch@fhnw.ch", "#error-message-box");
+                errorHandling("Es ist ein Fehler bei der Datenverarbeitung aufgetreten. Bitte kontaktieren Sie die FHNW Bibliothek unter bibliothek.windisch@fhnw.ch", "#error-message-box");
             }
         });
     }

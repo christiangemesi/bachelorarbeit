@@ -144,7 +144,7 @@ $(document).ready(function () {
 
             },
             error: function (xhr, status, error) {
-                showFailureModal("Es ist ein Fehler beim Laden der Daten vorgekommen", xhr);
+                showFailureModal("Es ist ein Fehler beim Laden der Daten aufgetreten", xhr);
             },
             complete: function () {
                 printData();
@@ -269,7 +269,7 @@ $(document).ready(function () {
 
             },
             error: function (xhr, status, error) {
-                showFailureModal("Es ist ein Fehler beim Laden der Daten vorgekommen", xhr);
+                showFailureModal("Es ist ein Fehler beim Laden der Daten aufgetreten", xhr);
             }
         })
     });

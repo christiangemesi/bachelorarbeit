@@ -28,7 +28,6 @@ function firstNameValidate() {
     }
 }
 
-
 function lastNameValidate() {
 
     var lastNameInput = document.getElementById("lastname");

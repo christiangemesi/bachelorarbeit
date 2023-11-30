@@ -190,11 +190,11 @@
                                             <span id="phoneIcon" aria-hidden="true"></span>
                                             <span id="phoneInputStatus" class="errorHeader">Telefonnummer wird benötigt!</span>
                                         </div>
-                                        <div class="form-group has-success has-feedback">
-                                            <label class="form-control-label" for="nebisusernumber">Bibliotheksausweisnummer</label>
-                                            <input name="nebisusernumber" type="text" class="form-control" id="nebisusernumber" maxlength="40" placeholder="S98134827348"/>
+                                        <div class="form-group has-feedback">
+                                            <label class="form-control-label" for="nebisusernumber">Bibliotheksausweisnummer * </label>
+                                            <input name="nebisusernumber" type="text" class="form-control" id="nebisusernumber" maxlength="40" placeholder="S98134827348" onblur="nebisValidate()"/>
                                             <span id="nebisIcon" aria-hidden="true"></span>
-                                            <p><i>Bibliothekskarte kann bei der Abholung der THKI verlangt werden.</i></p>
+                                            <span id="nebisInputStatus" class="errorHeader">Wenn keine vorhanden, mit 1234 ausfüllen</span>
                                         </div>
                                         <label class="required">* Pflichtfeld</label>
                                     </div>

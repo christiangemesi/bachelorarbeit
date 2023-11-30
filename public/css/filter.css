@@ -19,6 +19,7 @@
     white-space: normal; /* Allow text to wrap onto multiple lines */
     width: auto; /* Set width to auto for dynamic width based on content */
     height: 50px;
+    margin-left: 10px;
 }
 
 #dropdown1, #dropdown1 ~ .multiselect-container, #dropdown1 ~ .multiselect-container li {

@@ -12,6 +12,6 @@
             <label for="email">E-Mail:</label>
             <input type="email" class="form-control" id="forget-password-email" name="email"/>
         </div>
-        <button type="submit" id="forget-password-button" class="btn btn-success btn-lg">Send Reset Link</button>
+        <button type="submit" id="forget-password-button" class="btn btn-success btn-lg">Passwort zurücksetzen</button>
     </div>
 @endsection

@@ -842,10 +842,10 @@ class AdminController extends Controller
      * render change password form
      * @return Factory|\Illuminate\View\View
      */
-    public function indexChangePassword()
+    public function indexChangeCredentials()
     {
         if ($this->checkLogin()) {
-            return view('admin/indexChangePassword', ['currentAdminEmail' => $this->getAdminEmail()]);
+            return view('admin/indexChangeCredentials', ['currentAdminEmail' => $this->getAdminEmail()]);
         } else {
             return view('admin/login_form');
         }
@@ -883,12 +883,12 @@ class AdminController extends Controller
 
         //check if email and confirmation email are the same
         if ($request->email != $request->confirm_email) {
-            return redirect('admin/changePassword')->with('alert-message', 'E-Mail stimmen nicht überein!');
+            return redirect('admin/changeCredentials')->with('alert-message', 'E-Mail stimmen nicht überein!');
         }
 
         $this->setAdminEmail($request->email);
 
-        return redirect('admin/changePassword')->with('success-message', 'E-Mail geändert!');
+        return redirect('admin/changeCredentials')->with('success-message', 'E-Mail geändert!');
     }
 
     /**
@@ -912,16 +912,16 @@ class AdminController extends Controller
                     $pass->password = $hashed_password;
                     $pass->save();
 
-                    return redirect('admin/changePassword')->with('success-message', 'Das Passwort wurde geändert!');
+                    return redirect('admin/changeCredentials')->with('success-message', 'Das Passwort wurde geändert!');
                 } catch (Exception $e) {
-                    return redirect('admin/changePassword')->with('alert-message', 'Das Passwort konnte nicht geändert werden!');
+                    return redirect('admin/changeCredentials')->with('alert-message', 'Das Passwort konnte nicht geändert werden!');
 
                 }
             } else {
-                return redirect('admin/changePassword')->with('alert-message', 'Das Passwort konnte nicht geändert werden! Bitte geben Sie Bestätigen Sie das Passwort, mit erneuter Eingabe.');
+                return redirect('admin/changeCredentials')->with('alert-message', 'Das Passwort konnte nicht geändert werden! Bitte geben Sie Bestätigen Sie das Passwort, mit erneuter Eingabe.');
             }
         } else {
-            return redirect('admin/changePassword')->with('alert-message', 'Das Passwort konnte nicht geändert werden! Ihr eingebenes Passwort entspricht nicht dem aktuellen Passwort!');
+            return redirect('admin/changeCredentials')->with('alert-message', 'Das Passwort konnte nicht geändert werden! Ihr eingebenes Passwort entspricht nicht dem aktuellen Passwort!');
         }
     }
 
@@ -946,16 +946,16 @@ class AdminController extends Controller
                     $pass->password = $hashed_password;
                     $pass->save();
 
-                    return redirect('admin/changePassword')->with('success-message', 'Das Passwort wurde geändert!');
+                    return redirect('admin/changeCredentials')->with('success-message', 'Das Passwort wurde geändert!');
                 } catch (Exception $e) {
-                    return redirect('admin/changePassword')->with('alert-message', 'Das Passwort konnte nicht geändert werden!');
+                    return redirect('admin/changeCredentials')->with('alert-message', 'Das Passwort konnte nicht geändert werden!');
 
                 }
             } else {
-                return redirect('admin/changePassword')->with('alert-message', 'Das Passwort konnte nicht geändert werden! Bitte geben Sie Bestätigen Sie das Passwort, mit erneuter Eingabe.');
+                return redirect('admin/changeCredentials')->with('alert-message', 'Das Passwort konnte nicht geändert werden! Bitte geben Sie Bestätigen Sie das Passwort, mit erneuter Eingabe.');
             }
         } else {
-            return redirect('admin/changePassword')->with('alert-message', 'Das Passwort konnte nicht geändert werden! Ihr eingebenes Passwort entspricht nicht dem aktuellen Passwort!');
+            return redirect('admin/changeCredentials')->with('alert-message', 'Das Passwort konnte nicht geändert werden! Ihr eingebenes Passwort entspricht nicht dem aktuellen Passwort!');
         }
     }
 

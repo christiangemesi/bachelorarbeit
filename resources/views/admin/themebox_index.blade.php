@@ -182,7 +182,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                     <div class="panel-heading themebox-new-title">
-                        Themenkiste Bearbeiten
+                        Themenkiste bearbeiten
                     </div>
                 </div>
                 <div class="model-body">
@@ -365,7 +365,7 @@
                             </button>
                             <button type="button" class="button-delete-themebox btn btn-danger"
                                     value="{{$themebox["pk_themebox"]}}" aria-label="delete" data-toggle="tooltip"
-                                    data-placement="top" title="Bestellung löschen">
+                                    data-placement="top" title="Themenkiste löschen">
                                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                             </button>
                         </td>

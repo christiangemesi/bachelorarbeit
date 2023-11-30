@@ -56,7 +56,7 @@ Route::post('/admin/createBlockedPeriod', 'AdminController@createBlockedPeriod')
 Route::post('/admin/removeBlockedPeriod', 'AdminController@removeBlockedPeriod');
 Route::post('/admin/getBlockedPeriod', 'AdminController@getBlockedPeriod');
 Route::post('/admin/updateBlockedPeriod', 'AdminController@updateBlockedPeriod');
-Route::get('/admin/changePassword', 'AdminController@indexChangePassword');
+Route::get('/admin/changeCredentials', 'AdminController@indexChangeCredentials');
 
 Route::get('/admin/email', 'AdminController@indexEmail');
 Route::post('/admin/updatePassword', 'AdminController@updatePassword');

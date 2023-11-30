@@ -26,7 +26,7 @@
                 <a href="{{ env('APP_URL') }}/admin/email"></span><div class="nav-text"> E-Mails</div></a>
             </li>
             <li class="sidebar-nav-text">
-                <a href="{{ env('APP_URL') }}/admin/changePassword"></span><div class="nav-text"> Nutzerdaten ändern</div></a>
+                <a href="{{ env('APP_URL') }}/admin/changeCredentials"></span><div class="nav-text"> Nutzerdaten ändern</div></a>
             </li>
             <li class="sidebar-nav-text">
                 <a href="{{ env('APP_URL') }}/admin/logout"></span><div class="nav-text"> Abmelden</div></a>

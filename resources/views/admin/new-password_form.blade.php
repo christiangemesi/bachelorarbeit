@@ -26,19 +26,19 @@
         <input type="text" name="token" id="reset-password-token" hidden value="{{$token}}">
         <h1 class="admin-header">Passwort zurücksetzen</h1>
         <div class="form-group">
-            <label for="email">Enter Email:</label>
+            <label for="email">E-Mail Adresse:</label>
             <input type="email" class="form-control" name="email" id="reset-password-email"/>
         </div>
         <div class="form-group">
-            <label for="password">Enter new Password:</label>
+            <label for="password">Neues Passwort:</label>
             <input type="password" class="form-control" name="password" id="new-password-password"/>
         </div>
         <div class="form-group">
-            <label for="password">Repeat new Password:</label>
+            <label for="password">Neues Passwort wiederholen:</label>
             <input type="password" class="form-control" name="password_confirmation" id="new-password-confirmed"/>
         </div>
         <div>
-            <span class="tooltiptext">Password must be at least 8 characters</span>
+            <span class="tooltiptext">Passwort muss mindestens 8 Zeichen lang sein.</span>
         </div>
         <button type="submit" id="reset-password-button" class="btn btn-success btn-lg">Change</button>
     </div>

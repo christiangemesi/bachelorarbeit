@@ -95,7 +95,7 @@ Christian Gémesi and Ramanan Rasaiah in the course of an IP6 Project.
 > ![import_db_phpmyadmin.png](images_readme%2Fimport_db_phpmyadmin.png)
 > - Now the database thekre with the 7 tables got generated. <br>
 > ![tables_thekre.png](images_readme%2Ftables_thekre.png)
-> - After that we have to create a new database user for the system access. Go to "Benutzerkonten" in the navigation bar and klick Benutzerkonten hinzufügen.
+> - After that we have to create a new database user for the system access. Go back to the homepage and then choose "Benutzerkonten" in the navigation bar and klick Benutzerkonten hinzufügen.
 > ![add_user_phpmyadmin.png](images_readme%2Fadd_user_phpmyadmin.png)
 > - The hostname is localhost. The username and password are defined in the .env file.
 > ![add_user_name_password_phpmyadmin.png](images_readme%2Fadd_user_name_password_phpmyadmin.png)
@@ -105,7 +105,7 @@ Christian Gémesi and Ramanan Rasaiah in the course of an IP6 Project.
 
 > 8. Run the application <br>
 > - Open the file C:\xampp\php\php.ini with any texteditor and search for the line ";extension=zip". Remove the ";" at the beginning of the line to enable the extension. <br>
-> - In Your IDE open the terminal and run the following commands: <br>
+> - In Your IDE open the terminal, change into the cloned repository directory, and run the following commands: <br>
 > - ```composer install``` <br>
 > - ```php artisan key:generate``` <br>
 > - ```php artisan serve``` <br>

@@ -61,8 +61,8 @@
                     </div>
                 </div>
                 <div class="model-body">
-                    <form id="create-category-form" name="create-category-form" autocomplete="off">
-                        <div class="panel-body">
+                    <form id="create-category-form" name="create-category-form" autocomplete="off" onsubmit="return false;">
+                    <div class="panel-body">
                             <div class="row thekre-row category-create-form-background" id="category-data-box">
                                 <div class="form-group has-feedback">
                                     <label class="category-form-label" for="category-form-name">Kategorie Name
@@ -107,7 +107,7 @@
                     </div>
                 </div>
                 <div class="model-body">
-                    <form id="edit-category-form" autocomplete="off">
+                    <form id="edit-category-form" autocomplete="off" onsubmit="return false;">
                         <input type="hidden" value="" name="category_id" id="category_id"/>
                         <div class="panel-body">
                             <div class="row thekre-row category-create-form-background" id="category-data-box">

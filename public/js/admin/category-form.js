@@ -42,6 +42,13 @@ function checkCategoryForm() {
     if (cansubmit) {
         document.getElementById("create-category-button").disabled = !cansubmit;
     }
+
+    document.getElementById('create-category-form').addEventListener('keypress', function (e) {
+        var key = e.which || e.keyCode;
+        if (key === 13) {
+            e.preventDefault();
+        }
+    });
 }
 
 

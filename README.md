@@ -14,7 +14,7 @@ Christian Gémesi and Ramanan Rasaiah in the course of an IP6 Project.
 ### Installation Development Environment
 > 1. Install [XAMPP](https://sourceforge.net/projects/xampp/files/XAMPP%20Windows/8.2.4/) <br>
 > Download xampp-windows-x64-8.2.4-0-VS16-installer.exe from the above Link and run the installer.
-> - At selected Components only MySQL and phpMyAdmin are required. <br>
+> - At Selected Components only MySQL and phpMyAdmin are required. <br>
 > - The Installation folder needs to be C:\xampp <br>
 > - Language: Choose your preferred language <br>
 > - Click Next and wait for the installation to finish. <br>
@@ -23,7 +23,7 @@ Christian Gémesi and Ramanan Rasaiah in the course of an IP6 Project.
 > Download Composer-Setup.exe from the Link above and run the installer.
 > - Developer mode: Uncheck the box
 > - The Installation path needs to be C:\xampp\php\php.exe <br>
-> - Add PHP to PATH: Check the box <br>
+> - Add PHP to PATH: Check the box, if existent <br> 
 > - No Proxy settings needed <br>
 > - Click Next and wait for the installation to finish. <br>
 
@@ -95,16 +95,16 @@ Christian Gémesi and Ramanan Rasaiah in the course of an IP6 Project.
 > ![import_db_phpmyadmin.png](images_readme%2Fimport_db_phpmyadmin.png)
 > - Now the database thekre with the 7 tables got generated. <br>
 > ![tables_thekre.png](images_readme%2Ftables_thekre.png)
-> - After that we have to create a new database user for the system access. Go to Benutzerkonten in the navigation bar and klick Benutzerkonten hinzufügen.
+> - After that we have to create a new database user for the system access. Go to "Benutzerkonten" in the navigation bar and klick Benutzerkonten hinzufügen.
 > ![add_user_phpmyadmin.png](images_readme%2Fadd_user_phpmyadmin.png)
-> - The hostname is localhost and the username and password are defined in the .env file.
+> - The hostname is localhost. The username and password are defined in the .env file.
 > ![add_user_name_password_phpmyadmin.png](images_readme%2Fadd_user_name_password_phpmyadmin.png)
 > - Choose the following user privilege's and klick OK.
 > ![user_privileges_phpmyadmin.png](images_readme%2Fuser_privileges_phpmyadmin.png)
 > 
 
 > 8. Run the application <br>
-> - Open the file C:\xampp\php\php.ini and search for the line ";extension=zip". Remove the ";" at the beginning of the line to enable the extension. <br>
+> - Open the file C:\xampp\php\php.ini with any texteditor and search for the line ";extension=zip". Remove the ";" at the beginning of the line to enable the extension. <br>
 > - In Your IDE open the terminal and run the following commands: <br>
 > - ```composer install``` <br>
 > - ```php artisan key:generate``` <br>

@@ -35,7 +35,7 @@ Christian Gémesi and Ramanan Rasaiah in the course of an IP6 Project.
 > Open your IDE and copy the HTTPS Link from the Project [Project](https://gitlab.fhnw.ch/christian.gemesi/thek-re-2/) <br>
 > Clone the Project into C:\xampp\htdocs\thek-re-2 <br>
 
-> 5. Setup Development E-Mail <br>
+> 5. Setup Development EMail <br>
 > - We used Gmail as our Email provider. Ensure you create a new fresh Gmail account, as we will place our password in plain text within the .env file. This precaution is taken to mitigate potential issues if the file is accidently pushed to Git. <br>
 > - To setup, you first need to enable 2-Step Verification on your Gmail account. You can do this [here](https://myaccount.google.com/security) <br>
 > - After that you can create an App Password. This password will be placed in your .env file. You can get the Password [here](https://myaccount.google.com/apppasswords) by setting an App name. Copy the password fresh txt file to store it until we have the .env file created. <br>

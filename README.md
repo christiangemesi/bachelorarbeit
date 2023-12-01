@@ -7,7 +7,7 @@ Christian Gémesi and Ramanan Rasaiah in the course of an IP6 Project.
 ## Table of content
 [Installation](#installation)
 - [Installation Development Environment](#Installation Development Environment)
-- [Installation Dockerized Environment](#Installation Development Environment)
+- [Installation Dockerized Environment](#Installation Dockerized Environment)
 
 
 ## Installation

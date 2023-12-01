@@ -5,7 +5,7 @@
 
     @include('layouts.nav_background')
     <div class="alert alert-danger" id="email-reset-notExistent-message-box">
-        Email stimmt nicht mit der Email überein, die mit diesem Account verknüpft ist.
+        E-Mail stimmt nicht mit der E-Mail überein, die mit diesem Account verknüpft ist.
     </div>
 
     <div class="alert alert-danger" id="reset-password-8character-message-box">
@@ -40,6 +40,6 @@
         <div>
             <span class="tooltiptext">Passwort muss mindestens 8 Zeichen lang sein.</span>
         </div>
-        <button type="submit" id="reset-password-button" class="btn btn-success btn-lg">Change</button>
+        <button type="submit" id="reset-password-button" class="btn btn-success btn-lg">Speichern</button>
     </div>
 @endsection

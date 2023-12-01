@@ -103,7 +103,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                     <div class="panel-heading category-new-title">
-                        Kategorie Bearbeiten
+                        Kategorie bearbeiten
                     </div>
                 </div>
                 <div class="model-body">

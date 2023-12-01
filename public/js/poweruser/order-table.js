@@ -681,7 +681,7 @@ $(document).ready(function () {
             },
             error: function (xhr, status, error) {
                 $('#modal-order-edit-progress').modal('toggle');
-                showFailureModal("Es ist ein Fehler bei der Statusänderung passiert", xhr);
+                showFailureModal("Es ist ein Fehler bei der Statusänderung aufgetreten", xhr);
             }
         })
     });

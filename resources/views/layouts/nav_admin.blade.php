@@ -14,6 +14,9 @@
                 <a href="{{ env('APP_URL') }}/admin/themeboxes"></span><div class="nav-text"> Themenkisten</div></a>
             </li>
             <li class="sidebar-nav-text">
+                <a href="{{ env('APP_URL') }}/admin/categories"></span><div class="nav-text"> Kategorien</div></a>
+            </li>
+            <li class="sidebar-nav-text">
                 <a href="{{ env('APP_URL') }}/admin/statistics"></span><div class="nav-text"> Statistiken</div></a>
             </li>
             <li class="sidebar-nav-text">
@@ -23,7 +26,7 @@
                 <a href="{{ env('APP_URL') }}/admin/email"></span><div class="nav-text"> E-Mails</div></a>
             </li>
             <li class="sidebar-nav-text">
-                <a href="{{ env('APP_URL') }}/admin/changePassword"></span><div class="nav-text"> Passwort ändern</div></a>
+                <a href="{{ env('APP_URL') }}/admin/changeCredentials"></span><div class="nav-text"> Nutzerdaten ändern</div></a>
             </li>
             <li class="sidebar-nav-text">
                 <a href="{{ env('APP_URL') }}/admin/logout"></span><div class="nav-text"> Abmelden</div></a>

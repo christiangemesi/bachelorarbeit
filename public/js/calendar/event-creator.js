@@ -55,8 +55,6 @@ function updateEvent() {
         $("#calendar").fullCalendar('removeEvents', function(event) {
             return event.className == "myOrder";
         });
-        console.log(formatCalendarDate($("#start-date").val()));
-        console.log(formatCalendarEndDate($("#end-date").val()));
         createEvent(formatCalendarDate($("#start-date").val()), formatCalendarEndDate($("#end-date").val()));
         $("#button-save-order-change").prop('disabled', false);
 }
@@ -69,8 +67,6 @@ function orderAddUpdateEvent() {
     $("#orderAdd-calendar").fullCalendar('removeEvents', function(event) {
         return event.className == "myOrder";
     });
-    console.log(formatCalendarDate($("#orderAdd-start-date").val()));
-    console.log(formatCalendarEndDate($("#orderAdd-end-date").val()));
     orderAddCreateEvent(formatCalendarDate($("#orderAdd-start-date").val()), formatCalendarEndDate($("#orderAdd-end-date").val()));
     $("#button-save-orderAdd-change").prop('disabled', false);
 }

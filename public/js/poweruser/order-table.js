@@ -66,7 +66,7 @@ $(document).ready(function () {
             },
             error: function (xhr, status, error) {
                 $('#modal-order-edit-progress').modal('toggle');
-                showFailureModal("Es ist ein Fehler bei der Statusänderung passiert", xhr);
+                showFailureModal("Es ist ein Fehler bei der Statusänderung aufgetreten", xhr);
             }
         })
     });
@@ -113,7 +113,7 @@ $(document).ready(function () {
                     '<tr><td> </td></tr>' +
                     '<tr class="print-table-user"><td class="print-table-title">Nachname: </td><td class="print-table-text">' + response["order"]["name"] +'</td></tr>' +
                     '<tr class="print-table-user"><td class="print-table-title">Vorname: </td><td class="print-table-text">' + response["order"]["surname"] +'</td></tr>' +
-                    '<tr class="print-table-user"><td class="print-table-title">Bibliotheksausweisnummer: </td><td class="print-table-text">' + response["order"]["nebisusernumber"] +'</td></tr>' +
+                    '<tr class="print-table-user"><td class="print-table-title">Bibliotheksausweis: </td><td class="print-table-text">' + response["order"]["nebisusernumber"] +'</td></tr>' +
                     '<tr class="print-table-user"><td class="print-table-title">Email: </td><td class="print-table-text">' + response["order"]["email"] +'</td></tr>' +
                     '<tr class="print-table-user"><td class="print-table-title">Telefonnummer: </td><td class="print-table-text">' + response["order"]["phonenumber"] +'</td></tr>';
 
@@ -170,7 +170,6 @@ $(document).ready(function () {
                     }
                 );
 
-                console.log(response["order"]["startdate"]);
                 $('#order-edit-form').trigger("reset");
                 $("#order-id").val(response["order"]["pk_order"]);
                 $("#ordernumber-edit").val(response["order"]["ordernumber"]);
@@ -515,7 +514,6 @@ $(document).ready(function () {
     }
 
     function bindEndDataOrderAdd() {
-        console.log("worki torki");
         var end_date = $('#orderAdd-end-date');
         var start_date = $("#orderAdd-start-date").datepicker('getDate');
         var min_date = $("#orderAdd-start-date").datepicker('getDate');

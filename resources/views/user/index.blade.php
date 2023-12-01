@@ -11,6 +11,11 @@
     <script src="{{ asset('js/calendar/fullcalendar.js') }}"></script>
     <script src="{{ asset('js/calendar/de-ch.js') }}"></script>
     <script src="{{ asset('js/calendar/add-first-block.js') }}"></script>
+   <link rel="stylesheet" href="{{ asset('css/filter.css') }}">
+    <script src="{{ asset('js/user/filter.js') }}"></script>
+
+
+
 
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -47,6 +52,28 @@
                                         <div class="input-group col-md-12">
                                             <input type="text" class="form-control" id="themebox-list-search" placeholder="Suche nach Themenkiste..">
                                         </div>
+
+                                        <div class="filter">
+                                            <select id="dropdown1" class="form-control custom-height">
+                                                <option value="" disabled selected hidden>Kategorie</option>
+                                                @foreach ($categories as $category)
+                                                    @if ($category->name !== '-')
+                                                        <option value="{{ $category->id }}" data-category="{{ $category }}">{{ $category->name }}</option>
+                                                    @endif
+                                                @endforeach
+                                            </select>
+
+                                            <select id="dropdown2" class="form-control custom-height" multiple="multiple">
+                                                @foreach ($schulklassen as $schulklasse)
+                                                    <option value="{{ $schulklasse->schoollevel }}">{{ $schulklasse->schoollevel }}</option>
+                                                @endforeach
+                                            </select>
+
+                                            <button type="button" id="resetCategoryFilterBtn" class="btn btn-default custom-height">
+                                                Filter<br> zurücksetzen
+                                            </button>
+                                        </div>
+
                                         <div class="list-group thekre-list">
                                             <ul id="themebox-list-ul">
                                                 @foreach ($themeboxes as $themebox)
@@ -151,10 +178,10 @@
                                         </div>
 
                                         <div class="form-group has-feedback">
-                                            <label for="emailInput">Email Adresse *</label>
+                                            <label for="emailInput">E-Mail Adresse *</label>
                                             <input type="email" class="form-control" name="email" id="emailInput" maxlength="60" placeholder="max.muster@fhnw.ch" onblur="emailValidate()"/>
                                             <span id="emailIcon" aria-hidden="true"></span>
-                                            <span id="emailInputStatus" class="errorHeader">Email wird benötigt!</span>
+                                            <span id="emailInputStatus" class="errorHeader">E-Mail wird benötigt!</span>
                                         </div>
 
                                         <div class="form-group has-feedback">
@@ -162,12 +189,12 @@
                                             <input name="phone" type="text" class="form-control" id="phone" maxlength="40" placeholder="0629231323" onblur="phoneValidate()"/>
                                             <span id="phoneIcon" aria-hidden="true"></span>
                                             <span id="phoneInputStatus" class="errorHeader">Telefonnummer wird benötigt!</span>
-                                        </div>                          
-                                        <div class="form-group has-success has-feedback">
-                                            <label class="form-control-label" for="nebisusernumber">Bibliotheksausweisnummer</label>
-                                            <input name="nebisusernumber" type="text" class="form-control" id="nebisusernumber" maxlength="40" placeholder="S98134827348"/>
+                                        </div>
+                                        <div class="form-group has-feedback">
+                                            <label class="form-control-label" for="nebisusernumber">Bibliotheksausweisnummer * </label>
+                                            <input name="nebisusernumber" type="text" class="form-control" id="nebisusernumber" maxlength="40" placeholder="S98134827348" onblur="nebisValidate()"/>
                                             <span id="nebisIcon" aria-hidden="true"></span>
-                                            <p><i>Bibliothekskarte kann bei der Abholung der THKI verlangt werden.</i></p>
+                                            <span id="nebisInputStatus" class="errorHeader">Wenn keine vorhanden, mit 1234 ausfüllen</span>
                                         </div>
                                         <label class="required">* Pflichtfeld</label>
                                     </div>
@@ -274,7 +301,7 @@
                                         </div>
                                         <div class="modal-body">
                                             <div class="panel-body">
-                                                <h2 class="delete-warning-header-text" id="delete-warning-header-text">Wollen Sie die Themenkiste wirklich bestellen und selbst Abholen?</h2>
+                                                <h2 class="delete-warning-header-text" id="delete-warning-header-text">Wollen Sie die Themenkiste wirklich bestellen und selbst abholen?</h2>
                                             </div>
                                         </div>
                                         <div class="modal-footer">

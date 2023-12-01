@@ -3,6 +3,7 @@
 namespace ThekRe\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,6 +14,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Paginator::useBootstrap();
         \URL::forceRootUrl(\Config::get('app.url'));
         if (str_contains(\Config::get('app.url'), 'https://')) {
             \URL::forceScheme('https');

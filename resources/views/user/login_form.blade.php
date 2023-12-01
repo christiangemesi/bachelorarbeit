@@ -106,10 +106,10 @@
                                             <span id="firstNameInputStatus" class="errorHeader">Vorname wird benötigt!</span>
                                         </div>
                                         <div class="form-group has-feedback">
-                                            <label class="float-left" for="email">Email</label>
+                                            <label class="float-left" for="email">E-Mail</label>
                                             <input type="text" class="form-control email" id="emailInput" name="email" maxlength="60" onkeyup = "emailValidate()" onblur="emailValidate()"/>
                                             <span id="emailIcon" aria-hidden="true"></span>
-                                            <span id="emailInputStatus" class="errorHeader">Email wird benötigt!</span>
+                                            <span id="emailInputStatus" class="errorHeader">E-Mail wird benötigt!</span>
                                         </div>
                                         <div class="form-group has-feedback">
                                             <label class="float-left" for="phonenumber">Tel</label>

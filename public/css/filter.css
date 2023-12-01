@@ -1,0 +1,101 @@
+
+.filter {
+    display: flex;
+    margin: 25px 25px 25px 25px;
+}
+
+
+.multiselect-container > li {
+    padding: 0
+}
+
+.multiselect-container {
+    border-radius: 0px; /* Set border-radius to 0 to remove rounded corners */
+    padding: 0;
+    margin: 0;
+}
+
+#resetCategoryFilterBtn {
+    white-space: normal; /* Allow text to wrap onto multiple lines */
+    width: auto; /* Set width to auto for dynamic width based on content */
+    height: 50px;
+    margin-left: 10px;
+}
+
+#dropdown1, #dropdown1 ~ .multiselect-container, #dropdown1 ~ .multiselect-container li {
+    cursor: pointer;
+}
+
+#dropdown1:hover, #dropdown1 ~ .multiselect-container:hover {
+    cursor: pointer;
+    background-color: #f1f1ee;
+}
+
+#dropdown1:focus,
+#dropdown1 ~ .multiselect-container:focus {
+    box-shadow: none;
+    outline: 0;
+    border-color: #CCCCCC;
+    background-color: white; /* Set the background color when dropdown is open */
+}
+
+
+
+.multiselect-container > li > a > label:hover {
+    background-color: #1967d2; /* Default Bootstrap hover color */
+    color: white; /* Optional: Set text color to white for better visibility */
+}
+
+.multiselect-container > li > a > label:active {
+    background-color: #1967d2; /* Default Bootstrap active color */
+    color: white; /* Optional: Set text color to white for better visibility */
+}
+
+
+
+
+.multiselect-container > li > a.multiselect-all label {
+    font-weight: 700
+}
+
+
+.multiselect-container > li.multiselect-group-clickable label {
+    cursor: pointer
+}
+
+.multiselect-container > li > a {
+    padding: 0
+}
+
+
+.multiselect-container {
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden
+}
+
+.multiselect {
+    height: 50px;
+}
+
+.multiselect-container > li > a > label {
+    margin: 0;
+    height: 100%;
+    cursor: pointer;
+    font-weight: 400;
+    padding: 3px 20px 3px 40px
+}
+
+.multiselect-container > li > a > label.radio, .multiselect-container > li > a > label.checkbox {
+    margin: 0
+}
+
+
+.form-inline .multiselect-container label.checkbox, .form-inline .multiselect-container label.radio {
+    padding: 3px 20px 3px 40px
+}
+
+.form-inline .multiselect-container li a label.checkbox input[type=checkbox], .form-inline .multiselect-container li a label.radio input[type=radio] {
+    margin-left: -20px;
+    margin-right: 0
+}

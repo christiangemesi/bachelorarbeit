@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use League\Flysystem\Exception;
+use ThekRe\Category;
 use ThekRe\Delivery;
 use ThekRe\EditMail;
 use ThekRe\Login;
@@ -73,7 +74,7 @@ class PowerUserController extends Controller
      */
     public function getPoweruserPassword(){
         $passwordJSON = Login::where('pk_login', 2)->get();
-        return $passwordJSON[0]{'password'};
+        return $passwordJSON[0]['password'];
     }
 
     public function getOrders()
@@ -136,21 +137,21 @@ class PowerUserController extends Controller
         return $themeboxes;
     }
 
-//    public function console_log($data){
-//        echo '<script>';
-//        echo 'console.log('. json_encode( $data ) .')';
-//        echo '</script>';
-//    }
-    function console_log($data) {
-        $output = $data;
-        if (is_array($output))
-            $output = implode(',', $output);
-
-        echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
+    public function getCategories()
+    {
+        $categories = Category::all();
+        return $categories;
     }
 
     public function indexThembox(){
-        return view('poweruser/themebox_index',['themeboxes' => $this->getThemeboxes()]);
+        if ($this->checkLogin()) {
+            $themeboxes = $this->getThemeboxes();
+            $categories = $this->getCategories();
+
+            return view('poweruser/themebox_index', ['themeboxes' => $themeboxes, 'categories' => $categories]);
+        }else {
+            return view('poweruser.login_form');
+        }
     }
 
     public function updateOrder(Request $request){
@@ -253,7 +254,7 @@ class PowerUserController extends Controller
         );
 
         Mail::send('admin.mail_ready_pickup', $mail_data, function ($message) use ($mail_data) {
-            $message->to($mail_data['receiver_mail'], $mail_data['receiver_name'] . " " . $mail_data['receiver_surname'])->bcc('bibliothek.windisch@fhnw.ch', 'Bibliothek Windisch')->subject('Abholungseinladung Themenkiste');
+            $message->to($mail_data['receiver_mail'], $mail_data['receiver_name'] . " " . $mail_data['receiver_surname'])->bcc('christian.hasley1337@gmail.com', 'Bibliothek Windisch')->subject('Abholungseinladung Themenkiste');
         });
     }
     public function formatDate($date)
@@ -403,7 +404,7 @@ class PowerUserController extends Controller
         }
 
         Mail::send($view, $mail_data, function ($message) use ($mail_data) {
-            $message->to($mail_data['receiver_mail'], $mail_data['receiver_name'] . " " . $mail_data['receiver_surname'])->bcc('bibliothek.windisch@fhnw.ch', 'Bibliothek Windisch')->subject('Bestellbestätigung Themenkiste');
+            $message->to($mail_data['receiver_mail'], $mail_data['receiver_name'] . " " . $mail_data['receiver_surname'])->bcc('christian.hasley1337@gmail.com', 'Bibliothek Windisch')->subject('Bestellbestätigung Themenkiste');
         });
     }
 }

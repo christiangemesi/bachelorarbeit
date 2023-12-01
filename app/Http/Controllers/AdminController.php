@@ -1,14 +1,22 @@
 <?php
+
 namespace ThekRe\Http\Controllers;
 
+use Carbon\Carbon;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Str;
 use League\Flysystem\Exception;
 use PhpParser\Node\Expr\Array_;
 use ThekRe\Blocked_Period;
+use ThekRe\Category;
 use ThekRe\Delivery;
 use ThekRe\Http\Requests;
 use ThekRe\Login;
@@ -16,7 +24,10 @@ use ThekRe\Order;
 use ThekRe\Status;
 use ThekRe\Themebox;
 use ThekRe\EditMail;
-use Mail;
+use ThekRe\PasswordResets;
+use Illuminate\Support\Facades\Mail;
+use Throwable;
+use function MongoDB\BSON\toJSON;
 
 class AdminController extends Controller
 {
@@ -28,14 +39,13 @@ class AdminController extends Controller
     }
 
     /**
-     * render admin start page
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * load admin index view
+     * @return Factory|\Illuminate\View\View|RedirectResponse
      */
     public function index()
     {
         if ($this->checkLogin()) {
-
-            return view('admin/index',  ['orders' => $this->getOrders(), 'statuses' => $this->getStatuses()]);
+            return view('admin/index', ['orders' => $this->getOrders(), 'statuses' => $this->getStatuses()]);
         } else {
             return redirect()->route('loginForm');
         }
@@ -45,7 +55,7 @@ class AdminController extends Controller
      * check if admin is logged in
      * @return bool
      */
-    public function checkLogin()
+    public function checkLogin(): bool
     {
         if (isset($_SESSION['ThekRe_Admin'])) {
             return true;
@@ -55,7 +65,7 @@ class AdminController extends Controller
 
     /**
      * render admin login form
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|\Illuminate\View\View
      */
     public function loginForm()
     {
@@ -67,27 +77,114 @@ class AdminController extends Controller
     }
 
     /**
-     * check admin login
-     * @param Request $request
-     * @return mixed
+     * render admin forget password form
+     * @return Factory|\Illuminate\View\View
      */
-    public function loginOld(Request $request)
+    public function forgetPasswordForm()
     {
-        if ($request->password == $this->getAdminPassword()) {
-            $_SESSION['ThekRe_Admin'] = true;
-            return response()->json('success');
-        } else {
+        //if the forgetPassword function returned success, redirect to login form
+        return view('admin/forget-password_form');
+    }
+
+
+    /**
+     * send email with token to reset password (token 15 minutes valid)
+     */
+    public function forgetPassword(Request $request)
+    {
+        //normalisieren
+        $email = strtolower($request->email);
+
+        //validation
+        if ($email != $this->getAdminEmail()) {
             return response()->json('failure');
         }
+
+        $token = Str::random(64);
+
+        //save token in password_resets table
+        $password_reset_db = new PasswordResets();
+        $password_reset_db->email = $request->email;
+        $password_reset_db->token = $token;
+        $password_reset_db->created_at = Carbon::now();
+        $password_reset_db->save();
+
+        Mail::send('admin.mail-forget-password', ['token' => $token], function ($message) use ($email) {
+            $message->to($email)->subject('Passwort zurücksetzen');
+        });
+
+        return response()->json('success');
     }
 
     /**
-     * compare input against hashed password
+     * render new password form
+     * @return Factory|\Illuminate\View\View
+     */
+    public function ResetPasswordForm($token)
+    {
+
+        //check if token exists in password_resets table
+        $password_reset = PasswordResets::where('token', $token)->get();
+        if (count($password_reset) == 0) {
+            return view('errors/404');
+        }
+
+        //check if token is older than 15 minutes
+        $created_at = $password_reset[0]['created_at'];
+        $diff = Carbon::now()->diffInMinutes($created_at);
+        if ($diff > 15) {
+            return view('errors/404');
+        }
+        return view('admin/new-password_form', compact('token'));
+    }
+
+    /**
+     * reset password
+     * @param Request $request
+     * @return mixed
+     */
+    public function resetPassword(Request $request)
+    {
+        $email = strtolower($request->email);
+
+        //validation
+        //check if token exists in password_resets table
+        $password_reset = PasswordResets::where('token', $request->token)->get();
+        if (count($password_reset) == 0) {
+            return response()->json('failure_token'); //token not found
+        }
+        //check if email is the same as in Login table
+        if ($email != $this->getAdminEmail()) {
+            return response()->json('failure_email'); //email is not the same as in Login table
+        }
+        //check if both passwords match
+        if ($request->password != $request->password_confirmation) {
+            return response()->json('failure_pw_noMatch'); //passwords do not match
+        }
+        //check if password is at least 8 characters long
+        if (strlen($request->password) < 8) {
+            return response()->json('failure_pw_short'); //password is too short
+        }
+
+        //change the password in the database login
+        $this->setAdminPassword($email, $request->password);
+
+        //delete token from password_resets table
+        PasswordResets::where('token', $request->token)->delete();
+
+        return response()->json('success');
+    }
+
+
+    /**
+     * compare input against hashed password and email
      */
     public function login(Request $request)
     {
+        $password = $request->password;
+        $email = strtolower($request->email);
 
-        if (Hash::check($request->password, $this->getAdminPassword())) {
+        if (Hash::check($password, $this->getAdminPassword()) && $email == $this->getAdminEmail()) {
             $_SESSION['ThekRe_Admin'] = true;
             return response()->json('success');
         } else {
@@ -99,9 +196,37 @@ class AdminController extends Controller
     /**
      * get admin password from db
      */
-    public function getAdminPassword(){
+    public function getAdminPassword()
+    {
         $passwordJSON = Login::where('pk_login', 1)->get();
-        return $passwordJSON[0]{'password'};
+        return $passwordJSON[0]['password'];
+    }
+
+    public function setAdminPassword($email, $password): void
+    {
+        $email = strtolower($email);
+
+        Login::where('email', $email)->update(array('password' => Hash::make($password)));
+    }
+
+    /**
+     * set admin email in db
+     * @param $email
+     */
+    public function setAdminEmail($email): void
+    {
+        $email = strtolower($email);
+
+        Login::where('pk_login', 1)->update(array('email' => $email));
+    }
+
+    /**
+     * get admin email from db
+     */
+    public function getAdminEmail()
+    {
+        $emailJSON = Login::where('pk_login', 1)->get();
+        return $emailJSON[0]['email'];
     }
 
 
@@ -122,9 +247,27 @@ class AdminController extends Controller
     public function indexThemebox()
     {
         if ($this->checkLogin()) {
-            return view('admin.themebox_index',['themeboxes' => $this->getThemeboxes()]);
+            $themeboxes = $this->getThemeboxes();
+            $categories = $this->getCategories();
+
+            return view('admin.themebox_index', ['themeboxes' => $themeboxes, 'categories' => $categories]);
         } else {
-            return view('admin/login_form');
+            return view('admin.login_form');
+        }
+    }
+
+    /**
+     * load all categories
+     */
+    public function indexCategories()
+    {
+        if ($this->checkLogin()) {
+            $themeboxes = $this->getThemeboxes();
+            $categories = $this->getCategories();
+
+            return view('admin.category_index', ['themeboxes' => $themeboxes, 'categories' => $categories]);
+        } else {
+            return view('admin.login_form');
         }
     }
 
@@ -199,25 +342,26 @@ class AdminController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function getOrder(Request $request){
+    public function getOrder(Request $request)
+    {
         $order = Order::find($request->order_id);
 
-       try {
-           $themebox = Themebox::find($order->fk_themebox);
-           $all_status = Status::get();
-           $all_deliveries = Delivery::get();
-           $orders = Order::where('fk_themebox', $themebox->pk_themebox)->get();
+        try {
+            $themebox = Themebox::find($order->fk_themebox);
+            $all_status = Status::get();
+            $all_deliveries = Delivery::get();
+            $orders = Order::where('fk_themebox', $themebox->pk_themebox)->get();
 
-           $data = array("order" => $order,
-               "themebox" => $themebox,
-               "all_status" => $all_status,
-               "all_deliveries" => $all_deliveries,
-               "orders" => $orders);
+            $data = array("order" => $order,
+                "themebox" => $themebox,
+                "all_status" => $all_status,
+                "all_deliveries" => $all_deliveries,
+                "orders" => $orders);
 
-           return response()->json($data, 200);
-       }catch(Exception $e){
+            return response()->json($data, 200);
+        } catch (Exception $e) {
             return response()->json($e, 500);
-       }
+        }
     }
 
     /**
@@ -225,11 +369,11 @@ class AdminController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function updateOrder(Request $request){
-
+    public function updateOrder(Request $request)
+    {
         try {
             //if new status is "ready"
-            if(2 == $request->order_data[3]["value"] && 1 == $request->order_data[9]["value"]){
+            if (2 == $request->order_data[3]["value"] && 1 == $request->order_data[9]["value"]) {
                 $this->sendEmail($request->order_data[0]["value"]);
             }
             Order::find($request->order_data[0]["value"])->update(
@@ -244,17 +388,17 @@ class AdminController extends Controller
                     'fk_delivery' => $request->order_data[9]["value"]
                 ]);
 
-            if( $request->order_data[9]["value"] == 2){
+            if ($request->order_data[9]["value"] == 2) {
                 Order::find($request->order_data[0]["value"])->update(
                     ['schoolname' => $request->order_data[10]["value"],
-                    'schoolstreet' => $request->order_data[11]["value"],
-                    'schoolcity' => $request->order_data[12]["value"],
-                    'placeofhandover' => $request->order_data[13]["value"],
-                    'schoolphonenumber' => $request->order_data[14]["value"]]);
+                        'schoolstreet' => $request->order_data[11]["value"],
+                        'schoolcity' => $request->order_data[12]["value"],
+                        'placeofhandover' => $request->order_data[13]["value"],
+                        'schoolphonenumber' => $request->order_data[14]["value"]]);
             }
 
             return response()->json($request->order_data[3]["value"], 200);
-        }catch (Exception $e){
+        } catch (Exception $e) {
             return response()->json($e, 500);
         }
     }
@@ -266,7 +410,15 @@ class AdminController extends Controller
     public function getThemeboxes()
     {
         $themeboxes = Themebox::get();
+        $themeboxes = $themeboxes->sortBy('title');
         return $themeboxes;
+    }
+
+    public function getCategories()
+    {
+        $categories = Category::all();
+        $categories = $categories->sortBy('name');
+        return $categories;
     }
 
     /**
@@ -293,7 +445,7 @@ class AdminController extends Controller
         $order = Order::find($order_id);
 
         try {
-            if("Bereit" == Status::find($new_state_id)->name && 1 == $order["fk_delivery"]){
+            if ("Bereit" == Status::find($new_state_id)->name && 1 == $order["fk_delivery"]) {
                 $this->sendEmail($order_id);
                 $status_ready = 1;
             }
@@ -329,6 +481,7 @@ class AdminController extends Controller
      */
     public function removeThemebox(Request $request)
     {
+
         $themebox_id = $request->themebox_id;
         $themebox = Themebox::find($themebox_id);
 
@@ -342,6 +495,26 @@ class AdminController extends Controller
 
         try {
             $themebox->forceDelete();
+            return response()->json([], 200);
+        } catch (Exception $e) {
+            return response()->json($e, 500);
+        }
+    }
+
+    public function removeCategory(Request $request)
+    {
+        $category_id = $request->category_id;
+        $category = Category::find($category_id);
+
+        $themeboxes = Themebox::where('fk_category', $category_id)->get();
+
+        if (count($themeboxes) != 0) {
+            // If there are associated themeboxes, return an error response
+            return response()->json(["message" => "Cannot delete category with associated themeboxes."], 409);
+        }
+
+        try {
+            $category->forceDelete();
             return response()->json([], 200);
         } catch (Exception $e) {
             return response()->json($e, 500);
@@ -370,7 +543,7 @@ class AdminController extends Controller
                 arsort($themeboxes_tmp);
             }
 
-            return response()->json(["themeboxes" => $themeboxes_tmp],200);
+            return response()->json(["themeboxes" => $themeboxes_tmp], 200);
         } catch (Exception $e) {
             return response()->json([], 500);
         }
@@ -390,8 +563,9 @@ class AdminController extends Controller
         $themebox->barcode = $request->themebox_data[3]["value"];
         $themebox->size = $request->themebox_data[4]["value"];
         $themebox->weight = $request->themebox_data[5]["value"];
-        $themebox->content = $request->themebox_data[6]["value"];
-        $themebox->extra_text = $request->themebox_data[7]["value"];
+        $themebox->fk_category = $request->themebox_data[6]["value"];
+        $themebox->content = $request->themebox_data[7]["value"];
+        $themebox->extra_text = $request->themebox_data[8]["value"];
         $themebox->complete = true;
 
         try {
@@ -400,6 +574,14 @@ class AdminController extends Controller
         } catch (Exception $e) {
             return response()->json($e, 500);
         }
+    }
+
+    public function createCategory(Request $request)
+    {
+        $category = new Category();
+        $category->name = $request->category_data[0]["value"];
+        $category->save();
+        return response()->json([], 200);
     }
 
 
@@ -413,7 +595,17 @@ class AdminController extends Controller
         $themebox_Id = $request["themebox_id"];
         $themebox = Themebox::find($themebox_Id);
 
-        return response()->json($themebox,200);
+        $category = Category::find($themebox->fk_category);
+
+        return response()->json([$themebox, $category], 200);
+    }
+
+    public function getCategory(Request $request)
+    {
+        $category_Id = $request["category_id"];
+        $category = Category::find($category_Id);
+
+        return response()->json($category, 200);
     }
 
     /**
@@ -421,32 +613,51 @@ class AdminController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function updateThemebox(Request $request){
-       try {
-           Themebox::find($request->themebox_data[0]["value"])->update(
-               ['title' => $request->themebox_data[1]["value"],
-                'signatur' => $request->themebox_data[2]["value"],
-                'schoollevel' => $request->themebox_data[3]["value"],
-                'barcode' => $request->themebox_data[4]["value"],
-                'size' => $request->themebox_data[5]["value"],
-                'weight' => $request->themebox_data[6]["value"],
-                'content' => $request->themebox_data[7]["value"],
-                'extra_text' => $request->themebox_data[8]["value"]]
-           );
+    public function updateThemebox(Request $request)
+    {
+        try {
+            Themebox::find($request->themebox_data[0]["value"])->update(
+                ['title' => $request->themebox_data[1]["value"],
+                    'signatur' => $request->themebox_data[2]["value"],
+                    'schoollevel' => $request->themebox_data[3]["value"],
+                    'barcode' => $request->themebox_data[4]["value"],
+                    'size' => $request->themebox_data[5]["value"],
+                    'weight' => $request->themebox_data[6]["value"],
+                    'fk_category' => $request->themebox_data[7]["value"],
+                    'content' => $request->themebox_data[8]["value"],
+                    'extra_text' => $request->themebox_data[9]["value"]]
+            );
 
-           $status = 0;
-           if(!empty($request->themebox_data[9]["value"])){
-               $status = 1;
-           }
+            $status = 0;
+            if (!empty($request->themebox_data[10]["value"])) {
+                $status = 1;
+            }
 
-           Themebox::find($request->themebox_data[0]["value"])->update(
-               ['complete' => $status]);
+            Themebox::find($request->themebox_data[0]["value"])->update(
+                ['complete' => $status]);
 
-           return response()->json($request, 200);
+            return response()->json($request, 200);
 
-       }catch (Exception $e){
-           return response()->json($e, 500);
-       }
+        } catch (Exception $e) {
+            return response()->json($e, 500);
+        }
+    }
+
+    public function updateCategory(Request $request)
+    {
+        try {
+            $category_id = $request->category_data[0]["value"];
+            $category_name = $request->category_data[1]["value"];
+
+            Category::find($category_id)->update(
+                ['name' => $category_name]
+            );
+
+            return response()->json($request, 200);
+
+        } catch (Exception $e) {
+            return response()->json($e, 500);
+        }
     }
 
     /**
@@ -480,7 +691,7 @@ class AdminController extends Controller
         );
 
         Mail::send('admin.mail_ready_pickup', $mail_data, function ($message) use ($mail_data) {
-            $message->to($mail_data['receiver_mail'], $mail_data['receiver_name'] . " " . $mail_data['receiver_surname'])->bcc('bibliothek.windisch@fhnw.ch', 'Bibliothek Windisch')->subject('Abholungseinladung Themenkiste');
+            $message->to($mail_data['receiver_mail'], $mail_data['receiver_name'] . " " . $mail_data['receiver_surname'])->bcc('christian.hasley1337@gmail.com', 'Bibliothek Windisch')->subject('Abholungseinladung Themenkiste');
         });
     }
 
@@ -504,7 +715,7 @@ class AdminController extends Controller
     public function indexBlockedPeriods()
     {
         if ($this->checkLogin()) {
-            return view('admin.blocked-periods_index',['blocked_periods' => $this->getBlockedPeriods()]);
+            return view('admin.blocked-periods_index', ['blocked_periods' => $this->getBlockedPeriods()]);
         } else {
             return view('admin/login_form');
         }
@@ -527,13 +738,14 @@ class AdminController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function getBlockedPeriod(Request $request){
+    public function getBlockedPeriod(Request $request)
+    {
 
         $blocked_period = Blocked_Period::find($request->blocked_period_id);
 
         try {
             return response()->json($blocked_period, 200);
-        }catch(Exception $e){
+        } catch (Exception $e) {
             return response()->json($e, 500);
         }
     }
@@ -568,17 +780,18 @@ class AdminController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function updateBlockedPeriod(Request $request){
+    public function updateBlockedPeriod(Request $request)
+    {
 
         try {
             Blocked_Period::find($request->blocked_period_data[0]["value"])->update(
-                    ['reason' => $request->blocked_period_data[1]["value"],
-                    'startdate' =>  $this->formatDate($request->blocked_period_data[2]["value"]),
-                    'enddate' =>  $this->formatDate($request->blocked_period_data[3]["value"])
-                    ]);
+                ['reason' => $request->blocked_period_data[1]["value"],
+                    'startdate' => $this->formatDate($request->blocked_period_data[2]["value"]),
+                    'enddate' => $this->formatDate($request->blocked_period_data[3]["value"])
+                ]);
 
             return response()->json($request, 200);
-        }catch (Exception $e){
+        } catch (Exception $e) {
             return response()->json($e, 500);
         }
     }
@@ -627,12 +840,12 @@ class AdminController extends Controller
 
     /**
      * render change password form
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|\Illuminate\View\View
      */
-    public function indexChangePassword()
+    public function indexChangeCredentials()
     {
         if ($this->checkLogin()) {
-            return view('admin/indexChangePassword');
+            return view('admin/indexChangeCredentials', ['currentAdminEmail' => $this->getAdminEmail()]);
         } else {
             return view('admin/login_form');
         }
@@ -649,6 +862,10 @@ class AdminController extends Controller
 
         return $login->password;
     }
+
+    /**
+     * return the poweruser password
+     */
     public function getPoweruserPassword()
     {
         $login = Login::find(2);
@@ -656,72 +873,96 @@ class AdminController extends Controller
         return $login->password;
     }
 
+    /**
+     * update email
+     * @param Request $request
+     * @return mixed
+     */
+    public function updateAdminEmail(Request $request)
+    {
+
+        //check if email and confirmation email are the same
+        if ($request->email != $request->confirm_email) {
+            return redirect('admin/changeCredentials')->with('alert-message', 'E-Mail stimmen nicht überein!');
+        }
+
+        $this->setAdminEmail($request->email);
+
+        return redirect('admin/changeCredentials')->with('success-message', 'E-Mail geändert!');
+    }
 
     /**
      * update password
      * @param Request $request
      * @return mixed
      */
-    public function updatePassword(Request $request){
+    public function updatePassword(Request $request)
+    {
 
         $passwords = $request->all();
 
-        if(Hash::check($passwords["password-now"], $this->getPassword())){
-            if($passwords["password"] == $passwords["confirm_password"]){
+        if (Hash::check($passwords["password-now"], $this->getPassword())) {
+            if ($passwords["password"] == $passwords["confirm_password"]) {
 
                 try {
                     $password = $passwords["confirm_password"];
                     $hashed_password = Hash::make($password);
 
                     $pass = Login::find(1);
-                    $pass->password=$hashed_password;
+                    $pass->password = $hashed_password;
                     $pass->save();
 
-                    return redirect('admin/changePassword')->with('success-message', 'Das Passwort wurde geändert!');
-                }catch (Exception $e){
-                    return redirect('admin/changePassword')->with('alert-message', 'Das Passwort konnte nicht geändert werden!');
+                    return redirect('admin/changeCredentials')->with('success-message', 'Das Passwort wurde geändert!');
+                } catch (Exception $e) {
+                    return redirect('admin/changeCredentials')->with('alert-message', 'Das Passwort konnte nicht geändert werden!');
 
                 }
-            }else{
-                return redirect('admin/changePassword')->with('alert-message', 'Das Passwort konnte nicht geändert werden! Bitte geben Sie Bestätigen Sie das Passwort, mit erneuter Eingabe.');
+            } else {
+                return redirect('admin/changeCredentials')->with('alert-message', 'Das Passwort konnte nicht geändert werden! Bitte geben Sie Bestätigen Sie das Passwort, mit erneuter Eingabe.');
             }
-        }else{
-            return redirect('admin/changePassword')->with('alert-message', 'Das Passwort konnte nicht geändert werden! Ihr eingebenes Passwort entspricht nicht dem aktuellen Passwort!');
+        } else {
+            return redirect('admin/changeCredentials')->with('alert-message', 'Das Passwort konnte nicht geändert werden! Ihr eingebenes Passwort entspricht nicht dem aktuellen Passwort!');
         }
     }
 
-    public function updatePoweruserPassword(Request $request){
+    /**
+     * update poweruser password
+     * @param Request $request
+     * @return mixed
+     */
+    public function updatePoweruserPassword(Request $request)
+    {
 
         $passwords = $request->all();
 
-        if(Hash::check($passwords["poweruser-password-now"], $this->getPoweruserPassword())){
-            if($passwords["poweruser-password"] == $passwords["poweruser-confirm_password"]){
+        if (Hash::check($passwords["poweruser-password-now"], $this->getPoweruserPassword())) {
+            if ($passwords["poweruser-password"] == $passwords["poweruser-confirm_password"]) {
 
                 try {
                     $password = $passwords["poweruser-confirm_password"];
                     $hashed_password = Hash::make($password);
 
                     $pass = Login::find(2);
-                    $pass->password=$hashed_password;
+                    $pass->password = $hashed_password;
                     $pass->save();
 
-                    return redirect('admin/changePassword')->with('success-message', 'Das Passwort wurde geändert!');
-                }catch (Exception $e){
-                    return redirect('admin/changePassword')->with('alert-message', 'Das Passwort konnte nicht geändert werden!');
+                    return redirect('admin/changeCredentials')->with('success-message', 'Das Passwort wurde geändert!');
+                } catch (Exception $e) {
+                    return redirect('admin/changeCredentials')->with('alert-message', 'Das Passwort konnte nicht geändert werden!');
 
                 }
-            }else{
-                return redirect('admin/changePassword')->with('alert-message', 'Das Passwort konnte nicht geändert werden! Bitte geben Sie Bestätigen Sie das Passwort, mit erneuter Eingabe.');
+            } else {
+                return redirect('admin/changeCredentials')->with('alert-message', 'Das Passwort konnte nicht geändert werden! Bitte geben Sie Bestätigen Sie das Passwort, mit erneuter Eingabe.');
             }
-        }else{
-            return redirect('admin/changePassword')->with('alert-message', 'Das Passwort konnte nicht geändert werden! Ihr eingebenes Passwort entspricht nicht dem aktuellen Passwort!');
+        } else {
+            return redirect('admin/changeCredentials')->with('alert-message', 'Das Passwort konnte nicht geändert werden! Ihr eingebenes Passwort entspricht nicht dem aktuellen Passwort!');
         }
     }
 
 
     /**
      * render index email
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|\Illuminate\View\View
      */
     public function indexEmail()
     {
@@ -731,10 +972,9 @@ class AdminController extends Controller
 
             $mails = array();
 
-            foreach($all_mails as $all_mail){
+            foreach ($all_mails as $all_mail) {
                 $mails[] = $all_mail;
             }
-
 
             return view('admin/indexEmail')->with('mails', $mails);
         } else {
@@ -748,13 +988,13 @@ class AdminController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function getMail(Request $request){
-
+    public function getMail(Request $request)
+    {
         $mail = EditMail::find($request->mail_id);
 
         try {
             return response()->json($mail, 200);
-        }catch(Exception $e){
+        } catch (Exception $e) {
             return response()->json($e, 500);
         }
     }
@@ -763,7 +1003,8 @@ class AdminController extends Controller
     /**
      * get all mails
      */
-    public function getAllMails(){
+    public function getAllMails()
+    {
         $all_mails = EditMail::get();
         return $all_mails;
     }
@@ -774,18 +1015,15 @@ class AdminController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function updateMail(Request $request){
-
+    public function updateMail(Request $request)
+    {
         try {
-
             EditMail::find($request->mailIdAndText[0]["value"])->update(
                 ['mail_text' => $request->mailIdAndText[1]["value"]]);
 
             return response()->json($request, 200);
-        }catch (Exception $e){
+        } catch (Exception $e) {
             return response()->json($e, 500);
         }
-
-
     }
 }

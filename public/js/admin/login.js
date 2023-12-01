@@ -4,7 +4,7 @@
 $(document).ready(function() {
 
     //set focus to password field
-    $("#admin-password").focus();
+    $("#admin-email").focus();
     $('#login-button').prop("disabled", true);
 
     /**
@@ -20,6 +20,15 @@ $(document).ready(function() {
        }
     });
 
+    if(localStorage.getItem("passwort-reset-error-message-box") === "true"){
+        $('#passwort-reset-error-message-box').show();
+        localStorage.setItem("passwort-reset-error-message-box", "false");
+    }
+
+    if(localStorage.getItem("passwort-reset-success-message-box") === "true"){
+        $('#passwort-reset-success-message-box').show();
+        localStorage.setItem("passwort-reset-success-message-box", "false");
+    }
 
     /**
      * login button click
@@ -36,12 +45,15 @@ $(document).ready(function() {
         $.ajax({
             url: "login",
             type:'POST',
-            data: {password: $('#admin-password').val()},
+            data: {
+                email: $('#admin-email').val(),
+                password: $('#admin-password').val()
+            },
             success:  function(response) {
-                if(response == "failure"){
+                if(response === "failure"){
                     $('#login-error-message-box').css('display', 'block');
                 }else{
-                    window.location = "../admin";
+                    window.location = "";
                 }
             },
             error: function(xhr, status, error) {

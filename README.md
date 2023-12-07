@@ -134,6 +134,7 @@ The exact same Commandline commands can be copied into the Terminal
 >  docker compose up # start the docker container
 >```
 > 3. Open the application in your browser at http://127.0.0.1:8000 
+> Note: If the application is run for the first time 
 
 >.env file:
 > ``` 

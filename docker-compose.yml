@@ -10,7 +10,7 @@ services:
         ports:
             - "8000:80"
         volumes:
-            - .env.production:/var/www/html/.env.production
+            - .env:/var/www/html/.env
 
     # Database Service
     mysql:
@@ -25,7 +25,7 @@ services:
 
             MYSQL_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD}
         env_file:
-            - .env.production
+            - production/.env
 
         #remove for production
         ports:
@@ -39,7 +39,7 @@ services:
             PMA_HOST: ${DATABASE_DRIVER}
             PMA_PORT: ${DATABASE_PORT}
         env_file:
-            - .env.production
+            - production/.env
 
         #remove for production
         ports:

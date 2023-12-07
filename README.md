@@ -120,19 +120,15 @@ The exact same Commandline commands can be copied into the Terminal
 > 1. Install [Docker](https://www.docker.com/) <br>
 > 2. Follow the Installation instructions from below <br>
 >```
->  mkdir thekre # create a new folder
->  cd thekre # change into the new folder
+>  mkdir thekre && cd thekre # create a new folder and change into it
 >  git clone https://gitlab.fhnw.ch/christian.gemesi/thek-re-2.git # clone the repository
 >  cd thek-re-2 # change into the repository folder
->  git switch -c poc origin/poc # switch branch
->  cp '<<Link to .env>>' . # copy the .env file into the folder
+>  cp '<<Link to .env.production>>' . # copy the .env file into the folder
 >  docker compose build # build the docker image
 >
->  cd .. # change into the parent folder
 >  mkdir deployment # create a new folder
->  cp '../thek-re-2/docker-compose.yml' . # copy the docker-compose.yml file into the folder
->  cp '../thek-re-2/.env' . # copy the .env file into the folder
->  cd .. # change into the parent folder
+>  cp 'thek-re-2/docker-compose.yml' deployment/ . # copy the docker-compose.yml file into the deployment folder
+>  cp 'thek-re-2/.env.production' deployment/ # copy the .env.production file into the  deploymentfolder
 >  rm -rf thek-re-2 # remove the thek-re-2 folder
 >  cd deployment # change into the deployment folder
 >  docker compose up # start the docker container

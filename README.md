@@ -125,16 +125,18 @@ The exact same Commandline commands can be copied into the Terminal
 >  cd thek-re-2 # change into the repository folder
 >  cp '<<Link to .env.production>>' . # copy the .env file into the folder
 >  docker compose build # build the docker image
+>  cd .. # change back into the thekre folder
 >
 >  mkdir deployment # create a new folder
->  cp 'thek-re-2/docker-compose.yml' deployment/ . # copy the docker-compose.yml file into the deployment folder
->  cp 'thek-re-2/.env.production' deployment/ # copy the .env.production file into the  deploymentfolder
+>  cp 'thek-re-2/docker-compose.yml' deployment/ # copy the docker-compose.yml file into the deployment folder
+>  cp 'thek-re-2/.env' deployment/ # copy the .env file into the deploymentfolder
 >  rm -rf thek-re-2 # remove the thek-re-2 folder
 >  cd deployment # change into the deployment folder
 >  docker compose up # start the docker container
 >```
 > 3. Open the application in your browser at http://127.0.0.1:8000 
-> Note: If the application is run for the first time 
+> Note: If the application is run for the first time the database needs to be importet manually. (see step 7 of the [Installation Development Environment](#Installation Development Environment))
+> Note2: The thekre_admin user does also need to be created if run for the first time. (see step 7 of the [Installation Development Environment](#Installation Development Environment))
 
 >.env file:
 > ``` 

@@ -25,7 +25,7 @@ services:
 
             MYSQL_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD}
         env_file:
-            - production/.env
+            -.env
 
         #remove for production
         ports:
@@ -39,7 +39,7 @@ services:
             PMA_HOST: ${DATABASE_DRIVER}
             PMA_PORT: ${DATABASE_PORT}
         env_file:
-            - production/.env
+            -.env
 
         #remove for production
         ports:

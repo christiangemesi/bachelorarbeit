@@ -25,7 +25,7 @@
                 <tr>
                     <td style="text-align:center;">
                         <a href="https://www.fhnw.ch/de/die-fhnw/bibliotheken/bibliothek-brugg-windisch/themenkisten/user" title="logo" target="_blank">
-                            <img src="../../../public/images/fhnw_logo_w_claim_de.svg" alt="FHNW Logo">
+                            <img src="{{ env('APP_URL') }}/images/fhnw_logo_w_claim_de.svg" id="fhnw-logo" alt="fhnw logo">
                         </a>
                     </td>
                 </tr>

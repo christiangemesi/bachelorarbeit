@@ -137,16 +137,16 @@
                                     <span id="themebox-form-category-status" class="errorHeader">Kategorie wird benötigt!</span>
                                 </div>
                                 <div class="form-group has-feedback">
-                                    <label class="themebox-form-label" for="themebox-form-order_type">Bestellungstyp *</label>
+                                    <label class="themebox-form-label" for="themebox-form-order_type">Ausleihetyp *</label>
                                     <select class="form-control" name="order_type" id="themebox-form-order_type"
                                             onchange="notEmptyValidate('themebox-form-order_type', 'themebox-form-order_type-status', 'themebox-form-order_type-icon')">
-                                        <option value="none" disabled selected>Bitte Bestellungstyp auswählen</option>
+                                        <option value="none" disabled selected>Bitte Ausleihetyp auswählen</option>
                                         @foreach ($order_types as $order_type)
                                             <option value="{{$order_type['pk_order_type']}}">{{$order_type['name']}}</option>
                                         @endforeach
                                     </select>
                                     <span id="themebox-form-order_type-icon"></span>
-                                    <span id="themebox-form-order_type-status" class="errorHeader">Bestellungstyp wird benötigt!</span>
+                                    <span id="themebox-form-order_type-status" class="errorHeader">Ausleihetyp wird benötigt!</span>
                                 </div>
 
                             <div class="form-group has-feedback">
@@ -279,17 +279,17 @@
                                 </div>
                                 <div class="form-group has-feedback">
 
-                                    <label class="themebox-form-label" for="themebox-edit-form-order_type">Bestellungstyp *</label>
+                                    <label class="themebox-form-label" for="themebox-edit-form-order_type">Ausleihetyp *</label>
                                     <select class="form-control" name="order_type" id="themebox-edit-form-order_type"
                                             onblur="notEmptyValidate('themebox-edit-form-order_type', 'themebox-edit-form-order_type-status', 'themebox-edit-form-order_type-icon')"
                                             onkeyup="notEmptyValidate('themebox-edit-form-order_type', 'themebox-edit-form-order_type-status', 'themebox-edit-form-order_type-icon')">
-                                        <option value="none" disabled selected>Bitte Bestellungstyp auswählen</option>
+                                        <option value="none" disabled selected>Bitte Ausleihetyp auswählen</option>
                                         @foreach ($order_types as $order_type)
                                             <option value="{{$order_type['pk_order_type']}}">{{$order_type['name']}}</option>
                                         @endforeach
                                     </select>
                                     <span id="themebox-edit-form-order_type-icon"></span>
-                                    <span id="themebox-edit-form-order_type-status" class="errorHeader">Bestellungstyp wird benötigt!</span>
+                                    <span id="themebox-edit-form-order_type-status" class="errorHeader">Ausleihetyp wird benötigt!</span>
                                 </div>
 
 
@@ -358,6 +358,7 @@
                     <th>Grösse</th>
                     <th>Gewicht</th>
                     <th>Kategorie</th>
+                    <th>Ausleihetyp</th>
                     <th>Vollständig</th>
                     <th class="edit-column-width"></th>
                 </tr>
@@ -375,6 +376,13 @@
                             @foreach ($categories as $category)
                                 @if ($category["pk_category"] == $themebox["fk_category"])
                                     {{$category["name"]}}
+                                @endif
+                            @endforeach
+                        </td>
+                        <td>
+                            @foreach($order_types as $order_type)
+                                @if($order_type["pk_order_type"] == $themebox["fk_order_type"])
+                                    {{$order_type["name"]}}
                                 @endif
                             @endforeach
                         </td>

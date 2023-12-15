@@ -13,6 +13,7 @@ use ThekRe\Login;
 use ThekRe\Order;
 use ThekRe\Status;
 use ThekRe\Themebox;
+use ThekRe\Order_Type;
 use Mail;
 
 
@@ -143,12 +144,18 @@ class PowerUserController extends Controller
         return $categories;
     }
 
+    public function getOrder_Types(){
+        $order_types = Order_Type::all();
+        return $order_types;
+    }
+
     public function indexThembox(){
         if ($this->checkLogin()) {
             $themeboxes = $this->getThemeboxes();
             $categories = $this->getCategories();
+            $order_types = $this->getOrder_Types();
 
-            return view('poweruser/themebox_index', ['themeboxes' => $themeboxes, 'categories' => $categories]);
+            return view('poweruser/themebox_index', ['themeboxes' => $themeboxes, 'categories' => $categories, 'order_types' => $order_types]);
         }else {
             return view('poweruser.login_form');
         }

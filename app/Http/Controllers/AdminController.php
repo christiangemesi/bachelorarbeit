@@ -3,6 +3,7 @@
 namespace ThekRe\Http\Controllers;
 
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
@@ -10,7 +11,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Str;
-use League\Flysystem\Exception;
 use ThekRe\Blocked_Period;
 use ThekRe\Category;
 use ThekRe\Reservation;
@@ -247,6 +247,7 @@ class AdminController extends Controller
             $themeboxes = $this->getThemeboxes();
             $categories = $this->getCategories();
             $order_types = $this->getOrderTypes();
+            error_log($order_types);
 
 
             return view('admin.themebox_index', ['themeboxes' => $themeboxes, 'categories' => $categories, 'order_types' => $order_types]);
@@ -258,7 +259,6 @@ class AdminController extends Controller
     public function getOrderTypes()
     {
         $order_types = Order_Type::all();
-        error_log($order_types);
         $order_types = $order_types->sortBy('name');
         return $order_types;
     }
@@ -600,7 +600,6 @@ class AdminController extends Controller
      */
     public function getThemebox(Request $request)
     {
-        error_log($request["themebox_id"]);
         $themebox_Id = $request["themebox_id"];
         $themebox = Themebox::find($themebox_Id);
 
@@ -634,8 +633,9 @@ class AdminController extends Controller
                     'size' => $request->themebox_data[5]["value"],
                     'weight' => $request->themebox_data[6]["value"],
                     'fk_category' => $request->themebox_data[7]["value"],
-                    'content' => $request->themebox_data[8]["value"],
-                    'extra_text' => $request->themebox_data[9]["value"]]
+                    'fk_order_type' => $request->themebox_data[8]["value"],
+                    'content' => $request->themebox_data[9]["value"],
+                    'extra_text' => $request->themebox_data[10]["value"]]
             );
 
             $status = 0;

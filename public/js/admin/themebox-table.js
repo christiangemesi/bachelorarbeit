@@ -212,8 +212,8 @@ $(document).ready(function () {
         },
         "columnDefs": [
             {
-                "searchable": false, "targets": 7,
-                "orderable": false, "targets": 7
+                "searchable": false, "targets": 8,
+                "orderable": false, "targets": 8
             }
         ]
     });

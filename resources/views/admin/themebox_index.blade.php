@@ -137,7 +137,7 @@
                                     <span id="themebox-form-category-status" class="errorHeader">Kategorie wird benötigt!</span>
                                 </div>
                                 <div class="form-group has-feedback">
-                                    <label class="themebox-form-label" for="themebox-form-order_type">Bestellungstyp</label>
+                                    <label class="themebox-form-label" for="themebox-form-order_type">Bestellungstyp *</label>
                                     <select class="form-control" name="order_type" id="themebox-form-order_type"
                                             onchange="notEmptyValidate('themebox-form-order_type', 'themebox-form-order_type-status', 'themebox-form-order_type-icon')">
                                         <option value="none" disabled selected>Bitte Bestellungstyp auswählen</option>
@@ -265,8 +265,7 @@
                                     <span id="themebox-edit-form-weight-status" class="errorHeader">Gewicht wird benötigt!</span>
                                 </div>
                                 <div class="form-group has-feedback">
-                                    <label class="themebox-form-label"
-                                           for="themebox-edit-form-category">Kategorie </label>
+                                    <label class="themebox-form-label" for="themebox-edit-form-category">Kategorie *</label>
                                     <select class="form-control" name="category" id="themebox-edit-form-category"
                                             onblur="notEmptyValidate('themebox-edit-form-category', 'themebox-edit-form-category-status', 'themebox-edit-form-category-icon')"
                                             onkeyup="notEmptyValidate('themebox-edit-form-category', 'themebox-edit-form-category-status', 'themebox-edit-form-category-icon')">
@@ -279,7 +278,8 @@
                                     <span id="themebox-edit-form-category-status" class="errorHeader">Kategorie wird benötigt!</span>
                                 </div>
                                 <div class="form-group has-feedback">
-                                    <label class="themebox-edit-form-label" for="themebox-edit-form-order_type">Bestellungstyp</label>
+
+                                    <label class="themebox-form-label" for="themebox-edit-form-order_type">Bestellungstyp *</label>
                                     <select class="form-control" name="order_type" id="themebox-edit-form-order_type"
                                             onblur="notEmptyValidate('themebox-edit-form-order_type', 'themebox-edit-form-order_type-status', 'themebox-edit-form-order_type-icon')"
                                             onkeyup="notEmptyValidate('themebox-edit-form-order_type', 'themebox-edit-form-order_type-status', 'themebox-edit-form-order_type-icon')">

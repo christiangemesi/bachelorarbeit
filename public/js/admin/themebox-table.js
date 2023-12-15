@@ -85,6 +85,7 @@ $(document).ready(function () {
             type: 'POST',
             data: {themebox_id: $(this).val()},
             success: function (response) {
+                console.log(response)
                 $("#themebox-edit-form-name").val(response[0]["title"]);
                 $("#themebox-edit-form-signature").val(response[0]["signatur"]);
                 $("#themebox-edit-form-schoollevel").val(response[0]["schoollevel"]);
@@ -106,6 +107,19 @@ $(document).ready(function () {
                     }
                 }
 
+                const order_typeElement = document.getElementById("themebox-edit-form-order_type");
+                const order_typeOptions = order_typeElement.options;
+                for (var l = 0; l < order_typeOptions.length; l++) {
+                    // Convert both values to integers for strict comparison
+                    if (parseInt(order_typeOptions[l].value, 10) === parseInt(response[2]["pk_order_type"], 10)) {
+                        // Set the selected attribute for the matched option
+                        order_typeOptions[l].selected = true;
+                        break;
+                    }
+                }
+
+
+
 
                 if (1 === response[0]["complete"]) {
                     $("#themebox-edit-form-complete").prop('checked', true);
@@ -124,6 +138,7 @@ $(document).ready(function () {
                 notEmptyValidate('themebox-edit-form-weight','themebox-edit-form-weight-status','themebox-edit-form-weight-icon');
                 notEmptyValidate('themebox-edit-form-content','themebox-edit-form-content-status','themebox-edit-form-content-icon');
                 notEmptyValidate('themebox-edit-form-category','themebox-edit-form-category-status','themebox-edit-form-category-icon');
+                notEmptyValidate('themebox-edit-form-order_type','themebox-edit-form-order_type-status','themebox-edit-form-order_type-icon');
 
 
             },

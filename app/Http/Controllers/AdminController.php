@@ -7,16 +7,14 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 use League\Flysystem\Exception;
-use PhpParser\Node\Expr\Array_;
 use ThekRe\Blocked_Period;
 use ThekRe\Category;
+use ThekRe\Reservation;
+use ThekRe\Order_Type;
 use ThekRe\Delivery;
 use ThekRe\Http\Requests;
 use ThekRe\Login;
@@ -26,8 +24,7 @@ use ThekRe\Themebox;
 use ThekRe\EditMail;
 use ThekRe\PasswordResets;
 use Illuminate\Support\Facades\Mail;
-use Throwable;
-use function MongoDB\BSON\toJSON;
+
 
 class AdminController extends Controller
 {
@@ -249,11 +246,21 @@ class AdminController extends Controller
         if ($this->checkLogin()) {
             $themeboxes = $this->getThemeboxes();
             $categories = $this->getCategories();
+            $order_types = $this->getOrderTypes();
 
-            return view('admin.themebox_index', ['themeboxes' => $themeboxes, 'categories' => $categories]);
+
+            return view('admin.themebox_index', ['themeboxes' => $themeboxes, 'categories' => $categories, 'order_types' => $order_types]);
         } else {
             return view('admin.login_form');
         }
+    }
+
+    public function getOrderTypes()
+    {
+        $order_types = Order_Type::all();
+        error_log($order_types);
+        $order_types = $order_types->sortBy('name');
+        return $order_types;
     }
 
     /**
@@ -564,8 +571,9 @@ class AdminController extends Controller
         $themebox->size = $request->themebox_data[4]["value"];
         $themebox->weight = $request->themebox_data[5]["value"];
         $themebox->fk_category = $request->themebox_data[6]["value"];
-        $themebox->content = $request->themebox_data[7]["value"];
-        $themebox->extra_text = $request->themebox_data[8]["value"];
+        $themebox->fk_order_type = $request->themebox_data[7]["value"];
+        $themebox->content = $request->themebox_data[8]["value"];
+        $themebox->extra_text = $request->themebox_data[9]["value"];
         $themebox->complete = true;
 
         try {
@@ -592,12 +600,14 @@ class AdminController extends Controller
      */
     public function getThemebox(Request $request)
     {
+        error_log($request["themebox_id"]);
         $themebox_Id = $request["themebox_id"];
         $themebox = Themebox::find($themebox_Id);
 
         $category = Category::find($themebox->fk_category);
+        $order_type = Order_Type::find($themebox->fk_order_type);
 
-        return response()->json([$themebox, $category], 200);
+        return response()->json([$themebox, $category,$order_type], 200);
     }
 
     public function getCategory(Request $request)

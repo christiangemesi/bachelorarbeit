@@ -187,6 +187,40 @@ $(document).ready(function () {
         return year + '-' + month + '-' + day;
     }
 
+    /**
+     *
+     */
+    function loadViewChangeButtons() {
+
+        //prevent buttons from being added multiple times
+        if ($(".fc-toolbar .fc-left .fc-week-view-button").length !== 0) {
+            return;
+        }
+
+        var switchToWeekButton = $('<button type="button" class="fc-week-view-button fc-button fc-state-default fc-corner-left fc-corner-right">Wochenansicht</button>');
+        var switchToMonthButton = $('<button type="button" class="fc-month-view-button fc-button fc-state-default fc-corner-left fc-corner-right">Monatsansicht</button>');
+        switchToMonthButton.hide();
+
+
+        switchToWeekButton.on("click", function () {
+            $("#calendar").fullCalendar("changeView", "agendaWeek");
+            //dont show the week button, instead show the month button
+            switchToWeekButton.hide();
+            switchToMonthButton.show();
+        });
+
+        switchToMonthButton.on("click", function () {
+            $("#calendar").fullCalendar("changeView", "month");
+            //dont show the month button, instead show the week button
+            switchToMonthButton.hide();
+            switchToWeekButton.show();
+        });
+
+        $(".fc-toolbar .fc-left").append(switchToWeekButton);
+        $(".fc-toolbar .fc-left").append(switchToMonthButton);
+    }
+
+
 
     /**
      * load calendar and themebox detail list
@@ -230,6 +264,8 @@ $(document).ready(function () {
 
                 blockNextFiveSundaysInCalendar();
                 blockPreviousFiveSundaysInCalendar();
+
+                loadViewChangeButtons();
 
                 var orders = response["data"]["orders"];
                 $.each(orders, function (index, value) {

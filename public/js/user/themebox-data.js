@@ -130,6 +130,8 @@ $(document).ready(function () {
         selectable: true,
         eventColor: "#f44242",
         height: "auto",
+        minTime: '08:00:00',
+        maxTime: '18:00:00',
 
         dayClick: function (date, allDay, jsEvent, view) {
             $("#info-calendar-message-box").html("Wählen Sie oben ihre gewünschte Ausleihperiode");

@@ -7,6 +7,9 @@ $(document).ready(function () {
      * Array of all blocked dates for the datepicker
      */
     var listOfBlockedDates = Array();
+    var listOfBlockedHourlyDates = Array();
+
+
 
     /**
      * variable for one day (start with next sunday) to calculate next and previous sundays
@@ -60,6 +63,15 @@ $(document).ready(function () {
     $("#end-date").datepicker({
         dateFormat: "dd.mm.yy",
         onSelect: function (date) {
+            //only show possible dates for hourly orders
+            //enable the dropdowns
+
+            console.log(date);
+
+
+            $("#dropdown-von").prop("disabled", false);
+            $("#dropdown-bis").prop("disabled", false);
+
             addEvent();
             $("#info-calendar-message-box").css("display", "none");
         }
@@ -266,12 +278,11 @@ $(document).ready(function () {
                 blockNextFiveSundaysInCalendar();
                 blockPreviousFiveSundaysInCalendar();
 
+                var orders = response["data"]["orders"];
                 loadHourlyView(response["data"]["themebox"]["fk_order_type"]);
-
 
                 loadViewChangeButtons();
 
-                var orders = response["data"]["orders"];
                 var isDailyOrder = response["data"]["themebox"]["fk_order_type"] === 2;
 
 
@@ -279,15 +290,19 @@ $(document).ready(function () {
                     $('#calendar').fullCalendar("renderEvent", {
                         id: "borrowed",
                         title: "",
-                        start: isDailyOrder ? addBlockStartdate(value["startdate"]) : value["startdate"],
-                        end: isDailyOrder ? addBlockEnddate(value["enddate"]) : value["enddate"],
+                        start: isDailyOrder ? addBlockStartdateDailyOrder(value["startdate"]) : value["startdate"],
+                        end: isDailyOrder ? addBlockEnddateDailyOrder(value["enddate"]) : value["enddate"],
                         rendering: isDailyOrder ? "background" : "",
                         className: "block"
                     }, true);
 
 
-                    var dateArr = computeDayBetweenStartAndEnd(new Date(addBlockStartdate(value['startdate'])), new Date(addBlockEnddate(value['enddate'])));
-                    console.log(dateArr);
+                    var dateArr = computeDayBetweenStartAndEnd(new Date(addBlockStartdateDailyOrder(value['startdate'])), new Date(addBlockEnddateDailyOrder(value['enddate'])));
+                    if(!isDailyOrder){
+                        listOfBlockedHourlyDates.push((value['startdate']));
+                        listOfBlockedHourlyDates.push((value['enddate']));
+                    }
+
 
 
                     for (var i = 0; i <= dateArr.length; i++) {
@@ -310,9 +325,10 @@ $(document).ready(function () {
                 errorHandling("Es ist ein Fehler bei der Datenverarbeitung passiert. Bitte kontaktieren Sie die FHNW Bibliothek unter bibliothek.windisch@fhnw.ch", "#error-message-box");
             }
         });
+
     }
 
-    function loadHourlyView(order_type) {
+    function loadHourlyView(order_type, orders) {
         //reset the selection so that the option is null
         $("#dropdown-von").val($("#dropdown-von option:first").val());
         $("#dropdown-bis").val($("#dropdown-bis option:first").val());
@@ -320,8 +336,17 @@ $(document).ready(function () {
             $("#themebox-time-select").hide();
             return;
         }
+
         $("#themebox-time-select").show();
+        //the selection should be disabled by default until the dates are chosen
+        $("#dropdown-von").prop("disabled", true);
+        $("#dropdown-bis").prop("disabled", true);
     }
+
+
+
+
+
 
     /**
      * Event handler for the click event on the resetCategoryFilterBtn button.
@@ -705,7 +730,7 @@ $(document).ready(function () {
      * @param date
      * @returns {string}
      */
-    function addBlockEnddate(date) {
+    function addBlockEnddateDailyOrder(date) {
         var temp_date = new Date(date + "T00:00:00-00:00");
         temp_date.setDate(temp_date.getUTCDate() + 8);
         return temp_date.getUTCFullYear() + "-" + formatTwoDigit(temp_date.getUTCMonth() + 1) + "-" + formatTwoDigit(temp_date.getUTCDate());
@@ -716,7 +741,7 @@ $(document).ready(function () {
      * @param date
      * @returns {string}
      */
-    function addBlockStartdate(date) {
+    function addBlockStartdateDailyOrder(date) {
         var temp_date = new Date(date + "T00:00:00-00:00");
         temp_date.setDate(temp_date.getUTCDate() - 7);
         return temp_date.getUTCFullYear() + "-" + formatTwoDigit(temp_date.getUTCMonth() + 1) + "-" + formatTwoDigit(temp_date.getUTCDate());
@@ -906,6 +931,8 @@ $(document).ready(function () {
         end_date.datepicker('option', 'maxDate', start_date);
         end_date.datepicker('option', 'minDate', min_date);
         $("#start-date").datepicker('option', 'minDate', new Date());
+
+
     }
 
 

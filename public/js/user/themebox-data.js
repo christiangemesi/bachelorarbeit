@@ -7,8 +7,6 @@ $(document).ready(function () {
      * Array of all blocked dates for the datepicker
      */
     var listOfBlockedDates = Array();
-    var listOfBlockedHourlyDates = Array();
-
 
 
     /**
@@ -296,15 +294,7 @@ $(document).ready(function () {
                         className: "block"
                     }, true);
 
-
                     var dateArr = computeDayBetweenStartAndEnd(new Date(addBlockStartdateDailyOrder(value['startdate'])), new Date(addBlockEnddateDailyOrder(value['enddate'])));
-                    if(!isDailyOrder){
-                        listOfBlockedHourlyDates.push((value['startdate']));
-                        listOfBlockedHourlyDates.push((value['enddate']));
-                    }
-
-
-
                     for (var i = 0; i <= dateArr.length; i++) {
                         listOfBlockedDates.push(dateArr[i]);
                     }

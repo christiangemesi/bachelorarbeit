@@ -157,7 +157,7 @@
 
                                                             <label for="dropdown-bis">Bis:</label>
                                                             <select id="dropdown-bis" name="selectedBis">
-                                                                <option value="dropdown-bis-title" disabled selected>Startzeit</option>
+                                                                <option value="dropdown-bis-title" disabled selected>Endzeit</option>
                                                                 <option value="08:00">08:00</option>
                                                                 <option value="08:30">08:30</option>
                                                                 <option value="09:00">09:00</option>

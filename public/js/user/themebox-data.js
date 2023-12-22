@@ -309,6 +309,9 @@ $(document).ready(function () {
     }
 
     function loadHourlyView(order_type) {
+        //reset the selection so that the option is null
+        $("#dropdown-von").val($("#dropdown-von option:first").val());
+        $("#dropdown-bis").val($("#dropdown-bis option:first").val());
         if(order_type !== 1) {
             $("#themebox-time-select").hide();
             return;
@@ -749,6 +752,31 @@ $(document).ready(function () {
         return new_date;
     }
 
+    function formatCalendarDateTimeCompare(date) {
+        console.log("formatCalendarDateCompare Before: " + date);
+        var temp_date = date.split(" ");
+        var dateComponents = temp_date[0].split(".");
+        var timeComponents = temp_date[1].split(":");
+        var new_date = new Date(
+            dateComponents[2] + "-" + dateComponents[1] + "-" + dateComponents[0] +
+            "T" + timeComponents[0] + ":" + timeComponents[1] + ":00-00:00"
+        );
+        new_date.setDate(new_date.getUTCDate() + 1);
+        var returnValue = new_date.getUTCFullYear() +
+            "-" +
+            formatTwoDigit(new_date.getUTCMonth() + 1) +
+            "-" +
+            formatTwoDigit(new_date.getUTCDate()) +
+            " " +
+            formatTwoDigit(new_date.getUTCHours()) +
+            ":" +
+            formatTwoDigit(new_date.getUTCMinutes()) +
+            ":00-00:00"
+
+        console.log("formatCalendarDateCompare After: " + returnValue);
+        return (returnValue);
+    }
+
     /**
      * format two digit number
      * @param number
@@ -790,6 +818,7 @@ $(document).ready(function () {
      * @returns {boolean}
      */
     function checkEventCollision(start, end) {
+        console.log("checkEventCollision: " + start + " - " + end)
         var status = true;
         if (start <= current_date) {
             status = false;
@@ -836,7 +865,18 @@ $(document).ready(function () {
             return event.className == "new_event";
         });
 
-        var collision = checkEventCollision(formatCalendarDateCompare($("#start-date").val()), formatCalendarDateCompare($("#end-date").val()));
+        var startTime = $('#dropdown-von').val();
+        var endTime = $('#dropdown-bis').val();
+        var isHourly = startTime !== null || endTime !== null;
+
+        if(isHourly) {
+            var startDateTime = $("#start-date").val() + " " + startTime;
+            var endDateTime = $("#end-date").val() + " " + endTime;
+            var collision = checkEventCollision(formatCalendarDateTimeCompare(startDateTime), formatCalendarDateTimeCompare(endDateTime));
+        } else {
+            var collision = checkEventCollision(formatCalendarDateCompare($("#start-date").val()), formatCalendarDateCompare($("#end-date").val()));
+        }
+
 
         if (collision) {
             hideErrorBoxes();
@@ -844,8 +884,11 @@ $(document).ready(function () {
             $("#calendar").fullCalendar('removeEvents', function (event) {
                 return event.className == "new_event";
             });
-
-            createEvent(formatCalendarDate($("#start-date").val()), formatCalendarEndDate($("#end-date").val()));
+            if(isHourly) {
+                 createEvent(formatCalendarDateTimeCompare(startDateTime), formatCalendarDateTimeCompare(endDateTime));
+            } else {
+                 createEvent(formatCalendarDate($("#start-date").val()), formatCalendarEndDate($("#end-date").val()));
+            }
         } else {
             errorHandling("Ihre Auswahl steht in Konflikt mit einem anderen Bestelltermin", "#error-calendar-message-box");
             $('#carousel-right').prop('disabled', true);

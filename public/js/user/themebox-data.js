@@ -223,7 +223,6 @@ $(document).ready(function () {
     }
 
 
-
     /**
      * load calendar and themebox detail list
      * @param themebox_Id
@@ -258,8 +257,6 @@ $(document).ready(function () {
                 $("#calendar").fullCalendar("today");
                 $("#carousel-right").prop("disabled", true);
 
-                console.log(response);
-
                 $("#calendar").fullCalendar("removeEvents");
                 listOfBlockedDates.length = 0;
                 blockDatesInDatepicker();
@@ -275,13 +272,20 @@ $(document).ready(function () {
                 loadViewChangeButtons();
 
                 var orders = response["data"]["orders"];
+                var isDailyOrder = response["data"]["themebox"]["fk_order_type"] === 2;
+
+                console.log(orders)
+
+
                 $.each(orders, function (index, value) {
+                    console.log(value["startdate"])
+                    console.log(value["enddate"])
                     $('#calendar').fullCalendar("renderEvent", {
                         id: "borrowed",
-                        title: "",
-                        start: addBlockStartdate(value["startdate"]),
-                        end: addBlockEnddate(value["enddate"]),
-                        rendering: "background",
+                        title: "ausgeliehen",
+                        start: isDailyOrder ? addBlockStartdate(value["startdate"]) : value["startdate"],
+                        end: isDailyOrder ? addBlockEnddate(value["enddate"]) : value["enddate"],
+                        rendering: isDailyOrder ? "background": "",
                         className: "block"
                     }, true);
 
@@ -291,6 +295,7 @@ $(document).ready(function () {
                         listOfBlockedDates.push(dateArr[i]);
                     }
                 });
+
 
                 hideErrorBoxes();
                 $("#end-date").prop("disabled", true);
@@ -312,7 +317,7 @@ $(document).ready(function () {
         //reset the selection so that the option is null
         $("#dropdown-von").val($("#dropdown-von option:first").val());
         $("#dropdown-bis").val($("#dropdown-bis option:first").val());
-        if(order_type !== 1) {
+        if (order_type !== 1) {
             $("#themebox-time-select").hide();
             return;
         }
@@ -753,7 +758,6 @@ $(document).ready(function () {
     }
 
     function formatCalendarDateTimeCompare(date) {
-        console.log("formatCalendarDateCompare Before: " + date);
         var temp_date = date.split(" ");
         var dateComponents = temp_date[0].split(".");
         var timeComponents = temp_date[1].split(":");
@@ -772,8 +776,6 @@ $(document).ready(function () {
             ":" +
             formatTwoDigit(new_date.getUTCMinutes()) +
             ":00-00:00"
-
-        console.log("formatCalendarDateCompare After: " + returnValue);
         return (returnValue);
     }
 
@@ -818,7 +820,6 @@ $(document).ready(function () {
      * @returns {boolean}
      */
     function checkEventCollision(start, end) {
-        console.log("checkEventCollision: " + start + " - " + end)
         var status = true;
         if (start <= current_date) {
             status = false;
@@ -839,7 +840,6 @@ $(document).ready(function () {
      * @param end
      */
     function createEvent(start, end) {
-        console.log("createEvent: " + start + " - " + end)
         $("#calendar").fullCalendar('renderEvent',
             {
                 title: "",
@@ -870,7 +870,7 @@ $(document).ready(function () {
         var endTime = $('#dropdown-bis').val();
         var isHourly = startTime !== null || endTime !== null;
 
-        if(isHourly) {
+        if (isHourly) {
             var startDateTime = $("#start-date").val() + " " + startTime;
             var endDateTime = $("#end-date").val() + " " + endTime;
             var collision = checkEventCollision(formatCalendarDateTimeCompare(startDateTime), formatCalendarDateTimeCompare(endDateTime));
@@ -885,10 +885,10 @@ $(document).ready(function () {
             $("#calendar").fullCalendar('removeEvents', function (event) {
                 return event.className == "new_event";
             });
-            if(isHourly) {
-                 createEvent(formatCalendarDateTimeCompare(startDateTime), formatCalendarDateTimeCompare(endDateTime));
+            if (isHourly) {
+                createEvent(formatCalendarDateTimeCompare(startDateTime), formatCalendarDateTimeCompare(endDateTime));
             } else {
-                 createEvent(formatCalendarDate($("#start-date").val()), formatCalendarEndDate($("#end-date").val()));
+                createEvent(formatCalendarDate($("#start-date").val()), formatCalendarEndDate($("#end-date").val()));
             }
         } else {
             errorHandling("Ihre Auswahl steht in Konflikt mit einem anderen Bestelltermin", "#error-calendar-message-box");

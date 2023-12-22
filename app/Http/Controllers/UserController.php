@@ -105,7 +105,12 @@ class UserController extends Controller
         $themebox_Id = $request["themeboxId"];
         $themebox = Themebox::find($themebox_Id);
 
-        $orders = Order::select('startdate', 'enddate')->where('fk_themebox', '=', $themebox_Id)->get();
+        //if the fk_order_type of the themebox is 1, then it is a hourly order so we need to get the hourly orders
+        if ($themebox->fk_order_type == 1) {
+            $orders = HourlyOrder::select('startdate', 'enddate')->where('fk_themebox', '=', $themebox_Id)->get();
+        } else {
+            $orders = Order::select('startdate', 'enddate')->where('fk_themebox', '=', $themebox_Id)->get();
+        }
 
         $data = array(
             "themebox" => $themebox,
@@ -136,14 +141,11 @@ class UserController extends Controller
     public function createOrder(Request $request){
         //set the order_type where as 1 == hourly order and 2 == daily order
         $order_type = $request->selectedVon || $request->selectedBis ? 1 : 2;
-        error_log("order_type: " . $order_type);
 
         if($order_type == 1){ //hourly order
             $startDatetime = $this->concatenateDatetime($request->startdate, $request->selectedVon);
 
             $endDatetime = $this->concatenateDatetime($request->enddate, $request->selectedBis);
-
-            error_log($request);
             $hourly_order = new HourlyOrder();
             $hourly_order->fk_themebox = $request->themeboxId;
             $hourly_order->StartDateTime = $startDatetime; // Set the start date and time
@@ -334,10 +336,8 @@ class UserController extends Controller
             $view = 'user.mail_delivery_school';
         } else {
 
-            error_log("delivery_type: " . $delivery_type);
 
             $mail = EditMail::find(1);
-            error_log("mail: " . $mail);
             $html_db = $mail->mail_text;
 
             $html_replaced = str_replace("!titel!", $mail_data['title'], $html_db);

@@ -269,7 +269,8 @@ $(document).ready(function () {
                 blockNextFiveSundaysInCalendar();
                 blockPreviousFiveSundaysInCalendar();
 
-                loadHourlyView();
+                loadHourlyView(response["data"]["themebox"]["fk_order_type"]);
+
 
                 loadViewChangeButtons();
 
@@ -305,6 +306,14 @@ $(document).ready(function () {
                 errorHandling("Es ist ein Fehler bei der Datenverarbeitung passiert. Bitte kontaktieren Sie die FHNW Bibliothek unter bibliothek.windisch@fhnw.ch", "#error-message-box");
             }
         });
+    }
+
+    function loadHourlyView(order_type) {
+        if(order_type !== 1) {
+            $("#themebox-time-select").hide();
+            return;
+        }
+        $("#themebox-time-select").show();
     }
 
     /**

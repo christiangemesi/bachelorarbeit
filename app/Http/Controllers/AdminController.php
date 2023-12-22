@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Str;
 use ThekRe\Blocked_Period;
 use ThekRe\Category;
-use ThekRe\Reservation;
+use ThekRe\HourlyOrder;
 use ThekRe\Order_Type;
 use ThekRe\Delivery;
 use ThekRe\Http\Requests;

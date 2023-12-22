@@ -9,6 +9,7 @@ use League\Flysystem\Exception;
 use ThekRe\Blocked_Period;
 use ThekRe\Category;
 use ThekRe\Delivery;
+use ThekRe\HourlyOrder;
 use ThekRe\Http\Requests;
 use ThekRe\Order;
 use ThekRe\Themebox;
@@ -131,57 +132,113 @@ class UserController extends Controller
     /**
      * create new order
      * @param Request $request
-     * @return Factory|View
      */
-    public function createOrder(Request $request)
-    {
+    public function createOrder(Request $request){
+        //set the order_type where as 1 == hourly order and 2 == daily order
+        $order_type = $request->selectedVon || $request->selectedBis ? 1 : 2;
+        error_log("order_type: " . $order_type);
 
-        $order = new Order();
-        $order->fk_themebox = $request->themeboxId;
-        $order->startdate = $this->formatDate($request->startdate);
-        $order->enddate = $this->formatDate($request->enddate);
-        $order->name = $request->name;
-        $order->surname = $request->surname;
-        $order->email = $request->email;
-        $order->phonenumber = $request->phone;
-        $order->nebisusernumber = $request->nebisusernumber;
-        $order->fk_delivery = $request->delivery;
+        if($order_type == 1){ //hourly order
+            $startDatetime = $this->concatenateDatetime($request->startdate, $request->selectedVon);
 
-        if ($request->delivery == 2) {
-            $order->schoolname = $request->schoolname;
-            $order->schoolstreet = $request->schoolstreet;
-            $order->schoolcity = $request->schoolcity;
-            $order->schoolphonenumber = $request->schoolphonenumber;
-            $order->placeofhandover = $request->placeofhandover;
-        }
+            $endDatetime = $this->concatenateDatetime($request->enddate, $request->selectedBis);
 
-        $order->fk_status = 1;
-        $order->ordernumber = $this->createOrdernumber();
-        $dt = Carbon::now();
-        $order->datecreated = $dt;
+            error_log($request);
+            $hourly_order = new HourlyOrder();
+            $hourly_order->fk_themebox = $request->themeboxId;
+            $hourly_order->StartDateTime = $startDatetime; // Set the start date and time
+            $hourly_order->EndDateTime = $endDatetime; // Set the end date and time
+            $hourly_order->name = $request->name;
+            $hourly_order->surname = $request->surname;
+            $hourly_order->email = $request->email;
+            $hourly_order->phonenumber = $request->phone;
+            $hourly_order->nebisusernumber = $request->nebisusernumber;
+            $hourly_order->fk_status = 1; // You may need to adjust this based on your requirements
+            $hourly_order->ordernumber = $this->createOrdernumber();
+            $dt = Carbon::now();
+            $hourly_order->datecreated = $dt;
 
-        $themebox = Themebox::find($order->fk_themebox);
+            $themebox = Themebox::find($hourly_order->fk_themebox);
 
-        $mail_data = array(
-            'title' => $themebox->title,
-            'signatur' => $themebox->signatur,
-            'startdate' => $request->startdate,
-            'enddate' => $request->enddate,
-            'receiver_mail' => $order->email,
-            'receiver_name' => $order->name,
-            'receiver_surname' => $order->surname,
-            'ordernumber' => $order->ordernumber,
-            'extra_text' => $themebox->extra_text
-        );
+            $mail_data = array(
+                'title' => $themebox->title,
+                'signatur' => $themebox->signatur,
+                'startdate' => $request->StartDateTime,
+                'enddate' => $request->EndDateTime,
+                'receiver_mail' => $hourly_order->email,
+                'receiver_name' => $hourly_order->name,
+                'receiver_surname' => $hourly_order->surname,
+                'ordernumber' => $hourly_order->ordernumber,
+                'extra_text' => $themebox->extra_text
+            );
 
-        try {
-            $this->sendEmail($mail_data, $request->delivery);
-            $order->save();
-            return redirect()->route('orderSuccess');
-        } catch (Exception $e) {
-            return redirect()->route('orderFailed');
+            try {
+                $this->sendEmail($mail_data, $request->delivery);
+                $hourly_order->save();
+                return redirect()->route('orderSuccess');
+            } catch (Exception $e) {
+                return redirect()->route('orderFailed');
+            }
+        } else { //daily order
+            $order = new Order();
+            $order->fk_themebox = $request->themeboxId;
+            $order->startdate = $this->formatDate($request->startdate);
+            $order->enddate = $this->formatDate($request->enddate);
+            $order->name = $request->name;
+            $order->surname = $request->surname;
+            $order->email = $request->email;
+            $order->phonenumber = $request->phone;
+            $order->nebisusernumber = $request->nebisusernumber;
+            $order->fk_delivery = $request->delivery;
+
+            if ($request->delivery == 2) {
+                $order->schoolname = $request->schoolname;
+                $order->schoolstreet = $request->schoolstreet;
+                $order->schoolcity = $request->schoolcity;
+                $order->schoolphonenumber = $request->schoolphonenumber;
+                $order->placeofhandover = $request->placeofhandover;
+            }
+
+            $order->fk_status = 1;
+            $order->ordernumber = $this->createOrdernumber();
+            $dt = Carbon::now();
+            $order->datecreated = $dt;
+
+            $themebox = Themebox::find($order->fk_themebox);
+
+            $mail_data = array(
+                'title' => $themebox->title,
+                'signatur' => $themebox->signatur,
+                'startdate' => $request->startdate,
+                'enddate' => $request->enddate,
+                'receiver_mail' => $order->email,
+                'receiver_name' => $order->name,
+                'receiver_surname' => $order->surname,
+                'ordernumber' => $order->ordernumber,
+                'extra_text' => $themebox->extra_text
+            );
+
+            try {
+                $this->sendEmail($mail_data, $request->delivery);
+                $order->save();
+                return redirect()->route('orderSuccess');
+            } catch (Exception $e) {
+                return redirect()->route('orderFailed');
+            }
         }
     }
+
+    private function concatenateDatetime($date, $time)
+    {
+        $tempDate = explode(".", $date);
+        $newDate = $tempDate[2] . "-" . $tempDate[1] . "-" . $tempDate[0];
+
+        // Concatenate date and time
+        $datetimeString = $newDate . " " . $time;
+
+        return $datetimeString;
+    }
+
 
     /**
      * format date from DD.MM.YYYY to YYYY-MM-DD

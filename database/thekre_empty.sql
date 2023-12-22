@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 15, 2023 at 09:03 AM
+-- Generation Time: Dec 22, 2023 at 10:50 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -45,6 +45,15 @@ CREATE TABLE `tbl_category` (
                                 `name` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
+--
+-- Dumping data for table `tbl_category`
+--
+
+INSERT INTO `tbl_category` (`pk_category`, `name`) VALUES
+                                                       (1, '-'),
+                                                       (2, 'Themenkiste'),
+                                                       (6, 'Elektronische Geräte');
+
 -- --------------------------------------------------------
 
 --
@@ -67,6 +76,35 @@ INSERT INTO `tbl_delivery` (`pk_delivery`, `type`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tbl_hourly_order`
+--
+
+CREATE TABLE `tbl_hourly_order` (
+                                    `pk_hourly_order` int(11) NOT NULL,
+                                    `fk_themebox` int(11) NOT NULL,
+                                    `StartDateTime` datetime NOT NULL,
+                                    `EndDateTime` datetime NOT NULL,
+                                    `name` varchar(40) NOT NULL,
+                                    `surname` varchar(40) NOT NULL,
+                                    `email` varchar(60) NOT NULL,
+                                    `phonenumber` mediumtext NOT NULL,
+                                    `nebisusernumber` mediumtext NOT NULL,
+                                    `fk_status` int(11) NOT NULL,
+                                    `datecreated` date DEFAULT NULL,
+                                    `ordernumber` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `tbl_hourly_order`
+--
+
+INSERT INTO `tbl_hourly_order` (`pk_hourly_order`, `fk_themebox`, `StartDateTime`, `EndDateTime`, `name`, `surname`, `email`, `phonenumber`, `nebisusernumber`, `fk_status`, `datecreated`, `ordernumber`) VALUES
+                                                                                                                                                                                                               (1, 93, '2024-01-12 08:30:00', '2024-01-12 09:30:00', 'gemesi', 'christian', 'christian.gemesi@hotmail.ch', '0123456789', '0123', 1, '2023-12-22', '9IWqbxFYun'),
+                                                                                                                                                                                                               (2, 93, '2024-01-12 09:00:00', '2024-01-12 10:30:00', 'gemesi', 'christian', 'christian.gemesi@hotmail.ch', '0123456789', '0123', 1, '2023-12-22', 'TGABaRLr2J');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tbl_login`
 --
 
@@ -81,7 +119,7 @@ CREATE TABLE `tbl_login` (
 --
 
 INSERT INTO `tbl_login` (`pk_login`, `password`, `email`) VALUES
-                                                              (1, '$2y$12$NWxo9pVcSoluaUE6UGqtfuuCtwW/HSy/yjXGRN0xt5i.8NQeWjnQ6', 'root'),
+                                                              (1, '$2y$12$C8vX0ohh3muHBqStrL5A0ek2s10fUJs5kQ61w0207IM8ZqSsgXA.K', 'christian.gemesi@hotmail.ch'),
                                                               (2, '$2y$10$53RC2xhBxY39.M1MuSYwCO68MdK.p6b/vYGYVlVppgbSs/EstWneu', NULL);
 
 -- --------------------------------------------------------
@@ -134,6 +172,15 @@ CREATE TABLE `tbl_order` (
                              `fk_status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
+--
+-- Dumping data for table `tbl_order`
+--
+
+INSERT INTO `tbl_order` (`pk_order`, `fk_themebox`, `startdate`, `enddate`, `name`, `surname`, `email`, `phonenumber`, `nebisusernumber`, `fk_delivery`, `schoolname`, `schoolstreet`, `schoolcity`, `placeofhandover`, `schoolphonenumber`, `comment`, `ordernumber`, `datecreated`, `fk_status`) VALUES
+                                                                                                                                                                                                                                                                                                       (102, 93, '2023-12-25', '2023-12-25', 'gemesi', 'christian', 'christian.gemesi@hotmail.ch', '0123456789', '0123', 1, NULL, NULL, NULL, NULL, NULL, NULL, 'OLVHbXYUTT', '2023-12-22', 1),
+                                                                                                                                                                                                                                                                                                       (103, 93, '2024-01-03', '2024-01-03', 'gemesi', 'christian', 'christian.gemesi@hotmail.ch', '0123456789', '0123', 1, NULL, NULL, NULL, NULL, NULL, NULL, '39UI2iPt60', '2023-12-22', 1),
+                                                                                                                                                                                                                                                                                                       (104, 92, '2023-12-25', '2023-12-26', 'gemesi', 'christian', 'christian.gemesi@hotmail.ch', '0123456789', '0123', 1, NULL, NULL, NULL, NULL, NULL, NULL, '7Pcn246Bwn', '2023-12-22', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -144,6 +191,14 @@ CREATE TABLE `tbl_order_type` (
                                   `pk_order_type` int(11) NOT NULL,
                                   `name` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `tbl_order_type`
+--
+
+INSERT INTO `tbl_order_type` (`pk_order_type`, `name`) VALUES
+                                                           (1, 'Stundenbasiert (max. 1 Tag)'),
+                                                           (2, 'Tagesbasiert (max. 6 Wochen)');
 
 -- --------------------------------------------------------
 
@@ -158,26 +213,12 @@ CREATE TABLE `tbl_password_resets` (
                                        `pk_password_resets` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `tbl_reservation`
+-- Dumping data for table `tbl_password_resets`
 --
 
-CREATE TABLE `tbl_reservation` (
-                                   `pk_reservation` int(11) NOT NULL,
-                                   `fk_themebox` int(11) NOT NULL,
-                                   `reservation_date` date NOT NULL,
-                                   `starttime` time NOT NULL,
-                                   `endtime` time NOT NULL,
-                                   `name` varchar(40) NOT NULL,
-                                   `surname` varchar(40) NOT NULL,
-                                   `email` varchar(60) NOT NULL,
-                                   `phonenumber` mediumtext NOT NULL,
-                                   `comment` text DEFAULT NULL,
-                                   `reservation_number` varchar(10) NOT NULL,
-                                   `datecreated` date DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+INSERT INTO `tbl_password_resets` (`email`, `token`, `created_at`, `pk_password_resets`) VALUES
+    ('christian.gemesi@hotmail.ch', 'iw42RvH0qGxO1C0U4BzbOgvWgbdIzCET78wywW0G09a21AFYY9DU0aVWZuLA0eXB', '2023-12-20 16:56:12', 84);
 
 -- --------------------------------------------------------
 
@@ -224,6 +265,14 @@ CREATE TABLE `tbl_themebox` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
+-- Dumping data for table `tbl_themebox`
+--
+
+INSERT INTO `tbl_themebox` (`pk_themebox`, `title`, `signatur`, `schoollevel`, `barcode`, `size`, `weight`, `content`, `complete`, `extra_text`, `fk_category`, `fk_order_type`) VALUES
+                                                                                                                                                                                     (92, '0', '0', '0', '0', '1', '1', 'f', 1, '<p><br></p>', 6, 2),
+                                                                                                                                                                                     (93, 'stunden', 'stunden', 'stunden', 'stunden', 'stunden', '2', 'stunden', 1, '<p><br></p>', 6, 1);
+
+--
 -- Indexes for dumped tables
 --
 
@@ -244,6 +293,14 @@ ALTER TABLE `tbl_category`
 --
 ALTER TABLE `tbl_delivery`
     ADD PRIMARY KEY (`pk_delivery`);
+
+--
+-- Indexes for table `tbl_hourly_order`
+--
+ALTER TABLE `tbl_hourly_order`
+    ADD PRIMARY KEY (`pk_hourly_order`),
+  ADD KEY `fk_themebox_hourly_order_idx` (`fk_themebox`),
+  ADD KEY `fk_status_hourly_order_idx` (`fk_status`);
 
 --
 -- Indexes for table `tbl_login`
@@ -279,13 +336,6 @@ ALTER TABLE `tbl_password_resets`
     ADD PRIMARY KEY (`pk_password_resets`);
 
 --
--- Indexes for table `tbl_reservation`
---
-ALTER TABLE `tbl_reservation`
-    ADD PRIMARY KEY (`pk_reservation`),
-  ADD KEY `fk_themebox_res_con_idx` (`fk_themebox`);
-
---
 -- Indexes for table `tbl_status`
 --
 ALTER TABLE `tbl_status`
@@ -313,13 +363,19 @@ ALTER TABLE `tbl_blocked_period`
 -- AUTO_INCREMENT for table `tbl_category`
 --
 ALTER TABLE `tbl_category`
-    MODIFY `pk_category` int(11) NOT NULL AUTO_INCREMENT;
+    MODIFY `pk_category` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tbl_delivery`
 --
 ALTER TABLE `tbl_delivery`
     MODIFY `pk_delivery` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `tbl_hourly_order`
+--
+ALTER TABLE `tbl_hourly_order`
+    MODIFY `pk_hourly_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_mail`
@@ -331,25 +387,19 @@ ALTER TABLE `tbl_mail`
 -- AUTO_INCREMENT for table `tbl_order`
 --
 ALTER TABLE `tbl_order`
-    MODIFY `pk_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+    MODIFY `pk_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
 
 --
 -- AUTO_INCREMENT for table `tbl_order_type`
 --
 ALTER TABLE `tbl_order_type`
-    MODIFY `pk_order_type` int(11) NOT NULL AUTO_INCREMENT;
+    MODIFY `pk_order_type` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_password_resets`
 --
 ALTER TABLE `tbl_password_resets`
-    MODIFY `pk_password_resets` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
-
---
--- AUTO_INCREMENT for table `tbl_reservation`
---
-ALTER TABLE `tbl_reservation`
-    MODIFY `pk_reservation` int(11) NOT NULL AUTO_INCREMENT;
+    MODIFY `pk_password_resets` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
 
 --
 -- AUTO_INCREMENT for table `tbl_status`
@@ -361,11 +411,18 @@ ALTER TABLE `tbl_status`
 -- AUTO_INCREMENT for table `tbl_themebox`
 --
 ALTER TABLE `tbl_themebox`
-    MODIFY `pk_themebox` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
+    MODIFY `pk_themebox` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `tbl_hourly_order`
+--
+ALTER TABLE `tbl_hourly_order`
+    ADD CONSTRAINT `fk_status_hourly_order_connection` FOREIGN KEY (`fk_status`) REFERENCES `tbl_status` (`pk_status`),
+  ADD CONSTRAINT `fk_themebox_hourly_order_connection` FOREIGN KEY (`fk_themebox`) REFERENCES `tbl_themebox` (`pk_themebox`);
 
 --
 -- Constraints for table `tbl_order`

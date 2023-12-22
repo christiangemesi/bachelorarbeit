@@ -104,6 +104,12 @@ $(document).ready(function () {
                     end: currentBlockEnd
                 });
 
+                // by default push 17:30 and 18:00 as blocked hour
+                blockedHours.push({
+                    start: '17:30',
+                    end: '18:00'
+                });
+
                 currentBlockStart = addMinutesToTime(currentBlockStart, 30);
             }
         });

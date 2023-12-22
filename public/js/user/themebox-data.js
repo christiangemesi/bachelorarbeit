@@ -839,6 +839,7 @@ $(document).ready(function () {
      * @param end
      */
     function createEvent(start, end) {
+        console.log("createEvent: " + start + " - " + end)
         $("#calendar").fullCalendar('renderEvent',
             {
                 title: "",

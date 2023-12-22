@@ -7,6 +7,7 @@ $(document).ready(function () {
      * Array of all blocked dates for the datepicker
      */
     var listOfBlockedDates = Array();
+    var selectedThemeboxInfo = []
 
 
     /**
@@ -50,30 +51,121 @@ $(document).ready(function () {
         },
         onSelect: function (date) {
             bindEndData();
+
+            if(selectedThemeboxInfo.themebox.fk_order_type === 1) { // Hourly order
+                setStartingTimesSelection();
+            }
+
             if ($("#end-date").datepicker("getDate") != null) {
-                addEvent();
+                if(selectedThemeboxInfo.themebox.fk_order_type === 2) { // daily order
+                    addEvent();
+                }
             }
             $("#end-date").removeAttr("disabled");
             $("#info-calendar-message-box").css("display", "none");
         }
     });
 
+
     $("#end-date").datepicker({
         dateFormat: "dd.mm.yy",
         onSelect: function (date) {
-            //only show possible dates for hourly orders
-            //enable the dropdowns
-
             console.log(date);
 
+            if(selectedThemeboxInfo.themebox.fk_order_type === 2) { // daily order
+                addEvent();
+            }
 
-            $("#dropdown-von").prop("disabled", false);
-            $("#dropdown-bis").prop("disabled", false);
-
-            addEvent();
             $("#info-calendar-message-box").css("display", "none");
         }
     });
+
+    function setStartingTimesSelection() {
+        var startDate = formatDate($("#start-date").datepicker("getDate"));
+
+        var selectedDateOrders = selectedThemeboxInfo.orders.filter(function (order) {
+            return order.startdate.startsWith(startDate);
+        });
+
+        // Create an array for blocked hours on the selected date
+        var blockedHours = [];
+
+        selectedDateOrders.forEach(function (order) {
+            var startHour = order.startdate.split(' ')[1].substring(0, 5);
+            var endHour = order.enddate.split(' ')[1].substring(0, 5);
+
+            // Add all the values between startHour-30 and endHour+30 in 30-minute intervals to blockedHours
+            var currentBlockStart = subtractMinutesFromTime(startHour, 30);
+            while (currentBlockStart < endHour) {
+                var currentBlockEnd = addMinutesToTime(currentBlockStart, 30);
+
+                blockedHours.push({
+                    start: currentBlockStart,
+                    end: currentBlockEnd
+                });
+
+                currentBlockStart = addMinutesToTime(currentBlockStart, 30);
+            }
+        });
+
+        // Remove all options from the dropdown that are within the blocked hours
+        $("#dropdown-von option").each(function () {
+            var optionValue = $(this).val();
+            var optionText = $(this).text();
+
+            blockedHours.forEach(function (blockedHour) {
+                if (optionValue === blockedHour.start || optionValue === blockedHour.end) {
+                    $("#dropdown-von option[value='" + optionValue + "']").remove();
+                }
+            });
+        });
+
+        console.log("Blocked hours on the selected date: ", blockedHours);
+    }
+
+    function subtractMinutesFromTime(time, minutes) {
+        var timeArray = time.split(':');
+        var hours = parseInt(timeArray[0], 10);
+        var mins = parseInt(timeArray[1], 10);
+
+        var totalMinutes = hours * 60 + mins;
+        var newTotalMinutes = totalMinutes - minutes;
+
+        var newHours = Math.floor(newTotalMinutes / 60);
+        var newMins = newTotalMinutes % 60;
+
+        return padWithZero(newHours) + ':' + padWithZero(newMins);
+    }
+
+    function addMinutesToTime(time, minutes) {
+        var timeArray = time.split(':');
+        var hours = parseInt(timeArray[0], 10);
+        var mins = parseInt(timeArray[1], 10);
+
+        var totalMinutes = hours * 60 + mins;
+        var newTotalMinutes = totalMinutes + minutes;
+
+        var newHours = Math.floor(newTotalMinutes / 60);
+        var newMins = newTotalMinutes % 60;
+
+        return padWithZero(newHours) + ':' + padWithZero(newMins);
+    }
+
+    function padWithZero(value) {
+        return value < 10 ? '0' + value : value;
+    }
+
+
+
+    $("#dropdown-von").change(function () {
+        $("#dropdown-bis").prop("disabled", false);
+    });
+
+    $("#dropdown-bis").change(function () {
+        addEvent();
+    });
+
+
 
 
     /**
@@ -238,6 +330,7 @@ $(document).ready(function () {
      * @param themebox_Id
      */
     function loadThemeboxInfoBox(themebox_Id) {
+        selectedThemeboxInfo = [];
 
         dayToCalculateNextSundays = getNextDayOfWeek(new Date, 7);
         dayToCalculatePreviousSundays = getNextDayOfWeek(new Date, 7);
@@ -246,6 +339,8 @@ $(document).ready(function () {
             type: "POST",
             data: {themeboxId: themebox_Id},
             success: function (response) {
+                selectedThemeboxInfo = response["data"];
+                console.log("Selected themebox info: ", selectedThemeboxInfo);
                 var html =
                     '<tr><td>Signatur: </td><td class="themebox-table-value">' + response["data"]["themebox"]["signatur"] + '</td></tr>' +
                     '<tr><td>Stufe: </td><td class="themebox-table-value">' + response["data"]["themebox"]["schoollevel"] + '</td></tr>' +
@@ -282,7 +377,6 @@ $(document).ready(function () {
                 loadViewChangeButtons();
 
                 var isDailyOrder = response["data"]["themebox"]["fk_order_type"] === 2;
-
 
                 $.each(orders, function (index, value) {
                     $('#calendar').fullCalendar("renderEvent", {
@@ -323,9 +417,13 @@ $(document).ready(function () {
         $("#dropdown-von").val($("#dropdown-von option:first").val());
         $("#dropdown-bis").val($("#dropdown-bis option:first").val());
         if (order_type !== 1) {
+            $("#themebox-datepicker-bis").show();
             $("#themebox-time-select").hide();
             return;
         }
+
+        //hide themebox-datepicker-bis
+        $("#themebox-datepicker-bis").hide();
 
         $("#themebox-time-select").show();
         //the selection should be disabled by default until the dates are chosen
@@ -922,7 +1020,12 @@ $(document).ready(function () {
         end_date.datepicker('option', 'minDate', min_date);
         $("#start-date").datepicker('option', 'minDate', new Date());
 
-
+        if(selectedThemeboxInfo.themebox.fk_order_type === 1) { // Hourly order
+            //set the end date to the start date
+            $("#end-date").datepicker("setDate", $("#start-date").datepicker("getDate"));
+            //enable the dropdowns
+            $("#dropdown-von").prop("disabled", false);
+        }
     }
 
 

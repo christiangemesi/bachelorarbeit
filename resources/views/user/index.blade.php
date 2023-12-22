@@ -114,7 +114,7 @@
                                                                     </div>
                                                                 </td>
                                                             </tr>
-                                                            <tr>
+                                                            <tr id="themebox-datepicker-bis">
                                                                 <td>Bis: </td>
                                                                 <td>
                                                                     <div class="input-group">

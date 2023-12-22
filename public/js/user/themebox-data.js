@@ -274,22 +274,21 @@ $(document).ready(function () {
                 var orders = response["data"]["orders"];
                 var isDailyOrder = response["data"]["themebox"]["fk_order_type"] === 2;
 
-                console.log(orders)
-
 
                 $.each(orders, function (index, value) {
-                    console.log(value["startdate"])
-                    console.log(value["enddate"])
                     $('#calendar').fullCalendar("renderEvent", {
                         id: "borrowed",
-                        title: "ausgeliehen",
+                        title: "",
                         start: isDailyOrder ? addBlockStartdate(value["startdate"]) : value["startdate"],
                         end: isDailyOrder ? addBlockEnddate(value["enddate"]) : value["enddate"],
-                        rendering: isDailyOrder ? "background": "",
+                        rendering: isDailyOrder ? "background" : "",
                         className: "block"
                     }, true);
 
+
                     var dateArr = computeDayBetweenStartAndEnd(new Date(addBlockStartdate(value['startdate'])), new Date(addBlockEnddate(value['enddate'])));
+                    console.log(dateArr);
+
 
                     for (var i = 0; i <= dateArr.length; i++) {
                         listOfBlockedDates.push(dateArr[i]);
@@ -765,7 +764,6 @@ $(document).ready(function () {
             dateComponents[2] + "-" + dateComponents[1] + "-" + dateComponents[0] +
             "T" + timeComponents[0] + ":" + timeComponents[1] + ":00-00:00"
         );
-        new_date.setDate(new_date.getUTCDate() + 1);
         var returnValue = new_date.getUTCFullYear() +
             "-" +
             formatTwoDigit(new_date.getUTCMonth() + 1) +

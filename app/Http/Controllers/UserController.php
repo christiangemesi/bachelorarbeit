@@ -148,8 +148,8 @@ class UserController extends Controller
             $endDatetime = $this->concatenateDatetime($request->enddate, $request->selectedBis);
             $hourly_order = new HourlyOrder();
             $hourly_order->fk_themebox = $request->themeboxId;
-            $hourly_order->StartDateTime = $startDatetime; // Set the start date and time
-            $hourly_order->EndDateTime = $endDatetime; // Set the end date and time
+            $hourly_order->startdate = $startDatetime; // Set the start date and time
+            $hourly_order->enddate = $endDatetime; // Set the end date and time
             $hourly_order->name = $request->name;
             $hourly_order->surname = $request->surname;
             $hourly_order->email = $request->email;

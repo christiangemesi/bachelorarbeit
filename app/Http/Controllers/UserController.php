@@ -104,7 +104,6 @@ class UserController extends Controller
         $themebox_Id = $request["themeboxId"];
         $themebox = Themebox::find($themebox_Id);
 
-
         $orders = Order::select('startdate', 'enddate')->where('fk_themebox', '=', $themebox_Id)->get();
 
         $data = array(

@@ -258,6 +258,8 @@ $(document).ready(function () {
                 $("#calendar").fullCalendar("today");
                 $("#carousel-right").prop("disabled", true);
 
+                console.log(response);
+
                 $("#calendar").fullCalendar("removeEvents");
                 listOfBlockedDates.length = 0;
                 blockDatesInDatepicker();
@@ -266,6 +268,8 @@ $(document).ready(function () {
 
                 blockNextFiveSundaysInCalendar();
                 blockPreviousFiveSundaysInCalendar();
+
+                loadHourlyView();
 
                 loadViewChangeButtons();
 

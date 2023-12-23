@@ -215,12 +215,46 @@ $(document).ready(function () {
                 });
                 bindEndData();
                 addBlockDateFromToday();
+                loadViewChangeButtons();
             },
             error: function (xhr, status, error) {
                 $('#login-user-error-message-box').css('display', 'block');
                 $('#login-user-error-message-box').html('Die Bestellung konnte nicht gefunden werden. Bitte überprüfen Sie Nachname der Bestellperson sowie Bestellnummer. <br>Ansonsten kontaktieren Sie die Campusbibliothek unter <a href="mailto:bibliothek.windisch@fhnw.ch">bibliothek.windisch@fhnw.ch</a> ');
             }
         })
+    }
+
+    function loadViewChangeButtons() {
+        console.log("loadViewChangeButtons");
+
+
+        //prevent buttons from being added multiple times
+        if ($(".fc-toolbar .fc-left .fc-week-view-button").length !== 0) {
+            return;
+        }
+
+        var switchToWeekButton = $('<button type="button" class="fc-week-view-button fc-button fc-state-default fc-corner-left fc-corner-right">Wochensicht</button>');
+        var switchToMonthButton = $('<button type="button" class="fc-month-view-button fc-button fc-state-default fc-corner-left fc-corner-right">Monatssicht</button>');
+        switchToMonthButton.hide();
+
+
+        switchToWeekButton.on("click", function () {
+            console.log("switchToWeekButton")
+            $("#calendar").fullCalendar("changeView", "agendaWeek");
+            //dont show the week button, instead show the month button
+            switchToWeekButton.hide();
+            switchToMonthButton.show();
+        });
+
+        switchToMonthButton.on("click", function () {
+            $("#calendar").fullCalendar("changeView", "month");
+            //dont show the month button, instead show the week button
+            switchToMonthButton.hide();
+            switchToWeekButton.show();
+        });
+
+        $(".fc-toolbar .fc-left").append(switchToWeekButton);
+        $(".fc-toolbar .fc-left").append(switchToMonthButton);
     }
 
     /**
@@ -261,6 +295,8 @@ $(document).ready(function () {
         selectable: true,
         eventColor: "#f44242",
         height: "auto",
+        minTime: '08:00:00',
+        maxTime: '18:00:00',
         dayClick: function (date, allDay, jsEvent, view) {
             $("#info-calendar-message-box").html("Wählen Sie oben ihre gewünschte Ausleihperiode");
             $("#info-calendar-message-box").css("display", "block");

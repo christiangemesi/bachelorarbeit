@@ -157,25 +157,27 @@ $(document).ready(function () {
 
         // Create an array for blocked hours on the selected date and start time
         var blockedHours = [];
+        //add all the values between startHour-30 and endHour+30 in 30-minute intervals to blockedHours
+        selectedDateOrders.forEach(function (order) {
+            var startHour = order.startdate.split(' ')[1].substring(0, 5);
+            var endHour = order.enddate.split(' ')[1].substring(0, 5);
 
-        // Add all the values until selectedStartTime+30 in 30-minute intervals to blockedHours
-        var currentBlockStart = '08:00';
-        while (currentBlockStart < addMinutesToTime(selectedStartTime, 30)) {
-            var currentBlockEnd = currentBlockStart;
+            console.log("startHour: ", startHour) //startHour:  08:30
+            console.log("endHour: ", endHour) //endHour:  11:00
 
-            blockedHours.push({
-                start: currentBlockStart,
-                end: currentBlockEnd
-            });
+            //add all values between startHour-30 and endHour+30 in 30-minute intervals to blockedHours
+            var currentBlockStart = subtractMinutesFromTime(startHour, 30);
+            while (currentBlockStart < endHour) {
+                var currentBlockEnd = addMinutesToTime(currentBlockStart, 30);
 
-            currentBlockStart = addMinutesToTime(currentBlockStart, 30);
-        }
+                blockedHours.push({
+                    start: currentBlockStart,
+                    end: currentBlockEnd
+                });
 
-
-
-
-
-        console.log("Blocked hours on the selected date and start time: ", blockedHours)
+                currentBlockStart = addMinutesToTime(currentBlockStart, 30);
+            }
+        });
 
         // Remove options from #dropdown-bis that are within the blocked hours
         $("#dropdown-bis option").each(function () {

@@ -261,6 +261,8 @@ $(document).ready(function () {
                 blockTillNextSunday();
                 blockNextFiveSundaysInCalendar();
                 blockPreviousFiveSundaysInCalendar();
+                loadViewChangeButtons();
+
                 },
             error: function (xhr, status, error) {
                 showFailureModal("Es ist ein Fehler beim Laden der Daten aufgetreten", xhr);
@@ -396,6 +398,8 @@ $(document).ready(function () {
         selectable: true,
         eventColor: "#f44242",
         height: "auto",
+        minTime: '08:00:00',
+        maxTime: '18:00:00',
         dayClick: function (date, allDay, jsEvent, view) {
             $("#info-calendar-message-box").html("Wählen Sie oben ihre gewünschte Ausleihperiode");
             $("#info-calendar-message-box").css("display", "block");
@@ -412,6 +416,8 @@ $(document).ready(function () {
         selectable: true,
         eventColor: "#f44242",
         height: "auto",
+        minTime: '08:00:00',
+        maxTime: '18:00:00',
         dayClick: function (date, allDay, jsEvent, view) {
             $("#info-calendar-message-box").html("Wählen Sie oben ihre gewünschte Ausleihperiode");
             $("#info-calendar-message-box").css("display", "block");
@@ -524,6 +530,7 @@ $(document).ready(function () {
      * show create order modal
      */
     $("#button-create-order").click(function () {
+
         let fk_thembox = 1;
         $.ajax({
             url: "poweruser/getOrderAddData",
@@ -569,6 +576,7 @@ $(document).ready(function () {
                     }, true);
                 });
                 loadBlockedDates();
+                loadViewChangeButtons();
 
                 dayToCalculateNextSundays = getNextDayOfWeek(new Date, 7);
                 dayToCalculatePreviousSundays = getNextDayOfWeek(new Date, 7);
@@ -592,9 +600,45 @@ $(document).ready(function () {
 
                 })
                 $("#orderAdd-delivery").val(1);
+
             },
         })
     })
+
+    function loadViewChangeButtons() {
+        console.log("loadViewChangeButtons");
+
+
+        //prevent buttons from being added multiple times
+        if ($(".fc-toolbar .fc-left .fc-week-view-button").length !== 0) {
+            return;
+        }
+
+        var switchToWeekButton = $('<button type="button" class="fc-week-view-button fc-button fc-state-default fc-corner-left fc-corner-right">Wochensicht</button>');
+        var switchToMonthButton = $('<button type="button" class="fc-month-view-button fc-button fc-state-default fc-corner-left fc-corner-right">Monatssicht</button>');
+        switchToMonthButton.hide();
+
+
+        switchToWeekButton.on("click", function () {
+            console.log("switchToWeekButton")
+            $("#calendar").fullCalendar("changeView", "agendaWeek");
+            $("#orderAdd-calendar").fullCalendar("changeView", "agendaWeek");
+            //dont show the week button, instead show the month button
+            switchToWeekButton.hide();
+            switchToMonthButton.show();
+        });
+
+        switchToMonthButton.on("click", function () {
+            $("#calendar").fullCalendar("changeView", "month");
+            $("#orderAdd-calendar").fullCalendar("changeView", "month");
+            //dont show the month button, instead show the week button
+            switchToMonthButton.hide();
+            switchToWeekButton.show();
+        });
+
+        $(".fc-toolbar .fc-left").append(switchToWeekButton);
+        $(".fc-toolbar .fc-left").append(switchToMonthButton);
+    }
 
     $('#orderAdd-delivery').click(function () {
         if ($("#orderAdd-delivery").val() == "1") {
@@ -635,12 +679,14 @@ $(document).ready(function () {
 
                 loadBlockedDates();
 
+
                 dayToCalculateNextSundays = getNextDayOfWeek(new Date, 7);
                 dayToCalculatePreviousSundays = getNextDayOfWeek(new Date, 7);
 
                 blockTillNextSunday();
                 blockNextFiveSundaysInCalendar();
                 blockPreviousFiveSundaysInCalendar();
+                loadViewChangeButtons();
 
                 response["orderData"].forEach(function (element) {
                     $('#orderAdd-calendar').fullCalendar("renderEvent", {

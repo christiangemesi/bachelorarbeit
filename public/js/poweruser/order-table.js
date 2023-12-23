@@ -616,7 +616,7 @@ $(document).ready(function () {
 
         var switchToWeekButton = $('<button type="button" class="fc-week-view-button fc-button fc-state-default fc-corner-left fc-corner-right">Wochensicht</button>');
         var switchToMonthButton = $('<button type="button" class="fc-month-view-button fc-button fc-state-default fc-corner-left fc-corner-right">Monatssicht</button>');
-        switchToMonthButton.hide();
+        //switchToMonthButton.hide();
 
 
         switchToWeekButton.on("click", function () {

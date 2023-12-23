@@ -80,12 +80,17 @@ $(document).ready(function () {
         }
     });
 
+    function getSelectedDateOrders(date) {
+        return selectedThemeboxInfo.orders.filter(function (order) {
+            return order.startdate.startsWith(date);
+        });
+    }
+
     function setStartingTimesSelection() {
         var startDate = formatDate($("#start-date").datepicker("getDate"));
+        console.log("Selected start date: ", startDate)
 
-        var selectedDateOrders = selectedThemeboxInfo.orders.filter(function (order) {
-            return order.startdate.startsWith(startDate);
-        });
+        var selectedDateOrders = getSelectedDateOrders(startDate);
 
         // Create an array for blocked hours on the selected date
         var blockedHours = [];
@@ -104,14 +109,13 @@ $(document).ready(function () {
                     end: currentBlockEnd
                 });
 
-                // by default push 17:30 and 18:00 as blocked hour
-                blockedHours.push({
-                    start: '17:30',
-                    end: '18:00'
-                });
-
                 currentBlockStart = addMinutesToTime(currentBlockStart, 30);
             }
+            // by default push 17:30 and 18:00 as blocked hour
+            blockedHours.push({
+                start: '17:30',
+                end: '18:00'
+            });
         });
 
         // Remove all options from the dropdown that are within the blocked hours
@@ -126,7 +130,66 @@ $(document).ready(function () {
             });
         });
 
-        console.log("Blocked hours on the selected date: ", blockedHours);
+    }
+
+    function setEndingTimesSelectionOnStartzeitChange() {
+        // Reset #dropdown-bis and enable it
+        var endDate = formatDate($("#end-date").datepicker("getDate"));
+        console.log("Selected end date: ", endDate)
+
+        // Get the selected start time
+        var selectedStartTime = $("#dropdown-von").val();
+        // Find the corresponding orders for the selected date and start time
+        var selectedDateOrders = getSelectedDateOrders(endDate);
+
+        console.log("selectedStartTime: ", selectedStartTime) //selectedStartTime:  11:30
+        console.log("Selected date orders: ", selectedDateOrders)
+        //[
+        //     {
+        //         "startdate": "2023-12-25 08:30:00",
+        //         "enddate": "2023-12-25 11:00:00"
+        //     },
+        //     {
+        //         "startdate": "2023-12-25 13:30:00",
+        //         "enddate": "2023-12-25 14:30:00"
+        //     }
+        // ]
+
+        // Create an array for blocked hours on the selected date and start time
+        var blockedHours = [];
+
+        // Add all the values until selectedStartTime+30 in 30-minute intervals to blockedHours
+        var currentBlockStart = '08:00';
+        while (currentBlockStart < addMinutesToTime(selectedStartTime, 30)) {
+            var currentBlockEnd = currentBlockStart;
+
+            blockedHours.push({
+                start: currentBlockStart,
+                end: currentBlockEnd
+            });
+
+            currentBlockStart = addMinutesToTime(currentBlockStart, 30);
+        }
+
+
+
+
+
+        console.log("Blocked hours on the selected date and start time: ", blockedHours)
+
+        // Remove options from #dropdown-bis that are within the blocked hours
+        $("#dropdown-bis option").each(function () {
+            var optionValue = $(this).val();
+            var optionText = $(this).text();
+
+            blockedHours.forEach(function (blockedHour) {
+                if (optionValue === blockedHour.start || optionValue === blockedHour.end) {
+                    $("#dropdown-bis option[value='" + optionValue + "']").remove();
+                }
+            });
+        });
+
+        console.log("Blocked hours on the selected date and start time: ", blockedHours);
     }
 
     function subtractMinutesFromTime(time, minutes) {
@@ -165,6 +228,7 @@ $(document).ready(function () {
 
     $("#dropdown-von").change(function () {
         $("#dropdown-bis").prop("disabled", false);
+        setEndingTimesSelectionOnStartzeitChange();
     });
 
     $("#dropdown-bis").change(function () {

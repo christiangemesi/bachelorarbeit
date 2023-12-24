@@ -93,7 +93,9 @@ $(document).ready(function () {
 
     function setStartingTimesSelection() {
 
+        //cleanup to show correct values
         addAllHoursToDropdown("#dropdown-von");
+
 
         var startDate = formatDate($("#start-date").datepicker("getDate"));
         console.log("Selected start date: ", startDate)
@@ -191,8 +193,6 @@ $(document).ready(function () {
             start: '18:00',
             end: '18:00'
         });
-
-
 
         removeBlockedHoursFromDropdown(blockedHours, "#dropdown-bis");
     }
@@ -1051,14 +1051,15 @@ $(document).ready(function () {
      * create new event
      * @param start
      * @param end
+     * @param isHourly
      */
-    function createEvent(start, end) {
+    function createEvent(start, end, isHourly) {
         $("#calendar").fullCalendar('renderEvent',
             {
                 title: "",
                 start: start,
                 end: end,
-                rendering: "background",
+                rendering: !isHourly ? "background": "",
                 className: "new_event",
                 color: "#04B404"
             },
@@ -1099,9 +1100,9 @@ $(document).ready(function () {
                 return event.className == "new_event";
             });
             if (isHourly) {
-                createEvent(formatCalendarDateTimeCompare(startDateTime), formatCalendarDateTimeCompare(endDateTime));
+                createEvent(formatCalendarDateTimeCompare(startDateTime), formatCalendarDateTimeCompare(endDateTime), isHourly);
             } else {
-                createEvent(formatCalendarDate($("#start-date").val()), formatCalendarEndDate($("#end-date").val()));
+                createEvent(formatCalendarDate($("#start-date").val()), formatCalendarEndDate($("#end-date").val()), isHourly);
             }
         } else {
             errorHandling("Ihre Auswahl steht in Konflikt mit einem anderen Bestelltermin", "#error-calendar-message-box");

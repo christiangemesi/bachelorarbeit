@@ -52,12 +52,12 @@ $(document).ready(function () {
         onSelect: function (date) {
             bindEndData();
 
-            if(selectedThemeboxInfo.themebox.fk_order_type === 1) { // Hourly order
+            if (selectedThemeboxInfo.themebox.fk_order_type === 1) { // Hourly order
                 setStartingTimesSelection();
             }
 
             if ($("#end-date").datepicker("getDate") != null) {
-                if(selectedThemeboxInfo.themebox.fk_order_type === 2) { // daily order
+                if (selectedThemeboxInfo.themebox.fk_order_type === 2) { // daily order
                     addEvent();
                 }
             }
@@ -72,7 +72,7 @@ $(document).ready(function () {
         onSelect: function (date) {
             console.log(date);
 
-            if(selectedThemeboxInfo.themebox.fk_order_type === 2) { // daily order
+            if (selectedThemeboxInfo.themebox.fk_order_type === 2) { // daily order
                 addEvent();
             }
 
@@ -144,30 +144,39 @@ $(document).ready(function () {
 
         console.log("selectedStartTime: ", selectedStartTime) //selectedStartTime:  11:30
         console.log("Selected date orders: ", selectedDateOrders)
-        //[
-        //     {
-        //         "startdate": "2023-12-25 08:30:00",
-        //         "enddate": "2023-12-25 11:00:00"
-        //     },
-        //     {
-        //         "startdate": "2023-12-25 13:30:00",
-        //         "enddate": "2023-12-25 14:30:00"
-        //     }
-        // ]
+
 
         // Create an array for blocked hours on the selected date and start time
         var blockedHours = [];
-        //add all the values between startHour-30 and endHour+30 in 30-minute intervals to blockedHours
-        selectedDateOrders.forEach(function (order) {
-            var startHour = order.startdate.split(' ')[1].substring(0, 5);
-            var endHour = order.enddate.split(' ')[1].substring(0, 5);
+        //add all the values until selectedStartTime+30 in 30-minute intervals to blockedHours
+        var currentBlockStart = '08:00';
+        while (currentBlockStart < selectedStartTime) {
+            var currentBlockEnd = addMinutesToTime(currentBlockStart, 30);
 
-            console.log("startHour: ", startHour) //startHour:  08:30
-            console.log("endHour: ", endHour) //endHour:  11:00
+            blockedHours.push({
+                start: currentBlockStart,
+                end: currentBlockEnd
+            });
 
-            //add all values between startHour-30 and endHour+30 in 30-minute intervals to blockedHours
-            var currentBlockStart = subtractMinutesFromTime(startHour, 30);
-            while (currentBlockStart < endHour) {
+            currentBlockStart = addMinutesToTime(currentBlockStart, 30);
+        }
+        //add the selectedStartTime to blockedHours
+        blockedHours.push({
+            start: selectedStartTime,
+            end: selectedStartTime
+        });
+
+        // find the first order that starts after the selectedStartTime
+        var firstOrderAfterSelectedStartTime = selectedDateOrders.find(function (order) {
+            return order.startdate.split(' ')[1].substring(0, 5) > selectedStartTime;
+        });
+
+        console.log("firstOrderAfterSelectedStartTime: ", firstOrderAfterSelectedStartTime)
+
+        //add all the values after the firstOrderAfterSelectedStartTime in 30-minute intervals to blockedHours
+        if (firstOrderAfterSelectedStartTime) {
+            var currentBlockStart = firstOrderAfterSelectedStartTime.startdate.split(' ')[1].substring(0, 5);
+            while (currentBlockStart < '18:00') {
                 var currentBlockEnd = addMinutesToTime(currentBlockStart, 30);
 
                 blockedHours.push({
@@ -177,6 +186,12 @@ $(document).ready(function () {
 
                 currentBlockStart = addMinutesToTime(currentBlockStart, 30);
             }
+        }
+
+        // by default push 18:00 as blocked hour
+        blockedHours.push({
+            start: '18:00',
+            end: '18:00'
         });
 
         // Remove options from #dropdown-bis that are within the blocked hours
@@ -227,7 +242,6 @@ $(document).ready(function () {
     }
 
 
-
     $("#dropdown-von").change(function () {
         $("#dropdown-bis").prop("disabled", false);
         setEndingTimesSelectionOnStartzeitChange();
@@ -236,8 +250,6 @@ $(document).ready(function () {
     $("#dropdown-bis").change(function () {
         addEvent();
     });
-
-
 
 
     /**
@@ -502,10 +514,6 @@ $(document).ready(function () {
         $("#dropdown-von").prop("disabled", true);
         $("#dropdown-bis").prop("disabled", true);
     }
-
-
-
-
 
 
     /**
@@ -1092,7 +1100,7 @@ $(document).ready(function () {
         end_date.datepicker('option', 'minDate', min_date);
         $("#start-date").datepicker('option', 'minDate', new Date());
 
-        if(selectedThemeboxInfo.themebox.fk_order_type === 1) { // Hourly order
+        if (selectedThemeboxInfo.themebox.fk_order_type === 1) { // Hourly order
             //set the end date to the start date
             $("#end-date").datepicker("setDate", $("#start-date").datepicker("getDate"));
             //enable the dropdowns

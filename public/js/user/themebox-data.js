@@ -270,6 +270,7 @@ $(document).ready(function () {
     $("#dropdown-von").change(function () {
         $("#dropdown-bis").prop("disabled", false);
         setEndingTimesSelectionOnStartzeitChange();
+        removeEvent();
     });
 
     $("#dropdown-bis").change(function () {

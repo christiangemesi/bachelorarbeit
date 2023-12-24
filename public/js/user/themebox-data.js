@@ -92,6 +92,9 @@ $(document).ready(function () {
     }
 
     function setStartingTimesSelection() {
+
+        addAllHoursToDropdown("#dropdown-von");
+
         var startDate = formatDate($("#start-date").datepicker("getDate"));
         console.log("Selected start date: ", startDate)
 
@@ -128,6 +131,9 @@ $(document).ready(function () {
     }
 
     function setEndingTimesSelectionOnStartzeitChange() {
+
+        addAllHoursToDropdown("#dropdown-bis");
+
         // Reset #dropdown-bis and enable it
         var endDate = formatDate($("#end-date").datepicker("getDate"));
         console.log("Selected end date: ", endDate)
@@ -206,6 +212,23 @@ $(document).ready(function () {
                 $(this).remove();
             }
         });
+    }
+
+    function addAllHoursToDropdown(dropdownClassName) {
+        // Remove all options from the dropdown
+        $(dropdownClassName).empty();
+        if (dropdownClassName === "#dropdown-von") {
+            $(dropdownClassName).append('<option value="" selected disabled hidden>Startzeit</option>');
+        } else {
+            $(dropdownClassName).append('<option value="" selected disabled hidden>Endzeit</option>');
+        }
+        //add all the values from 08:00 until 18:00 in 30-minute intervals to dropdown
+        var maxTime = '18:00';
+        var currentTime = '08:00';
+        while (currentTime <= maxTime) {
+            $(dropdownClassName).append('<option value="' + currentTime + '">' + currentTime + '</option>');
+            currentTime = addMinutesToTime(currentTime, 30);
+        }
     }
 
     function subtractMinutesFromTime(time, minutes) {

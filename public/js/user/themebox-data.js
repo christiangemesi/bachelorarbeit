@@ -58,6 +58,9 @@ $(document).ready(function () {
                 $("#dropdown-bis").val($("#dropdown-bis option:first").val());
                 //disable dropdown-bis
                 $("#dropdown-bis").prop("disabled", true);
+                removeEvent();
+                //reset the carrusel button
+                $("#carousel-right").prop("disabled", true);
                 setStartingTimesSelection();
             }
 
@@ -1070,6 +1073,12 @@ $(document).ready(function () {
         $('#carousel-right').prop('disabled', false);
 
         $('#calendar').fullCalendar('gotoDate', start);
+    }
+
+    function removeEvent() {
+        $("#calendar").fullCalendar('removeEvents', function (event) {
+            return event.className == "new_event";
+        });
     }
 
     /**

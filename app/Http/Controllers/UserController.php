@@ -157,6 +157,7 @@ class UserController extends Controller
             $hourly_order->nebisusernumber = $request->nebisusernumber;
             $hourly_order->fk_status = 1; // You may need to adjust this based on your requirements
             $hourly_order->ordernumber = $this->createOrdernumber();
+            $hourly_order->fk_delivery = $request->delivery;
             $dt = Carbon::now();
             $hourly_order->datecreated = $dt;
 

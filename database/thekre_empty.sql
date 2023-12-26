@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 26, 2023 at 11:45 AM
+-- Generation Time: Dec 26, 2023 at 11:56 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -92,15 +92,17 @@ CREATE TABLE `tbl_hourly_order` (
                                     `nebisusernumber` mediumtext NOT NULL,
                                     `fk_status` int(11) NOT NULL,
                                     `datecreated` date DEFAULT NULL,
-                                    `ordernumber` varchar(10) NOT NULL
+                                    `ordernumber` varchar(10) NOT NULL,
+                                    `fk_delivery` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `tbl_hourly_order`
 --
 
-INSERT INTO `tbl_hourly_order` (`pk_hourly_order`, `fk_themebox`, `startdate`, `enddate`, `name`, `surname`, `email`, `phonenumber`, `nebisusernumber`, `fk_status`, `datecreated`, `ordernumber`) VALUES
-    (3, 93, '2024-01-09 09:00:00', '2024-01-09 10:00:00', 'gemesi', 'christian', 'christian.gemesi@hotmail.ch', '0123456789', '0123', 1, '2023-12-26', '3OaL3i20AR');
+INSERT INTO `tbl_hourly_order` (`pk_hourly_order`, `fk_themebox`, `startdate`, `enddate`, `name`, `surname`, `email`, `phonenumber`, `nebisusernumber`, `fk_status`, `datecreated`, `ordernumber`, `fk_delivery`) VALUES
+                                                                                                                                                                                                                      (3, 93, '2024-01-09 09:00:00', '2024-01-09 10:00:00', 'gemesi', 'christian', 'christian.gemesi@hotmail.ch', '0123456789', '0123', 1, '2023-12-26', '3OaL3i20AR', 3),
+                                                                                                                                                                                                                      (4, 93, '2024-01-09 10:30:00', '2024-01-09 11:30:00', 'gemesi', 'christian', 'christian.gemesi@hotmail.ch', '0123456789', '0123', 1, '2023-12-26', 'PBGDF1ed8v', 3);
 
 -- --------------------------------------------------------
 
@@ -300,7 +302,8 @@ ALTER TABLE `tbl_delivery`
 ALTER TABLE `tbl_hourly_order`
     ADD PRIMARY KEY (`pk_hourly_order`),
   ADD KEY `fk_themebox_hourly_order_idx` (`fk_themebox`),
-  ADD KEY `fk_status_hourly_order_idx` (`fk_status`);
+  ADD KEY `fk_status_hourly_order_idx` (`fk_status`),
+  ADD KEY `fk_delivery` (`fk_delivery`);
 
 --
 -- Indexes for table `tbl_login`
@@ -375,7 +378,7 @@ ALTER TABLE `tbl_delivery`
 -- AUTO_INCREMENT for table `tbl_hourly_order`
 --
 ALTER TABLE `tbl_hourly_order`
-    MODIFY `pk_hourly_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+    MODIFY `pk_hourly_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tbl_mail`

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 22, 2023 at 10:50 AM
+-- Generation Time: Dec 26, 2023 at 11:45 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -71,7 +71,8 @@ CREATE TABLE `tbl_delivery` (
 
 INSERT INTO `tbl_delivery` (`pk_delivery`, `type`) VALUES
                                                        (1, 'Abholung an Ort'),
-                                                       (2, 'Lieferung an Aargauer Schulen');
+                                                       (2, 'Lieferung an Aargauer Schulen'),
+                                                       (3, 'Gebrauch in der Bibliothek');
 
 -- --------------------------------------------------------
 
@@ -82,8 +83,8 @@ INSERT INTO `tbl_delivery` (`pk_delivery`, `type`) VALUES
 CREATE TABLE `tbl_hourly_order` (
                                     `pk_hourly_order` int(11) NOT NULL,
                                     `fk_themebox` int(11) NOT NULL,
-                                    `StartDateTime` datetime NOT NULL,
-                                    `EndDateTime` datetime NOT NULL,
+                                    `startdate` datetime NOT NULL,
+                                    `enddate` datetime NOT NULL,
                                     `name` varchar(40) NOT NULL,
                                     `surname` varchar(40) NOT NULL,
                                     `email` varchar(60) NOT NULL,
@@ -98,9 +99,8 @@ CREATE TABLE `tbl_hourly_order` (
 -- Dumping data for table `tbl_hourly_order`
 --
 
-INSERT INTO `tbl_hourly_order` (`pk_hourly_order`, `fk_themebox`, `StartDateTime`, `EndDateTime`, `name`, `surname`, `email`, `phonenumber`, `nebisusernumber`, `fk_status`, `datecreated`, `ordernumber`) VALUES
-                                                                                                                                                                                                               (1, 93, '2024-01-12 08:30:00', '2024-01-12 09:30:00', 'gemesi', 'christian', 'christian.gemesi@hotmail.ch', '0123456789', '0123', 1, '2023-12-22', '9IWqbxFYun'),
-                                                                                                                                                                                                               (2, 93, '2024-01-12 09:00:00', '2024-01-12 10:30:00', 'gemesi', 'christian', 'christian.gemesi@hotmail.ch', '0123456789', '0123', 1, '2023-12-22', 'TGABaRLr2J');
+INSERT INTO `tbl_hourly_order` (`pk_hourly_order`, `fk_themebox`, `startdate`, `enddate`, `name`, `surname`, `email`, `phonenumber`, `nebisusernumber`, `fk_status`, `datecreated`, `ordernumber`) VALUES
+    (3, 93, '2024-01-09 09:00:00', '2024-01-09 10:00:00', 'gemesi', 'christian', 'christian.gemesi@hotmail.ch', '0123456789', '0123', 1, '2023-12-26', '3OaL3i20AR');
 
 -- --------------------------------------------------------
 
@@ -369,13 +369,13 @@ ALTER TABLE `tbl_category`
 -- AUTO_INCREMENT for table `tbl_delivery`
 --
 ALTER TABLE `tbl_delivery`
-    MODIFY `pk_delivery` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+    MODIFY `pk_delivery` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbl_hourly_order`
 --
 ALTER TABLE `tbl_hourly_order`
-    MODIFY `pk_hourly_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+    MODIFY `pk_hourly_order` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbl_mail`

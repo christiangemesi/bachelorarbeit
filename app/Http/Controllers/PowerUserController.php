@@ -9,6 +9,7 @@ use League\Flysystem\Exception;
 use ThekRe\Category;
 use ThekRe\Delivery;
 use ThekRe\EditMail;
+use ThekRe\HourlyOrder;
 use ThekRe\Login;
 use ThekRe\Order;
 use ThekRe\Status;
@@ -100,6 +101,28 @@ class PowerUserController extends Controller
                 "ordernumber" => $order->ordernumber);
             $counter++;
         }
+
+        $hourly_orders = HourlyOrder::get();
+        // Process hourly orders
+        foreach ($hourly_orders as $hourly_order) {
+            $themebox = Themebox::find($hourly_order->fk_themebox);
+            $status = Status::find($hourly_order->fk_status);
+            $delivery = Delivery::find($hourly_order->fk_delivery);
+
+            $order_list[] = array(
+                "themebox" => $themebox["title"],
+                "name" => $hourly_order->name,
+                "startdate" => date('d.m.Y H:i:s', strtotime($hourly_order->startdate)),
+                "enddate" => date('d.m.Y H:i:s', strtotime($hourly_order->enddate)),
+                "deliverytype" => $delivery["type"],
+                "themeboxsig" => $themebox["signatur"],
+                "fk_status" => $hourly_order->fk_status,
+                "status" => $status["name"],
+                "order_id" => $hourly_order->pk_hourly_order,
+                "ordernumber" => $hourly_order->ordernumber
+            );
+        }
+
         return $order_list;
     }
     public function getOrdersWhereStatusIs($statusFK)

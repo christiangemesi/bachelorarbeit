@@ -495,6 +495,7 @@ $(document).ready(function () {
                 var isDailyOrder = response["data"]["themebox"]["fk_order_type"] === 2;
 
                 $.each(orders, function (index, value) {
+                    console.log("order: ", value)
                     $('#calendar').fullCalendar("renderEvent", {
                         id: "borrowed",
                         title: "",
@@ -509,11 +510,10 @@ $(document).ready(function () {
                         for (var i = 0; i <= dateArr.length; i++) {
                             listOfBlockedDates.push(dateArr[i]);
                         }
-                        console.log("daily blocked orders: ", listOfBlockedDates)
-                    } else { // Hourly order
-
                     }
                 });
+
+
 
 
                 hideErrorBoxes();
@@ -758,6 +758,7 @@ $(document).ready(function () {
      * @param end
      */
     function blockedPeriodEvent(start, end) {
+
         $("#calendar").fullCalendar('renderEvent',
             {
                 id: "blocked",

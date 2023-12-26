@@ -263,14 +263,12 @@
 
                                         <label class="form-control-label" for="thekre-dropdown">Lieferart</label>
                                         <select name="delivery" id="thekre-dropdown" class="selectpicker form-dropdown">
-
                                             @foreach ($deliveries as $delivery)
                                                 <option  value={{ $delivery->pk_delivery }}>{{ $delivery->type }}</option>
                                             @endforeach
-
                                         </select>
                                         <div id="delivery-data-box">
-                                            <p id="user-delivery-info"><span class="glyphicon glyphicon-info-sign"></span>  Die Themenkiste kann an der Infotheke der FHNW Bibliothek Brugg-Windisch abgeholt werden.</p>
+                                            <p id="user-delivery-info"><span class="glyphicon glyphicon-info-sign"></span>  Die Themenkiste kann an der Infotheke der FHNW Bibliothek Brugg-Windisch abgeholt werden. Beachten Sie dass Elektronische Geräte das Bibliotheksgebäude nicht verlassen dürfen.</p>
                                             <div id="school-Address">
                                                 <p id="user-delivery-info"><span class="glyphicon glyphicon-info-sign"></span>  Die Lieferung an Aargauer Schulen ist kostenpflichtig.</p>
                                                 <div class="form-group has-feedback">

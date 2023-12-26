@@ -7,6 +7,7 @@ $(document).ready(function () {
      * Array of all blocked dates for the datepicker
      */
     var listOfBlockedDates = Array();
+
     var selectedThemeboxInfo = []
 
 
@@ -78,7 +79,6 @@ $(document).ready(function () {
     $("#end-date").datepicker({
         dateFormat: "dd.mm.yy",
         onSelect: function (date) {
-            console.log(date);
 
             if (selectedThemeboxInfo.themebox.fk_order_type === 2) { // daily order
                 addEvent();
@@ -101,7 +101,6 @@ $(document).ready(function () {
 
 
         var startDate = formatDate($("#start-date").datepicker("getDate"));
-        console.log("Selected start date: ", startDate)
 
         var selectedDateOrders = getSelectedDateOrders(startDate);
 
@@ -141,7 +140,6 @@ $(document).ready(function () {
 
         // Reset #dropdown-bis and enable it
         var endDate = formatDate($("#end-date").datepicker("getDate"));
-        console.log("Selected end date: ", endDate)
 
         // Get the selected start time
         var selectedStartTime = $("#dropdown-von").val();
@@ -174,7 +172,6 @@ $(document).ready(function () {
             return order.startdate.split(' ')[1].substring(0, 5) > selectedStartTime;
         });
 
-        console.log("firstOrderAfterSelectedStartTime: ", firstOrderAfterSelectedStartTime)
 
         //add all the values after the firstOrderAfterSelectedStartTime in 30-minute intervals to blockedHours
         if (firstOrderAfterSelectedStartTime) {
@@ -440,6 +437,8 @@ $(document).ready(function () {
      * @param themebox_Id
      */
     function loadThemeboxInfoBox(themebox_Id) {
+
+        //clear the array so that the newly selected themebox is loaded
         selectedThemeboxInfo = [];
 
         dayToCalculateNextSundays = getNextDayOfWeek(new Date, 7);
@@ -450,7 +449,6 @@ $(document).ready(function () {
             data: {themeboxId: themebox_Id},
             success: function (response) {
                 selectedThemeboxInfo = response["data"];
-                console.log("Selected themebox info: ", selectedThemeboxInfo);
                 var html =
                     '<tr><td>Signatur: </td><td class="themebox-table-value">' + response["data"]["themebox"]["signatur"] + '</td></tr>' +
                     '<tr><td>Stufe: </td><td class="themebox-table-value">' + response["data"]["themebox"]["schoollevel"] + '</td></tr>' +
@@ -486,6 +484,14 @@ $(document).ready(function () {
 
                 loadViewChangeButtons();
 
+                if(response["data"]["themebox"]["fk_order_type"] === 1) { // Hourly order
+                    //disable the 2nd option from $("#thekre-dropdown")
+                    $("#thekre-dropdown option[value='2']").prop("disabled", true);
+                } else { // Daily order
+                    //enable the 2nd option from $("#thekre-dropdown")
+                    $("#thekre-dropdown option[value='2']").prop("disabled", false);
+                }
+
                 var isDailyOrder = response["data"]["themebox"]["fk_order_type"] === 2;
 
                 $.each(orders, function (index, value) {
@@ -498,9 +504,14 @@ $(document).ready(function () {
                         className: "block"
                     }, true);
 
-                    var dateArr = computeDayBetweenStartAndEnd(new Date(addBlockStartdateDailyOrder(value['startdate'])), new Date(addBlockEnddateDailyOrder(value['enddate'])));
-                    for (var i = 0; i <= dateArr.length; i++) {
-                        listOfBlockedDates.push(dateArr[i]);
+                    if(isDailyOrder) {
+                        var dateArr = computeDayBetweenStartAndEnd(new Date(addBlockStartdateDailyOrder(value['startdate'])), new Date(addBlockEnddateDailyOrder(value['enddate'])));
+                        for (var i = 0; i <= dateArr.length; i++) {
+                            listOfBlockedDates.push(dateArr[i]);
+                        }
+                        console.log("daily blocked orders: ", listOfBlockedDates)
+                    } else { // Hourly order
+
                     }
                 });
 
@@ -879,6 +890,9 @@ $(document).ready(function () {
             $("#carousel-reserve-button").prop('disabled', true);
         }
     });
+
+
+
 
     /**
      * enable and disable next/order buttons

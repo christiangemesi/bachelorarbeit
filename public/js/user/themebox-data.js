@@ -489,10 +489,13 @@ $(document).ready(function () {
 
                 if(response["data"]["themebox"]["fk_order_type"] === 1) { // Hourly order
                     //disable the 2nd option from $("#thekre-dropdown")
+                    $("#thekre-dropdown option[value='1']").prop("disabled", true);
                     $("#thekre-dropdown option[value='2']").prop("disabled", true);
+                    $("#thekre-dropdown").val("3");
                 } else { // Daily order
                     //enable the 2nd option from $("#thekre-dropdown")
                     $("#thekre-dropdown option[value='2']").prop("disabled", false);
+                    $("#thekre-dropdown option[value='1']").prop("disabled", false);
                 }
 
                 var isDailyOrder = response["data"]["themebox"]["fk_order_type"] === 2;
@@ -527,6 +530,7 @@ $(document).ready(function () {
 
             },
             error: function (xhr, status, error) {
+                console.log(xhr.responseText);
                 errorHandling("Es ist ein Fehler bei der Datenverarbeitung passiert. Bitte kontaktieren Sie die FHNW Bibliothek unter bibliothek.windisch@fhnw.ch", "#error-message-box");
             }
         });
@@ -815,6 +819,7 @@ $(document).ready(function () {
                 });
             },
             error: function (xhr, status, error) {
+                console.log("error");
                 errorHandling("Es ist ein Fehler bei der Datenverarbeitung passiert. Bitte kontaktieren Sie die FHNW Bibliothek unter bibliothek.windisch@fhnw.ch", "#error-message-box");
             }
         });
@@ -835,6 +840,7 @@ $(document).ready(function () {
                 $('#themebox-content-modal-box').html(response["content"]);
             },
             error: function (xhr, status, error) {
+                console.log("error");
                 errorHandling("Es ist ein Fehler bei der Datenverarbeitung passiert. Bitte kontaktieren Sie die FHNW Bibliothek unter bibliothek.windisch@fhnw.ch", "#error-message-box");
             }
         });
@@ -884,11 +890,14 @@ $(document).ready(function () {
             $("#school-Address").hide();
             $("#user-delivery-info").show();
             $("#carousel-reserve-button").prop('disabled', false);
-
-        } else {
+        } else if ($("#thekre-dropdown").val() === "2") {
             $("#user-delivery-info").hide();
             $("#school-Address").show();
             $("#carousel-reserve-button").prop('disabled', true);
+        } else {
+            $("#user-delivery-info").show();
+            $("#school-Address").hide();
+            $("#carousel-reserve-button").prop('disabled', false);
         }
     });
 

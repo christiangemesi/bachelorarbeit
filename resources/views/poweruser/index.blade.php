@@ -123,7 +123,6 @@
                                     <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                                 </button>
 
-                                </button>
                                 <button type="button" class="button-print-order btn btn-warning inner" value="{{$order["order_id"]}}" aria-label="print" data-toggle="tooltip" data-placement="top" title="Bestellung ausdrucken">
                                     <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
                                 </button>

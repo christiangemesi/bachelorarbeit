@@ -483,6 +483,7 @@ $(document).ready(function () {
                 });
             },
             error: function(xhr, status, error) {
+                console.log(xhr.responseText);
                 errorHandling("Es ist ein Fehler bei der Datenverarbeitung passiert. Bitte kontaktieren Sie die FHNW Bibliothek unter bibliothek.windisch@fhnw.ch", "#error-message-box");
             }
         });

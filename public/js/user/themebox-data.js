@@ -8,6 +8,9 @@ $(document).ready(function () {
      */
     var listOfBlockedDates = Array();
 
+    /**
+     * Helper object to store the selected themebox info
+     */
     var selectedThemeboxInfo = []
 
 
@@ -17,7 +20,7 @@ $(document).ready(function () {
     var dayToCalculateNextSundays = getNextDayOfWeek(new Date, 7);
     var dayToCalculatePreviousSundays = getNextDayOfWeek(new Date, 7);
 
-    // Initialize Bootstrap Multiselect
+    // initialize the multiselect
     $('#dropdown2').multiselect({});
 
     //load themebox data from the first list element
@@ -512,9 +515,6 @@ $(document).ready(function () {
                         }
                     }
                 });
-
-
-
 
                 hideErrorBoxes();
                 $("#end-date").prop("disabled", true);

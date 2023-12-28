@@ -390,7 +390,9 @@ $(document).ready(function () {
     $("#orderAdd-end-date").datepicker({
         dateFormat: "dd.mm.yy",
         onSelect: function (date) {
-            orderAddUpdateEvent();
+            if (selectedThemeboxInfo.themebox.fk_order_type === 2) { // daily order
+                orderAddUpdateEvent();
+            }
         }
     });
 
@@ -529,8 +531,11 @@ $(document).ready(function () {
             //set the end date to the start date
             $("#end-date").datepicker("setDate", $("#start-date").datepicker("getDate"));
             //enable the dropdowns
-            $("#dropdown-von").prop("disabled", false);
+            $("pu_#dropdown-von").prop("disabled", false);
         }
+
+        console.log($("#end-date").datepicker("getDate"))
+
     }
 
     function bindEndDataOrderAdd() {

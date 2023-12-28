@@ -110,6 +110,9 @@ function formatCalendarDateTimeCompare(date) {
         ":" +
         formatTwoDigit(new_date.getUTCMinutes()) +
         ":00-00:00"
+
+    console.log(returnValue)
+
     return (returnValue);
 }
 

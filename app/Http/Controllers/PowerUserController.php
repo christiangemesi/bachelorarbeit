@@ -307,8 +307,24 @@ class PowerUserController extends Controller
     public function getOrderAddData(Request $request)
     {
         $fk_themboxrequest = $request->fk_thembox;
+        //find the themebox based on the id
+        $themebox = Themebox::find($request->fk_thembox);
+        //error_log fk_order_type
+        error_log("fk_order_type: " . $themebox["fk_order_type"]);
+
+        error_log($themebox);
+
         $deliveries = Delivery::get();
-        $orders = Order::where('fk_themebox', $fk_themboxrequest)->get();
+
+        if($themebox["fk_order_type"] == 1){
+            error_log("hourly order");
+            $orders = HourlyOrder::where('fk_themebox', $fk_themboxrequest)->get();
+        } else {
+            error_log("normal order");
+            $orders = Order::where('fk_themebox', $fk_themboxrequest)->get();
+        }
+        error_log("orders: " . $orders);
+
         $counter = 0;
         $orderData = array();
         foreach ($orders as $order) {
@@ -319,12 +335,9 @@ class PowerUserController extends Controller
             $counter++;
         }
 
-        //get the themebox with the themebox id
-        $themebox = Themebox::find($fk_themboxrequest);
 
         $data = array("delivery" => $deliveries, "orderData" => $orderData, "themebox" => $themebox);
         return response()->json($data, 200);
-
     }
 
     public function addOrder(Request $request)
@@ -339,10 +352,14 @@ class PowerUserController extends Controller
         error_log("type: " . $request->orderType);
 
         if($request->orderType == 1){ // hourly order
+
+            $startDateTime = $this->concatenateDatetime($path[0]["value"], $path[2]["value"]);
+            $endDateTime = $this->concatenateDatetime($path[1]["value"], $path[3]["value"]);
+
             $hourly_order = new HourlyOrder();
             $hourly_order->fk_themebox = $request->themeboxId;
-            $hourly_order->startdate = $this->formatDate($path[0]["value"]);
-            $hourly_order->enddate = $this->formatDate($path[1]["value"]);
+            $hourly_order->startdate = $startDateTime;
+            $hourly_order->enddate = $endDateTime;
             $hourly_order->name = $path[4]["value"];
             $hourly_order->surname = $path[5]["value"];
             $hourly_order->email = $path[6]["value"];
@@ -377,50 +394,50 @@ class PowerUserController extends Controller
                 return response()->json($hourly_order->fk_themebox, 500);
             }
         } else {
-            $order = new Order();
-            $order->fk_themebox = $request->themeboxId;
-            $order->startdate = $this->formatDate($path[0]["value"]);
-            $order->enddate = $this->formatDate($path[1]["value"]);
-            $order->name = $path[2]["value"];
-            $order->surname = $path[3]["value"];
-            $order->email = $path[4]["value"];
-            $order->phonenumber = $path[5]["value"];
-            $order->nebisusernumber = $path[6]["value"];
-            $order->fk_delivery = $path[7]["value"];
+            $newOrder = new Order();
+            $newOrder->fk_themebox = $request->themeboxId;
+            $newOrder->startdate = $this->formatDate($path[0]["value"]);
+            $newOrder->enddate = $this->formatDate($path[1]["value"]);
+            $newOrder->name = $path[2]["value"];
+            $newOrder->surname = $path[3]["value"];
+            $newOrder->email = $path[4]["value"];
+            $newOrder->phonenumber = $path[5]["value"];
+            $newOrder->nebisusernumber = $path[6]["value"];
+            $newOrder->fk_delivery = $path[7]["value"];
 
-            $order->fk_status = 1;
-            $order->ordernumber = $this->createOrdernumber();
-            $dt = Carbon::now();
-            $order->datecreated = $dt;
-
-            if ($path[9]["value"] == 2) {
-                $order->schoolname = $path[10]["value"];
-                $order->schoolstreet = $path[11]["value"];
-                $order->schoolcity = $path[12]["value"];
-                $order->placeofhandover = $path[13]["value"];
-                $order->schoolphonenumber = $path[14]["value"];
+            if ($path[7]["value"] == 2) {
+                $newOrder->schoolname = $path[8]["value"];
+                $newOrder->schoolstreet = $path[9]["value"];
+                $newOrder->schoolcity = $path[10]["value"];
+                $newOrder->schoolphonenumber = $path[11]["value"];
+                $newOrder->placeofhandover = $path[12]["value"];
             }
 
-            $themebox = Themebox::find($order->fk_themebox);
+            $newOrder->fk_status = 1;
+            $newOrder->ordernumber = $this->createOrdernumber();
+            $dt = Carbon::now();
+            $newOrder->datecreated = $dt;
+
+            $themebox = Themebox::find($newOrder->fk_themebox);
 
             $mail_data = array(
                 'title' => $themebox->title,
                 'signatur' => $themebox->signatur,
                 'startdate' => $path[0]["value"],
                 'enddate' => $path[1]["value"],
-                'receiver_mail' => $order->email,
-                'receiver_name' => $order->name,
-                'receiver_surname' => $order->surname,
-                'ordernumber' => $order->ordernumber,
+                'receiver_mail' => $newOrder->email,
+                'receiver_name' => $newOrder->name,
+                'receiver_surname' => $newOrder->surname,
+                'ordernumber' => $newOrder->ordernumber,
                 'extra_text' => $themebox->extra_text
             );
 
             try {
-                $this->sendEmailNewOrder($mail_data, $path[9]["value"]);
-                $order->save();
-                return response()->json($mail_data["title"], 200);
+                $this->sendEmailNewOrder($mail_data, $path[7]["value"]);
+                $newOrder->save();
+                return response()->json($mail_data["title"],200);
             } catch (Exception $e) {
-                return response()->json($order->fk_themebox, 500);
+                return response()->json($newOrder->fk_themebox,500);
             }
         }
     }

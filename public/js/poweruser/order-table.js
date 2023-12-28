@@ -584,6 +584,7 @@ $(document).ready(function () {
                     return event.className == "newOrder";
                 });
                 response["orderData"].forEach(function (element) {
+                    console.log(element)
                     $('#orderAdd-calendar').fullCalendar("renderEvent", {
                         title: "",
                         start: addTime(element["order_startdate"]),
@@ -730,12 +731,14 @@ $(document).ready(function () {
 
 
                 response["orderData"].forEach(function (element) {
+                    var isHourlyOrder = response["themebox"]["fk_order_type"] === 1;
+                    console.log(isHourlyOrder);
                     console.log(element)
                     $('#orderAdd-calendar').fullCalendar("renderEvent", {
                         title: "",
-                        start: addTime(element["order_startdate"]),
-                        end: addEndTime(element["order_enddate"]),
-                        rendering: "background",
+                        start: !isHourlyOrder ? addTime(element["order_startdate"]): element["order_startdate"],
+                        end: !isHourlyOrder ? addEndTime(element["order_enddate"]): element["order_enddate"],
+                        rendering: !isHourlyOrder ? "background": "",
                         className: "selected",
                         color: "#f44242"
                     }, true);

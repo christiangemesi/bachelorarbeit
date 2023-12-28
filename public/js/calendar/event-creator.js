@@ -10,7 +10,7 @@ function addEvent() {
         });
 
         $("#calendar").fullCalendar('removeEvents', function (event) {
-            return event.className == "myOrder";
+            return event.className == "new_event";
         });
 
         createEvent(formatCalendarDate($("#start-date").val()), formatCalendarEndDate($("#end-date").val()));
@@ -53,7 +53,7 @@ function updateEvent() {
     });
 
     $("#calendar").fullCalendar('removeEvents', function (event) {
-        return event.className == "myOrder";
+        return event.className == "new_event";
     });
     createEvent(formatCalendarDate($("#start-date").val()), formatCalendarEndDate($("#end-date").val()));
     $("#button-save-order-change").prop('disabled', false);
@@ -81,7 +81,7 @@ function orderAddUpdateEvent() {
     });
 
     $("#orderAdd-calendar").fullCalendar('removeEvents', function (event) {
-        return event.className == "myOrder";
+        return event.className == "new_event";
     });
 
     if(isHourly) {

@@ -238,7 +238,7 @@ $(document).ready(function () {
                             start: addTime(value["startdate"]),
                             end: addEndTime(value["enddate"]),
                             rendering: "background",
-                            className: "myOrder",
+                            className: "new_event",
                             color: "#04B404"
                         }, true);
                         $('#calendar').fullCalendar('gotoDate', addTime(value["startdate"]));
@@ -380,13 +380,14 @@ $(document).ready(function () {
         onSelect: function (date) {
             bindEndDataOrderAdd();
 
+            removeEvent();
+
             if(selectedThemeboxInfo.fk_order_type === 1) { // hourly order
                 //reset the dropdowns
                 $("#pu_dropdown-von").val($("#pu_dropdown-von option:first").val());
                 $("#pu_dropdown-bis").val($("#pu_dropdown-bis option:first").val());
                 //disable the dropdown bis
                 $("#pu_dropdown-bis").prop("disabled", true);
-                removeEvent();
             }
 
             if ($("#end-date").datepicker("getDate") != null) {
@@ -593,7 +594,7 @@ $(document).ready(function () {
                 $("#orderAdd-calendar").fullCalendar("render");
                 $("#orderAdd-calendar").fullCalendar("removeEvents");
                 $("#orderAdd-calendar").fullCalendar('removeEvents', function (event) {
-                    return event.className == "newOrder";
+                    return event.className == "new_event";
                 });
                 response["orderData"].forEach(function (element) {
                     console.log(element)
@@ -776,8 +777,10 @@ $(document).ready(function () {
         });
 
         $("#orderAdd-calendar").fullCalendar('removeEvents', function (event) {
-            return event.className == "myOrder";
+            return event.className == "new_event";
         });
+
+
     }
 
     function loadHourlyView(order_type, orders) {

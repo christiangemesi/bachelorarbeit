@@ -358,7 +358,6 @@ $(document).ready(function () {
         onSelect: function (date) {
             bindEndData();
 
-
             updateEvent();
         }
     });
@@ -381,7 +380,20 @@ $(document).ready(function () {
         onSelect: function (date) {
             bindEndDataOrderAdd();
 
-            //orderAddUpdateEvent();
+            if(selectedThemeboxInfo.fk_order_type === 1) { // hourly order
+                //reset the dropdowns
+                $("#pu_dropdown-von").val($("#pu_dropdown-von option:first").val());
+                $("#pu_dropdown-bis").val($("#pu_dropdown-bis option:first").val());
+                //disable the dropdown bis
+                $("#pu_dropdown-bis").prop("disabled", true);
+                removeEvent();
+            }
+
+            if ($("#end-date").datepicker("getDate") != null) {
+                if (selectedThemeboxInfo.themebox.fk_order_type === 2) { // daily order
+                    orderAddUpdateEvent();
+                }
+            }
         }
     });
 
@@ -751,7 +763,7 @@ $(document).ready(function () {
 
     $("#pu_dropdown-von").change(function () {
         $("#pu_dropdown-bis").prop("disabled", false);
-        //removeEvent();
+        removeEvent();
     });
 
     $("#pu_dropdown-bis").change(function () {
@@ -762,24 +774,10 @@ $(document).ready(function () {
         $("#orderAdd-calendar").fullCalendar('removeEvents', function (event) {
             return event.className == "newOrder";
         });
-    }
 
-
-    function addAllHoursToDropdown(dropdownClassName) {
-        // Remove all options from the dropdown
-        $(dropdownClassName).empty();
-        if (dropdownClassName === "#pu_dropdown-von") {
-            $(dropdownClassName).append('<option value="" selected disabled hidden>Startzeit</option>');
-        } else {
-            $(dropdownClassName).append('<option value="" selected disabled hidden>Endzeit</option>');
-        }
-        //add all the values from 08:00 until 18:00 in 30-minute intervals to dropdown
-        var maxTime = '18:00';
-        var currentTime = '08:00';
-        while (currentTime <= maxTime) {
-            $(dropdownClassName).append('<option value="' + currentTime + '">' + currentTime + '</option>');
-            currentTime = addMinutesToTime(currentTime, 30);
-        }
+        $("#orderAdd-calendar").fullCalendar('removeEvents', function (event) {
+            return event.className == "myOrder";
+        });
     }
 
     function loadHourlyView(order_type, orders) {

@@ -85,10 +85,11 @@ function orderAddUpdateEvent() {
     });
 
     if(isHourly) {
-        orderAddCreateEvent(formatCalendarDateTimeCompare(startDateTime), formatCalendarDateTimeCompare(endDateTime));
+        orderAddCreateEvent(formatCalendarDateTimeCompare(startDateTime), formatCalendarDateTimeCompare(endDateTime), isHourly);
     } else {
-        orderAddCreateEvent(formatCalendarDate(startDateTime), formatCalendarEndDate(endDateTime));
+        orderAddCreateEvent(formatCalendarDate(startDateTime), formatCalendarEndDate(endDateTime), isHourly);
     }
+
     $("#button-save-orderAdd-change").prop('disabled', false);
 }
 
@@ -181,14 +182,14 @@ function createEvent(start, end) {
     $('#carousel-right').prop('disabled', false);
 }
 
-function orderAddCreateEvent(start, end) {
+function orderAddCreateEvent(start, end, isHourly) {
     $("#orderAdd-calendar").fullCalendar('renderEvent',
         {
             title: "",
             start: start,
             end: end,
-            rendering: "background",
-            className: "newOrder",
+            rendering: !isHourly ? "background": "",
+            className: "new_event",
             color: "#04B404"
         },
         true
@@ -196,6 +197,8 @@ function orderAddCreateEvent(start, end) {
 
     $('#themebox-infobox-select-date').css("display", "block");
     $('#carousel-right').prop('disabled', false);
+
+    $('#orderAdd-calendar').fullCalendar('gotoDate', start);
 }
 
 /**

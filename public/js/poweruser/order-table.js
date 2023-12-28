@@ -356,6 +356,8 @@ $(document).ready(function () {
         dateFormat: "dd.mm.yy",
         onSelect: function (date) {
             bindEndData();
+
+
             updateEvent();
         }
     });
@@ -718,6 +720,8 @@ $(document).ready(function () {
 
                 loadBlockedDates();
 
+                loadHourlyView(response["themebox"]["fk_order_type"], response["orderData"]);
+
 
                 dayToCalculateNextSundays = getNextDayOfWeek(new Date, 7);
                 dayToCalculatePreviousSundays = getNextDayOfWeek(new Date, 7);
@@ -743,6 +747,25 @@ $(document).ready(function () {
 
 
     });
+
+    function loadHourlyView(order_type, orders) {
+        //reset the selection so that the option is null
+        $("#pu_dropdown-von").val($("#pu_dropdown-von option:first").val());
+        $("#pu_dropdown-bis").val($("#pu_dropdown-bis option:first").val());
+        if (order_type !== 1) {
+            $("#pu_themebox-datepicker-bis").show();
+            $("#pu_themebox-time-select").hide();
+            return;
+        }
+
+        //hide themebox-datepicker-bis
+        $("#pu_themebox-datepicker-bis").hide();
+
+        $("#pu_themebox-time-select").show();
+        //the selection should be disabled by default until the dates are chosen
+        $("#pu_dropdown-von").prop("disabled", true);
+        $("#pu_dropdown-bis").prop("disabled", true);
+    }
 
     $(".status-update").on("change", function () {
         var status_data = this.value;

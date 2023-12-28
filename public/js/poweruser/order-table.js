@@ -378,7 +378,7 @@ $(document).ready(function () {
         onSelect: function (date) {
             bindEndDataOrderAdd();
 
-            orderAddUpdateEvent();
+            //orderAddUpdateEvent();
         }
     });
 
@@ -581,7 +581,6 @@ $(document).ready(function () {
                     return event.className == "newOrder";
                 });
                 response["orderData"].forEach(function (element) {
-                    console.log(element)
                     $('#orderAdd-calendar').fullCalendar("renderEvent", {
                         title: "",
                         start: addTime(element["order_startdate"]),
@@ -634,7 +633,6 @@ $(document).ready(function () {
 
 
         switchToWeekButton.on("click", function () {
-            console.log("switchToWeekButton")
             $("#calendar").fullCalendar("changeView", "agendaWeek");
             $("#orderAdd-calendar").fullCalendar("changeView", "agendaWeek");
             //dont show the week button, instead show the month button
@@ -688,7 +686,6 @@ $(document).ready(function () {
         selectedThemeboxInfo = []
 
         let fk_thembox = parseInt($('#orderAdd-thembox').val());
-        console.log(fk_thembox)
 
         $.ajax({
             url: "poweruser/getOrderAddData",
@@ -730,6 +727,7 @@ $(document).ready(function () {
 
 
                 response["orderData"].forEach(function (element) {
+                    console.log(element)
                     $('#orderAdd-calendar').fullCalendar("renderEvent", {
                         title: "",
                         start: addTime(element["order_startdate"]),
@@ -751,7 +749,7 @@ $(document).ready(function () {
     });
 
     $("#pu_dropdown-bis").change(function () {
-        updateEvent();
+        orderAddUpdateEvent();
     });
 
     function removeEvent() {

@@ -69,6 +69,13 @@ function orderAddUpdateEvent() {
     console.log(endTime);
     console.log(isHourly);
 
+    var startDateTime = $("#orderAdd-start-date").val();
+    var endDateTime = $("#orderAdd-end-date").val();
+    if (isHourly) {
+        startDateTime = $("#orderAdd-start-date").val() + " " + startTime;
+        endDateTime = $("#orderAdd-end-date").val() + " " + endTime;
+    }
+
     $("#orderAdd-calendar").fullCalendar('removeEvents', function (event) {
         return event.className == "newOrder";
     });
@@ -76,10 +83,35 @@ function orderAddUpdateEvent() {
     $("#orderAdd-calendar").fullCalendar('removeEvents', function (event) {
         return event.className == "myOrder";
     });
-    orderAddCreateEvent(formatCalendarDate($("#orderAdd-start-date").val()), formatCalendarEndDate($("#orderAdd-end-date").val()));
+
+    if(isHourly) {
+        orderAddCreateEvent(formatCalendarDateTimeCompare(startDateTime), formatCalendarDateTimeCompare(endDateTime));
+    } else {
+        orderAddCreateEvent(formatCalendarDate(startDateTime), formatCalendarEndDate(endDateTime));
+    }
     $("#button-save-orderAdd-change").prop('disabled', false);
 }
 
+function formatCalendarDateTimeCompare(date) {
+    var temp_date = date.split(" ");
+    var dateComponents = temp_date[0].split(".");
+    var timeComponents = temp_date[1].split(":");
+    var new_date = new Date(
+        dateComponents[2] + "-" + dateComponents[1] + "-" + dateComponents[0] +
+        "T" + timeComponents[0] + ":" + timeComponents[1] + ":00-00:00"
+    );
+    var returnValue = new_date.getUTCFullYear() +
+        "-" +
+        formatTwoDigit(new_date.getUTCMonth() + 1) +
+        "-" +
+        formatTwoDigit(new_date.getUTCDate()) +
+        " " +
+        formatTwoDigit(new_date.getUTCHours()) +
+        ":" +
+        formatTwoDigit(new_date.getUTCMinutes()) +
+        ":00-00:00"
+    return (returnValue);
+}
 
 /**
  * show calendar error msg

@@ -380,9 +380,10 @@ $(document).ready(function () {
         onSelect: function (date) {
             bindEndDataOrderAdd();
 
-            removeEvent();
-
             if(selectedThemeboxInfo.fk_order_type === 1) { // hourly order
+
+                removeEvent();
+
                 //reset the dropdowns
                 $("#pu_dropdown-von").val($("#pu_dropdown-von option:first").val());
                 $("#pu_dropdown-bis").val($("#pu_dropdown-bis option:first").val());

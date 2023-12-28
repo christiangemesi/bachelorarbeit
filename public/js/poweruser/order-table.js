@@ -303,7 +303,10 @@ $(document).ready(function () {
     $('#button-save-orderAdd').click(function () {
         var order_data = {
             themeboxId: parseInt($('#orderAdd-thembox').val()),
-            orderData: $('#order-add-form').serializeArray()
+            orderData: $('#order-add-form').serializeArray(),
+            orderType: selectedThemeboxInfo.fk_order_type,
+            startTime: $("#pu_dropdown-von").val(),
+            endTime: $("#pu_dropdown-bis").val()
         }
         $.ajax({
             url: "poweruser/addOrder",
@@ -758,10 +761,11 @@ $(document).ready(function () {
         });
     }
 
+
     function addAllHoursToDropdown(dropdownClassName) {
         // Remove all options from the dropdown
         $(dropdownClassName).empty();
-        if (dropdownClassName === "#dropdown-von") {
+        if (dropdownClassName === "#pu_dropdown-von") {
             $(dropdownClassName).append('<option value="" selected disabled hidden>Startzeit</option>');
         } else {
             $(dropdownClassName).append('<option value="" selected disabled hidden>Endzeit</option>');

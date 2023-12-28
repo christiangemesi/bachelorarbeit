@@ -31,14 +31,15 @@ class PowerUserController extends Controller
     public function index()
     {
         if ($this->checkLogin()) {
-            return view('poweruser/index',  ['orders' => $this->getOrders(), 'statuses' => $this->getStatuses(),'themeboxes' => $this->getThemeboxes()]);
+            return view('poweruser/index', ['orders' => $this->getOrders(), 'statuses' => $this->getStatuses(), 'themeboxes' => $this->getThemeboxes()]);
         } else {
             return redirect()->route('PowerloginForm');
         }
 
     }
 
-    public function checkLogin(){
+    public function checkLogin()
+    {
         if (isset($_SESSION['ThekRe_Poweruser'])) {
             return true;
         }
@@ -56,6 +57,7 @@ class PowerUserController extends Controller
             return response()->json('failure');
         }
     }
+
     public function logout()
     {
         unset($_SESSION['ThekRe_Poweruser']);
@@ -74,7 +76,8 @@ class PowerUserController extends Controller
     /**
      * get admin password from db
      */
-    public function getPoweruserPassword(){
+    public function getPoweruserPassword()
+    {
         $passwordJSON = Login::where('pk_login', 2)->get();
         return $passwordJSON[0]['password'];
     }
@@ -125,9 +128,10 @@ class PowerUserController extends Controller
 
         return $order_list;
     }
+
     public function getOrdersWhereStatusIs($statusFK)
     {
-        $orders = Order::where('fk_status',$statusFK)->get();
+        $orders = Order::where('fk_status', $statusFK)->get();
         $order_list = array();
         $counter = 0;
         foreach ($orders as $order) {
@@ -155,6 +159,7 @@ class PowerUserController extends Controller
         $statuses = Status::get();
         return $statuses;
     }
+
     public function getThemeboxes()
     {
         $themeboxes = Themebox::get();
@@ -167,27 +172,30 @@ class PowerUserController extends Controller
         return $categories;
     }
 
-    public function getOrder_Types(){
+    public function getOrder_Types()
+    {
         $order_types = Order_Type::all();
         return $order_types;
     }
 
-    public function indexThembox(){
+    public function indexThembox()
+    {
         if ($this->checkLogin()) {
             $themeboxes = $this->getThemeboxes();
             $categories = $this->getCategories();
             $order_types = $this->getOrder_Types();
 
             return view('poweruser/themebox_index', ['themeboxes' => $themeboxes, 'categories' => $categories, 'order_types' => $order_types]);
-        }else {
+        } else {
             return view('poweruser.login_form');
         }
     }
 
-    public function updateOrder(Request $request){
+    public function updateOrder(Request $request)
+    {
         try {
             //if new status is "ready"
-            if(2 == $request->order_data[3]["value"] && 1 == $request->order_data[9]["value"]){
+            if (2 == $request->order_data[3]["value"] && 1 == $request->order_data[9]["value"]) {
                 $this->sendEmail($request->order_data[0]["value"]);
             }
             Order::find($request->order_data[0]["value"])->update(
@@ -202,7 +210,7 @@ class PowerUserController extends Controller
                     'fk_delivery' => $request->order_data[9]["value"],
                 ]);
 
-            if( $request->order_data[9]["value"] == 2){
+            if ($request->order_data[9]["value"] == 2) {
                 Order::find($request->order_data[0]["value"])->update(
                     ['schoolname' => $request->order_data[10]["value"],
                         'schoolstreet' => $request->order_data[11]["value"],
@@ -212,7 +220,7 @@ class PowerUserController extends Controller
             }
 
             return response()->json($request->order_data[3]["value"], 200);
-        }catch (Exception $e){
+        } catch (Exception $e) {
             return response()->json($e, 500);
         }
     }
@@ -226,7 +234,7 @@ class PowerUserController extends Controller
         $order = Order::find($order_id);
 
         try {
-            if("Bereit" == Status::find($new_state_id)->name && 1 == $order["fk_delivery"]){
+            if ("Bereit" == Status::find($new_state_id)->name && 1 == $order["fk_delivery"]) {
                 $this->sendEmail($order_id);
                 $status_ready = 1;
             }
@@ -237,7 +245,8 @@ class PowerUserController extends Controller
         }
     }
 
-    public function getOrder(Request $request){
+    public function getOrder(Request $request)
+    {
         $order = Order::find($request->order_id);
 
         try {
@@ -253,7 +262,7 @@ class PowerUserController extends Controller
                 "orders" => $orders);
 
             return response()->json($data, 200);
-        }catch(Exception $e){
+        } catch (Exception $e) {
             return response()->json($e, 500);
         }
     }
@@ -287,85 +296,146 @@ class PowerUserController extends Controller
             $message->to($mail_data['receiver_mail'], $mail_data['receiver_name'] . " " . $mail_data['receiver_surname'])->bcc('christian.hasley1337@gmail.com', 'Bibliothek Windisch')->subject('Abholungseinladung Themenkiste');
         });
     }
+
     public function formatDate($date)
     {
         $temp_date = explode(".", $date);
         $new_date = $temp_date[2] . "-" . $temp_date[1] . "-" . $temp_date[0];
         return $new_date;
     }
+
     public function getOrderAddData(Request $request)
     {
         $fk_themboxrequest = $request->fk_thembox;
         $deliveries = Delivery::get();
-        $orders = Order::where('fk_themebox', $fk_themboxrequest )->get();
-        $counter  =0;
+        $orders = Order::where('fk_themebox', $fk_themboxrequest)->get();
+        $counter = 0;
         $orderData = array();
-        foreach ($orders as $order){
+        foreach ($orders as $order) {
             $orderstartdate = $order->startdate;
             $orderenddate = $order->enddate;
             $orderid = $order->pk_order;
-            $orderData[$counter] = array("pk_order"=>$orderid,"order_startdate"=>$orderstartdate,"order_enddate"=>$orderenddate);
+            $orderData[$counter] = array("pk_order" => $orderid, "order_startdate" => $orderstartdate, "order_enddate" => $orderenddate);
             $counter++;
         }
 
         //get the themebox with the themebox id
         $themebox = Themebox::find($fk_themboxrequest);
 
-        $data = array("delivery"=>$deliveries,"orderData"=>$orderData, "themebox"=>$themebox);
-        return response()->json($data,200);
+        $data = array("delivery" => $deliveries, "orderData" => $orderData, "themebox" => $themebox);
+        return response()->json($data, 200);
 
     }
 
-    public function addOrder(Request $request){
+    public function addOrder(Request $request)
+    {
         $path = $request->orderData;
 
-        $newOrder = new Order();
-        $newOrder->fk_themebox = $request->themeboxId;
-        $newOrder->startdate = $this->formatDate($path[0]["value"]);
-        $newOrder->enddate = $this->formatDate($path[1]["value"]);
-        $newOrder->name = $path[2]["value"];
-        $newOrder->surname = $path[3]["value"];
-        $newOrder->email = $path[4]["value"];
-        $newOrder->phonenumber = $path[5]["value"];
-        $newOrder->nebisusernumber = $path[6]["value"];
-        $newOrder->fk_delivery = $path[7]["value"];
-
-        if ($path[7]["value"] == 2) {
-            $newOrder->schoolname = $path[8]["value"];
-            $newOrder->schoolstreet = $path[9]["value"];
-            $newOrder->schoolcity = $path[10]["value"];
-            $newOrder->schoolphonenumber = $path[11]["value"];
-            $newOrder->placeofhandover = $path[12]["value"];
+        // log each value of path with its index to the console
+        for ($i = 0; $i < count($path); $i++) {
+            error_log($i . " " . $path[$i]["value"]);
         }
 
-        $newOrder->fk_status = 1;
-        $newOrder->ordernumber = $this->createOrdernumber();
-        $dt = Carbon::now();
-        $newOrder->datecreated = $dt;
+        error_log("type: " . $request->orderType);
 
-        $themebox = Themebox::find($newOrder->fk_themebox);
+        if($request->orderType == 1){ // hourly order
+            $hourly_order = new HourlyOrder();
+            $hourly_order->fk_themebox = $request->themeboxId;
+            $hourly_order->startdate = $this->formatDate($path[0]["value"]);
+            $hourly_order->enddate = $this->formatDate($path[1]["value"]);
+            $hourly_order->name = $path[4]["value"];
+            $hourly_order->surname = $path[5]["value"];
+            $hourly_order->email = $path[6]["value"];
+            $hourly_order->phonenumber = $path[7]["value"];
+            $hourly_order->nebisusernumber = $path[8]["value"];
+            $hourly_order->fk_delivery = $path[9]["value"];
 
-        $mail_data = array(
-            'title' => $themebox->title,
-            'signatur' => $themebox->signatur,
-            'startdate' => $path[0]["value"],
-            'enddate' => $path[1]["value"],
-            'receiver_mail' => $newOrder->email,
-            'receiver_name' => $newOrder->name,
-            'receiver_surname' => $newOrder->surname,
-            'ordernumber' => $newOrder->ordernumber,
-            'extra_text' => $themebox->extra_text
-        );
+            $hourly_order->fk_status = 1;
+            $hourly_order->ordernumber = $this->createOrdernumber();
+            $dt = Carbon::now();
+            $hourly_order->datecreated = $dt;
 
-        try {
-            $this->sendEmailNewOrder($mail_data, $path[7]["value"]);
-            $newOrder->save();
-            return response()->json($mail_data["title"],200);
-        } catch (Exception $e) {
-            return response()->json($newOrder->fk_themebox,500);
+            $themebox = Themebox::find($hourly_order->fk_themebox);
+
+            $mail_data = array(
+                'title' => $themebox->title,
+                'signatur' => $themebox->signatur,
+                'startdate' => $path[0]["value"],
+                'enddate' => $path[1]["value"],
+                'receiver_mail' => $hourly_order->email,
+                'receiver_name' => $hourly_order->name,
+                'receiver_surname' => $hourly_order->surname,
+                'ordernumber' => $hourly_order->ordernumber,
+                'extra_text' => $themebox->extra_text
+            );
+
+            try {
+                $this->sendEmailNewOrder($mail_data, $path[7]["value"]);
+                $hourly_order->save();
+                return response()->json($mail_data["title"], 200);
+            } catch (Exception $e) {
+                return response()->json($hourly_order->fk_themebox, 500);
+            }
+        } else {
+            $order = new Order();
+            $order->fk_themebox = $request->themeboxId;
+            $order->startdate = $this->formatDate($path[0]["value"]);
+            $order->enddate = $this->formatDate($path[1]["value"]);
+            $order->name = $path[2]["value"];
+            $order->surname = $path[3]["value"];
+            $order->email = $path[4]["value"];
+            $order->phonenumber = $path[5]["value"];
+            $order->nebisusernumber = $path[6]["value"];
+            $order->fk_delivery = $path[7]["value"];
+
+            $order->fk_status = 1;
+            $order->ordernumber = $this->createOrdernumber();
+            $dt = Carbon::now();
+            $order->datecreated = $dt;
+
+            if ($path[9]["value"] == 2) {
+                $order->schoolname = $path[10]["value"];
+                $order->schoolstreet = $path[11]["value"];
+                $order->schoolcity = $path[12]["value"];
+                $order->placeofhandover = $path[13]["value"];
+                $order->schoolphonenumber = $path[14]["value"];
+            }
+
+            $themebox = Themebox::find($order->fk_themebox);
+
+            $mail_data = array(
+                'title' => $themebox->title,
+                'signatur' => $themebox->signatur,
+                'startdate' => $path[0]["value"],
+                'enddate' => $path[1]["value"],
+                'receiver_mail' => $order->email,
+                'receiver_name' => $order->name,
+                'receiver_surname' => $order->surname,
+                'ordernumber' => $order->ordernumber,
+                'extra_text' => $themebox->extra_text
+            );
+
+            try {
+                $this->sendEmailNewOrder($mail_data, $path[9]["value"]);
+                $order->save();
+                return response()->json($mail_data["title"], 200);
+            } catch (Exception $e) {
+                return response()->json($order->fk_themebox, 500);
+            }
         }
-
     }
+
+    private function concatenateDatetime($date, $time)
+    {
+        $tempDate = explode(".", $date);
+        $newDate = $tempDate[2] . "-" . $tempDate[1] . "-" . $tempDate[0];
+
+        // Concatenate date and time
+        $datetimeString = $newDate . " " . $time;
+
+        return $datetimeString;
+    }
+
     public function createOrdernumber()
     {
         $new_ordernumber = '';
@@ -379,6 +449,7 @@ class PowerUserController extends Controller
 
         return $new_ordernumber;
     }
+
     public function createRandomnumber()
     {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -389,10 +460,12 @@ class PowerUserController extends Controller
         }
         return $random_string;
     }
+
     public function getNextMonday($date)
     {
         return date('d.m.Y', strtotime('next monday', strtotime($date)));
     }
+
     public function sendEmailNewOrder($mail_data, $delivery_type)
     {
         if ($delivery_type == 2) { //delivery to school

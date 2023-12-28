@@ -307,7 +307,11 @@ class PowerUserController extends Controller
             $orderData[$counter] = array("pk_order"=>$orderid,"order_startdate"=>$orderstartdate,"order_enddate"=>$orderenddate);
             $counter++;
         }
-        $data = array("delivery"=>$deliveries,"orderData"=>$orderData);
+
+        //get the themebox with the themebox id
+        $themebox = Themebox::find($fk_themboxrequest);
+
+        $data = array("delivery"=>$deliveries,"orderData"=>$orderData, "themebox"=>$themebox);
         return response()->json($data,200);
 
     }

@@ -3,6 +3,8 @@ $(document).ready(function () {
     let dayToCalculateNextSundays = getNextDayOfWeek(new Date, 7);
     let dayToCalculatePreviousSundays = getNextDayOfWeek(new Date, 7);
 
+    var selectedThemeboxInfo = []
+
     $('[data-toggle="tooltip"]').tooltip();
 
     $('#start-date').keydown(function () {
@@ -516,7 +518,17 @@ $(document).ready(function () {
         var end_date = $('#end-date');
         var start_date = $("#start-date").datepicker('getDate');
         var min_date = $("#start-date").datepicker('getDate');
+        start_date.setDate(start_date.getDate() + 42);
+        end_date.datepicker('option', 'maxDate', start_date);
         end_date.datepicker('option', 'minDate', min_date);
+        $("#start-date").datepicker('option', 'minDate', new Date());
+
+        if (selectedThemeboxInfo.themebox.fk_order_type === 1) { // Hourly order
+            //set the end date to the start date
+            $("#end-date").datepicker("setDate", $("#start-date").datepicker("getDate"));
+            //enable the dropdowns
+            $("#dropdown-von").prop("disabled", false);
+        }
     }
 
     function bindEndDataOrderAdd() {
@@ -531,12 +543,16 @@ $(document).ready(function () {
      */
     $("#button-create-order").click(function () {
 
+        //clear the array so that the newly selected themebox is loaded
+        selectedThemeboxInfo = [];
+
         let fk_thembox = 1;
         $.ajax({
             url: "poweruser/getOrderAddData",
             type: "POST",
             data: {fk_thembox},
             success: function (response){
+
                 $('#summernote_create').summernote();
 
                 $('#order-add-modal').modal('show',
@@ -566,6 +582,7 @@ $(document).ready(function () {
                     return event.className == "newOrder";
                 });
                 response["orderData"].forEach(function (element) {
+                    console.log(element)
                     $('#orderAdd-calendar').fullCalendar("renderEvent", {
                         title: "",
                         start: addTime(element["order_startdate"]),
@@ -606,8 +623,6 @@ $(document).ready(function () {
     })
 
     function loadViewChangeButtons() {
-        console.log("loadViewChangeButtons");
-
 
         //prevent buttons from being added multiple times
         if ($(".fc-toolbar .fc-left .fc-week-view-button").length !== 0) {
@@ -648,14 +663,20 @@ $(document).ready(function () {
             emailValidate($("#orderAdd-email"),$("#orderAdd-emailInputStatus"),$("#orderAdd-emailIcon"));
             phoneValidate($("#orderAdd-phone"),$("#orderAdd-phoneInputStatus"),$("#orderAdd-phoneIcon"));
             nebisValidate($("#orderAdd-Nebisnumber"),$("#orderAdd-nebisInputStatus"),$("#orderAdd-nebisIcon"));
-        }
-        else {
+        } else if($("#orderAdd-delivery").val() == "2") {
             $("#orderAdd-delivery-type").show();
             schoolnameValidate($("#orderAdd-schoolname"),$("#orderAdd-schoolNameInputStatus"),$("#orderAdd-schoolNameIcon"));
             schoolstreetValidate($("#orderAdd-schoolstreet"),$("#orderAdd-schoolstreetInputStatus"),$("#orderAdd-schoolstreetIcon"));
             schoolcityValidate($("#orderAdd-schoolcity"),$("#orderAdd-schoolcityInputStatus"),$("#orderAdd-schoolcityIcon"));
             placeofhandoverValidate($("#orderAdd-placeofhandover"),$("#orderAdd-placeofhandoverInputStatus"),$("#orderAdd-placeofhandoverIcon"));
             schoolphoneValidate($("#orderAdd-schoolphonenumber"),$("#orderAdd-schoolphoneInputStatus"),$("#orderAdd-schoolphoneIcon"));
+        } else {
+            $("#orderAdd-delivery-type").hide();
+            lastNameValidate($("#orderAdd-nachname"),$("#orderAdd-lastNameInputStatus"),$("#orderAdd-lastNameIcon"));
+            firstNameValidate($("#orderAdd-name"),$("#orderAdd-firstNameInputStatus"),$("#orderAdd-firstNameIcon"));
+            emailValidate($("#orderAdd-email"),$("#orderAdd-emailInputStatus"),$("#orderAdd-emailIcon"));
+            phoneValidate($("#orderAdd-phone"),$("#orderAdd-phoneInputStatus"),$("#orderAdd-phoneIcon"));
+            nebisValidate($("#orderAdd-Nebisnumber"),$("#orderAdd-nebisInputStatus"),$("#orderAdd-nebisIcon"));
         }
     });
 
@@ -664,18 +685,36 @@ $(document).ready(function () {
     });
 
     $('#orderAdd-thembox').change(function () {
+
+        var selectedThemeboxInfo = []
+
         let fk_thembox = parseInt($('#orderAdd-thembox').val());
+        console.log(fk_thembox)
 
         $.ajax({
             url: "poweruser/getOrderAddData",
             type: "POST",
             data: {fk_thembox},
             success: function (response) {
+                var selectedThemeboxInfo = response["themebox"]
                 $("#orderAdd-calendar").fullCalendar("render");
                 $("#orderAdd-calendar").fullCalendar("removeEvents");
                 $("#orderAdd-calendar").fullCalendar('removeEvents', function (event) {
                     return event.className == "newOrder";
                 });
+
+                console.log(response["themebox"])
+
+                if(response["themebox"]["fk_order_type"] === 1) { // Hourly order
+                    //disable the 2nd option from $("#thekre-dropdown")
+                    $("#orderAdd-delivery option[value='1']").prop("disabled", true);
+                    $("#orderAdd-delivery option[value='2']").prop("disabled", true);
+                    $("#orderAdd-delivery").val("3");
+                } else { // Daily order
+                    //enable the 2nd option from $("#thekre-dropdown")
+                    $("#orderAdd-delivery option[value='2']").prop("disabled", false);
+                    $("#orderAdd-delivery option[value='1']").prop("disabled", false);
+                }
 
                 loadBlockedDates();
 
@@ -687,6 +726,7 @@ $(document).ready(function () {
                 blockNextFiveSundaysInCalendar();
                 blockPreviousFiveSundaysInCalendar();
                 loadViewChangeButtons();
+
 
                 response["orderData"].forEach(function (element) {
                     $('#orderAdd-calendar').fullCalendar("renderEvent", {

@@ -89,10 +89,9 @@ $(document).ready(function () {
     /**
      * button print
      */
-    function printData()
-    {
-        var divToPrint=document.getElementById("printTable");
-        newWin= window.open("");
+    function printData() {
+        var divToPrint = document.getElementById("printTable");
+        newWin = window.open("");
         newWin.document.write(divToPrint.outerHTML);
         newWin.print();
         newWin.close();
@@ -106,33 +105,33 @@ $(document).ready(function () {
             data: {order_id: $(this).val()},
             success: function (response) {
                 var html =
-                    '<tr><td class="print-table-title"><strong>Bestellung: </strong></td><td class="print-table-text">' + response["order"]["ordernumber"] +'</td></tr>' +
+                    '<tr><td class="print-table-title"><strong>Bestellung: </strong></td><td class="print-table-text">' + response["order"]["ordernumber"] + '</td></tr>' +
                     '<tr><td> </td></tr>' +
-                    '<tr><td class="print-table-title">Themenkiste: </td><td class="print-table-text">' + response["themebox"]["title"] +'</td></tr>' +
-                    '<tr><td class="print-table-title">Von: </td><td class="print-table-text">' + formatDate(response["order"]["startdate"]) +'</td></tr>' +
-                    '<tr><td class="print-table-title">Bis: </td><td class="print-table-text">' + formatDate(response["order"]["enddate"]) +'</td></tr>' +
-                    '<tr><td class="print-table-title">Bestelldatum: </td><td class="print-table-text">' + formatDate(response["order"]["datecreated"]) +'</td></tr>' +
+                    '<tr><td class="print-table-title">Themenkiste: </td><td class="print-table-text">' + response["themebox"]["title"] + '</td></tr>' +
+                    '<tr><td class="print-table-title">Von: </td><td class="print-table-text">' + formatDate(response["order"]["startdate"]) + '</td></tr>' +
+                    '<tr><td class="print-table-title">Bis: </td><td class="print-table-text">' + formatDate(response["order"]["enddate"]) + '</td></tr>' +
+                    '<tr><td class="print-table-title">Bestelldatum: </td><td class="print-table-text">' + formatDate(response["order"]["datecreated"]) + '</td></tr>' +
                     '<tr><td> </td></tr>' +
-                    '<tr class="print-table-user"><td class="print-table-title">Nachname: </td><td class="print-table-text">' + response["order"]["name"] +'</td></tr>' +
-                    '<tr class="print-table-user"><td class="print-table-title">Vorname: </td><td class="print-table-text">' + response["order"]["surname"] +'</td></tr>' +
-                    '<tr class="print-table-user"><td class="print-table-title">Bibliotheksausweis: </td><td class="print-table-text">' + response["order"]["nebisusernumber"] +'</td></tr>' +
-                    '<tr class="print-table-user"><td class="print-table-title">Email: </td><td class="print-table-text">' + response["order"]["email"] +'</td></tr>' +
-                    '<tr class="print-table-user"><td class="print-table-title">Telefonnummer: </td><td class="print-table-text">' + response["order"]["phonenumber"] +'</td></tr>';
+                    '<tr class="print-table-user"><td class="print-table-title">Nachname: </td><td class="print-table-text">' + response["order"]["name"] + '</td></tr>' +
+                    '<tr class="print-table-user"><td class="print-table-title">Vorname: </td><td class="print-table-text">' + response["order"]["surname"] + '</td></tr>' +
+                    '<tr class="print-table-user"><td class="print-table-title">Bibliotheksausweis: </td><td class="print-table-text">' + response["order"]["nebisusernumber"] + '</td></tr>' +
+                    '<tr class="print-table-user"><td class="print-table-title">Email: </td><td class="print-table-text">' + response["order"]["email"] + '</td></tr>' +
+                    '<tr class="print-table-user"><td class="print-table-title">Telefonnummer: </td><td class="print-table-text">' + response["order"]["phonenumber"] + '</td></tr>';
 
                 if (2 === response["order"]["fk_delivery"]) {
                     var deliveryHtml =
                         '+ <tr><td> </td></tr>' +
-                        '<tr class="print-table-delivery"><td class="print-table-title">Lieferart: </td><td class="print-table-text">' + "Lieferung an Aargauer Schulen" +'</td></tr>' +
-                        '<tr class="print-table-delivery"><td class="print-table-title">Name der Schule: </td><td class="print-table-text">' + response["order"]["schoolname"] +'</td></tr>' +
-                        '<tr class="print-table-delivery"><td class="print-table-title">Strasse und Nr.: </td><td class="print-table-text">' + response["order"]["schoolstreet"] +'</td></tr>' +
-                        '<tr class="print-table-delivery"><td class="print-table-title">PLZ und Ort: </td><td class="print-table-text">' + response["order"]["schoolcity"] +'</td></tr>' +
-                        '<tr class="print-table-delivery"><td class="print-table-title">Abgabeort: </td><td class="print-table-text">' + response["order"]["placeofhandover"] +'</td></tr>' +
-                        '<tr class="print-table-delivery"><td class="print-table-title">Telefonnummer der Schule: </td><td class="print-table-text">' + response["order"]["schoolphonenumber"] +'</td></tr>';
+                        '<tr class="print-table-delivery"><td class="print-table-title">Lieferart: </td><td class="print-table-text">' + "Lieferung an Aargauer Schulen" + '</td></tr>' +
+                        '<tr class="print-table-delivery"><td class="print-table-title">Name der Schule: </td><td class="print-table-text">' + response["order"]["schoolname"] + '</td></tr>' +
+                        '<tr class="print-table-delivery"><td class="print-table-title">Strasse und Nr.: </td><td class="print-table-text">' + response["order"]["schoolstreet"] + '</td></tr>' +
+                        '<tr class="print-table-delivery"><td class="print-table-title">PLZ und Ort: </td><td class="print-table-text">' + response["order"]["schoolcity"] + '</td></tr>' +
+                        '<tr class="print-table-delivery"><td class="print-table-title">Abgabeort: </td><td class="print-table-text">' + response["order"]["placeofhandover"] + '</td></tr>' +
+                        '<tr class="print-table-delivery"><td class="print-table-title">Telefonnummer der Schule: </td><td class="print-table-text">' + response["order"]["schoolphonenumber"] + '</td></tr>';
                     html = html + deliveryHtml;
-                }else{
+                } else {
                     var deliveryTypeHtml =
                         '+ <tr><td> </td></tr>' +
-                        '<tr class="print-table-delivery"><td class="print-table-title">Lieferart: </td><td class="print-table-text">' + "Abholung in der Bibliothek" +'</td></tr>';
+                        '<tr class="print-table-delivery"><td class="print-table-title">Lieferart: </td><td class="print-table-text">' + "Abholung in der Bibliothek" + '</td></tr>';
                     html = html + deliveryTypeHtml;
                 }
                 $('#print-order').html(html);
@@ -205,11 +204,11 @@ $(document).ready(function () {
                     }
                 });
 
-                lastNameValidate($("#lastname"),$("#lastNameInputStatus"),$("#lastNameIcon"));
-                firstNameValidate($("#surname"),$("#firstNameInputStatus"),$("#firstNameIcon"));
-                emailValidate($("#email"),$("#emailInputStatus"),$("#emailIcon"));
-                phoneValidate($("#phonenumber"),$("#phoneInputStatus"),$("#phoneIcon"));
-                nebisValidate($("#nebisusernumber"),$("#nebisInputStatus"),$("#nebisIcon"));
+                lastNameValidate($("#lastname"), $("#lastNameInputStatus"), $("#lastNameIcon"));
+                firstNameValidate($("#surname"), $("#firstNameInputStatus"), $("#firstNameIcon"));
+                emailValidate($("#email"), $("#emailInputStatus"), $("#emailIcon"));
+                phoneValidate($("#phonenumber"), $("#phoneInputStatus"), $("#phoneIcon"));
+                nebisValidate($("#nebisusernumber"), $("#nebisInputStatus"), $("#nebisIcon"));
 
                 if (2 === response["order"]["fk_delivery"]) {
                     $("#order-delivery-type").css("display", "block");
@@ -219,11 +218,11 @@ $(document).ready(function () {
                     $("#placeofhandover").val(response["order"]["placeofhandover"]);
                     $("#schoolphonenumber").val(response["order"]["schoolphonenumber"]);
 
-                    schoolnameValidate($("#schoolname"),$("#schoolNameInputStatus"),$("#schoolNameIcon"));
-                    schoolstreetValidate($("#schoolstreet"),$("#schoolstreetInputStatus"),$("#schoolstreetIcon"));
-                    schoolcityValidate($("#schoolcity"),$("#schoolcityInputStatus"),$("#schoolcityIcon"));
-                    placeofhandoverValidate($("#placeofhandover"),$("#placeofhandoverInputStatus"),$("#placeofhandover"));
-                    schoolphoneValidate($("#schoolphonenumber"),$("#schoolphoneInputStatus"),$("#schoolphoneIcon"));
+                    schoolnameValidate($("#schoolname"), $("#schoolNameInputStatus"), $("#schoolNameIcon"));
+                    schoolstreetValidate($("#schoolstreet"), $("#schoolstreetInputStatus"), $("#schoolstreetIcon"));
+                    schoolcityValidate($("#schoolcity"), $("#schoolcityInputStatus"), $("#schoolcityIcon"));
+                    placeofhandoverValidate($("#placeofhandover"), $("#placeofhandoverInputStatus"), $("#placeofhandover"));
+                    schoolphoneValidate($("#schoolphonenumber"), $("#schoolphoneInputStatus"), $("#schoolphoneIcon"));
                 } else {
                     $("#order-delivery-type").css("display", "none");
                 }
@@ -265,7 +264,7 @@ $(document).ready(function () {
                 blockPreviousFiveSundaysInCalendar();
                 loadViewChangeButtons();
 
-                },
+            },
             error: function (xhr, status, error) {
                 showFailureModal("Es ist ein Fehler beim Laden der Daten aufgetreten", xhr);
             }
@@ -319,7 +318,7 @@ $(document).ready(function () {
                 showSuccessModal("Bestelung wurde erfolgreich gespeichert");
 
             },
-            error: function (xhr, status, error,response) {
+            error: function (xhr, status, error, response) {
                 $('#modal-order-edit-progress').modal('toggle');
                 showFailureModal("Bestellung konnten nicht gespeichert werden", xhr);
 
@@ -338,8 +337,7 @@ $(document).ready(function () {
             emailValidate();
             phoneValidate();
             nebisValidate();
-        }
-        else {
+        } else {
             $("#order-delivery-type").show();
             schoolnameValidate();
             schoolstreetValidate();
@@ -378,7 +376,7 @@ $(document).ready(function () {
     $("#orderAdd-start-date").datepicker({
         dateFormat: "dd.mm.yy",
         onSelect: function (date) {
-           bindEndDataOrderAdd();
+            bindEndDataOrderAdd();
             orderAddUpdateEvent();
 
         }
@@ -390,7 +388,7 @@ $(document).ready(function () {
     $("#orderAdd-end-date").datepicker({
         dateFormat: "dd.mm.yy",
         onSelect: function (date) {
-            if (selectedThemeboxInfo.themebox.fk_order_type === 2) { // daily order
+            if (selectedThemeboxInfo.fk_order_type === 2) { // daily order
                 orderAddUpdateEvent();
             }
         }
@@ -522,19 +520,7 @@ $(document).ready(function () {
         var end_date = $('#end-date');
         var start_date = $("#start-date").datepicker('getDate');
         var min_date = $("#start-date").datepicker('getDate');
-        start_date.setDate(start_date.getDate() + 42);
-        end_date.datepicker('option', 'maxDate', start_date);
         end_date.datepicker('option', 'minDate', min_date);
-        $("#start-date").datepicker('option', 'minDate', new Date());
-
-        if (selectedThemeboxInfo.themebox.fk_order_type === 1) { // Hourly order
-            //set the end date to the start date
-            $("#end-date").datepicker("setDate", $("#start-date").datepicker("getDate"));
-            //enable the dropdowns
-            $("pu_#dropdown-von").prop("disabled", false);
-        }
-
-        console.log($("#end-date").datepicker("getDate"))
 
     }
 
@@ -543,6 +529,13 @@ $(document).ready(function () {
         var start_date = $("#orderAdd-start-date").datepicker('getDate');
         var min_date = $("#orderAdd-start-date").datepicker('getDate');
         end_date.datepicker('option', 'minDate', min_date);
+
+        if (selectedThemeboxInfo.fk_order_type === 1) { // Hourly order
+            //set the end date to the same as the start date
+            $("#orderAdd-end-date").datepicker('setDate', $("#orderAdd-start-date").datepicker('getDate'));
+            //enable the dropdowns
+            $("#pu_dropdown-von").prop("disabled", false);
+        }
     }
 
     /**
@@ -558,7 +551,7 @@ $(document).ready(function () {
             url: "poweruser/getOrderAddData",
             type: "POST",
             data: {fk_thembox},
-            success: function (response){
+            success: function (response) {
 
                 $('#summernote_create').summernote();
 
@@ -665,25 +658,25 @@ $(document).ready(function () {
     $('#orderAdd-delivery').click(function () {
         if ($("#orderAdd-delivery").val() == "1") {
             $("#orderAdd-delivery-type").hide();
-            lastNameValidate($("#orderAdd-nachname"),$("#orderAdd-lastNameInputStatus"),$("#orderAdd-lastNameIcon"));
-            firstNameValidate($("#orderAdd-name"),$("#orderAdd-firstNameInputStatus"),$("#orderAdd-firstNameIcon"));
-            emailValidate($("#orderAdd-email"),$("#orderAdd-emailInputStatus"),$("#orderAdd-emailIcon"));
-            phoneValidate($("#orderAdd-phone"),$("#orderAdd-phoneInputStatus"),$("#orderAdd-phoneIcon"));
-            nebisValidate($("#orderAdd-Nebisnumber"),$("#orderAdd-nebisInputStatus"),$("#orderAdd-nebisIcon"));
-        } else if($("#orderAdd-delivery").val() == "2") {
+            lastNameValidate($("#orderAdd-nachname"), $("#orderAdd-lastNameInputStatus"), $("#orderAdd-lastNameIcon"));
+            firstNameValidate($("#orderAdd-name"), $("#orderAdd-firstNameInputStatus"), $("#orderAdd-firstNameIcon"));
+            emailValidate($("#orderAdd-email"), $("#orderAdd-emailInputStatus"), $("#orderAdd-emailIcon"));
+            phoneValidate($("#orderAdd-phone"), $("#orderAdd-phoneInputStatus"), $("#orderAdd-phoneIcon"));
+            nebisValidate($("#orderAdd-Nebisnumber"), $("#orderAdd-nebisInputStatus"), $("#orderAdd-nebisIcon"));
+        } else if ($("#orderAdd-delivery").val() == "2") {
             $("#orderAdd-delivery-type").show();
-            schoolnameValidate($("#orderAdd-schoolname"),$("#orderAdd-schoolNameInputStatus"),$("#orderAdd-schoolNameIcon"));
-            schoolstreetValidate($("#orderAdd-schoolstreet"),$("#orderAdd-schoolstreetInputStatus"),$("#orderAdd-schoolstreetIcon"));
-            schoolcityValidate($("#orderAdd-schoolcity"),$("#orderAdd-schoolcityInputStatus"),$("#orderAdd-schoolcityIcon"));
-            placeofhandoverValidate($("#orderAdd-placeofhandover"),$("#orderAdd-placeofhandoverInputStatus"),$("#orderAdd-placeofhandoverIcon"));
-            schoolphoneValidate($("#orderAdd-schoolphonenumber"),$("#orderAdd-schoolphoneInputStatus"),$("#orderAdd-schoolphoneIcon"));
+            schoolnameValidate($("#orderAdd-schoolname"), $("#orderAdd-schoolNameInputStatus"), $("#orderAdd-schoolNameIcon"));
+            schoolstreetValidate($("#orderAdd-schoolstreet"), $("#orderAdd-schoolstreetInputStatus"), $("#orderAdd-schoolstreetIcon"));
+            schoolcityValidate($("#orderAdd-schoolcity"), $("#orderAdd-schoolcityInputStatus"), $("#orderAdd-schoolcityIcon"));
+            placeofhandoverValidate($("#orderAdd-placeofhandover"), $("#orderAdd-placeofhandoverInputStatus"), $("#orderAdd-placeofhandoverIcon"));
+            schoolphoneValidate($("#orderAdd-schoolphonenumber"), $("#orderAdd-schoolphoneInputStatus"), $("#orderAdd-schoolphoneIcon"));
         } else {
             $("#orderAdd-delivery-type").hide();
-            lastNameValidate($("#orderAdd-nachname"),$("#orderAdd-lastNameInputStatus"),$("#orderAdd-lastNameIcon"));
-            firstNameValidate($("#orderAdd-name"),$("#orderAdd-firstNameInputStatus"),$("#orderAdd-firstNameIcon"));
-            emailValidate($("#orderAdd-email"),$("#orderAdd-emailInputStatus"),$("#orderAdd-emailIcon"));
-            phoneValidate($("#orderAdd-phone"),$("#orderAdd-phoneInputStatus"),$("#orderAdd-phoneIcon"));
-            nebisValidate($("#orderAdd-Nebisnumber"),$("#orderAdd-nebisInputStatus"),$("#orderAdd-nebisIcon"));
+            lastNameValidate($("#orderAdd-nachname"), $("#orderAdd-lastNameInputStatus"), $("#orderAdd-lastNameIcon"));
+            firstNameValidate($("#orderAdd-name"), $("#orderAdd-firstNameInputStatus"), $("#orderAdd-firstNameIcon"));
+            emailValidate($("#orderAdd-email"), $("#orderAdd-emailInputStatus"), $("#orderAdd-emailIcon"));
+            phoneValidate($("#orderAdd-phone"), $("#orderAdd-phoneInputStatus"), $("#orderAdd-phoneIcon"));
+            nebisValidate($("#orderAdd-Nebisnumber"), $("#orderAdd-nebisInputStatus"), $("#orderAdd-nebisIcon"));
         }
     });
 
@@ -693,7 +686,7 @@ $(document).ready(function () {
 
     $('#orderAdd-thembox').change(function () {
 
-        var selectedThemeboxInfo = []
+        selectedThemeboxInfo = []
 
         let fk_thembox = parseInt($('#orderAdd-thembox').val());
         console.log(fk_thembox)
@@ -703,7 +696,7 @@ $(document).ready(function () {
             type: "POST",
             data: {fk_thembox},
             success: function (response) {
-                var selectedThemeboxInfo = response["themebox"]
+                selectedThemeboxInfo = response["themebox"]
                 $("#orderAdd-calendar").fullCalendar("render");
                 $("#orderAdd-calendar").fullCalendar("removeEvents");
                 $("#orderAdd-calendar").fullCalendar('removeEvents', function (event) {
@@ -712,7 +705,7 @@ $(document).ready(function () {
 
                 console.log(response["themebox"])
 
-                if(response["themebox"]["fk_order_type"] === 1) { // Hourly order
+                if (response["themebox"]["fk_order_type"] === 1) { // Hourly order
                     //disable the 2nd option from $("#thekre-dropdown")
                     $("#orderAdd-delivery option[value='1']").prop("disabled", true);
                     $("#orderAdd-delivery option[value='2']").prop("disabled", true);
@@ -806,43 +799,45 @@ $(document).ready(function () {
         table.draw();
     });
 
-    $.fn.dataTable.ext.search.push(function (settings,searchData,index, rowData, counter ) {
+    $.fn.dataTable.ext.search.push(function (settings, searchData, index, rowData, counter) {
         let searchedStatus = $("#status-select option:selected").text();
         let selection = $(rowData[7]);
         let selectedText = $(selection).find('option:selected').text();
         return searchedStatus === selectedText || searchedStatus === "All";
     })
+
     function loadBlockedDates() {
 
         $.ajax({
-            url: "../" + "/" +"user/getBlockedPeriods",
-            type:"POST",
+            url: "../" + "/" + "user/getBlockedPeriods",
+            type: "POST",
             data: {},
-            success: function(data) {
+            success: function (data) {
 
 
-                $.each(data, function(index, element){
+                $.each(data, function (index, element) {
                     blockedPeriodEvent(formatBlockedPeriodCalendarStartDate(element.startdate), formatBlockedPeriodCalendarEndDate(element.enddate));
                     blockedPeriodEventtwo(formatBlockedPeriodCalendarStartDate(element.startdate), formatBlockedPeriodCalendarEndDate(element.enddate));
                     var blockedPeriodsArray = computeDayBetweenStartAndEnd(new Date(formatCalendarDate(element.startdate)), new Date(formatCalendarDate(element.enddate)));
 
-                    for(var i = 0; i <= blockedPeriodsArray.length; i++){
+                    for (var i = 0; i <= blockedPeriodsArray.length; i++) {
                         listOfBlockedDates.push(blockedPeriodsArray[i]);
                     }
                 });
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 errorHandling("Es ist ein Fehler bei der Datenverarbeitung aufgetreten. Bitte kontaktieren Sie die FHNW Bibliothek unter bibliothek.windisch@fhnw.ch", "#error-message-box");
             }
         });
     }
-    function blockedPeriodEvent(start, end){
+
+    function blockedPeriodEvent(start, end) {
         $("#orderAdd-calendar").fullCalendar('renderEvent',
             {
                 id: "blocked",
                 title: "",
                 start: start,
-                end:  end,
+                end: end,
                 rendering: "background",
                 className: "blocked_event",
                 color: "#ffad00"
@@ -851,16 +846,16 @@ $(document).ready(function () {
         );
     }
 
-    function formatBlockedPeriodCalendarStartDate(date){
+    function formatBlockedPeriodCalendarStartDate(date) {
         let temp_date = date.split(".");
         var new_date = new Date(temp_date[2] + "-" + temp_date[1] + "-" + temp_date[0] + "T00:00:00-00:00");
-        return new_date.getUTCFullYear() + "-" + formatTwoDigit(new_date.getUTCMonth() +1) + "-" + formatTwoDigit(new_date.getUTCDate());
+        return new_date.getUTCFullYear() + "-" + formatTwoDigit(new_date.getUTCMonth() + 1) + "-" + formatTwoDigit(new_date.getUTCDate());
     }
 
-    function formatBlockedPeriodCalendarEndDate(date){
+    function formatBlockedPeriodCalendarEndDate(date) {
         var temp_date = date.split(".");
         var new_date = new Date(temp_date[2] + "-" + temp_date[1] + "-" + temp_date[0] + "T00:00:00-00:00");
-        return new_date.getUTCFullYear() + "-" + formatTwoDigit(new_date.getUTCMonth() +1) + "-" + formatTwoDigit(new_date.getUTCDate() +1);
+        return new_date.getUTCFullYear() + "-" + formatTwoDigit(new_date.getUTCMonth() + 1) + "-" + formatTwoDigit(new_date.getUTCDate() + 1);
     }
 
     function computeDayBetweenStartAndEnd(startDate, endDate) {
@@ -874,26 +869,29 @@ $(document).ready(function () {
         }
         return arr;
     }
+
     function blockTillNextSunday() {
         var nextSunday = getNextDayOfWeek(new Date(), 7);
 
         var tomorrow = new Date();
         tomorrow.setDate(tomorrow.getDate() + 1);
 
-        var dateArr = computeDayBetweenStartAndEnd(tomorrow , nextSunday);
+        var dateArr = computeDayBetweenStartAndEnd(tomorrow, nextSunday);
 
-        for(var i = 0; i <= dateArr.length; i++){
+        for (var i = 0; i <= dateArr.length; i++) {
             listOfBlockedDates.push(dateArr[i]);
         }
     }
+
     function blockNextFiveSundaysInCalendar() {
-        for(var i = 0; i < 52; i++){
+        for (var i = 0; i < 52; i++) {
             blockAllSundaysEvent(formatBlockDate(dayToCalculateNextSundays));
             blockAllSundaysEventtwo(formatBlockDate(dayToCalculateNextSundays));
             dayToCalculateNextSundays.setDate(dayToCalculateNextSundays.getDate() + 7);
         }
     }
-    function blockAllSundaysEvent(Sunday){
+
+    function blockAllSundaysEvent(Sunday) {
 
         $("#orderAdd-calendar").fullCalendar('renderEvent',
             {
@@ -907,33 +905,36 @@ $(document).ready(function () {
             true
         );
     }
+
     function blockPreviousFiveSundaysInCalendar() {
-        for(var i = 0; i < 52; i++){
+        for (var i = 0; i < 52; i++) {
             dayToCalculatePreviousSundays.setDate(dayToCalculatePreviousSundays.getDate() - 7);
             blockAllSundaysEvent(formatBlockDate(dayToCalculatePreviousSundays));
             blockAllSundaysEventtwo(formatBlockDate(dayToCalculatePreviousSundays));
         }
     }
+
     function formatBlockDate(date) {
         var day = date.getDate();
         var month = date.getMonth() + 1;
         var year = date.getFullYear();
 
-        if(day<10){
+        if (day < 10) {
             day = '0' + day;
-        }else{
+        } else {
             day = '' + day;
         }
 
-        if(month<10){
+        if (month < 10) {
             month = '0' + month;
-        }else{
+        } else {
             month = '' + month;
         }
 
         return year + '-' + month + '-' + day;
     }
-    function blockAllSundaysEventtwo(Sunday){
+
+    function blockAllSundaysEventtwo(Sunday) {
 
         $("#calendar").fullCalendar('renderEvent',
             {
@@ -947,13 +948,14 @@ $(document).ready(function () {
             true
         );
     }
-    function blockedPeriodEventtwo(start, end){
+
+    function blockedPeriodEventtwo(start, end) {
         $("#calendar").fullCalendar('renderEvent',
             {
                 id: "blockeddate",
                 title: "",
                 start: start,
-                end:  end,
+                end: end,
                 rendering: "background",
                 className: "blocked_event",
                 color: "#ffad00"

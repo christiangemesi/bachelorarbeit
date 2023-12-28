@@ -4,18 +4,18 @@
 function addEvent() {
     var collision = checkEventCollision(formatCalendarDateCompare($("#start-date").val()), formatCalendarDateCompare($("#end-date").val()));
     hideErrorBoxes();
-    if(collision){
-        $("#calendar").fullCalendar('removeEvents', function(event) {
+    if (collision) {
+        $("#calendar").fullCalendar('removeEvents', function (event) {
             return event.className == "newOrder";
         });
 
-        $("#calendar").fullCalendar('removeEvents', function(event) {
+        $("#calendar").fullCalendar('removeEvents', function (event) {
             return event.className == "myOrder";
         });
 
         createEvent(formatCalendarDate($("#start-date").val()), formatCalendarEndDate($("#end-date").val()));
         $("#button-save-order-change").prop('disabled', false);
-    }else{
+    } else {
         errorHandling("Ihre Auswahl steht in Konflikt mit einem anderen Bestelltermin", "#error-calendar-message-box");
     }
 }
@@ -23,7 +23,7 @@ function addEvent() {
 function orderAddAddEvent() {
     var collision = checkEventCollision(formatCalendarDateCompare($("#orderAdd-start-date").val()), formatCalendarDateCompare($("#orderAdd-end-date").val()));
     hideErrorBoxes();
-    if(collision){
+    if (collision) {
         // $("#orderAdd-calendar").fullCalendar('removeEvents', function(event) {
         //     return event.className == "newOrder";
         // });
@@ -34,7 +34,7 @@ function orderAddAddEvent() {
 
         createEvent(formatCalendarDate($("#orderAdd-start-date").val()), formatCalendarEndDate($("#orderAdd-end-date").val()));
         $("#button-save-orderAdd").prop('disabled', false);
-    }else{
+    } else {
         errorHandling("Ihre Auswahl steht in Konflikt mit einem anderen Bestelltermin", "#error-calendar-message-box");
     }
 }
@@ -48,29 +48,37 @@ function updateEvent() {
 
     errorHandling("ACHTUNG! Diese Änderung kann nicht rückgängig gemacht werden!", "#info-calendar-message-box");
 
-        $("#calendar").fullCalendar('removeEvents', function(event) {
-            return event.className == "newOrder";
-        });
-
-        $("#calendar").fullCalendar('removeEvents', function(event) {
-            return event.className == "myOrder";
-        });
-        createEvent(formatCalendarDate($("#start-date").val()), formatCalendarEndDate($("#end-date").val()));
-        $("#button-save-order-change").prop('disabled', false);
-}
-function orderAddUpdateEvent() {
-
-    $("#orderAdd-calendar").fullCalendar('removeEvents', function(event) {
+    $("#calendar").fullCalendar('removeEvents', function (event) {
         return event.className == "newOrder";
     });
 
-    $("#orderAdd-calendar").fullCalendar('removeEvents', function(event) {
+    $("#calendar").fullCalendar('removeEvents', function (event) {
+        return event.className == "myOrder";
+    });
+    createEvent(formatCalendarDate($("#start-date").val()), formatCalendarEndDate($("#end-date").val()));
+    $("#button-save-order-change").prop('disabled', false);
+}
+
+function orderAddUpdateEvent() {
+
+    var startTime = $('#pu_dropdown-von').val();
+    var endTime = $('#pu_dropdown-bis').val();
+    var isHourly = startTime !== null || endTime !== null;
+
+    console.log(startTime);
+    console.log(endTime);
+    console.log(isHourly);
+
+    $("#orderAdd-calendar").fullCalendar('removeEvents', function (event) {
+        return event.className == "newOrder";
+    });
+
+    $("#orderAdd-calendar").fullCalendar('removeEvents', function (event) {
         return event.className == "myOrder";
     });
     orderAddCreateEvent(formatCalendarDate($("#orderAdd-start-date").val()), formatCalendarEndDate($("#orderAdd-end-date").val()));
     $("#button-save-orderAdd-change").prop('disabled', false);
 }
-
 
 
 /**
@@ -87,7 +95,7 @@ function errorHandling(msg, box) {
 /**
  * hide calendar error msg
  */
-function hideErrorBoxes(){
+function hideErrorBoxes() {
     $('#error-calendar-message-box').css("display", "none");
     $("#info-calendar-message-box").css("display", "none");
 }
@@ -97,10 +105,10 @@ function hideErrorBoxes(){
  * @param date
  * @returns {string}
  */
-function formatCalendarDate(date){
+function formatCalendarDate(date) {
     var temp_date = date.split(".");
     var new_date = new Date(temp_date[2] + "-" + temp_date[1] + "-" + temp_date[0] + "T00:00:00-00:00");
-    return new_date.getUTCFullYear() + "-" + formatTwoDigit(new_date.getUTCMonth() +1) + "-" + formatTwoDigit(new_date.getUTCDate());
+    return new_date.getUTCFullYear() + "-" + formatTwoDigit(new_date.getUTCMonth() + 1) + "-" + formatTwoDigit(new_date.getUTCDate());
 }
 
 /**
@@ -109,11 +117,11 @@ function formatCalendarDate(date){
  * @param date
  * @returns {string}
  */
-function formatCalendarEndDate(date){
+function formatCalendarEndDate(date) {
     var temp_date = date.split(".");
     var new_date = new Date(temp_date[2] + "-" + temp_date[1] + "-" + temp_date[0] + "T00:00:00-00:00");
     new_date.setDate(new_date.getUTCDate() + 1);
-    return new_date.getUTCFullYear() + "-" + formatTwoDigit(new_date.getUTCMonth() +1) + "-" + formatTwoDigit(new_date.getUTCDate());
+    return new_date.getUTCFullYear() + "-" + formatTwoDigit(new_date.getUTCMonth() + 1) + "-" + formatTwoDigit(new_date.getUTCDate());
 }
 
 /**
@@ -121,12 +129,12 @@ function formatCalendarEndDate(date){
  * @param start
  * @param end
  */
-function createEvent(start, end){
+function createEvent(start, end) {
     $("#calendar").fullCalendar('renderEvent',
         {
             title: "",
             start: start,
-            end:  end,
+            end: end,
             rendering: "background",
             className: "newOrder",
             color: "#04B404"
@@ -137,12 +145,13 @@ function createEvent(start, end){
     $('#themebox-infobox-select-date').css("display", "block");
     $('#carousel-right').prop('disabled', false);
 }
-function orderAddCreateEvent(start, end){
+
+function orderAddCreateEvent(start, end) {
     $("#orderAdd-calendar").fullCalendar('renderEvent',
         {
             title: "",
             start: start,
-            end:  end,
+            end: end,
             rendering: "background",
             className: "newOrder",
             color: "#04B404"
@@ -159,7 +168,7 @@ function orderAddCreateEvent(start, end){
  * @param date
  * @returns {Date}
  */
-function formatCalendarDateCompare(date){
+function formatCalendarDateCompare(date) {
     var temp_date = date.split(".");
     var new_date = new Date(temp_date[2] + "-" + temp_date[1] + "-" + temp_date[0]);
     return new_date;
@@ -171,11 +180,11 @@ function formatCalendarDateCompare(date){
  * @param end
  * @returns {boolean}
  */
-function checkEventCollision(start, end){
+function checkEventCollision(start, end) {
     var status = true;
     $.each($("#calendar").fullCalendar('clientEvents'), function (index, value) {
-        if(value["className"][0]== "block") {
-            if ((start >= value["start"] && start <= value["end"]-1 || start <= value["start"]  && end >= value["start"])) {
+        if (value["className"][0] == "block") {
+            if ((start >= value["start"] && start <= value["end"] - 1 || start <= value["start"] && end >= value["start"])) {
                 status = false;
             }
         }
@@ -199,10 +208,10 @@ function formatDate(date) {
  * @param date
  * @returns {string}
  */
-function addBlockEnddate(date){
+function addBlockEnddate(date) {
     var temp_date = new Date(date + "T00:00:00-00:00");
     temp_date.setDate(temp_date.getUTCDate() + 8);
-    return temp_date.getUTCFullYear() + "-" + formatTwoDigit(temp_date.getUTCMonth() +1 ) + "-" + formatTwoDigit(temp_date.getUTCDate());
+    return temp_date.getUTCFullYear() + "-" + formatTwoDigit(temp_date.getUTCMonth() + 1) + "-" + formatTwoDigit(temp_date.getUTCDate());
 }
 
 /**
@@ -210,10 +219,10 @@ function addBlockEnddate(date){
  * @param date
  * @returns {string}
  */
-function addBlockStartdate(date){
+function addBlockStartdate(date) {
     var temp_date = new Date(date + "T00:00:00-00:00");
     temp_date.setDate(temp_date.getUTCDate() - 7);
-    return temp_date.getUTCFullYear() + "-" + formatTwoDigit(temp_date.getUTCMonth() +1) + "-" + formatTwoDigit(temp_date.getUTCDate());
+    return temp_date.getUTCFullYear() + "-" + formatTwoDigit(temp_date.getUTCMonth() + 1) + "-" + formatTwoDigit(temp_date.getUTCDate());
 }
 
 /**
@@ -221,9 +230,9 @@ function addBlockStartdate(date){
  * @param date
  * @returns {string}
  */
-function addTime(date){
+function addTime(date) {
     var temp_date = new Date(date + "T00:00:00-00:00");
-    return temp_date.getUTCFullYear() + "-" + formatTwoDigit(temp_date.getUTCMonth() +1) + "-" + formatTwoDigit(temp_date.getUTCDate());
+    return temp_date.getUTCFullYear() + "-" + formatTwoDigit(temp_date.getUTCMonth() + 1) + "-" + formatTwoDigit(temp_date.getUTCDate());
 }
 
 /**
@@ -231,10 +240,10 @@ function addTime(date){
  * @param date
  * @returns {string}
  */
-function addEndTime(date){
+function addEndTime(date) {
     var temp_date = new Date(date + "T00:00:00-00:00");
     temp_date.setDate(temp_date.getUTCDate() + 1);
-    return temp_date.getUTCFullYear() + "-" + formatTwoDigit(temp_date.getUTCMonth() +1) + "-" + formatTwoDigit(temp_date.getUTCDate());
+    return temp_date.getUTCFullYear() + "-" + formatTwoDigit(temp_date.getUTCMonth() + 1) + "-" + formatTwoDigit(temp_date.getUTCDate());
 }
 
 /**
@@ -242,8 +251,8 @@ function addEndTime(date){
  * @param number
  * @returns {*}
  */
-function formatTwoDigit(number){
-    if (number<10) {
+function formatTwoDigit(number) {
+    if (number < 10) {
         return '0' + number;
     }
     return number;

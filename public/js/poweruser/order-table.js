@@ -377,8 +377,8 @@ $(document).ready(function () {
         dateFormat: "dd.mm.yy",
         onSelect: function (date) {
             bindEndDataOrderAdd();
-            orderAddUpdateEvent();
 
+            orderAddUpdateEvent();
         }
     });
 
@@ -521,7 +521,6 @@ $(document).ready(function () {
         var start_date = $("#start-date").datepicker('getDate');
         var min_date = $("#start-date").datepicker('getDate');
         end_date.datepicker('option', 'minDate', min_date);
-
     }
 
     function bindEndDataOrderAdd() {
@@ -745,6 +744,38 @@ $(document).ready(function () {
 
 
     });
+
+    $("#pu_dropdown-von").change(function () {
+        $("#pu_dropdown-bis").prop("disabled", false);
+        //removeEvent();
+    });
+
+    $("#pu_dropdown-bis").change(function () {
+        updateEvent();
+    });
+
+    function removeEvent() {
+        $("#orderAdd-calendar").fullCalendar('removeEvents', function (event) {
+            return event.className == "newOrder";
+        });
+    }
+
+    function addAllHoursToDropdown(dropdownClassName) {
+        // Remove all options from the dropdown
+        $(dropdownClassName).empty();
+        if (dropdownClassName === "#dropdown-von") {
+            $(dropdownClassName).append('<option value="" selected disabled hidden>Startzeit</option>');
+        } else {
+            $(dropdownClassName).append('<option value="" selected disabled hidden>Endzeit</option>');
+        }
+        //add all the values from 08:00 until 18:00 in 30-minute intervals to dropdown
+        var maxTime = '18:00';
+        var currentTime = '08:00';
+        while (currentTime <= maxTime) {
+            $(dropdownClassName).append('<option value="' + currentTime + '">' + currentTime + '</option>');
+            currentTime = addMinutesToTime(currentTime, 30);
+        }
+    }
 
     function loadHourlyView(order_type, orders) {
         //reset the selection so that the option is null

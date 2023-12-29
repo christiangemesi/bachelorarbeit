@@ -155,6 +155,7 @@
                                         <div class="form-group">
                                             <label class="float-left" for="orderAdd-thembox">Themenkiste</label>
                                             <select class="form-control" id="orderAdd-thembox">
+                                                <option value="orderAdd-thembox-title" disabled selected>Themenkiste auswählen</option>
                                                 @foreach($themeboxes as $thembox)
                                                     <option value={{$thembox["pk_themebox"]}}>{{$thembox["title"]}}</option>
                                                 @endforeach

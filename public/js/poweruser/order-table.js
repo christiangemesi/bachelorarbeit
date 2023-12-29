@@ -380,7 +380,7 @@ $(document).ready(function () {
         onSelect: function (date) {
             bindEndDataOrderAdd();
 
-            if(selectedThemeboxInfo.fk_order_type === 1) { // hourly order
+            if (selectedThemeboxInfo.fk_order_type === 1) { // hourly order
 
                 removeEvent();
 
@@ -389,13 +389,11 @@ $(document).ready(function () {
                 $("#pu_dropdown-bis").val($("#pu_dropdown-bis option:first").val());
                 //disable the dropdown bis
                 $("#pu_dropdown-bis").prop("disabled", true);
+            } else {
+                orderAddUpdateEvent();
             }
 
-            if ($("#end-date").datepicker("getDate") != null) {
-                if (selectedThemeboxInfo.themebox.fk_order_type === 2) { // daily order
-                    orderAddUpdateEvent();
-                }
-            }
+
         }
     });
 
@@ -562,6 +560,8 @@ $(document).ready(function () {
         //clear the array so that the newly selected themebox is loaded
         selectedThemeboxInfo = [];
 
+        disableAllOptions();
+
         let fk_thembox = 1;
         $.ajax({
             url: "poweruser/getOrderAddData",
@@ -700,6 +700,11 @@ $(document).ready(function () {
     });
 
     $('#orderAdd-thembox').change(function () {
+        enableAllOptions();
+
+        //clear order add start
+        $("#orderAdd-start-date").val("");
+        $("#orderAdd-end-date").val("");
 
         selectedThemeboxInfo = []
 
@@ -750,9 +755,9 @@ $(document).ready(function () {
                     console.log(element)
                     $('#orderAdd-calendar').fullCalendar("renderEvent", {
                         title: "",
-                        start: !isHourlyOrder ? addTime(element["order_startdate"]): element["order_startdate"],
-                        end: !isHourlyOrder ? addEndTime(element["order_enddate"]): element["order_enddate"],
-                        rendering: !isHourlyOrder ? "background": "",
+                        start: !isHourlyOrder ? addTime(element["order_startdate"]) : element["order_startdate"],
+                        end: !isHourlyOrder ? addEndTime(element["order_enddate"]) : element["order_enddate"],
+                        rendering: !isHourlyOrder ? "background" : "",
                         className: "selected",
                         color: "#f44242"
                     }, true);
@@ -765,12 +770,40 @@ $(document).ready(function () {
 
     $("#pu_dropdown-von").change(function () {
         $("#pu_dropdown-bis").prop("disabled", false);
+        //set the first value
+        $("#pu_dropdown-bis").val($("#pu_dropdown-bis option:first").val());
         removeEvent();
     });
 
     $("#pu_dropdown-bis").change(function () {
         orderAddUpdateEvent();
     });
+
+    function disableAllOptions() {
+        $("#orderAdd-start-date").prop("disabled", true);
+        $("#orderAdd-end-date").prop("disabled", true);
+        $("#pu_dropdown-von").prop("disabled", true);
+        $("#pu_dropdown-bis").prop("disabled", true);
+        $("#orderAdd-nachname").prop("disabled", true);
+        $("#orderAdd-name").prop("disabled", true);
+        $("#orderAdd-email").prop("disabled", true);
+        $("#orderAdd-phone").prop("disabled", true);
+        $("#orderAdd-Nebisnumber").prop("disabled", true);
+        $("#orderAdd-delivery").prop("disabled", true);
+    }
+
+    function enableAllOptions() {
+        $("#orderAdd-start-date").prop("disabled", false);
+        $("#orderAdd-end-date").prop("disabled", false);
+        $("#pu_dropdown-von").prop("disabled", false);
+        $("#pu_dropdown-bis").prop("disabled", false);
+        $("#orderAdd-nachname").prop("disabled", false);
+        $("#orderAdd-name").prop("disabled", false);
+        $("#orderAdd-email").prop("disabled", false);
+        $("#orderAdd-phone").prop("disabled", false);
+        $("#orderAdd-Nebisnumber").prop("disabled", false);
+        $("#orderAdd-delivery").prop("disabled", false);
+    }
 
     function removeEvent() {
         $("#orderAdd-calendar").fullCalendar('removeEvents', function (event) {
@@ -780,8 +813,6 @@ $(document).ready(function () {
         $("#orderAdd-calendar").fullCalendar('removeEvents', function (event) {
             return event.className == "new_event";
         });
-
-
     }
 
     function loadHourlyView(order_type, orders) {

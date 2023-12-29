@@ -158,6 +158,16 @@ $(document).ready(function () {
             data: {order_id: $(this).val()},
             success: function (response) {
 
+                bindEndData();
+                addBlockDateFromToday();
+                loadBlockedDates();
+                blockTillNextSunday();
+                blockNextFiveSundaysInCalendar();
+                blockPreviousFiveSundaysInCalendar();
+                loadViewChangeButtons();
+
+                console.log(response)
+
                 $("#calendar").fullCalendar("render");
                 $("#calendar").fullCalendar("removeEvents");
                 $("#calendar").fullCalendar('removeEvents', function (event) {
@@ -171,14 +181,35 @@ $(document).ready(function () {
                     }
                 );
 
+                if (response["themebox"]["fk_order_type"] === 1) { // daily order
+                    console.log("hourly order")
+                    //$("#pu_themebox-time-select2").show();
+
+                    //hide the end date input field
+                    //$("#end-date_box").hide();
+
+                    console.log(formatTimeWithoutDate(response["order"]["startdate"]))
+                    //select the option in the dropdown that matches the start time
+                    $('#pu_dropdown-von option[value="' + formatTimeWithoutDate(response["order"]["startdate"]) +'"]').prop("selected", true);
+
+                    // in $('#pu_dropdown-von2 option select the 2nd option
+                    //$('#pu_dropdown-von2 option:eq(1)').prop("selected", true);
+
+                } else {
+                    console.log("daily order")
+                    $("#pu_themebox-time-select2").hide();
+
+                    //show the end date input field
+                    //$("#end-date_box").show();
+                }
                 $('#order-edit-form').trigger("reset");
                 $("#order-id").val(response["order"]["pk_order"]);
                 $("#ordernumber-edit").val(response["order"]["ordernumber"]);
                 $("#themebox-title").val(response["themebox"]["title"]);
                 $("#themebox-signatur").val(response["themebox"]["signatur"]);
                 $("#datecreated").val(formatDate(response["order"]["datecreated"]));
-                $("#start-date").val(formatDate(response["order"]["startdate"]));
-                $("#end-date").val(formatDate(response["order"]["enddate"]));
+                $("#start-date").val(formatDateWithoutTime(response["order"]["startdate"]));
+                $("#end-date").val(formatDateWithoutTime(response["order"]["enddate"]));
                 $("#status").html("");
 
                 response["all_status"].forEach(function (element) {
@@ -256,13 +287,6 @@ $(document).ready(function () {
                 dayToCalculateNextSundays = getNextDayOfWeek(new Date, 7);
                 dayToCalculatePreviousSundays = getNextDayOfWeek(new Date, 7);
 
-                bindEndData();
-                addBlockDateFromToday();
-                loadBlockedDates();
-                blockTillNextSunday();
-                blockNextFiveSundaysInCalendar();
-                blockPreviousFiveSundaysInCalendar();
-                loadViewChangeButtons();
 
             },
             error: function (xhr, status, error) {
@@ -409,7 +433,7 @@ $(document).ready(function () {
         }
     });
 
-    function setAppropriateEndTimes(){
+    function setAppropriateEndTimes() {
         //get the selected start time
         var selectedStartTime = $("#pu_dropdown-von").val();
         //remove all options from the dropdown
@@ -572,6 +596,13 @@ $(document).ready(function () {
         var start_date = $("#start-date").datepicker('getDate');
         var min_date = $("#start-date").datepicker('getDate');
         end_date.datepicker('option', 'minDate', min_date);
+
+        if (selectedThemeboxInfo.fk_order_type === 1) { // Hourly order
+            //set the end date to the same as the start date
+            $("#end-date").datepicker('setDate', $("#start-date").datepicker('getDate'));
+            //enable the dropdowns
+            $("#pu_dropdown-von2").prop("disabled", false);
+        }
     }
 
     function bindEndDataOrderAdd() {
@@ -1070,5 +1101,3 @@ $(document).ready(function () {
         );
     }
 });
-
-

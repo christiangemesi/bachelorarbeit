@@ -241,6 +241,19 @@ function formatDate(date) {
     return tmp_data[2] + "." + tmp_data[1] + "." + tmp_data[0];
 }
 
+function formatDateWithoutTime(date) {
+    var tmp_data = date.split(" ");
+    var tmp_date = tmp_data[0].split("-");
+    return tmp_date[2] + "." + tmp_date[1] + "." + tmp_date[0];
+}
+
+function formatTimeWithoutDate(date) {
+    var tmp_data = date.split(" ");
+    var tmp_time = tmp_data[1].split(":");
+    return tmp_time[0] + ":" + tmp_time[1];
+
+}
+
 /**
  * add block days to the end date
  * @param date

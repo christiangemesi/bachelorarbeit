@@ -248,22 +248,41 @@ class PowerUserController extends Controller
     public function getOrder(Request $request)
     {
         $order = Order::find($request->order_id);
+        if($order == null){
+            try {
+                $order = HourlyOrder::find($request->order_id);
+                $themebox = Themebox::find($order->fk_themebox);
+                $all_status = Status::get();
+                $all_deliveries = Delivery::get();
+                $orders = HourlyOrder::where('fk_themebox', $themebox->pk_themebox)->get();
 
-        try {
-            $themebox = Themebox::find($order->fk_themebox);
-            $all_status = Status::get();
-            $all_deliveries = Delivery::get();
-            $orders = Order::where('fk_themebox', $themebox->pk_themebox)->get();
+                $data = array("order" => $order,
+                    "themebox" => $themebox,
+                    "all_status" => $all_status,
+                    "all_deliveries" => $all_deliveries,
+                    "orders" => $orders);
 
-            $data = array("order" => $order,
-                "themebox" => $themebox,
-                "all_status" => $all_status,
-                "all_deliveries" => $all_deliveries,
-                "orders" => $orders);
+                return response()->json($data, 200);
+            } catch (Exception $e) {
+                return response()->json($e, 500);
+            }
+        } else {
+            try {
+                $themebox = Themebox::find($order->fk_themebox);
+                $all_status = Status::get();
+                $all_deliveries = Delivery::get();
+                $orders = Order::where('fk_themebox', $themebox->pk_themebox)->get();
 
-            return response()->json($data, 200);
-        } catch (Exception $e) {
-            return response()->json($e, 500);
+                $data = array("order" => $order,
+                    "themebox" => $themebox,
+                    "all_status" => $all_status,
+                    "all_deliveries" => $all_deliveries,
+                    "orders" => $orders);
+
+                return response()->json($data, 200);
+            } catch (Exception $e) {
+                return response()->json($e, 500);
+            }
         }
     }
 

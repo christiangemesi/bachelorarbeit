@@ -181,28 +181,25 @@ $(document).ready(function () {
                     }
                 );
 
-                if (response["themebox"]["fk_order_type"] === 1) { // daily order
-                    console.log("hourly order")
-                    //$("#pu_themebox-time-select2").show();
+                $('#order-edit-form').trigger("reset");
 
-                    //hide the end date input field
-                    //$("#end-date_box").hide();
+                var isHourlyOrder = response["themebox"]["fk_order_type"] === 1;
+
+                if (isHourlyOrder) {
+                    console.log("hourly order")
+                    $("#pu_themebox-time-select2").show();
+                    $("#end-date_box").hide();
 
                     console.log(formatTimeWithoutDate(response["order"]["startdate"]))
                     //select the option in the dropdown that matches the start time
                     $('#pu_dropdown-von option[value="' + formatTimeWithoutDate(response["order"]["startdate"]) +'"]').prop("selected", true);
-
-                    // in $('#pu_dropdown-von2 option select the 2nd option
-                    //$('#pu_dropdown-von2 option:eq(1)').prop("selected", true);
-
+                    $('#pu_dropdown-bis option[value="' + formatTimeWithoutDate(response["order"]["enddate"]) +'"]').prop("selected", true);
                 } else {
                     console.log("daily order")
                     $("#pu_themebox-time-select2").hide();
-
-                    //show the end date input field
-                    //$("#end-date_box").show();
+                    $("#end-date_box").show();
                 }
-                $('#order-edit-form').trigger("reset");
+
                 $("#order-id").val(response["order"]["pk_order"]);
                 $("#ordernumber-edit").val(response["order"]["ordernumber"]);
                 $("#themebox-title").val(response["themebox"]["title"]);
@@ -262,12 +259,15 @@ $(document).ready(function () {
                 old_startdate = $("#start-date").val();
                 old_enddate = $("#end-date").val();
 
+                console.log("orders: ", orders);
+
                 $.each(orders, function (index, value) {
                     if (value["pk_order"] == $("#order-id").val()) {
+                        console.log(value["pk_order"])
                         $('#calendar').fullCalendar("renderEvent", {
                             title: "",
-                            start: addTime(value["startdate"]),
-                            end: addEndTime(value["enddate"]),
+                            start: !isHourlyOrder ? addTime(value["startdate"]): value["startdate"],
+                            end: !isHourlyOrder ? addEndTime(value["enddate"]): value["enddate"],
                             rendering: "background",
                             className: "new_event",
                             color: "#04B404"
@@ -276,8 +276,8 @@ $(document).ready(function () {
                     } else {
                         $('#calendar').fullCalendar("renderEvent", {
                             title: "",
-                            start: addBlockStartdate(value["startdate"]),
-                            end: addBlockEnddate(value["enddate"]),
+                            start: !isHourlyOrder ? addBlockStartdate(value["startdate"]): value["startdate"],
+                            end: !isHourlyOrder ? addBlockEnddate(value["enddate"]): value["enddate"],
                             rendering: "background",
                             className: "block"
                         }, true);

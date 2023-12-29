@@ -433,9 +433,9 @@
                                                 <option value="18:00">18:00</option>
                                             </select>
 
-                                            <label for="pu_dropdown-bis2">Bis:</label>
-                                            <select id="pu_dropdown-bis2" name="pu_selectedBis2">
-                                                <option value="pu_dropdown-bis-title2" disabled selected>Endzeit</option>
+                                            <label for="pu_dropdown-bis">Bis:</label>
+                                            <select id="pu_dropdown-bis" name="pu_selectedBis">
+                                                <option value="pu_dropdown-bis-title" disabled selected>Endzeit</option>
                                                 <option value="08:00">08:00</option>
                                                 <option value="08:30">08:30</option>
                                                 <option value="09:00">09:00</option>

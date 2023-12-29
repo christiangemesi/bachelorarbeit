@@ -389,11 +389,11 @@ $(document).ready(function () {
                 $("#pu_dropdown-bis").val($("#pu_dropdown-bis option:first").val());
                 //disable the dropdown bis
                 $("#pu_dropdown-bis").prop("disabled", true);
+                //goto selected date
+                $("#orderAdd-calendar").fullCalendar('gotoDate', $("#orderAdd-start-date").datepicker('getDate'));
             } else {
                 orderAddUpdateEvent();
             }
-
-
         }
     });
 
@@ -409,6 +409,42 @@ $(document).ready(function () {
         }
     });
 
+    function setAppropriateEndTimes(){
+        //get the selected start time
+        var selectedStartTime = $("#pu_dropdown-von").val();
+        //remove all options from the dropdown
+        $("#pu_dropdown-bis").empty();
+        //add all the values from 08:00 until 18:00 in 30-minute intervals to dropdown except the selected start time
+        var maxTime = '18:00';
+        var currentTime = selectedStartTime;
+        //add the option called "Endzeit" disabled
+        $("#pu_dropdown-bis").append('<option value="" disabled selected>Endzeit</option>');
+
+        while (currentTime <= maxTime) {
+            $("#pu_dropdown-bis").append('<option value="' + currentTime + '">' + currentTime + '</option>');
+            currentTime = addMinutesToTime(currentTime, 30);
+        }
+        //remove the selectedTime from the dropdown
+        $("#pu_dropdown-bis option[value='" + selectedStartTime + "']").remove();
+    }
+
+    function addMinutesToTime(time, minutes) {
+        var timeArray = time.split(':');
+        var hours = parseInt(timeArray[0], 10);
+        var mins = parseInt(timeArray[1], 10);
+
+        var totalMinutes = hours * 60 + mins;
+        var newTotalMinutes = totalMinutes + minutes;
+
+        var newHours = Math.floor(newTotalMinutes / 60);
+        var newMins = newTotalMinutes % 60;
+
+        return padWithZero(newHours) + ':' + padWithZero(newMins);
+    }
+
+    function padWithZero(value) {
+        return value < 10 ? '0' + value : value;
+    }
 
     /**
      * initial caledar settings
@@ -769,6 +805,7 @@ $(document).ready(function () {
     });
 
     $("#pu_dropdown-von").change(function () {
+        setAppropriateEndTimes();
         $("#pu_dropdown-bis").prop("disabled", false);
         //set the first value
         $("#pu_dropdown-bis").val($("#pu_dropdown-bis option:first").val());

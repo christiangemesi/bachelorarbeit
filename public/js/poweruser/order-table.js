@@ -148,6 +148,7 @@ $(document).ready(function () {
     });
 
 
+
     /**
      * get order data for edit modal
      */
@@ -192,15 +193,16 @@ $(document).ready(function () {
 
                     console.log(formatTimeWithoutDate(response["order"]["startdate"]))
                     //select the option in the dropdown that matches the start time
-                    $('#pu_dropdown-von option[value="' + formatTimeWithoutDate(response["order"]["startdate"]) +'"]').prop("selected", true);
-                    $('#pu_dropdown-bis option[value="' + formatTimeWithoutDate(response["order"]["enddate"]) +'"]').prop("selected", true);
+                    $('#pu_dropdown-von2 option[value="' + formatTimeWithoutDate(response["order"]["startdate"]) +'"]').prop("selected", true);
+                    $('#pu_dropdown-bis2 option[value="' + formatTimeWithoutDate(response["order"]["enddate"]) +'"]').prop("selected", true);
+                    $("#order-id").val(response["order"]["pk_hourly_order"]);
                 } else {
                     console.log("daily order")
                     $("#pu_themebox-time-select2").hide();
                     $("#end-date_box").show();
+                    $("#order-id").val(response["order"]["pk_order"]);
                 }
 
-                $("#order-id").val(response["order"]["pk_order"]);
                 $("#ordernumber-edit").val(response["order"]["ordernumber"]);
                 $("#themebox-title").val(response["themebox"]["title"]);
                 $("#themebox-signatur").val(response["themebox"]["signatur"]);
@@ -262,18 +264,34 @@ $(document).ready(function () {
                 console.log("orders: ", orders);
 
                 $.each(orders, function (index, value) {
+                    console.log("value: ", value);
                     if (value["pk_order"] == $("#order-id").val()) {
-                        console.log(value["pk_order"])
+                        console.log("valuepkorer: " + value["pk_order"])
                         $('#calendar').fullCalendar("renderEvent", {
                             title: "",
-                            start: !isHourlyOrder ? addTime(value["startdate"]): value["startdate"],
-                            end: !isHourlyOrder ? addEndTime(value["enddate"]): value["enddate"],
+                            start:  addTime(value["startdate"]),
+                            end: addEndTime(value["enddate"]),
                             rendering: "background",
                             className: "new_event",
                             color: "#04B404"
                         }, true);
                         $('#calendar').fullCalendar('gotoDate', addTime(value["startdate"]));
+                    } else if(value["pk_hourly_order"] == $("#order-id").val()) {
+                        console.log("valuepk_hourly_order: " +value["pk_hourly_order"])
+                        var startDateTime = value["startdate"] + "-00:00";
+                        var endDateTime = value["enddate"] + "-00:00";
+                        $('#calendar').fullCalendar("renderEvent", {
+                            title: "",
+                            start:startDateTime,
+                            end: endDateTime,
+                            rendering: "background",
+                            className: "new_event",
+                            color: "#04B404"
+                        }, true);
+                        $('#calendar').fullCalendar('gotoDate', startDateTime);
                     } else {
+                        console.log("else")
+
                         $('#calendar').fullCalendar("renderEvent", {
                             title: "",
                             start: !isHourlyOrder ? addBlockStartdate(value["startdate"]): value["startdate"],
@@ -846,6 +864,18 @@ $(document).ready(function () {
     $("#pu_dropdown-bis").change(function () {
         orderAddUpdateEvent();
     });
+
+    $("#pu_dropdown-von2").change(function () {
+        $("#pu_dropdown-bis2").prop("disabled", false);
+        //set the first value
+        $("#pu_dropdown-bis2").val($("#pu_dropdown-bis2 option:first").val());
+        removeEvent();
+    });
+
+    $("#pu_dropdown-bis2").change(function () {
+        updateEvent();
+    });
+
 
     function disableAllOptions() {
         $("#orderAdd-start-date").prop("disabled", true);

@@ -193,35 +193,65 @@ class PowerUserController extends Controller
 
     public function updateOrder(Request $request)
     {
-        try {
-            //if new status is "ready"
-            if (2 == $request->order_data[3]["value"] && 1 == $request->order_data[9]["value"]) {
-                $this->sendEmail($request->order_data[0]["value"]);
-            }
-            Order::find($request->order_data[0]["value"])->update(
-                ['startdate' => $this->formatDate($request->order_data[1]["value"]),
-                    'enddate' => $this->formatDate($request->order_data[2]["value"]),
-                    'fk_status' => $request->order_data[3]["value"],
-                    'name' => $request->order_data[4]["value"],
-                    'surname' => $request->order_data[5]["value"],
-                    'email' => $request->order_data[6]["value"],
-                    'phonenumber' => $request->order_data[7]["value"],
-                    'nebisusernumber' => $request->order_data[8]["value"],
-                    'fk_delivery' => $request->order_data[9]["value"],
-                ]);
+        $orderId =$request->order_data[0]["value"];
+        error_log("OrderId: " . $orderId);
 
-            if ($request->order_data[9]["value"] == 2) {
+        $isHourlyOrder = false;
+        $order = Order::find($orderId);
+        if($order == null){
+            $order = HourlyOrder::find($orderId);
+            $isHourlyOrder = true;
+        }
+
+        if(!$isHourlyOrder){
+            try {
+                //if new status is "ready"
+                if (2 == $request->order_data[3]["value"] && 1 == $request->order_data[9]["value"]) {
+                    $this->sendEmail($request->order_data[0]["value"]);
+                }
                 Order::find($request->order_data[0]["value"])->update(
-                    ['schoolname' => $request->order_data[10]["value"],
-                        'schoolstreet' => $request->order_data[11]["value"],
-                        'schoolcity' => $request->order_data[12]["value"],
-                        'placeofhandover' => $request->order_data[13]["value"],
-                        'schoolphonenumber' => $request->order_data[14]["value"]]);
-            }
+                    ['startdate' => $this->formatDate($request->order_data[1]["value"]),
+                        'enddate' => $this->formatDate($request->order_data[2]["value"]),
+                        'fk_status' => $request->order_data[3]["value"],
+                        'name' => $request->order_data[4]["value"],
+                        'surname' => $request->order_data[5]["value"],
+                        'email' => $request->order_data[6]["value"],
+                        'phonenumber' => $request->order_data[7]["value"],
+                        'nebisusernumber' => $request->order_data[8]["value"],
+                        'fk_delivery' => $request->order_data[9]["value"],
+                    ]);
 
-            return response()->json($request->order_data[3]["value"], 200);
-        } catch (Exception $e) {
-            return response()->json($e, 500);
+                if ($request->order_data[9]["value"] == 2) {
+                    Order::find($request->order_data[0]["value"])->update(
+                        ['schoolname' => $request->order_data[10]["value"],
+                            'schoolstreet' => $request->order_data[11]["value"],
+                            'schoolcity' => $request->order_data[12]["value"],
+                            'placeofhandover' => $request->order_data[13]["value"],
+                            'schoolphonenumber' => $request->order_data[14]["value"]]);
+                }
+
+                return response()->json($request->order_data[3]["value"], 200);
+            } catch (Exception $e) {
+                return response()->json($e, 500);
+            }
+        } else {
+            try {
+                HourlyOrder::find($request->order_data[0]["value"])->update(
+                    ['startdate' => $this->concatenateDatetime($request->order_data[1]["value"], $request->order_data[3]["value"]),
+                        'enddate' => $this->concatenateDatetime($request->order_data[2]["value"], $request->order_data[4]["value"]),
+                        'fk_status' => $request->order_data[5]["value"],
+                        'name' => $request->order_data[6]["value"],
+                        'surname' => $request->order_data[7]["value"],
+                        'email' => $request->order_data[8]["value"],
+                        'phonenumber' => $request->order_data[9]["value"],
+                        'nebisusernumber' => $request->order_data[10]["value"],
+                        'fk_delivery' => $request->order_data[11]["value"],
+                    ]);
+
+                return response()->json($request->order_data[5]["value"], 200);
+            } catch (Exception $e) {
+                return response()->json($e, 500);
+            }
         }
     }
 

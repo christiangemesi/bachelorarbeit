@@ -20,26 +20,6 @@ function addEvent() {
     }
 }
 
-function orderAddAddEvent() {
-    var collision = checkEventCollision(formatCalendarDateCompare($("#orderAdd-start-date").val()), formatCalendarDateCompare($("#orderAdd-end-date").val()));
-    hideErrorBoxes();
-    if (collision) {
-        // $("#orderAdd-calendar").fullCalendar('removeEvents', function(event) {
-        //     return event.className == "newOrder";
-        // });
-        //
-        // $("#orderAdd-calendar").fullCalendar('removeEvents', function(event) {
-        //     return event.className == "myOrder";
-        // });
-
-        createEvent(formatCalendarDate($("#orderAdd-start-date").val()), formatCalendarEndDate($("#orderAdd-end-date").val()));
-        $("#button-save-orderAdd").prop('disabled', false);
-    } else {
-        errorHandling("Ihre Auswahl steht in Konflikt mit einem anderen Bestelltermin", "#error-calendar-message-box");
-    }
-}
-
-
 /**
  * update calendar event dates
  */
@@ -48,6 +28,14 @@ function updateEvent() {
 
     errorHandling("ACHTUNG! Diese Änderung kann nicht rückgängig gemacht werden!", "#info-calendar-message-box");
 
+    var startTime = $('#pu_dropdown-von2').val();
+    var endTime = $('#pu_dropdown-bis2').val();
+    var isHourly = startTime !== null || endTime !== null;
+    if (isHourly) {
+        var startDateTime = $("#start-date").val() + " " + startTime;
+        var endDateTime = $("#end-date").val() + " " + endTime;
+    }
+
     $("#calendar").fullCalendar('removeEvents', function (event) {
         return event.className == "newOrder";
     });
@@ -55,7 +43,13 @@ function updateEvent() {
     $("#calendar").fullCalendar('removeEvents', function (event) {
         return event.className == "new_event";
     });
-    createEvent(formatCalendarDate($("#start-date").val()), formatCalendarEndDate($("#end-date").val()));
+
+    if (isHourly) {
+        createEvent(formatCalendarDateTimeCompare(startDateTime), formatCalendarDateTimeCompare(endDateTime));
+    } else {
+        createEvent(formatCalendarDate($("#start-date").val()), formatCalendarEndDate($("#end-date").val()));
+    }
+
     $("#button-save-order-change").prop('disabled', false);
 }
 
@@ -84,7 +78,7 @@ function orderAddUpdateEvent() {
         return event.className == "new_event";
     });
 
-    if(isHourly) {
+    if (isHourly) {
         orderAddCreateEvent(formatCalendarDateTimeCompare(startDateTime), formatCalendarDateTimeCompare(endDateTime), isHourly);
     } else {
         orderAddCreateEvent(formatCalendarDate(startDateTime), formatCalendarEndDate(endDateTime), isHourly);
@@ -188,7 +182,7 @@ function orderAddCreateEvent(start, end, isHourly) {
             title: "",
             start: start,
             end: end,
-            rendering: !isHourly ? "background": "",
+            rendering: !isHourly ? "background" : "",
             className: "new_event",
             color: "#04B404"
         },

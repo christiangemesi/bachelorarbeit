@@ -165,7 +165,6 @@ $(document).ready(function () {
                 blockTillNextSunday();
                 blockNextFiveSundaysInCalendar();
                 blockPreviousFiveSundaysInCalendar();
-                loadViewChangeButtons();
 
 
                 $("#calendar").fullCalendar("render");
@@ -275,17 +274,19 @@ $(document).ready(function () {
                             title: "",
                             start: startDateTime,
                             end: endDateTime,
-                            rendering: "background",
+                            rendering: "",
                             className: "new_event",
                             color: "#04B404"
                         }, true);
                         $('#calendar').fullCalendar('gotoDate', startDateTime);
-                    } else {
+                    } else { // render blocked events
+                        var startDateTime = value["startdate"] + "-00:00";
+                        var endDateTime = value["enddate"] + "-00:00";
                         $('#calendar').fullCalendar("renderEvent", {
                             title: "",
-                            start: !isHourlyOrder ? addBlockStartdate(value["startdate"]) : value["startdate"],
-                            end: !isHourlyOrder ? addBlockEnddate(value["enddate"]) : value["enddate"],
-                            rendering: "background",
+                            start: !isHourlyOrder ? addBlockStartdate(value["startdate"]) : startDateTime,
+                            end: !isHourlyOrder ? addBlockEnddate(value["enddate"]) : endDateTime,
+                            rendering: !isHourlyOrder ? "background" : "",
                             className: "block"
                         }, true);
                     }
@@ -529,6 +530,7 @@ $(document).ready(function () {
             $("#error-calendar-message-box").css("display", "none");
         }
     });
+    loadViewChangeButtons();
 
     /**
      * initial datatable settings
@@ -686,6 +688,8 @@ $(document).ready(function () {
                     return event.className == "new_event";
                 });
                 response["orderData"].forEach(function (element) {
+                    var isHourlyOrder = response["themebox"]["fk_order_type"] === 1;
+                    console.log(element)
                     $('#orderAdd-calendar').fullCalendar("renderEvent", {
                         title: "",
                         start: addTime(element["order_startdate"]),
@@ -695,8 +699,10 @@ $(document).ready(function () {
                         color: "#f44242"
                     }, true);
                 });
+
+
+
                 loadBlockedDates();
-                loadViewChangeButtons();
 
                 dayToCalculateNextSundays = getNextDayOfWeek(new Date, 7);
                 dayToCalculatePreviousSundays = getNextDayOfWeek(new Date, 7);
@@ -724,25 +730,25 @@ $(document).ready(function () {
             },
         })
     })
-
     function loadViewChangeButtons() {
 
-        //prevent buttons from being added multiple times
         if ($(".fc-toolbar .fc-left .fc-week-view-button").length !== 0) {
             return;
         }
 
         var switchToWeekButton = $('<button type="button" class="fc-week-view-button fc-button fc-state-default fc-corner-left fc-corner-right">Wochensicht</button>');
         var switchToMonthButton = $('<button type="button" class="fc-month-view-button fc-button fc-state-default fc-corner-left fc-corner-right">Monatssicht</button>');
-        //switchToMonthButton.hide();
-
+        switchToMonthButton.hide();
 
         switchToWeekButton.on("click", function () {
             $("#calendar").fullCalendar("changeView", "agendaWeek");
             $("#orderAdd-calendar").fullCalendar("changeView", "agendaWeek");
             //dont show the week button, instead show the month button
+            console.log(switchToWeekButton)
             switchToWeekButton.hide();
             switchToMonthButton.show();
+            console.log("Switch to Week Button:", switchToWeekButton.is(":visible"));
+            console.log("Switch to Month Button:", switchToMonthButton.is(":visible"));
         });
 
         switchToMonthButton.on("click", function () {
@@ -751,11 +757,16 @@ $(document).ready(function () {
             //dont show the month button, instead show the week button
             switchToMonthButton.hide();
             switchToWeekButton.show();
+            console.log("Switch to Week Button:", switchToWeekButton.is(":visible"));
+            console.log("Switch to Month Button:", switchToMonthButton.is(":visible"));
         });
 
         $(".fc-toolbar .fc-left").append(switchToWeekButton);
         $(".fc-toolbar .fc-left").append(switchToMonthButton);
     }
+
+
+
 
     $('#orderAdd-delivery').click(function () {
         if ($("#orderAdd-delivery").val() == "1") {
@@ -832,7 +843,6 @@ $(document).ready(function () {
                 blockTillNextSunday();
                 blockNextFiveSundaysInCalendar();
                 blockPreviousFiveSundaysInCalendar();
-                loadViewChangeButtons();
 
 
                 response["orderData"].forEach(function (element) {
@@ -848,8 +858,6 @@ $(document).ready(function () {
                 })
             }
         })
-
-
     });
 
     $("#pu_orderAdd-dropdown-von").change(function () {

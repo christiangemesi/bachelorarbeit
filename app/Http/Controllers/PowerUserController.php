@@ -194,7 +194,6 @@ class PowerUserController extends Controller
     public function updateOrder(Request $request)
     {
         $orderId =$request->order_data[0]["value"];
-        error_log("OrderId: " . $orderId);
 
         $isHourlyOrder = false;
         $order = Order::find($orderId);
@@ -398,7 +397,6 @@ class PowerUserController extends Controller
             error_log($i . " " . $path[$i]["value"]);
         }
 
-        error_log("type: " . $request->orderType);
 
         if($request->orderType == 1){ // hourly order
 

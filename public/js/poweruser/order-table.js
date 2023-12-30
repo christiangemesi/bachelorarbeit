@@ -731,6 +731,7 @@ $(document).ready(function () {
             },
         })
     })
+
     function loadViewChangeButtons() {
 
         if ($(".fc-toolbar .fc-left .fc-week-view-button").length !== 0) {
@@ -742,28 +743,20 @@ $(document).ready(function () {
         switchToMonthButton.hide();
 
         switchToWeekButton.on("click", function () {
-            $("#calendar").fullCalendar("changeView", "agendaWeek");
-            $("#orderAdd-calendar").fullCalendar("changeView", "agendaWeek");
+            $("#calendar, #orderAdd-calendar").fullCalendar("changeView", "agendaWeek");
             //dont show the week button, instead show the month button
-            console.log(switchToWeekButton)
-            switchToWeekButton.hide();
-            switchToMonthButton.show();
-            console.log("Switch to Week Button:", switchToWeekButton.is(":visible"));
-            console.log("Switch to Month Button:", switchToMonthButton.is(":visible"));
+            $(".fc-week-view-button").hide();
+            $(".fc-month-view-button").show();
         });
 
         switchToMonthButton.on("click", function () {
-            $("#calendar").fullCalendar("changeView", "month");
-            $("#orderAdd-calendar").fullCalendar("changeView", "month");
+            $("#calendar, #orderAdd-calendar").fullCalendar("changeView", "month");
             //dont show the month button, instead show the week button
-            switchToMonthButton.hide();
-            switchToWeekButton.show();
-            console.log("Switch to Week Button:", switchToWeekButton.is(":visible"));
-            console.log("Switch to Month Button:", switchToMonthButton.is(":visible"));
+            $(".fc-month-view-button").hide();
+            $(".fc-week-view-button").show();
         });
 
-        $(".fc-toolbar .fc-left").append(switchToWeekButton);
-        $(".fc-toolbar .fc-left").append(switchToMonthButton);
+        $(".fc-toolbar .fc-left").append(switchToWeekButton).append(switchToMonthButton);
     }
 
 

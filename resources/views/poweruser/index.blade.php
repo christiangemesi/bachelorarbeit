@@ -180,7 +180,7 @@
 
                                         <div id="pu_orderAdd-time-select">
                                             <label for="pu_orderAdd-dropdown-von">Von:</label>
-                                            <select id="pu_orderAdd-dropdown-von">
+                                            <select id="pu_orderAdd-dropdown-von" name="pu_orderAdd-dropdown-von">
                                                 <option value="pu_orderAdd-dropdown-von-title" disabled selected>Startzeit</option>
                                                 <option value="08:00">08:00</option>
                                                 <option value="08:30">08:30</option>
@@ -206,7 +206,7 @@
                                             </select>
 
                                             <label for="pu_orderAdd-dropdown-bis">Bis:</label>
-                                            <select id="pu_orderAdd-dropdown-bis">
+                                            <select id="pu_orderAdd-dropdown-bis" name="pu_orderAdd-dropdown-bis">
                                                 <option value="pu_orderAdd-dropdown-bis-title" disabled selected>Endzeit</option>
                                                 <option value="08:00">08:00</option>
                                                 <option value="08:30">08:30</option>
@@ -406,9 +406,9 @@
                                             <div class="alert alert-info display-none" id="info-calendar-message-box"></div>
                                         </div>
 
-                                        <div id="pu_themebox-time-select">
+                                        <div id="pu_themebox-time-select" >
                                             <label for="pu_dropdown-von">Von:</label>
-                                            <select id="pu_dropdown-von">
+                                            <select id="pu_dropdown-von" name="pu_dropdown-von">
                                                 <option value="pu_dropdown-von-title2" disabled selected>Startzeit</option>
                                                 <option value="08:00">08:00</option>
                                                 <option value="08:30">08:30</option>
@@ -434,7 +434,7 @@
                                             </select>
 
                                             <label for="pu_dropdown-bis">Bis:</label>
-                                            <select id="pu_dropdown-bis">
+                                            <select id="pu_dropdown-bis" name="pu_dropdown-bis">
                                                 <option value="pu_dropdown-bis-title" disabled selected>Endzeit</option>
                                                 <option value="08:00">08:00</option>
                                                 <option value="08:30">08:30</option>

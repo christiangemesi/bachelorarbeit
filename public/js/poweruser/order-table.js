@@ -148,7 +148,6 @@ $(document).ready(function () {
     });
 
 
-
     /**
      * get order data for edit modal
      */
@@ -158,6 +157,7 @@ $(document).ready(function () {
             type: 'POST',
             data: {order_id: $(this).val()},
             success: function (response) {
+                selectedThemeboxInfo = response["themebox"]
 
                 bindEndData();
                 addBlockDateFromToday();
@@ -167,7 +167,6 @@ $(document).ready(function () {
                 blockPreviousFiveSundaysInCalendar();
                 loadViewChangeButtons();
 
-                console.log(response)
 
                 $("#calendar").fullCalendar("render");
                 $("#calendar").fullCalendar("removeEvents");
@@ -187,17 +186,14 @@ $(document).ready(function () {
                 var isHourlyOrder = response["themebox"]["fk_order_type"] === 1;
 
                 if (isHourlyOrder) {
-                    console.log("hourly order")
                     $("#pu_themebox-time-select2").show();
                     $("#end-date_box").hide();
 
-                    console.log(formatTimeWithoutDate(response["order"]["startdate"]))
                     //select the option in the dropdown that matches the start time
-                    $('#pu_dropdown-von option[value="' + formatTimeWithoutDate(response["order"]["startdate"]) +'"]').prop("selected", true);
-                    $('#pu_dropdown-bis option[value="' + formatTimeWithoutDate(response["order"]["enddate"]) +'"]').prop("selected", true);
+                    $('#pu_dropdown-von option[value="' + formatTimeWithoutDate(response["order"]["startdate"]) + '"]').prop("selected", true);
+                    $('#pu_dropdown-bis option[value="' + formatTimeWithoutDate(response["order"]["enddate"]) + '"]').prop("selected", true);
                     $("#order-id").val(response["order"]["pk_hourly_order"]);
                 } else {
-                    console.log("daily order")
                     $("#pu_themebox-time-select2").hide();
                     $("#end-date_box").show();
                     $("#order-id").val(response["order"]["pk_order"]);
@@ -261,28 +257,23 @@ $(document).ready(function () {
                 old_startdate = $("#start-date").val();
                 old_enddate = $("#end-date").val();
 
-                console.log("orders: ", orders);
-
                 $.each(orders, function (index, value) {
-                    console.log("value: ", value);
                     if (value["pk_order"] == $("#order-id").val()) {
-                        console.log("valuepkorer: " + value["pk_order"])
                         $('#calendar').fullCalendar("renderEvent", {
                             title: "",
-                            start:  addTime(value["startdate"]),
+                            start: addTime(value["startdate"]),
                             end: addEndTime(value["enddate"]),
                             rendering: "background",
                             className: "new_event",
                             color: "#04B404"
                         }, true);
                         $('#calendar').fullCalendar('gotoDate', addTime(value["startdate"]));
-                    } else if(value["pk_hourly_order"] == $("#order-id").val()) {
-                        console.log("valuepk_hourly_order: " +value["pk_hourly_order"])
+                    } else if (value["pk_hourly_order"] == $("#order-id").val()) {
                         var startDateTime = value["startdate"] + "-00:00";
                         var endDateTime = value["enddate"] + "-00:00";
                         $('#calendar').fullCalendar("renderEvent", {
                             title: "",
-                            start:startDateTime,
+                            start: startDateTime,
                             end: endDateTime,
                             rendering: "background",
                             className: "new_event",
@@ -290,12 +281,10 @@ $(document).ready(function () {
                         }, true);
                         $('#calendar').fullCalendar('gotoDate', startDateTime);
                     } else {
-                        console.log("else")
-
                         $('#calendar').fullCalendar("renderEvent", {
                             title: "",
-                            start: !isHourlyOrder ? addBlockStartdate(value["startdate"]): value["startdate"],
-                            end: !isHourlyOrder ? addBlockEnddate(value["enddate"]): value["enddate"],
+                            start: !isHourlyOrder ? addBlockStartdate(value["startdate"]) : value["startdate"],
+                            end: !isHourlyOrder ? addBlockEnddate(value["enddate"]) : value["enddate"],
                             rendering: "background",
                             className: "block"
                         }, true);
@@ -400,7 +389,19 @@ $(document).ready(function () {
         onSelect: function (date) {
             bindEndData();
 
-            updateEvent();
+            if (selectedThemeboxInfo.fk_order_type === 1) { // hourly order
+                removeEvent();
+
+                //reset the dropdowns
+                $("#pu_dropdown-von").val($("#pu_dropdown-von option:first").val());
+                $("#pu_dropdown-bis").val($("#pu_dropdown-bis option:first").val());
+                //disable the dropdown bis
+                $("#pu_dropdown-bis").prop("disabled", true);
+                //goto selected date
+                $("#calendar").fullCalendar('gotoDate', $("#start-date").datepicker('getDate'));
+            } else {
+                updateEvent();
+            }
         }
     });
 
@@ -410,7 +411,9 @@ $(document).ready(function () {
     $("#end-date").datepicker({
         dateFormat: "dd.mm.yy",
         onSelect: function (date) {
-            updateEvent();
+            if (selectedThemeboxInfo.fk_order_type === 2) { // daily order
+                updateEvent();
+            }
         }
     });
 
@@ -424,7 +427,7 @@ $(document).ready(function () {
 
             if (selectedThemeboxInfo.fk_order_type === 1) { // hourly order
 
-                removeEvent();
+                removeEventOrderAdd();
 
                 //reset the dropdowns
                 $("#pu_orderAdd-dropdown-von").val($("#pu_orderAdd-dropdown-von option:first").val());
@@ -683,7 +686,6 @@ $(document).ready(function () {
                     return event.className == "new_event";
                 });
                 response["orderData"].forEach(function (element) {
-                    console.log(element)
                     $('#orderAdd-calendar').fullCalendar("renderEvent", {
                         title: "",
                         start: addTime(element["order_startdate"]),
@@ -807,7 +809,6 @@ $(document).ready(function () {
                     return event.className == "newOrder";
                 });
 
-                console.log(response["themebox"])
 
                 if (response["themebox"]["fk_order_type"] === 1) { // Hourly order
                     //disable the 2nd option from $("#thekre-dropdown")
@@ -836,8 +837,6 @@ $(document).ready(function () {
 
                 response["orderData"].forEach(function (element) {
                     var isHourlyOrder = response["themebox"]["fk_order_type"] === 1;
-                    console.log(isHourlyOrder);
-                    console.log(element)
                     $('#orderAdd-calendar').fullCalendar("renderEvent", {
                         title: "",
                         start: !isHourlyOrder ? addTime(element["order_startdate"]) : element["order_startdate"],
@@ -858,7 +857,7 @@ $(document).ready(function () {
         $("#pu_orderAdd-dropdown-bis").prop("disabled", false);
         //set the first value
         $("#pu_orderAdd-dropdown-bis").val($("#pu_orderAdd-dropdown-bis option:first").val());
-        removeEvent();
+        removeEventOrderAdd();
     });
 
     $("#pu_orderAdd-dropdown-bis").change(function () {
@@ -903,12 +902,22 @@ $(document).ready(function () {
         $("#orderAdd-delivery").prop("disabled", false);
     }
 
-    function removeEvent() {
+    function removeEventOrderAdd() {
         $("#orderAdd-calendar").fullCalendar('removeEvents', function (event) {
             return event.className == "newOrder";
         });
 
         $("#orderAdd-calendar").fullCalendar('removeEvents', function (event) {
+            return event.className == "new_event";
+        });
+    }
+
+    function removeEvent() {
+        $("#calendar").fullCalendar('removeEvents', function (event) {
+            return event.className == "newOrder";
+        });
+
+        $("#calendar").fullCalendar('removeEvents', function (event) {
             return event.className == "new_event";
         });
     }

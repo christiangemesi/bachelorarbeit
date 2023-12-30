@@ -13,7 +13,7 @@ function addEvent() {
             return event.className == "new_event";
         });
 
-        createEvent(formatCalendarDate($("#start-date").val()), formatCalendarEndDate($("#end-date").val()));
+        createEvent(formatCalendarDate($("#start-date").val()), formatCalendarEndDate($("#end-date").val()), false);
         $("#button-save-order-change").prop('disabled', false);
     } else {
         errorHandling("Ihre Auswahl steht in Konflikt mit einem anderen Bestelltermin", "#error-calendar-message-box");
@@ -36,18 +36,20 @@ function updateEvent() {
         var endDateTime = $("#end-date").val() + " " + endTime;
     }
 
+
     $("#calendar").fullCalendar('removeEvents', function (event) {
         return event.className == "newOrder";
     });
+
 
     $("#calendar").fullCalendar('removeEvents', function (event) {
         return event.className == "new_event";
     });
 
     if (isHourly) {
-        createEvent(formatCalendarDateTimeCompare(startDateTime), formatCalendarDateTimeCompare(endDateTime));
+        createEvent(formatCalendarDateTimeCompare(startDateTime), formatCalendarDateTimeCompare(endDateTime), isHourly);
     } else {
-        createEvent(formatCalendarDate($("#start-date").val()), formatCalendarEndDate($("#end-date").val()));
+        createEvent(formatCalendarDate($("#start-date").val()), formatCalendarEndDate($("#end-date").val()), isHourly);
     }
 
     $("#button-save-order-change").prop('disabled', false);
@@ -158,14 +160,15 @@ function formatCalendarEndDate(date) {
  * create calendar event
  * @param start
  * @param end
+ * @param isHourly
  */
-function createEvent(start, end) {
+function createEvent(start, end, isHourly) {
     $("#calendar").fullCalendar('renderEvent',
         {
             title: "",
             start: start,
             end: end,
-            rendering: "background",
+            rendering: !isHourly ? "background": "",
             className: "newOrder",
             color: "#04B404"
         },

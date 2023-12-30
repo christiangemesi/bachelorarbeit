@@ -193,8 +193,8 @@ $(document).ready(function () {
 
                     console.log(formatTimeWithoutDate(response["order"]["startdate"]))
                     //select the option in the dropdown that matches the start time
-                    $('#pu_dropdown-von2 option[value="' + formatTimeWithoutDate(response["order"]["startdate"]) +'"]').prop("selected", true);
-                    $('#pu_dropdown-bis2 option[value="' + formatTimeWithoutDate(response["order"]["enddate"]) +'"]').prop("selected", true);
+                    $('#pu_dropdown-von option[value="' + formatTimeWithoutDate(response["order"]["startdate"]) +'"]').prop("selected", true);
+                    $('#pu_dropdown-bis option[value="' + formatTimeWithoutDate(response["order"]["enddate"]) +'"]').prop("selected", true);
                     $("#order-id").val(response["order"]["pk_hourly_order"]);
                 } else {
                     console.log("daily order")
@@ -347,8 +347,8 @@ $(document).ready(function () {
             themeboxId: parseInt($('#orderAdd-thembox').val()),
             orderData: $('#order-add-form').serializeArray(),
             orderType: selectedThemeboxInfo.fk_order_type,
-            startTime: $("#pu_dropdown-von").val(),
-            endTime: $("#pu_dropdown-bis").val()
+            startTime: $("#pu_orderAdd-dropdown-von").val(),
+            endTime: $("#pu_orderAdd-dropdown-bis").val()
         }
         $.ajax({
             url: "poweruser/addOrder",
@@ -427,10 +427,10 @@ $(document).ready(function () {
                 removeEvent();
 
                 //reset the dropdowns
-                $("#pu_dropdown-von").val($("#pu_dropdown-von option:first").val());
-                $("#pu_dropdown-bis").val($("#pu_dropdown-bis option:first").val());
+                $("#pu_orderAdd-dropdown-von").val($("#pu_orderAdd-dropdown-von option:first").val());
+                $("#pu_orderAdd-dropdown-bis").val($("#pu_orderAdd-dropdown-bis option:first").val());
                 //disable the dropdown bis
-                $("#pu_dropdown-bis").prop("disabled", true);
+                $("#pu_orderAdd-dropdown-bis").prop("disabled", true);
                 //goto selected date
                 $("#orderAdd-calendar").fullCalendar('gotoDate', $("#orderAdd-start-date").datepicker('getDate'));
             } else {
@@ -453,21 +453,21 @@ $(document).ready(function () {
 
     function setAppropriateEndTimes() {
         //get the selected start time
-        var selectedStartTime = $("#pu_dropdown-von").val();
+        var selectedStartTime = $("#pu_orderAdd-dropdown-von").val();
         //remove all options from the dropdown
-        $("#pu_dropdown-bis").empty();
+        $("#pu_orderAdd-dropdown-bis").empty();
         //add all the values from 08:00 until 18:00 in 30-minute intervals to dropdown except the selected start time
         var maxTime = '18:00';
         var currentTime = selectedStartTime;
         //add the option called "Endzeit" disabled
-        $("#pu_dropdown-bis").append('<option value="" disabled selected>Endzeit</option>');
+        $("#pu_orderAdd-dropdown-bis").append('<option value="" disabled selected>Endzeit</option>');
 
         while (currentTime <= maxTime) {
-            $("#pu_dropdown-bis").append('<option value="' + currentTime + '">' + currentTime + '</option>');
+            $("#pu_orderAdd-dropdown-bis").append('<option value="' + currentTime + '">' + currentTime + '</option>');
             currentTime = addMinutesToTime(currentTime, 30);
         }
         //remove the selectedTime from the dropdown
-        $("#pu_dropdown-bis option[value='" + selectedStartTime + "']").remove();
+        $("#pu_orderAdd-dropdown-bis option[value='" + selectedStartTime + "']").remove();
     }
 
     function addMinutesToTime(time, minutes) {
@@ -619,7 +619,7 @@ $(document).ready(function () {
             //set the end date to the same as the start date
             $("#end-date").datepicker('setDate', $("#start-date").datepicker('getDate'));
             //enable the dropdowns
-            $("#pu_dropdown-von2").prop("disabled", false);
+            $("#pu_dropdown-von").prop("disabled", false);
         }
     }
 
@@ -633,7 +633,7 @@ $(document).ready(function () {
             //set the end date to the same as the start date
             $("#orderAdd-end-date").datepicker('setDate', $("#orderAdd-start-date").datepicker('getDate'));
             //enable the dropdowns
-            $("#pu_dropdown-von").prop("disabled", false);
+            $("#pu_orderAdd-dropdown-von").prop("disabled", false);
         }
     }
 
@@ -853,8 +853,19 @@ $(document).ready(function () {
 
     });
 
-    $("#pu_dropdown-von").change(function () {
+    $("#pu_orderAdd-dropdown-von").change(function () {
         setAppropriateEndTimes();
+        $("#pu_orderAdd-dropdown-bis").prop("disabled", false);
+        //set the first value
+        $("#pu_orderAdd-dropdown-bis").val($("#pu_orderAdd-dropdown-bis option:first").val());
+        removeEvent();
+    });
+
+    $("#pu_orderAdd-dropdown-bis").change(function () {
+        orderAddUpdateEvent();
+    });
+
+    $("#pu_dropdown-von").change(function () {
         $("#pu_dropdown-bis").prop("disabled", false);
         //set the first value
         $("#pu_dropdown-bis").val($("#pu_dropdown-bis option:first").val());
@@ -862,17 +873,6 @@ $(document).ready(function () {
     });
 
     $("#pu_dropdown-bis").change(function () {
-        orderAddUpdateEvent();
-    });
-
-    $("#pu_dropdown-von2").change(function () {
-        $("#pu_dropdown-bis2").prop("disabled", false);
-        //set the first value
-        $("#pu_dropdown-bis2").val($("#pu_dropdown-bis2 option:first").val());
-        removeEvent();
-    });
-
-    $("#pu_dropdown-bis2").change(function () {
         updateEvent();
     });
 
@@ -880,8 +880,8 @@ $(document).ready(function () {
     function disableAllOptions() {
         $("#orderAdd-start-date").prop("disabled", true);
         $("#orderAdd-end-date").prop("disabled", true);
-        $("#pu_dropdown-von").prop("disabled", true);
-        $("#pu_dropdown-bis").prop("disabled", true);
+        $("#pu_orderAdd-dropdown-von").prop("disabled", true);
+        $("#pu_orderAdd-dropdown-bis").prop("disabled", true);
         $("#orderAdd-nachname").prop("disabled", true);
         $("#orderAdd-name").prop("disabled", true);
         $("#orderAdd-email").prop("disabled", true);
@@ -893,8 +893,8 @@ $(document).ready(function () {
     function enableAllOptions() {
         $("#orderAdd-start-date").prop("disabled", false);
         $("#orderAdd-end-date").prop("disabled", false);
-        $("#pu_dropdown-von").prop("disabled", false);
-        $("#pu_dropdown-bis").prop("disabled", false);
+        $("#pu_orderAdd-dropdown-von").prop("disabled", false);
+        $("#pu_orderAdd-dropdown-bis").prop("disabled", false);
         $("#orderAdd-nachname").prop("disabled", false);
         $("#orderAdd-name").prop("disabled", false);
         $("#orderAdd-email").prop("disabled", false);
@@ -915,21 +915,21 @@ $(document).ready(function () {
 
     function loadHourlyView(order_type, orders) {
         //reset the selection so that the option is null
-        $("#pu_dropdown-von").val($("#pu_dropdown-von option:first").val());
-        $("#pu_dropdown-bis").val($("#pu_dropdown-bis option:first").val());
+        $("#pu_orderAdd-dropdown-von").val($("#pu_orderAdd-dropdown-von option:first").val());
+        $("#pu_orderAdd-dropdown-bis").val($("#pu_orderAdd-dropdown-bis option:first").val());
         if (order_type !== 1) {
             $("#pu_themebox-datepicker-bis").show();
-            $("#pu_themebox-time-select").hide();
+            $("#pu_orderAdd-time-select").hide();
             return;
         }
 
         //hide themebox-datepicker-bis
         $("#pu_themebox-datepicker-bis").hide();
 
-        $("#pu_themebox-time-select").show();
+        $("#pu_orderAdd-time-select").show();
         //the selection should be disabled by default until the dates are chosen
-        $("#pu_dropdown-von").prop("disabled", true);
-        $("#pu_dropdown-bis").prop("disabled", true);
+        $("#pu_orderAdd-dropdown-von").prop("disabled", true);
+        $("#pu_orderAdd-dropdown-bis").prop("disabled", true);
     }
 
     $(".status-update").on("change", function () {

@@ -28,8 +28,8 @@ function updateEvent() {
 
     errorHandling("ACHTUNG! Diese Änderung kann nicht rückgängig gemacht werden!", "#info-calendar-message-box");
 
-    var startTime = $('#pu_dropdown-von2').val();
-    var endTime = $('#pu_dropdown-bis2').val();
+    var startTime = $('#pu_dropdown-von').val();
+    var endTime = $('#pu_dropdown-bis').val();
     var isHourly = startTime !== null || endTime !== null;
     if (isHourly) {
         var startDateTime = $("#start-date").val() + " " + startTime;
@@ -55,8 +55,8 @@ function updateEvent() {
 
 function orderAddUpdateEvent() {
 
-    var startTime = $('#pu_dropdown-von').val();
-    var endTime = $('#pu_dropdown-bis').val();
+    var startTime = $('#pu_orderAdd-dropdown-von').val();
+    var endTime = $('#pu_orderAdd-dropdown-bis').val();
     var isHourly = startTime !== null || endTime !== null;
 
     console.log(startTime);

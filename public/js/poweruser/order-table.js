@@ -401,7 +401,7 @@ $(document).ready(function () {
                 $("#pu_dropdown-bis").prop("disabled", true);
                 //goto selected date
                 $("#calendar").fullCalendar('gotoDate', $("#start-date").datepicker('getDate'));
-            } else {
+            } else { //daily order
                 updateEvent();
             }
         }
@@ -758,8 +758,6 @@ $(document).ready(function () {
 
         $(".fc-toolbar .fc-left").append(switchToWeekButton).append(switchToMonthButton);
     }
-
-
 
 
     $('#orderAdd-delivery').click(function () {

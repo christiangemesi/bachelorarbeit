@@ -185,7 +185,7 @@ $(document).ready(function () {
                 var isHourlyOrder = response["themebox"]["fk_order_type"] === 1;
 
                 if (isHourlyOrder) {
-                    $("#pu_themebox-time-select2").show();
+                    $("#pu_themebox-time-select").show();
                     $("#end-date_box").hide();
 
                     //select the option in the dropdown that matches the start time
@@ -193,7 +193,7 @@ $(document).ready(function () {
                     $('#pu_dropdown-bis option[value="' + formatTimeWithoutDate(response["order"]["enddate"]) + '"]').prop("selected", true);
                     $("#order-id").val(response["order"]["pk_hourly_order"]);
                 } else {
-                    $("#pu_themebox-time-select2").hide();
+                    $("#pu_themebox-time-select").hide();
                     $("#end-date_box").show();
                     $("#order-id").val(response["order"]["pk_order"]);
                 }
@@ -314,6 +314,7 @@ $(document).ready(function () {
      * save order changes
      */
     $('#button-save-order-change').click(function () {
+        console.log($('#order-edit-form').serializeArray());
         $.ajax({
             url: "poweruser/updateOrder",
             type: 'POST',

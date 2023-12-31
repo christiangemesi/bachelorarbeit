@@ -533,17 +533,37 @@ class AdminController extends Controller
         $order_id = $request_data[1];
         $new_state_id = $request_data[0];
         $status_ready = 0;
-        $order = Order::find($order_id);
 
-        try {
-            if ("Bereit" == Status::find($new_state_id)->name && 1 == $order["fk_delivery"]) {
-                $this->sendEmail($order_id);
-                $status_ready = 1;
+        $isHourlyOrder = false;
+        if(Order::find($order_id)){
+            $order = Order::find($order_id);
+        } else {
+            $order = HourlyOrder::find($order_id);
+            $isHourlyOrder = true;
+        }
+
+        if(!$isHourlyOrder){
+            try {
+                if ("Bereit" == Status::find($new_state_id)->name && (1 == $order["fk_delivery"])){
+                    $this->sendEmail($order_id);
+                    $status_ready = 1;
+                }
+                Order::find($order_id)->update(['fk_status' => $new_state_id]);
+                return response()->json($status_ready, 200);
+            } catch (Exception $e) {
+                return response()->json($e, 500);
             }
-            Order::find($order_id)->update(['fk_status' => $new_state_id]);
-            return response()->json($status_ready, 200);
-        } catch (Exception $e) {
-            return response()->json($e, 500);
+        } else {
+            try {
+                if ("Bereit" == Status::find($new_state_id)->name){
+                    //$this->sendEmail($order_id); // dont send email for hourly orders
+                    $status_ready = 1;
+                }
+                HourlyOrder::find($order_id)->update(['fk_status' => $new_state_id]);
+                return response()->json($status_ready, 200);
+            } catch (Exception $e) {
+                return response()->json($e, 500);
+            }
         }
     }
 

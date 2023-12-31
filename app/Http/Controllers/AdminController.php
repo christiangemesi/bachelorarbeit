@@ -641,6 +641,7 @@ class AdminController extends Controller
     {
         try {
             $orders = Order::where('startdate', 'like', '%' . $request->year . '%')->get();
+            $hourly_orders = HourlyOrder::where('startdate', 'like', '%' . $request->year . '%')->get();
             $themeboxes = Themebox::get();
 
             $themeboxes_tmp = array();
@@ -648,6 +649,11 @@ class AdminController extends Controller
                 $themeboxes_tmp[$themebox->title] = 0;
                 foreach ($orders as $order) {
                     if ($order->fk_themebox == $themebox->pk_themebox) {
+                        $themeboxes_tmp[$themebox->title] = $themeboxes_tmp[$themebox->title] + 1;
+                    }
+                }
+                foreach ($hourly_orders as $hourly_order) {
+                    if ($hourly_order->fk_themebox == $themebox->pk_themebox) {
                         $themeboxes_tmp[$themebox->title] = $themeboxes_tmp[$themebox->title] + 1;
                     }
                 }

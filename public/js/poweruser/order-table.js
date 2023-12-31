@@ -456,7 +456,7 @@ $(document).ready(function () {
         }
     });
 
-    function setAppropriateEndTimes() {
+    function setAppropriateEndTimesOrderAdd(){
         //get the selected start time
         var selectedStartTime = $("#pu_orderAdd-dropdown-von").val();
         //remove all options from the dropdown
@@ -473,6 +473,25 @@ $(document).ready(function () {
         }
         //remove the selectedTime from the dropdown
         $("#pu_orderAdd-dropdown-bis option[value='" + selectedStartTime + "']").remove();
+    }
+
+    function setAppropriateEndTimes() {
+        //get the selected start time
+        var selectedStartTime = $("#pu_dropdown-von").val();
+        //remove all options from the dropdown
+        $("#pu_dropdown-bis").empty();
+        //add all the values from 08:00 until 18:00 in 30-minute intervals to dropdown except the selected start time
+        var maxTime = '18:00';
+        var currentTime = selectedStartTime;
+        //add the option called "Endzeit" disabled
+        $("#pu_dropdown-bis").append('<option value="" disabled selected>Endzeit</option>');
+
+        while (currentTime <= maxTime) {
+            $("#pu_dropdown-bis").append('<option value="' + currentTime + '">' + currentTime + '</option>');
+            currentTime = addMinutesToTime(currentTime, 30);
+        }
+        //remove the selectedTime from the dropdown
+        $("#pu_dropdown-bis option[value='" + selectedStartTime + "']").remove();
     }
 
     function addMinutesToTime(time, minutes) {
@@ -853,7 +872,7 @@ $(document).ready(function () {
     });
 
     $("#pu_orderAdd-dropdown-von").change(function () {
-        setAppropriateEndTimes();
+        setAppropriateEndTimesOrderAdd();
         $("#pu_orderAdd-dropdown-bis").prop("disabled", false);
         //set the first value
         $("#pu_orderAdd-dropdown-bis").val($("#pu_orderAdd-dropdown-bis option:first").val());
@@ -865,6 +884,7 @@ $(document).ready(function () {
     });
 
     $("#pu_dropdown-von").change(function () {
+        setAppropriateEndTimes();
         $("#pu_dropdown-bis").prop("disabled", false);
         //set the first value
         $("#pu_dropdown-bis").val($("#pu_dropdown-bis option:first").val());

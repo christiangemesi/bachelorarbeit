@@ -441,21 +441,56 @@ class UserController extends Controller
      */
     public function updateOrderDates(Request $request)
     {
-        try {
-            Order::find($request->order_data[0]["value"])->update(
-                ['startdate' => $this->formatDate($request->order_data[1]["value"]),
-                    'enddate' => $this->formatDate($request->order_data[2]["value"]),
-                    'name' => $request->order_data[3]["value"],
-                    'surname' => $request->order_data[4]["value"],
-                    'email' => $request->order_data[5]["value"],
-                    'phonenumber' => $request->order_data[6]["value"],
-                    // 'nebisusernumber' => $request->order_data[7]["value"]
-                ]
-            );
+        //error log each value from path with its index
+        for($i = 0; $i < count($request->order_data); $i++){
+            error_log($i . " " . $request->order_data[$i]["value"]);
+        }
 
-            return response()->json([], 200);
-        } catch (Exception $e) {
-            return response()->json([], 500);
+
+
+        $orderId =$request->order_data[0]["value"];
+
+        $isHourlyOrder = false;
+        $order = Order::find($orderId);
+        if($order == null){
+            $order = HourlyOrder::find($orderId);
+            $isHourlyOrder = true;
+        }
+
+        if(!$isHourlyOrder) {
+            try {
+                Order::find($request->order_data[0]["value"])->update(
+                    ['startdate' => $this->formatDate($request->order_data[1]["value"]),
+                        'enddate' => $this->formatDate($request->order_data[2]["value"]),
+                        'name' => $request->order_data[3]["value"],
+                        'surname' => $request->order_data[4]["value"],
+                        'email' => $request->order_data[5]["value"],
+                        'phonenumber' => $request->order_data[6]["value"],
+                        // 'nebisusernumber' => $request->order_data[7]["value"]
+                    ]
+                );
+
+                return response()->json([], 200);
+            } catch (Exception $e) {
+                return response()->json([], 500);
+            }
+        } else {
+            try {
+                HourlyOrder::find($request->order_data[0]["value"])->update(
+                    ['startdate' => $this->concatenateDatetime($request->order_data[1]["value"], $request->order_data[3]["value"]),
+                        'enddate' => $this->concatenateDatetime($request->order_data[2]["value"], $request->order_data[4]["value"]),
+                        'name' => $request->order_data[5]["value"],
+                        'surname' => $request->order_data[6]["value"],
+                        'email' => $request->order_data[7]["value"],
+                        'phonenumber' => $request->order_data[8]["value"],
+                        // 'nebisusernumber' => $request->order_data[9]["value"]
+                    ]
+                );
+
+                return response()->json([], 200);
+            } catch (Exception $e) {
+                return response()->json([], 500);
+            }
         }
     }
 

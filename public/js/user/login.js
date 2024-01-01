@@ -218,6 +218,7 @@ $(document).ready(function () {
                 loadViewChangeButtons();
             },
             error: function (xhr, status, error) {
+                console.log(xhr);
                 $('#login-user-error-message-box').css('display', 'block');
                 $('#login-user-error-message-box').html('Die Bestellung konnte nicht gefunden werden. Bitte überprüfen Sie Nachname der Bestellperson sowie Bestellnummer. <br>Ansonsten kontaktieren Sie die Campusbibliothek unter <a href="mailto:bibliothek.windisch@fhnw.ch">bibliothek.windisch@fhnw.ch</a> ');
             }

@@ -138,11 +138,12 @@ class UserController extends Controller
      * create new order
      * @param Request $request
      */
-    public function createOrder(Request $request){
+    public function createOrder(Request $request)
+    {
         //set the order_type where as 1 == hourly order and 2 == daily order
         $order_type = $request->selectedVon || $request->selectedBis ? 1 : 2;
 
-        if($order_type == 1){ //hourly order
+        if ($order_type == 1) { //hourly order
             $startDatetime = $this->concatenateDatetime($request->startdate, $request->selectedVon);
 
             $endDatetime = $this->concatenateDatetime($request->enddate, $request->selectedBis);
@@ -387,7 +388,13 @@ class UserController extends Controller
      */
     public function login(Request $request)
     {
-        $order = Order::where('name', $request->name)->where('ordernumber', '=', $request->ordernumber)->get();
+        error_log($request);
+
+        $order = HourlyOrder::where('ordernumber', $request->ordernumber)->where('name', $request->name)->get();
+
+        if (count($order) == 0) {
+            $order = Order::where('ordernumber', $request->ordernumber)->where('name', $request->name)->get();
+        }
 
         try {
             if (count($order) != 0) {
@@ -498,7 +505,6 @@ class UserController extends Controller
 
         return response()->json(['data' => $data]);
     }
-
 
 
 }

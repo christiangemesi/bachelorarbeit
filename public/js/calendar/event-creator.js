@@ -75,7 +75,7 @@ function userUpdateEvent() {
 
 
     $("#calendar").fullCalendar('removeEvents', function (event) {
-        return event.className == "new_event";
+        return event.className == "myOrder";
     });
 
     if (isHourly) {

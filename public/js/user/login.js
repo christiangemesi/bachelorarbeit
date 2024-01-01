@@ -111,7 +111,7 @@ $(document).ready(function () {
 
                 var isHourlyOrder = response["themebox"]["fk_order_type"] === 1;
                 if (isHourlyOrder) {
-                    $("#pu_themebox-time-select").show();
+                    $("#themebox-time-select").show();
                     $("#end-date_box").hide();
 
                     //select the option in the dropdown that matches the start time
@@ -119,7 +119,7 @@ $(document).ready(function () {
                     $('#dropdown-bis option[value="' + formatTimeWithoutDate(response["order"][0]["enddate"]) + '"]').prop("selected", true);
                     $("#order-id").val(response["order"][0]["pk_hourly_order"]);
                 } else {
-                    $("#pu_themebox-time-select").hide();
+                    $("#themebox-time-select").hide();
                     $("#end-date_box").show();
                     $("#order-id").val(response["order"][0]["pk_order"]);
                 }

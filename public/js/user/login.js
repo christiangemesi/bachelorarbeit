@@ -4,6 +4,8 @@ $(document).ready(function () {
     var old_enddate;
     var listOfBlockedDates = Array();
 
+    var selectedThemeboxInfo = []
+
 
     $('#start-date').keydown(function () {
         return false;
@@ -84,6 +86,12 @@ $(document).ready(function () {
             type: 'POST',
             data: {name: $('#name').val(), ordernumber: $('#ordernumber').val()},
             success: function (response) {
+                selectedThemeboxInfo = response["themebox"]
+
+                bindEndData();
+                addBlockDateFromToday();
+                loadViewChangeButtons();
+
                 $("#calendar").fullCalendar("render");
                 $("#calendar").fullCalendar("removeEvents");
                 $("#calendar").fullCalendar('removeEvents', function (event) {
@@ -100,6 +108,22 @@ $(document).ready(function () {
                     }
                 );
 
+
+                var isHourlyOrder = response["themebox"]["fk_order_type"] === 1;
+                if (isHourlyOrder) {
+                    $("#pu_themebox-time-select").show();
+                    $("#end-date_box").hide();
+
+                    //select the option in the dropdown that matches the start time
+                    $('#pu_dropdown-von option[value="' + formatTimeWithoutDate(response["order"][0]["startdate"]) + '"]').prop("selected", true);
+                    $('#pu_dropdown-bis option[value="' + formatTimeWithoutDate(response["order"][0]["enddate"]) + '"]').prop("selected", true);
+                    $("#order-id").val(response["order"][0]["pk_hourly_order"]);
+                } else {
+                    $("#pu_themebox-time-select").hide();
+                    $("#end-date_box").show();
+                    $("#order-id").val(response["order"][0]["pk_order"]);
+                }
+
                 var editable = false;
                 orders = "";
 
@@ -107,11 +131,10 @@ $(document).ready(function () {
                     editable = true;
                 }
 
-                $("#order-id").val(response["order"][0]["pk_order"]);
                 $("#ordernumber-edit").val($('#ordernumber').val());
                 $("#themebox-title").val(response["themebox"]["title"]);
-                $("#start-date").val(formatDate(response["order"][0]["startdate"])).prop('disabled', editable);
-                $("#end-date").val(formatDate(response["order"][0]["enddate"])).prop('disabled', editable);
+                $("#start-date").val(formatDateWithoutTime(response["order"][0]["startdate"])).prop('disabled', editable);
+                $("#end-date").val(formatDateWithoutTime(response["order"][0]["enddate"])).prop('disabled', editable);
                 $("#datecreated-login").val(formatDate(response["order"][0]["datecreated"]));
 
                 $("#status").val(response["status"]["name"]);
@@ -193,6 +216,8 @@ $(document).ready(function () {
                  * Renders calendar events
                  */
                 $.each(orders, function (index, value) {
+
+
                     if (value["pk_order"] == $("#order-id").val()) {
                         $('#calendar').fullCalendar("renderEvent", {
                             title: "",
@@ -203,22 +228,33 @@ $(document).ready(function () {
                             color: "#04B404"
                         }, true);
                         $('#calendar').fullCalendar('gotoDate', addTime(value["startdate"]));
-                    } else {
+                    } else if (value["pk_hourly_order"] == $("#order-id").val()) {
+                        console.log("hourly order")
+                        var startDateTime = value["startdate"] + "-00:00";
+                        var endDateTime = value["enddate"] + "-00:00";
                         $('#calendar').fullCalendar("renderEvent", {
                             title: "",
-                            start: addBlockStartdate(value["startdate"]),
-                            end: addBlockEnddate(value["enddate"]),
-                            rendering: "background",
+                            start: startDateTime,
+                            end: endDateTime,
+                            rendering: "",
+                            className: "myOrder",
+                            color: "#04B404"
+                        }, true);
+                        $('#calendar').fullCalendar('gotoDate', startDateTime);
+                    } else { // render blocked events
+                        var startDateTime = value["startdate"] + "-00:00";
+                        var endDateTime = value["enddate"] + "-00:00";
+                        $('#calendar').fullCalendar("renderEvent", {
+                            title: "",
+                            start: !isHourlyOrder ? addBlockStartdate(value["startdate"]) : startDateTime,
+                            end: !isHourlyOrder ? addBlockEnddate(value["enddate"]) : endDateTime,
+                            rendering: !isHourlyOrder ? "background" : "",
                             className: "block"
                         }, true);
                     }
                 });
-                bindEndData();
-                addBlockDateFromToday();
-                loadViewChangeButtons();
             },
             error: function (xhr, status, error) {
-                console.log(xhr);
                 $('#login-user-error-message-box').css('display', 'block');
                 $('#login-user-error-message-box').html('Die Bestellung konnte nicht gefunden werden. Bitte überprüfen Sie Nachname der Bestellperson sowie Bestellnummer. <br>Ansonsten kontaktieren Sie die Campusbibliothek unter <a href="mailto:bibliothek.windisch@fhnw.ch">bibliothek.windisch@fhnw.ch</a> ');
             }
@@ -226,7 +262,6 @@ $(document).ready(function () {
     }
 
     function loadViewChangeButtons() {
-        console.log("loadViewChangeButtons");
 
 
         //prevent buttons from being added multiple times
@@ -240,7 +275,6 @@ $(document).ready(function () {
 
 
         switchToWeekButton.on("click", function () {
-            console.log("switchToWeekButton")
             $("#calendar").fullCalendar("changeView", "agendaWeek");
             //dont show the week button, instead show the month button
             switchToWeekButton.hide();
@@ -317,12 +351,17 @@ $(document).ready(function () {
 
 
     function bindEndData() {
-        let end_date = $('#end-date');
-        let start_date = $("#start-date").datepicker('getDate');
-        let min_date = $("#start-date").datepicker('getDate');
-        start_date.setDate(start_date.getDate + 42);
-        end_date.datepicker('option', 'maxDate', start_date);
+        var end_date = $('#end-date');
+        var start_date = $("#start-date").datepicker('getDate');
+        var min_date = $("#start-date").datepicker('getDate');
         end_date.datepicker('option', 'minDate', min_date);
+
+        if (selectedThemeboxInfo.fk_order_type === 1) { // Hourly order
+            //set the end date to the same as the start date
+            $("#end-date").datepicker('setDate', $("#start-date").datepicker('getDate'));
+            //enable the dropdowns
+            $("#pu_dropdown-von").prop("disabled", false);
+        }
     }
 
 

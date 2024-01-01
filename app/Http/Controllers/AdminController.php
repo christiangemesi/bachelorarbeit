@@ -576,6 +576,9 @@ class AdminController extends Controller
     {
         $order_id = $request->order_id;
         $order = Order::find($order_id);
+        if($order == null){
+            $order = HourlyOrder::find($order_id);
+        }
 
         try {
             $order->forceDelete();

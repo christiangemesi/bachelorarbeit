@@ -165,7 +165,6 @@ $(document).ready(function () {
             data: {order_id: $(this).val()},
             success: function (response) {
                 selectedThemeboxInfo = response["themebox"]
-                console.log(selectedThemeboxInfo)
 
                 bindEndData();
                 addBlockDateFromToday();

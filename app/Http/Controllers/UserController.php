@@ -388,7 +388,7 @@ class UserController extends Controller
      */
     public function login(Request $request)
     {
-        error_log($request);
+        $isHourlyOrder = HourlyOrder::where('ordernumber', $request->ordernumber)->where('name', $request->name)->get();
 
         $order = HourlyOrder::where('ordernumber', $request->ordernumber)->where('name', $request->name)->get();
 
@@ -401,7 +401,12 @@ class UserController extends Controller
                 $themebox = Themebox::find($order[0]->fk_themebox);
                 $status = Status::find($order[0]->fk_status);
                 $delivery = Delivery::find($order[0]->fk_delivery);
-                $orders = Order::where('fk_themebox', $themebox->pk_themebox)->get();
+
+                if($isHourlyOrder->count() > 0){
+                    $orders = HourlyOrder::where('fk_themebox', $themebox->pk_themebox)->get();
+                } else {
+                    $orders = Order::where('fk_themebox', $themebox->pk_themebox)->get();
+                }
 
                 $data = array("order" => $order,
                     "themebox" => $themebox,

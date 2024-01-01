@@ -72,7 +72,7 @@
                                             <span class="input-group-addon cursor-pointer" id="order-from-glyphicon"><i class="glyphicon glyphicon-calendar"></i></span>
                                         </div>
                                     </div>
-                                    <div class="form-group text-align-left">
+                                    <div class="form-group text-align-left" id="end-date_box">
                                         <label for="end-date">Bis</label>
                                         <div class="input-group">
                                             <input type="text" class="form-control cursor-pointer modal-datepicker" id="end-date" name="end-date">
@@ -80,6 +80,60 @@
                                         </div>
                                         <div class="alert alert-danger display-none" id="error-calendar-message-box"></div>
                                         <div class="alert alert-info display-none" id="info-calendar-message-box"></div>
+                                    </div>
+
+                                    <div id="pu_themebox-time-select" >
+                                        <label for="pu_dropdown-von">Von:</label>
+                                        <select id="pu_dropdown-von" name="pu_dropdown-von">
+                                            <option value="pu_dropdown-von-title2" disabled selected>Startzeit</option>
+                                            <option value="08:00">08:00</option>
+                                            <option value="08:30">08:30</option>
+                                            <option value="09:00">09:00</option>
+                                            <option value="09:30">09:30</option>
+                                            <option value="10:00">10:00</option>
+                                            <option value="10:30">10:30</option>
+                                            <option value="11:00">11:00</option>
+                                            <option value="11:30">11:30</option>
+                                            <option value="12:00">12:00</option>
+                                            <option value="12:30">12:30</option>
+                                            <option value="13:00">13:00</option>
+                                            <option value="13:30">13:30</option>
+                                            <option value="14:00">14:00</option>
+                                            <option value="14:30">14:30</option>
+                                            <option value="15:00">15:00</option>
+                                            <option value="15:30">15:30</option>
+                                            <option value="16:00">16:00</option>
+                                            <option value="16:30">16:30</option>
+                                            <option value="17:00">17:00</option>
+                                            <option value="17:30">17:30</option>
+                                            <option value="18:00">18:00</option>
+                                        </select>
+
+                                        <label for="pu_dropdown-bis">Bis:</label>
+                                        <select id="pu_dropdown-bis" name="pu_dropdown-bis">
+                                            <option value="pu_dropdown-bis-title" disabled selected>Endzeit</option>
+                                            <option value="08:00">08:00</option>
+                                            <option value="08:30">08:30</option>
+                                            <option value="09:00">09:00</option>
+                                            <option value="09:30">09:30</option>
+                                            <option value="10:00">10:00</option>
+                                            <option value="10:30">10:30</option>
+                                            <option value="11:00">11:00</option>
+                                            <option value="11:30">11:30</option>
+                                            <option value="12:00">12:00</option>
+                                            <option value="12:30">12:30</option>
+                                            <option value="13:00">13:00</option>
+                                            <option value="13:30">13:30</option>
+                                            <option value="14:00">14:00</option>
+                                            <option value="14:30">14:30</option>
+                                            <option value="15:00">15:00</option>
+                                            <option value="15:30">15:30</option>
+                                            <option value="16:00">16:00</option>
+                                            <option value="16:30">16:30</option>
+                                            <option value="17:00">17:00</option>
+                                            <option value="17:30">17:30</option>
+                                            <option value="18:00">18:00</option>
+                                        </select>
                                     </div>
 
                                     <div class="form-group">

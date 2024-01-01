@@ -103,6 +103,7 @@ $(document).ready(function () {
         addAllHoursToDropdown("#dropdown-von");
 
 
+        console.log($("#start-date").datepicker("getDate"))
         var startDate = formatDate($("#start-date").datepicker("getDate"));
 
         var selectedDateOrders = getSelectedDateOrders(startDate);

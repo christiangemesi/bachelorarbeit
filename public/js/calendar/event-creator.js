@@ -55,6 +55,38 @@ function updateEvent() {
     $("#button-save-order-change").prop('disabled', false);
 }
 
+function userUpdateEvent() {
+    hideErrorBoxes();
+
+    errorHandling("ACHTUNG! Diese Änderung kann nicht rückgängig gemacht werden!", "#info-calendar-message-box");
+
+    var startTime = $('#dropdown-von').val();
+    var endTime = $('#dropdown-bis').val();
+    var isHourly = startTime !== null || endTime !== null;
+    if (isHourly) {
+        var startDateTime = $("#start-date").val() + " " + startTime;
+        var endDateTime = $("#end-date").val() + " " + endTime;
+    }
+
+
+    $("#calendar").fullCalendar('removeEvents', function (event) {
+        return event.className == "newOrder";
+    });
+
+
+    $("#calendar").fullCalendar('removeEvents', function (event) {
+        return event.className == "new_event";
+    });
+
+    if (isHourly) {
+        createEvent(formatCalendarDateTimeCompare(startDateTime), formatCalendarDateTimeCompare(endDateTime), isHourly);
+    } else {
+        createEvent(formatCalendarDate($("#start-date").val()), formatCalendarEndDate($("#end-date").val()), isHourly);
+    }
+
+    $("#button-save-order-change").prop('disabled', false);
+}
+
 function orderAddUpdateEvent() {
 
     var startTime = $('#pu_orderAdd-dropdown-von').val();

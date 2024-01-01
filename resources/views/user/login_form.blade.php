@@ -82,9 +82,9 @@
                                         <div class="alert alert-info display-none" id="info-calendar-message-box"></div>
                                     </div>
 
-                                    <div id="pu_themebox-time-select" >
-                                        <label for="pu_dropdown-von">Von:</label>
-                                        <select id="pu_dropdown-von" name="pu_dropdown-von">
+                                    <div id="themebox-time-select" >
+                                        <label for="dropdown-von">Von:</label>
+                                        <select id="dropdown-von" name="dropdown-von">
                                             <option value="pu_dropdown-von-title2" disabled selected>Startzeit</option>
                                             <option value="08:00">08:00</option>
                                             <option value="08:30">08:30</option>
@@ -109,9 +109,9 @@
                                             <option value="18:00">18:00</option>
                                         </select>
 
-                                        <label for="pu_dropdown-bis">Bis:</label>
-                                        <select id="pu_dropdown-bis" name="pu_dropdown-bis">
-                                            <option value="pu_dropdown-bis-title" disabled selected>Endzeit</option>
+                                        <label for="dropdown-bis">Bis:</label>
+                                        <select id="dropdown-bis" name="dropdown-bis">
+                                            <option value="dropdown-bis-title" disabled selected>Endzeit</option>
                                             <option value="08:00">08:00</option>
                                             <option value="08:30">08:30</option>
                                             <option value="09:00">09:00</option>

@@ -60,8 +60,8 @@ function userUpdateEvent() {
 
     errorHandling("ACHTUNG! Diese Änderung kann nicht rückgängig gemacht werden!", "#info-calendar-message-box");
 
-    var startTime = $('#dropdown-von').val();
-    var endTime = $('#dropdown-bis').val();
+    var startTime = $('#user-edit-dropdown-von').val();
+    var endTime = $('#user-edit-dropdown-bis').val();
     var isHourly = startTime !== null || endTime !== null;
     if (isHourly) {
         var startDateTime = $("#start-date").val() + " " + startTime;

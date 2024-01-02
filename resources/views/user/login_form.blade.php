@@ -82,10 +82,10 @@
                                         <div class="alert alert-info display-none" id="info-calendar-message-box"></div>
                                     </div>
 
-                                    <div id="themebox-time-select" >
-                                        <label for="dropdown-von">Von:</label>
-                                        <select id="dropdown-von" name="dropdown-von">
-                                            <option value="pu_dropdown-von-title2" disabled selected>Startzeit</option>
+                                    <div id="user-edit-themebox-time-select" >
+                                        <label for="user-edit-dropdown-von">Von:</label>
+                                        <select id="user-edit-dropdown-von" name="dropdown-von">
+                                            <option value="user-edit-dropdown-von-title" disabled selected>Startzeit</option>
                                             <option value="08:00">08:00</option>
                                             <option value="08:30">08:30</option>
                                             <option value="09:00">09:00</option>
@@ -109,9 +109,9 @@
                                             <option value="18:00">18:00</option>
                                         </select>
 
-                                        <label for="dropdown-bis">Bis:</label>
-                                        <select id="dropdown-bis" name="dropdown-bis">
-                                            <option value="dropdown-bis-title" disabled selected>Endzeit</option>
+                                        <label for="user-edit-dropdown-bis">Bis:</label>
+                                        <select id="user-edit-dropdown-bis" name="dropdown-bis">
+                                            <option value="user-edit-dropdown-bis-title" disabled selected>Endzeit</option>
                                             <option value="08:00">08:00</option>
                                             <option value="08:30">08:30</option>
                                             <option value="09:00">09:00</option>

@@ -768,7 +768,6 @@ $(document).ready(function () {
 
 
         function blockPreviousFiveSundaysInCalendar() {
-
             for (var i = 0; i < 10; i++) {
                 dayToCalculatePreviousSundays.setDate(dayToCalculatePreviousSundays.getDate() - 7);
                 blockAllSundaysEvent(formatDate(dayToCalculatePreviousSundays));
@@ -825,10 +824,9 @@ $(document).ready(function () {
 
         /**
          * create new blocked sunday
-         * @param start
          */
         function blockAllSundaysEvent(Sunday) {
-
+            console.log(Sunday)
             $("#calendar").fullCalendar('renderEvent',
                 {
                     id: "blocked",

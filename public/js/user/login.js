@@ -6,6 +6,16 @@ $(document).ready(function () {
     var dayToCalculateNextSundays = getNextDayOfWeek(new Date, 7);
     var dayToCalculatePreviousSundays = getNextDayOfWeek(new Date, 7);
 
+    dayToCalculateNextSaturdaysStart = getNextDayOfWeek(new Date, 6);
+    dayToCalculateNextSaturdaysStart.setHours(14);
+    dayToCalculateNextSaturdaysStart.setMinutes(0);
+    dayToCalculateNextSaturdaysStart.setSeconds(0);
+
+    dayToCalculateNextSaturdaysEnd = getNextDayOfWeek(new Date, 6);
+    dayToCalculateNextSaturdaysEnd.setHours(18);
+    dayToCalculateNextSaturdaysEnd.setMinutes(0);
+    dayToCalculateNextSaturdaysEnd.setSeconds(0);
+
 
     var selectedThemeboxInfo = []
 
@@ -20,6 +30,7 @@ $(document).ready(function () {
 
     $(".fc-corner-right").click(function () {
         blockNextFiveSundaysInCalendar();
+        blockNextFiveSaturdayAfterTwoPmInCalendar();
     });
 
     $(".fc-corner-left").click(function () {
@@ -115,7 +126,6 @@ $(document).ready(function () {
 
 
                 $("#calendar").fullCalendar("render");
-                $("#calendar").fullCalendar("removeEvents");
                 $("#calendar").fullCalendar('removeEvents', function (event) {
                     return event.className == "newOrder";
                 });
@@ -130,6 +140,8 @@ $(document).ready(function () {
                     }
                 );
 
+                blockNextFiveSaturdayAfterTwoPmInCalendar();
+
 
                 var isHourlyOrder = response["themebox"]["fk_order_type"] === 1;
                 if (isHourlyOrder) {
@@ -142,9 +154,6 @@ $(document).ready(function () {
                     //select the option in the dropdown that matches the start time
                     $('#user-edit-dropdown-von option[value="' + formatTimeWithoutDate(response["order"][0]["startdate"]) + '"]').prop("selected", true);
                     $('#user-edit-dropdown-bis option[value="' + formatTimeWithoutDate(response["order"][0]["enddate"]) + '"]').prop("selected", true);
-                    console.log(response["order"][0]["startdate"])
-                    console.log(formatTimeWithoutDate(response["order"][0]["startdate"]))
-                    console.log($('#user-edit-dropdown-von').val())
 
                     $("#order-id").val(response["order"][0]["pk_hourly_order"]);
                 } else {
@@ -317,15 +326,13 @@ $(document).ready(function () {
     }
 
     function blockNextFiveSundaysInCalendar() {
-        for (var i = 0; i < 10; i++) {
+        for (var i = 0; i < 20; i++) {
             blockAllSundaysEvent(formatDate(dayToCalculateNextSundays));
             dayToCalculateNextSundays.setDate(dayToCalculateNextSundays.getDate() + 7);
         }
     }
 
-
     function blockPreviousFiveSundaysInCalendar() {
-
         for (var i = 0; i < 10; i++) {
             dayToCalculatePreviousSundays.setDate(dayToCalculatePreviousSundays.getDate() - 7);
             blockAllSundaysEvent(formatDate(dayToCalculatePreviousSundays));
@@ -346,7 +353,7 @@ $(document).ready(function () {
     }
 
     function blockAllSundaysEvent(Sunday) {
-
+        console.log(Sunday)
         $("#calendar").fullCalendar('renderEvent',
             {
                 id: "blocked",
@@ -358,6 +365,28 @@ $(document).ready(function () {
             },
             true
         );
+    }
+
+    function blockAllSaturdayAfterTwoPmEvent(start, end) {
+        $("#calendar").fullCalendar('renderEvent',
+            {
+                title: "Geschlossen",
+                start: start,
+                end: end,
+                rendering: "",
+                className: "blocked_event",
+                color: "#ffad00"
+            },
+            true
+        );
+    }
+
+    function blockNextFiveSaturdayAfterTwoPmInCalendar() {
+        for(var i = 0; i < 20; i++) {
+            blockAllSaturdayAfterTwoPmEvent(dayToCalculateNextSaturdaysStart, dayToCalculateNextSaturdaysEnd);
+            dayToCalculateNextSaturdaysStart.setDate(dayToCalculateNextSaturdaysStart.getDate() + 7);
+            dayToCalculateNextSaturdaysEnd.setDate(dayToCalculateNextSaturdaysEnd.getDate() + 7);
+        }
     }
 
     function blockEndTimes() {
@@ -423,6 +452,13 @@ $(document).ready(function () {
             end: '18:00'
         });
 
+        if (new Date(endDate).getDay() === 6) {
+            blockedHours.push({
+                start: '14:00',
+                end: '18:00'
+            });
+        }
+
         removeBlockedHoursFromDropdown(blockedHours, "#user-edit-dropdown-bis");
     }
 
@@ -468,6 +504,13 @@ $(document).ready(function () {
             start: '17:30',
             end: '18:00'
         });
+
+        if (new Date(startDate).getDay() === 6) {
+            blockedHours.push({
+                start: '13:30',
+                end: '18:00'
+            });
+        }
 
 
         removeBlockedHoursFromDropdown(blockedHours, "#user-edit-dropdown-von");
@@ -543,6 +586,14 @@ $(document).ready(function () {
             start: '18:00',
             end: '18:00'
         });
+
+        // if the selected date is a saturday push 14:00 until 18:00 as blocked hour
+        if (new Date(endDate).getDay() === 6) {
+            blockedHours.push({
+                start: '14:00',
+                end: '18:00'
+            });
+        }
 
 
         removeBlockedHoursFromDropdown(blockedHours, "#user-edit-dropdown-bis");
@@ -652,6 +703,13 @@ $(document).ready(function () {
             start: '17:30',
             end: '18:00'
         });
+
+        if (new Date(startDate).getDay() === 6) {
+            blockedHours.push({
+                start: '13:30',
+                end: '18:00'
+            });
+        }
 
 
         removeBlockedHoursFromDropdown(blockedHours, "#user-edit-dropdown-von");

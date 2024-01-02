@@ -266,6 +266,10 @@ $(document).ready(function () {
 
     function blockEndTimes() {
 
+        if(selectedThemeboxInfo.themebox.fk_order_type === 2){
+            return;
+        }
+
         addAllHoursToDropdown("#user-edit-dropdown-bis")
 
         // Reset #dropdown-bis and enable it
@@ -327,6 +331,9 @@ $(document).ready(function () {
     }
 
     function blockStartTimes() {
+        if(selectedThemeboxInfo.themebox.fk_order_type === 2){
+            return;
+        }
 
         addAllHoursToDropdown("#user-edit-dropdown-bis")
 
@@ -650,6 +657,10 @@ $(document).ready(function () {
     function removeEvent() {
         $("#calendar").fullCalendar('removeEvents', function (event) {
             return event.className == "myOrder";
+        });
+
+        $("#calendar").fullCalendar('removeEvents', function (event) {
+            return event.className == "newOrder";
         });
     }
 

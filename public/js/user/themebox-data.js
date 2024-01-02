@@ -478,8 +478,8 @@ $(document).ready(function () {
                 listOfBlockedDates.length = 0;
                 blockDatesInDatepicker();
                 loadBlockedDates();
-                blockTillNextSunday();
 
+                blockTillNextSunday();
                 blockNextFiveSundaysInCalendar();
                 blockPreviousFiveSundaysInCalendar();
 

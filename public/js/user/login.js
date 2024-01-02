@@ -3,6 +3,9 @@ $(document).ready(function () {
     var old_startdate;
     var old_enddate;
     var listOfBlockedDates = Array();
+    var dayToCalculateNextSundays = getNextDayOfWeek(new Date, 7);
+    var dayToCalculatePreviousSundays = getNextDayOfWeek(new Date, 7);
+
 
     var selectedThemeboxInfo = []
 
@@ -14,6 +17,15 @@ $(document).ready(function () {
     $('#end-date').keydown(function () {
         return false;
     });
+
+    $(".fc-corner-right").click(function () {
+        blockNextFiveSundaysInCalendar();
+    });
+
+    $(".fc-corner-left").click(function () {
+        blockPreviousFiveSundaysInCalendar();
+    });
+
 
     /**
      * Focus is set on button click on glyphicon
@@ -81,6 +93,11 @@ $(document).ready(function () {
      * user login
      */
     function checkLogin() {
+        selectedThemeboxInfo = [];
+
+        dayToCalculateNextSundays = getNextDayOfWeek(new Date, 7);
+        dayToCalculatePreviousSundays = getNextDayOfWeek(new Date, 7);
+
         $.ajax({
             url: "login",
             type: 'POST',
@@ -91,6 +108,10 @@ $(document).ready(function () {
                 bindEndData();
                 addBlockDateFromToday();
                 loadViewChangeButtons();
+
+                blockDatesInDatepicker();
+                blockNextFiveSundaysInCalendar();
+                blockPreviousFiveSundaysInCalendar();
 
 
                 $("#calendar").fullCalendar("render");
@@ -237,6 +258,13 @@ $(document).ready(function () {
                             className: "myOrder",
                             color: "#04B404"
                         }, true);
+
+
+                        var dateArr = computeDayBetweenStartAndEnd(new Date(addBlockStartdateDailyOrder(value['startdate'])), new Date(addBlockEnddateDailyOrder(value['enddate'])));
+                        for (var i = 0; i <= dateArr.length; i++) {
+                            listOfBlockedDates.push(dateArr[i]);
+                        }
+
                         $('#calendar').fullCalendar('gotoDate', addTime(value["startdate"]));
                     } else if (value["pk_hourly_order"] == $("#order-id").val()) {
                         var startDateTime = value["startdate"] + "-00:00";
@@ -268,6 +296,68 @@ $(document).ready(function () {
                 $('#login-user-error-message-box').html('Die Bestellung konnte nicht gefunden werden. Bitte überprüfen Sie Nachname der Bestellperson sowie Bestellnummer. <br>Ansonsten kontaktieren Sie die Campusbibliothek unter <a href="mailto:bibliothek.windisch@fhnw.ch">bibliothek.windisch@fhnw.ch</a> ');
             }
         })
+    }
+
+    function addBlockStartdateDailyOrder(date) {
+        var temp_date = new Date(date + "T00:00:00-00:00");
+        temp_date.setDate(temp_date.getUTCDate() - 7);
+        return temp_date.getUTCFullYear() + "-" + formatTwoDigit(temp_date.getUTCMonth() + 1) + "-" + formatTwoDigit(temp_date.getUTCDate());
+    }
+
+    function computeDayBetweenStartAndEnd(startDate, endDate) {
+
+        var arr = new Array();
+        var dt = new Date(startDate);
+
+        while (dt <= endDate) {
+            arr.push(formatDate(new Date(dt)));
+            dt.setDate(dt.getDate() + 1);
+        }
+        return arr;
+    }
+
+    function blockNextFiveSundaysInCalendar() {
+        for (var i = 0; i < 10; i++) {
+            blockAllSundaysEvent(formatDate(dayToCalculateNextSundays));
+            dayToCalculateNextSundays.setDate(dayToCalculateNextSundays.getDate() + 7);
+        }
+    }
+
+
+    function blockPreviousFiveSundaysInCalendar() {
+
+        for (var i = 0; i < 10; i++) {
+            dayToCalculatePreviousSundays.setDate(dayToCalculatePreviousSundays.getDate() - 7);
+            blockAllSundaysEvent(formatDate(dayToCalculatePreviousSundays));
+        }
+    }
+
+    function blockDatesInDatepicker() {
+        var nextSunday = getNextDayOfWeek(new Date, 7);
+        for (var i = 0; i < 5; i++) {
+            listOfBlockedDates.push(formatDate(nextSunday));
+            nextSunday.setDate(nextSunday.getDate() - 7);
+        }
+        nextSunday = getNextDayOfWeek(new Date, 7);
+        for (var i = 0; i < 200; i++) {
+            nextSunday.setDate(nextSunday.getDate() + 7);
+            listOfBlockedDates.push(formatDate(nextSunday));
+        }
+    }
+
+    function blockAllSundaysEvent(Sunday) {
+
+        $("#calendar").fullCalendar('renderEvent',
+            {
+                id: "blocked",
+                title: "",
+                start: Sunday,
+                rendering: "background",
+                className: "blocked_event",
+                color: "#ffad00"
+            },
+            true
+        );
     }
 
     function blockEndTimes() {

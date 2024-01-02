@@ -594,16 +594,24 @@ $(document).ready(function () {
      */
     jQuery.extend(jQuery.fn.dataTableExt.oSort, {
         "date-eu-pre": function (a) {
-            var ukDatea = a.split('.');
-            return (ukDatea[2] + ukDatea[1] + ukDatea[0]) * 1;
+            // Split the date and time components
+            var parts = a.split(' ');
+            var datePart = parts[0].split('.');
+            var timePart = parts[1] || '00:00:00';
+
+            // Combine date and time in a format that can be parsed by Date
+            var combinedDateTime = datePart[2] + '-' + datePart[1] + '-' + datePart[0] + 'T' + timePart;
+
+            // Parse the combined date and time using Date object
+            return new Date(combinedDateTime);
         },
 
         "date-eu-asc": function (a, b) {
-            return ((a < b) ? -1 : ((a > b) ? 1 : 0));
+            return a - b;
         },
 
         "date-eu-desc": function (a, b) {
-            return ((a < b) ? 1 : ((a > b) ? -1 : 0));
+            return b - a;
         }
     });
 

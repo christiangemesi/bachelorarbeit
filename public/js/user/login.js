@@ -91,8 +91,6 @@ $(document).ready(function () {
                 bindEndData();
                 addBlockDateFromToday();
                 loadViewChangeButtons();
-                blockStartTimes();
-                blockEndTimes();
 
 
                 $("#calendar").fullCalendar("render");
@@ -117,9 +115,16 @@ $(document).ready(function () {
                     $("#user-edit-themebox-time-select").show();
                     $("#end-date_box").hide();
 
+                    blockStartTimes();
+                    blockEndTimes();
+
                     //select the option in the dropdown that matches the start time
                     $('#user-edit-dropdown-von option[value="' + formatTimeWithoutDate(response["order"][0]["startdate"]) + '"]').prop("selected", true);
                     $('#user-edit-dropdown-bis option[value="' + formatTimeWithoutDate(response["order"][0]["enddate"]) + '"]').prop("selected", true);
+                    console.log(response["order"][0]["startdate"])
+                    console.log(formatTimeWithoutDate(response["order"][0]["startdate"]))
+                    console.log($('#user-edit-dropdown-von').val())
+
                     $("#order-id").val(response["order"][0]["pk_hourly_order"]);
                 } else {
                     $("#user-edit-themebox-time-select").hide();
@@ -147,6 +152,9 @@ $(document).ready(function () {
                 $("#phone").val(response["order"][0]["phonenumber"]).prop('disabled', editable);
                 $("#nebisusernumber").val(response["order"][0]["nebisusernumber"]).prop('disabled', editable);
                 $("#delivery").val(response["delivery"]["type"]);
+                $("#user-edit-dropdown-von").prop('disabled', editable);
+                $("#user-edit-dropdown-bis").prop('disabled', editable);
+
 
 
                 if (response["order"][0]["fk_status"] === 1) {
@@ -168,7 +176,7 @@ $(document).ready(function () {
 
                 var footer = '<div class="row">';
                 if (!editable) {
-                    footer += '<div class="col-md-4"><button type="button" class="btn btn-default float-left" data-dismiss="modal">Schliessen</button></div>';
+                    footer += '<div class="col-md-4"><button type="button" class="btn btn-default float-left" id="user-cancel-edit-order" data-dismiss="modal">Schliessen</button></div>';
                     footer += '<div class="col-md-4"><button type="submit" id="button-save-order-change" class="btn btn-primary float-center" data-dismiss="modal" tabindex=8>Speichern</button></div>';
                     footer += '<div class="col-md-4"><button type="button" class="btn btn-danger float-right" id="btn-remove-order" data-dismiss="modal">Bestellung Löschen</button></div>';
                 } else {
@@ -220,8 +228,6 @@ $(document).ready(function () {
                  * Renders calendar events
                  */
                 $.each(orders, function (index, value) {
-
-
                     if (value["pk_order"] == $("#order-id").val()) {
                         $('#calendar').fullCalendar("renderEvent", {
                             title: "",
@@ -350,7 +356,6 @@ $(document).ready(function () {
             var startHour = order.startdate.split(' ')[1].substring(0, 5);
             var endHour = order.enddate.split(' ')[1].substring(0, 5);
 
-            console.log(order)
 
             // Add all the values between startHour-30 and endHour+30 in 30-minute intervals to blockedHours
             //dont add the selected order to blockedHours

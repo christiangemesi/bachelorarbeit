@@ -93,9 +93,6 @@ function orderAddUpdateEvent() {
     var endTime = $('#pu_orderAdd-dropdown-bis').val();
     var isHourly = startTime !== null || endTime !== null;
 
-    console.log(startTime);
-    console.log(endTime);
-    console.log(isHourly);
 
     var startDateTime = $("#orderAdd-start-date").val();
     var endDateTime = $("#orderAdd-end-date").val();
@@ -139,8 +136,6 @@ function formatCalendarDateTimeCompare(date) {
         ":" +
         formatTwoDigit(new_date.getUTCMinutes()) +
         ":00-00:00"
-
-    console.log(returnValue)
 
     return (returnValue);
 }

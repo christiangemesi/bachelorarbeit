@@ -390,7 +390,7 @@
                                             <input type="text" class="form-control" id="themebox-signatur" name="themebox-signatur" disabled/>
                                         </div>
                                         <div class="form-group text-align-left">
-                                            <label for="start-date">Von</label>
+                                            <label id="Von-text" for="start-date">Von</label>
                                             <div class="input-group">
                                                 <input type="text" class="form-control cursor-pointer modal-datepicker" id="start-date" name="start-date">
                                                 <span class="input-group-addon cursor-pointer" id="order-from-glyphicon"><i class="glyphicon glyphicon-calendar"></i></span>

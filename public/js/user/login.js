@@ -728,6 +728,7 @@ $(document).ready(function () {
             });
         }
 
+
         removeBlockedHoursFromDropdown(blockedHours, "#user-edit-dropdown-von");
     }
 

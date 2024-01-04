@@ -192,10 +192,12 @@ $(document).ready(function () {
                     $('#pu_dropdown-von option[value="' + formatTimeWithoutDate(response["order"]["startdate"]) + '"]').prop("selected", true);
                     $('#pu_dropdown-bis option[value="' + formatTimeWithoutDate(response["order"]["enddate"]) + '"]').prop("selected", true);
                     $("#order-id").val(response["order"]["pk_hourly_order"]);
+                    $("#Von-text").html("Am");
                 } else {
                     $("#pu_themebox-time-select").hide();
                     $("#end-date_box").show();
                     $("#order-id").val(response["order"]["pk_order"]);
+                    $("#Von-text").html("Von");
                 }
 
                 $("#ordernumber-edit").val(response["order"]["ordernumber"]);

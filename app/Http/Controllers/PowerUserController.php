@@ -441,11 +441,14 @@ class PowerUserController extends Controller
 
             $themebox = Themebox::find($hourly_order->fk_themebox);
 
+            $startDate = $path[0]["value"] ." ". $path[2]["value"];
+            $endDate = $path[1]["value"] ." ". $path[3]["value"];
+
             $mail_data = array(
                 'title' => $themebox->title,
                 'signatur' => $themebox->signatur,
-                'startdate' => $path[0]["value"],
-                'enddate' => $path[1]["value"],
+                'startdate' => $startDate,
+                'enddate' => $endDate,
                 'receiver_mail' => $hourly_order->email,
                 'receiver_name' => $hourly_order->name,
                 'receiver_surname' => $hourly_order->surname,
@@ -575,7 +578,6 @@ class PowerUserController extends Controller
 
             $view = 'user.mail_delivery_school';
         } else {
-
             $mail = EditMail::find(1);
             $html_db = $mail->mail_text;
 

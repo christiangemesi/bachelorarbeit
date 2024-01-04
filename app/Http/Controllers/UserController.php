@@ -167,8 +167,8 @@ class UserController extends Controller
             $mail_data = array(
                 'title' => $themebox->title,
                 'signatur' => $themebox->signatur,
-                'startdate' => $request->StartDateTime,
-                'enddate' => $request->EndDateTime,
+                'startdate' => $request->startdate . " " . $request->selectedVon,
+                'enddate' => $request->enddate . " " . $request->selectedBis,
                 'receiver_mail' => $hourly_order->email,
                 'receiver_name' => $hourly_order->name,
                 'receiver_surname' => $hourly_order->surname,
@@ -186,8 +186,8 @@ class UserController extends Controller
         } else { //daily order
             $order = new Order();
             $order->fk_themebox = $request->themeboxId;
-            $order->startdate = $this->formatDate($request->startdate);
-            $order->enddate = $this->formatDate($request->enddate);
+            $order->startdate = $request->startdate;
+            $order->enddate = $request->enddate;
             $order->name = $request->name;
             $order->surname = $request->surname;
             $order->email = $request->email;

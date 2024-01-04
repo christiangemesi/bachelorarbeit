@@ -106,7 +106,7 @@
                                                         <label class="label-chose-order-period">gewünschte Ausleihperiode</label>
                                                         <table id="themebox-infobox-select-date">
                                                             <tr>
-                                                                <td>Von:</td>
+                                                                <td id="Von-text">Von:</td>
                                                                 <td>
                                                                     <div class="input-group">
                                                                         <input type="text" class="form-control cursor-pointer" id="start-date" name="startdate">
@@ -125,7 +125,7 @@
                                                             </tr>
                                                         </table>
                                                         <p class="text-max-order-date-info">
-                                                            <i>Ausleihdauer max. 6 Wochen</i>
+                                                            <i id="ausleihdauer-text">Ausleihdauer max. 6 Wochen</i>
                                                         </p>
 
                                                         <div id="themebox-time-select">

@@ -529,10 +529,14 @@ $(document).ready(function () {
                         $("#thekre-dropdown option[value='1']").prop("disabled", true);
                         $("#thekre-dropdown option[value='2']").prop("disabled", true);
                         $("#thekre-dropdown").val("3");
+                        $("#ausleihdauer-text").html("Ausleihdauer max. 1 Tag");
+                        $("#Von-text").html("Am:");
                     } else { // Daily order
                         //enable the 2nd option from $("#thekre-dropdown")
                         $("#thekre-dropdown option[value='2']").prop("disabled", false);
                         $("#thekre-dropdown option[value='1']").prop("disabled", false);
+                        $("#ausleihdauer-text").html("Ausleihdauer max. 6 Wochen");
+                        $("#Von-text").html("Von:");
                     }
 
                     var isDailyOrder = response["data"]["themebox"]["fk_order_type"] === 2;

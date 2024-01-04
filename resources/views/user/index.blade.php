@@ -98,7 +98,7 @@
                                                             </tr>
                                                         </table>
                                                         <p class="text-max-order-date-info">
-                                                            <i>Ausleihdauer max. 6 Wochen</i>
+                                                            <i>Ausleihdauer max. 8 Wochen</i>
                                                         </p>
                                                         <div class="alert alert-danger display-none" id="error-calendar-message-box"></div>
                                                         <div class="alert alert-info display-none" id="info-calendar-message-box"></div>

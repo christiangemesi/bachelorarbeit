@@ -550,6 +550,11 @@ $(document).ready(function () {
                         $("#thekre-dropdown option[value='3']").prop("disabled", false).show();
                         $("#thekre-dropdown option[value='1']").prop("disabled", true).hide();
 
+                        //Folgende Zeile kann eingefügt werden, wenn die Option "Lieferung an die Schule" wieder aktiviert werden soll
+                        // die Option wird nur für die tagesorders angezeigt, bitte beide zeilen einkommentieren
+                        //WICHTIG: ID der Option in der DB für "Lieferung an Aargauer Schulen" muss 2 sein
+                        //$("#thekre-dropdown option[value='2']").prop("disabled", true).hide();
+
 
                     } else { // Daily order
                         blockTillNextSunday();
@@ -558,6 +563,12 @@ $(document).ready(function () {
                         //make the thekre-dropdown option disable and also not show the one with the name "Gebrauch in der Bibliothek"
                         $("#thekre-dropdown option[value='3']").prop("disabled", true).hide();
                         $("#thekre-dropdown option[value='1']").prop("disabled", false).show();
+
+                        //Folgende Zeile kann eingefügt werden, wenn die Option "Lieferung an die Schule" wieder aktiviert werden soll
+                        // die Option wird nur für die tagesorders angezeigt, bitte beide zeilen einkommentieren
+                        // die Option wird nur für die tagesorders angezeigt, bitte beide zeilen einkommentieren
+                        //WICHTIG: ID der Option in der DB für "Lieferung an Aargauer Schulen" muss 2 sein
+                        //$("#thekre-dropdown option[value='2']").prop("disabled", false).show();
 
 
 

@@ -117,7 +117,6 @@ $(document).ready(function () {
                 selectedThemeboxInfo = response;
 
                 bindEndData();
-                addBlockDateFromToday();
                 loadViewChangeButtons();
 
                 blockDatesInDatepicker();
@@ -158,6 +157,7 @@ $(document).ready(function () {
                     $("#order-id").val(response["order"][0]["pk_hourly_order"]);
                 } else {
                     blockTillNextSunday();
+                    addBlockDateFromToday();
                     $("#user-edit-themebox-time-select").hide();
                     $("#end-date_box").show();
                     $("#order-id").val(response["order"][0]["pk_order"]);
@@ -653,7 +653,7 @@ $(document).ready(function () {
      */
     $("#start-date").datepicker({
         dateFormat: "dd.mm.yy",
-        minDate: 1,
+        minDate: 0,
         beforeShowDay: (function (date) {
             let string = jQuery.datepicker.formatDate('yy-mm-dd', date);
             return [listOfBlockedDates.indexOf(string) === -1]
@@ -808,6 +808,9 @@ $(document).ready(function () {
     function addAllHoursToDropdown(dropdownClassName) {
         // Remove all options from the dropdown
         $(dropdownClassName).empty();
+
+        console.log(dropdownClassName);
+
         if (dropdownClassName === "#user-edit-dropdown-von") {
             $(dropdownClassName).append('<option value="" selected disabled hidden>Startzeit</option>');
         } else {

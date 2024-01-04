@@ -353,7 +353,6 @@ $(document).ready(function () {
     }
 
     function blockAllSundaysEvent(Sunday) {
-        console.log(Sunday)
         $("#calendar").fullCalendar('renderEvent',
             {
                 id: "blocked",
@@ -481,7 +480,6 @@ $(document).ready(function () {
         selectedDateOrders.forEach(function (order) {
             var startHour = order.startdate.split(' ')[1].substring(0, 5);
             var endHour = order.enddate.split(' ')[1].substring(0, 5);
-
 
             // Add all the values between startHour-30 and endHour+30 in 30-minute intervals to blockedHours
             //dont add the selected order to blockedHours
@@ -685,17 +683,22 @@ $(document).ready(function () {
             var startHour = order.startdate.split(' ')[1].substring(0, 5);
             var endHour = order.enddate.split(' ')[1].substring(0, 5);
 
-            // Add all the values between startHour-30 and endHour+30 in 30-minute intervals to blockedHours
-            var currentBlockStart = subtractMinutesFromTime(startHour, 30);
-            while (currentBlockStart < endHour) {
-                var currentBlockEnd = addMinutesToTime(currentBlockStart, 30);
+            console.log("order: " + order);
+            console.log("selectedThemebox: " + selectedThemeboxInfo.order[0]);
 
-                blockedHours.push({
-                    start: currentBlockStart,
-                    end: currentBlockEnd
-                });
+            if(order.pk_hourly_order !== selectedThemeboxInfo.order[0].pk_hourly_order) {
+                // Add all the values between startHour-30 and endHour+30 in 30-minute intervals to blockedHours
+                var currentBlockStart = subtractMinutesFromTime(startHour, 30);
+                while (currentBlockStart < endHour) {
+                    var currentBlockEnd = addMinutesToTime(currentBlockStart, 30);
 
-                currentBlockStart = addMinutesToTime(currentBlockStart, 30);
+                    blockedHours.push({
+                        start: currentBlockStart,
+                        end: currentBlockEnd
+                    });
+
+                    currentBlockStart = addMinutesToTime(currentBlockStart, 30);
+                }
             }
         });
         // by default push 17:30 and 18:00 as blocked hour

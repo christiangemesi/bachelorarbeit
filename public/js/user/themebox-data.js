@@ -148,7 +148,6 @@ $(document).ready(function () {
                 });
             }
 
-
             removeBlockedHoursFromDropdown(blockedHours, "#dropdown-von");
         }
 

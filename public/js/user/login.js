@@ -120,6 +120,7 @@ $(document).ready(function () {
                 addBlockDateFromToday();
                 loadViewChangeButtons();
 
+                blockTillNextSunday();
                 blockDatesInDatepicker();
                 blockNextFiveSundaysInCalendar();
                 blockPreviousFiveSundaysInCalendar();
@@ -305,6 +306,19 @@ $(document).ready(function () {
                 $('#login-user-error-message-box').html('Die Bestellung konnte nicht gefunden werden. Bitte überprüfen Sie Nachname der Bestellperson sowie Bestellnummer. <br>Ansonsten kontaktieren Sie die Campusbibliothek unter <a href="mailto:bibliothek.windisch@fhnw.ch">bibliothek.windisch@fhnw.ch</a> ');
             }
         })
+    }
+
+    function blockTillNextSunday() {
+        var nextSunday = getNextDayOfWeek(new Date(), 7);
+
+        var tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+
+        var dateArr = computeDayBetweenStartAndEnd(tomorrow, nextSunday);
+
+        for (var i = 0; i <= dateArr.length; i++) {
+            listOfBlockedDates.push(dateArr[i]);
+        }
     }
 
     function addBlockStartdateDailyOrder(date) {
@@ -713,7 +727,6 @@ $(document).ready(function () {
                 end: '18:00'
             });
         }
-
 
         removeBlockedHoursFromDropdown(blockedHours, "#user-edit-dropdown-von");
     }

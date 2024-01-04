@@ -550,6 +550,7 @@ $(document).ready(function () {
                         $("#Von-text").html("Am:");
                     } else { // Daily order
                         blockTillNextSunday();
+                        addBlockDateFromToday();
                         //enable the 2nd option from $("#thekre-dropdown")
                         $("#thekre-dropdown option[value='2']").prop("disabled", false);
                         $("#thekre-dropdown option[value='1']").prop("disabled", false);
@@ -584,7 +585,6 @@ $(document).ready(function () {
 
                     $("#themebox-id").val(response["data"]["themebox"]["pk_themebox"]);
 
-                    addBlockDateFromToday();
 
                 },
                 error: function (xhr, status, error) {

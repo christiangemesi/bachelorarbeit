@@ -120,7 +120,6 @@ $(document).ready(function () {
                 addBlockDateFromToday();
                 loadViewChangeButtons();
 
-                blockTillNextSunday();
                 blockDatesInDatepicker();
                 blockNextFiveSundaysInCalendar();
                 blockPreviousFiveSundaysInCalendar();
@@ -158,6 +157,7 @@ $(document).ready(function () {
 
                     $("#order-id").val(response["order"][0]["pk_hourly_order"]);
                 } else {
+                    blockTillNextSunday();
                     $("#user-edit-themebox-time-select").hide();
                     $("#end-date_box").show();
                     $("#order-id").val(response["order"][0]["pk_order"]);
@@ -880,10 +880,8 @@ $(document).ready(function () {
         var end_date = $('#end-date');
         var start_date = $("#start-date").datepicker('getDate');
         var min_date = $("#start-date").datepicker('getDate');
-        start_date.setDate(start_date.getDate() + 56);
-        end_date.datepicker('option', 'maxDate', start_date);
         end_date.datepicker('option', 'minDate', min_date);
-        $("#start-date").datepicker('option', 'minDate', new Date());
+
 
         if (selectedThemeboxInfo.themebox.fk_order_type === 1) { // Hourly order
             //set the end date to the same as the start date

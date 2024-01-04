@@ -532,7 +532,6 @@ $(document).ready(function () {
                     blockDatesInDatepicker();
                     loadBlockedDates();
 
-                    blockTillNextSunday();
                     blockNextFiveSundaysInCalendar();
                     blockPreviousFiveSundaysInCalendar();
                     blockNextFiveSaturdayAfterTwoPmInCalendar();
@@ -550,6 +549,7 @@ $(document).ready(function () {
                         $("#ausleihdauer-text").html("Ausleihdauer max. 1 Tag");
                         $("#Von-text").html("Am:");
                     } else { // Daily order
+                        blockTillNextSunday();
                         //enable the 2nd option from $("#thekre-dropdown")
                         $("#thekre-dropdown option[value='2']").prop("disabled", false);
                         $("#thekre-dropdown option[value='1']").prop("disabled", false);
@@ -1242,6 +1242,8 @@ $(document).ready(function () {
                 $("#end-date").datepicker("setDate", $("#start-date").datepicker("getDate"));
                 //enable the dropdowns
                 $("#dropdown-von").prop("disabled", false);
+            } else {
+
             }
         }
 

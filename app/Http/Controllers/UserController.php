@@ -186,8 +186,8 @@ class UserController extends Controller
         } else { //daily order
             $order = new Order();
             $order->fk_themebox = $request->themeboxId;
-            $order->startdate = $request->startdate;
-            $order->enddate = $request->enddate;
+            $order->startdate = $this->formatDate($request->startdate);
+            $order->enddate = $this->formatDate($request->enddate);
             $order->name = $request->name;
             $order->surname = $request->surname;
             $order->email = $request->email;

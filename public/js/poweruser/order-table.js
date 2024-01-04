@@ -841,18 +841,6 @@ $(document).ready(function () {
                     return event.className == "newOrder";
                 });
 
-
-                if (response["themebox"]["fk_order_type"] === 1) { // Hourly order
-                    //disable the 2nd option from $("#thekre-dropdown")
-                    $("#orderAdd-delivery option[value='1']").prop("disabled", true);
-                    $("#orderAdd-delivery option[value='2']").prop("disabled", true);
-                    $("#orderAdd-delivery").val("3");
-                } else { // Daily order
-                    //enable the 2nd option from $("#thekre-dropdown")
-                    $("#orderAdd-delivery option[value='2']").prop("disabled", false);
-                    $("#orderAdd-delivery option[value='1']").prop("disabled", false);
-                }
-
                 loadBlockedDates();
 
                 loadHourlyView(response["themebox"]["fk_order_type"], response["orderData"]);

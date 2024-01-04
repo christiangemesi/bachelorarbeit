@@ -542,18 +542,25 @@ $(document).ready(function () {
                     loadViewChangeButtons();
 
                     if (response["data"]["themebox"]["fk_order_type"] === 1) { // Hourly order
-                        //disable the 2nd option from $("#thekre-dropdown")
-                        $("#thekre-dropdown option[value='1']").prop("disabled", true);
-                        $("#thekre-dropdown option[value='2']").prop("disabled", true);
                         $("#thekre-dropdown").val("3");
                         $("#ausleihdauer-text").html("Ausleihdauer max. 1 Tag");
                         $("#Von-text").html("Am:");
+
+
+                        $("#thekre-dropdown option[value='3']").prop("disabled", false).show();
+                        $("#thekre-dropdown option[value='1']").prop("disabled", true).hide();
+
+
                     } else { // Daily order
                         blockTillNextSunday();
                         addBlockDateFromToday();
-                        //enable the 2nd option from $("#thekre-dropdown")
-                        $("#thekre-dropdown option[value='2']").prop("disabled", false);
-                        $("#thekre-dropdown option[value='1']").prop("disabled", false);
+
+                        //make the thekre-dropdown option disable and also not show the one with the name "Gebrauch in der Bibliothek"
+                        $("#thekre-dropdown option[value='3']").prop("disabled", true).hide();
+                        $("#thekre-dropdown option[value='1']").prop("disabled", false).show();
+
+
+
                         $("#ausleihdauer-text").html("Ausleihdauer max. 8 Wochen");
                         $("#Von-text").html("Von:");
                     }

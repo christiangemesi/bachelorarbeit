@@ -491,6 +491,19 @@ $(document).ready(function () {
         // Create an array for blocked hours on the selected date
         var blockedHours = [];
 
+        // by default push 17:30 and 18:00 as blocked hour
+        blockedHours.push({
+            start: '17:30',
+            end: '18:00'
+        });
+
+        if (new Date(startDate).getDay() === 6) {
+            blockedHours.push({
+                start: '13:30',
+                end: '18:00'
+            });
+        }
+
         selectedDateOrders.forEach(function (order) {
             var startHour = order.startdate.split(' ')[1].substring(0, 5);
             var endHour = order.enddate.split(' ')[1].substring(0, 5);
@@ -511,18 +524,6 @@ $(document).ready(function () {
                 }
             }
         });
-        // by default push 17:30 and 18:00 as blocked hour
-        blockedHours.push({
-            start: '17:30',
-            end: '18:00'
-        });
-
-        if (new Date(startDate).getDay() === 6) {
-            blockedHours.push({
-                start: '13:30',
-                end: '18:00'
-            });
-        }
 
 
         removeBlockedHoursFromDropdown(blockedHours, "#user-edit-dropdown-von");

@@ -109,6 +109,9 @@ $(document).ready(function () {
             //cleanup to show correct values
             addAllHoursToDropdown("#dropdown-von");
 
+            // disable the error message
+            $("#error-calendar-message-box").css("display", "none");
+
 
             var startDate = formatDate($("#start-date").datepicker("getDate"));
 

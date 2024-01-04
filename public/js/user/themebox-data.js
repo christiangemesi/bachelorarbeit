@@ -553,7 +553,7 @@ $(document).ready(function () {
                         //enable the 2nd option from $("#thekre-dropdown")
                         $("#thekre-dropdown option[value='2']").prop("disabled", false);
                         $("#thekre-dropdown option[value='1']").prop("disabled", false);
-                        $("#ausleihdauer-text").html("Ausleihdauer max. 6 Wochen");
+                        $("#ausleihdauer-text").html("Ausleihdauer max. 8 Wochen");
                         $("#Von-text").html("Von:");
                     }
 
@@ -1232,7 +1232,7 @@ $(document).ready(function () {
             var end_date = $('#end-date');
             var start_date = $("#start-date").datepicker('getDate');
             var min_date = $("#start-date").datepicker('getDate');
-            start_date.setDate(start_date.getDate() + 42);
+            start_date.setDate(start_date.getDate() + 56);
             end_date.datepicker('option', 'maxDate', start_date);
             end_date.datepicker('option', 'minDate', min_date);
             $("#start-date").datepicker('option', 'minDate', new Date());

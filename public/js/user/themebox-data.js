@@ -55,7 +55,7 @@ $(document).ready(function () {
          */
         $("#start-date").datepicker({
             dateFormat: "dd.mm.yy",
-            minDate: 1,
+            minDate: 0,
             beforeShowDay: function (date) {
                 var string = $.datepicker.formatDate('yy-mm-dd', date)
                 return [listOfBlockedDates.indexOf(string) == -1]

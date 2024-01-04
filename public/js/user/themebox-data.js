@@ -116,6 +116,23 @@ $(document).ready(function () {
 
             // Create an array for blocked hours on the selected date
             var blockedHours = [];
+            var blockedThirtyMinutes = 0;
+
+            // by default push 17:30 and 18:00 as blocked hour
+            blockedHours.push({
+                start: '17:30',
+                end: '18:00'
+            });
+            blockedThirtyMinutes += 30;
+
+            // if the selected date is a saturday push 14:00 until 18:00 as blocked hour
+            if (new Date(startDate).getDay() === 6) {
+                blockedHours.push({
+                    start: '13:30',
+                    end: '18:00'
+                });
+                blockedThirtyMinutes += 9*30;
+            }
 
             selectedDateOrders.forEach(function (order) {
                 var startHour = order.startdate.split(' ')[1].substring(0, 5);
@@ -130,23 +147,21 @@ $(document).ready(function () {
                         start: currentBlockStart,
                         end: currentBlockEnd
                     });
+                    blockedThirtyMinutes += 30;
 
                     currentBlockStart = addMinutesToTime(currentBlockStart, 30);
                 }
             });
-            // by default push 17:30 and 18:00 as blocked hour
-            blockedHours.push({
-                start: '17:30',
-                end: '18:00'
-            });
+            console.log(blockedThirtyMinutes);
 
-            // if the selected date is a saturday push 14:00 until 18:00 as blocked hour
-            if (new Date(startDate).getDay() === 6) {
-                blockedHours.push({
-                    start: '13:30',
-                    end: '18:00'
-                });
+            //the whole day is blocked
+            if(blockedThirtyMinutes >= 600) {
+                //disable the dropdown-von
+                $("#dropdown-von").prop("disabled", true);
+                //show error message
+                errorHandling("Der gewählte Tag ist leider ausgebucht. Bitte wählen Sie einen anderen Tag.", "#error-calendar-message-box");
             }
+
 
             removeBlockedHoursFromDropdown(blockedHours, "#dropdown-von");
         }
@@ -938,6 +953,12 @@ $(document).ready(function () {
             $(box).html(msg);
             $(box).css("display", "block");
             $("#info-calendar-message-box").css("display", "none");
+        }
+
+        function infoHandling(msg, box) {
+            $(box).html(msg);
+            $(box).css("display", "block");
+            $("#error-calendar-message-box").css("display", "none");
         }
 
         /**

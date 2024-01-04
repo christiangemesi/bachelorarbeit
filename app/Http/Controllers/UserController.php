@@ -149,14 +149,14 @@ class UserController extends Controller
             $endDatetime = $this->concatenateDatetime($request->enddate, $request->selectedBis);
             $hourly_order = new HourlyOrder();
             $hourly_order->fk_themebox = $request->themeboxId;
-            $hourly_order->startdate = $startDatetime; // Set the start date and time
-            $hourly_order->enddate = $endDatetime; // Set the end date and time
+            $hourly_order->startdate = $startDatetime;
+            $hourly_order->enddate = $endDatetime;
             $hourly_order->name = $request->name;
             $hourly_order->surname = $request->surname;
             $hourly_order->email = $request->email;
             $hourly_order->phonenumber = $request->phone;
             $hourly_order->nebisusernumber = $request->nebisusernumber;
-            $hourly_order->fk_status = 1; // You may need to adjust this based on your requirements
+            $hourly_order->fk_status = 1;
             $hourly_order->ordernumber = $this->createOrdernumber();
             $hourly_order->fk_delivery = $request->delivery;
             $dt = Carbon::now();
@@ -237,7 +237,6 @@ class UserController extends Controller
         $tempDate = explode(".", $date);
         $newDate = $tempDate[2] . "-" . $tempDate[1] . "-" . $tempDate[0];
 
-        // Concatenate date and time
         $datetimeString = $newDate . " " . $time;
 
         return $datetimeString;

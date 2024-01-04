@@ -688,45 +688,59 @@ $(document).ready(function () {
         //cleanup to show correct values
         addAllHoursToDropdown("#user-edit-dropdown-von");
 
+        // disable the error message TODO disable error message
+
+
         var startDate = formatDate($("#start-date").datepicker("getDate"));
+
         var selectedDateOrders = getSelectedDateOrders(startDate);
 
         // Create an array for blocked hours on the selected date
         var blockedHours = [];
+        var blockedThirtyMinutes = 0;
 
-        selectedDateOrders.forEach(function (order) {
-            var startHour = order.startdate.split(' ')[1].substring(0, 5);
-            var endHour = order.enddate.split(' ')[1].substring(0, 5);
-
-            console.log("order: " + order);
-            console.log("selectedThemebox: " + selectedThemeboxInfo.order[0]);
-
-            if(order.pk_hourly_order !== selectedThemeboxInfo.order[0].pk_hourly_order) {
-                // Add all the values between startHour-30 and endHour+30 in 30-minute intervals to blockedHours
-                var currentBlockStart = subtractMinutesFromTime(startHour, 30);
-                while (currentBlockStart < endHour) {
-                    var currentBlockEnd = addMinutesToTime(currentBlockStart, 30);
-
-                    blockedHours.push({
-                        start: currentBlockStart,
-                        end: currentBlockEnd
-                    });
-
-                    currentBlockStart = addMinutesToTime(currentBlockStart, 30);
-                }
-            }
-        });
         // by default push 17:30 and 18:00 as blocked hour
         blockedHours.push({
             start: '17:30',
             end: '18:00'
         });
+        blockedThirtyMinutes += 30;
 
+        // if the selected date is a saturday push 14:00 until 18:00 as blocked hour
         if (new Date(startDate).getDay() === 6) {
             blockedHours.push({
                 start: '13:30',
                 end: '18:00'
             });
+            blockedThirtyMinutes += 9*30;
+        }
+
+        selectedDateOrders.forEach(function (order) {
+            var startHour = order.startdate.split(' ')[1].substring(0, 5);
+            var endHour = order.enddate.split(' ')[1].substring(0, 5);
+
+            // Add all the values between startHour-30 and endHour+30 in 30-minute intervals to blockedHours
+            var currentBlockStart = subtractMinutesFromTime(startHour, 30);
+            while (currentBlockStart < endHour) {
+                var currentBlockEnd = addMinutesToTime(currentBlockStart, 30);
+
+                blockedHours.push({
+                    start: currentBlockStart,
+                    end: currentBlockEnd
+                });
+                blockedThirtyMinutes += 30;
+
+                currentBlockStart = addMinutesToTime(currentBlockStart, 30);
+            }
+        });
+        console.log(blockedThirtyMinutes);
+
+        //the whole day is blocked
+        if(blockedThirtyMinutes >= 600) {
+            //disable the dropdown-von
+            $("#user-edit-dropdown-von").prop("disabled", true);
+            //show error message TODO
+
         }
 
 

@@ -94,14 +94,13 @@ $(document).ready(function () {
     /**
      * button print
      */
-    function printData()
-    {
-        var divToPrint=document.getElementById("printTable");
-        newWin= window.open("");
+    function printData() {
+        var divToPrint = document.getElementById("printTable");
+        newWin = window.open("");
         newWin.document.write(divToPrint.outerHTML);
-        newWin.print();
-        newWin.close();
-        refresh();
+        //newWin.close();
+        //newWin.print();
+        //refresh();
     }
 
     $(".button-print-order").click(function () {
@@ -110,40 +109,37 @@ $(document).ready(function () {
             type: 'POST',
             data: {order_id: $(this).val()},
             success: function (response) {
-
-
                 var html =
-                    '<tr><td class="print-table-title"><strong>Bestellung: </strong></td><td class="print-table-text">' + response["order"]["ordernumber"] +'</td></tr>' +
+                    '<tr><td class="print-table-title"><strong>Bestellung: </strong></td><td class="print-table-text">' + response["order"]["ordernumber"] + '</td></tr>' +
                     '<tr><td> </td></tr>' +
-                    '<tr><td class="print-table-title">Themenkiste: </td><td class="print-table-text">' + response["themebox"]["title"] +'</td></tr>' +
-                    '<tr><td class="print-table-title">Von: </td><td class="print-table-text">' + formatDate(response["order"]["startdate"]) +'</td></tr>' +
-                    '<tr><td class="print-table-title">Bis: </td><td class="print-table-text">' + formatDate(response["order"]["enddate"]) +'</td></tr>' +
-                    '<tr><td class="print-table-title">Bestelldatum: </td><td class="print-table-text">' + formatDate(response["order"]["datecreated"]) +'</td></tr>' +
+                    '<tr><td class="print-table-title">Themenkiste: </td><td class="print-table-text">' + response["themebox"]["title"] + '</td></tr>' +
+                    '<tr><td class="print-table-title">Von: </td><td class="print-table-text">' + formatDate(response["order"]["startdate"]) + '</td></tr>' +
+                    '<tr><td class="print-table-title">Bis: </td><td class="print-table-text">' + formatDate(response["order"]["enddate"]) + '</td></tr>' +
+                    '<tr><td class="print-table-title">Bestelldatum: </td><td class="print-table-text">' + formatDate(response["order"]["datecreated"]) + '</td></tr>' +
                     '<tr><td> </td></tr>' +
-                    '<tr class="print-table-user"><td class="print-table-title">Nachname: </td><td class="print-table-text">' + response["order"]["name"] +'</td></tr>' +
-                    '<tr class="print-table-user"><td class="print-table-title">Vorname: </td><td class="print-table-text">' + response["order"]["surname"] +'</td></tr>' +
-                    '<tr class="print-table-user"><td class="print-table-title">Bibliotheksausweis: </td><td class="print-table-text">' + response["order"]["nebisusernumber"] +'</td></tr>' +
-                    '<tr class="print-table-user"><td class="print-table-title">Email: </td><td class="print-table-text">' + response["order"]["email"] +'</td></tr>' +
-                    '<tr class="print-table-user"><td class="print-table-title">Telefonnummer: </td><td class="print-table-text">' + response["order"]["phonenumber"] +'</td></tr>';
+                    '<tr class="print-table-user"><td class="print-table-title">Nachname: </td><td class="print-table-text">' + response["order"]["name"] + '</td></tr>' +
+                    '<tr class="print-table-user"><td class="print-table-title">Vorname: </td><td class="print-table-text">' + response["order"]["surname"] + '</td></tr>' +
+                    '<tr class="print-table-user"><td class="print-table-title">Bibliotheksausweis: </td><td class="print-table-text">' + response["order"]["nebisusernumber"] + '</td></tr>' +
+                    '<tr class="print-table-user"><td class="print-table-title">Email: </td><td class="print-table-text">' + response["order"]["email"] + '</td></tr>' +
+                    '<tr class="print-table-user"><td class="print-table-title">Telefonnummer: </td><td class="print-table-text">' + response["order"]["phonenumber"] + '</td></tr>';
 
                 if (2 === response["order"]["fk_delivery"]) {
                     var deliveryHtml =
                         '+ <tr><td> </td></tr>' +
-                        '<tr class="print-table-delivery"><td class="print-table-title">Lieferart: </td><td class="print-table-text">' + "Lieferung an Aargauer Schulen" +'</td></tr>' +
-                        '<tr class="print-table-delivery"><td class="print-table-title">Name der Schule: </td><td class="print-table-text">' + response["order"]["schoolname"] +'</td></tr>' +
-                        '<tr class="print-table-delivery"><td class="print-table-title">Strasse und Nr.: </td><td class="print-table-text">' + response["order"]["schoolstreet"] +'</td></tr>' +
-                        '<tr class="print-table-delivery"><td class="print-table-title">PLZ und Ort: </td><td class="print-table-text">' + response["order"]["schoolcity"] +'</td></tr>' +
-                        '<tr class="print-table-delivery"><td class="print-table-title">Abgabeort: </td><td class="print-table-text">' + response["order"]["placeofhandover"] +'</td></tr>' +
-                        '<tr class="print-table-delivery"><td class="print-table-title">Telefonnummer der Schule: </td><td class="print-table-text">' + response["order"]["schoolphonenumber"] +'</td></tr>';
+                        '<tr class="print-table-delivery"><td class="print-table-title">Lieferart: </td><td class="print-table-text">' + "Lieferung an Aargauer Schulen" + '</td></tr>' +
+                        '<tr class="print-table-delivery"><td class="print-table-title">Name der Schule: </td><td class="print-table-text">' + response["order"]["schoolname"] + '</td></tr>' +
+                        '<tr class="print-table-delivery"><td class="print-table-title">Strasse und Nr.: </td><td class="print-table-text">' + response["order"]["schoolstreet"] + '</td></tr>' +
+                        '<tr class="print-table-delivery"><td class="print-table-title">PLZ und Ort: </td><td class="print-table-text">' + response["order"]["schoolcity"] + '</td></tr>' +
+                        '<tr class="print-table-delivery"><td class="print-table-title">Abgabeort: </td><td class="print-table-text">' + response["order"]["placeofhandover"] + '</td></tr>' +
+                        '<tr class="print-table-delivery"><td class="print-table-title">Telefonnummer der Schule: </td><td class="print-table-text">' + response["order"]["schoolphonenumber"] + '</td></tr>';
                     html = html + deliveryHtml;
-                }else{
+                } else {
                     var deliveryTypeHtml =
                         '+ <tr><td> </td></tr>' +
-                        '<tr class="print-table-delivery"><td class="print-table-title">Lieferart: </td><td class="print-table-text">' + "Abholung in der Bibliothek" +'</td></tr>';
+                        '<tr class="print-table-delivery"><td class="print-table-title">Lieferart: </td><td class="print-table-text">' + "Abholung in der Bibliothek" + '</td></tr>';
                     html = html + deliveryTypeHtml;
                 }
                 $('#print-order').html(html);
-
             },
             error: function (xhr, status, error) {
                 showFailureModal("Es ist ein Fehler beim Laden der Daten aufgetreten", xhr);
@@ -151,7 +147,7 @@ $(document).ready(function () {
             complete: function () {
                 printData();
             }
-    });
+        });
     });
 
 
@@ -343,7 +339,7 @@ $(document).ready(function () {
      * show / hide delivery input fields
      */
     $('#delivery').click(function () {
-        if($("#delivery").val() === "2") {
+        if ($("#delivery").val() === "2") {
             $("#order-delivery-type").show();
             schoolnameValidate();
             schoolstreetValidate();
@@ -573,30 +569,31 @@ $(document).ready(function () {
         table.draw();
     });
 
-    $.fn.dataTable.ext.search.push(function (settings,searchData,index, rowData, counter ) {
+    $.fn.dataTable.ext.search.push(function (settings, searchData, index, rowData, counter) {
         let searchedStatus = $("#status-select option:selected").text();
         let selection = $(rowData[7]);
         let selectedText = $(selection).find('option:selected').text();
         return searchedStatus === selectedText || searchedStatus === "All";
     })
+
     function loadBlockedDates() {
 
         $.ajax({
-            url: "../" + "/" +"user/getBlockedPeriods",
-            type:"POST",
+            url: "../" + "/" + "user/getBlockedPeriods",
+            type: "POST",
             data: {},
-            success: function(data) {
+            success: function (data) {
 
-                $.each(data, function(index, element){
+                $.each(data, function (index, element) {
                     blockedPeriodEventtwo(formatBlockedPeriodCalendarStartDate(element.startdate), formatBlockedPeriodCalendarEndDate(element.enddate));
                     var blockedPeriodsArray = computeDayBetweenStartAndEnd(new Date(formatCalendarDate(element.startdate)), new Date(formatCalendarDate(element.enddate)));
 
-                    for(var i = 0; i <= blockedPeriodsArray.length; i++){
+                    for (var i = 0; i <= blockedPeriodsArray.length; i++) {
                         listOfBlockedDates.push(blockedPeriodsArray[i]);
                     }
                 });
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 errorHandling("Es ist ein Fehler bei der Datenverarbeitung passiert. Bitte kontaktieren Sie die FHNW Bibliothek unter bibliothek.windisch@fhnw.ch", "#error-message-box");
             }
         });
@@ -623,17 +620,16 @@ $(document).ready(function () {
     });
 
 
-
-    function formatBlockedPeriodCalendarStartDate(date){
+    function formatBlockedPeriodCalendarStartDate(date) {
         let temp_date = date.split(".");
         var new_date = new Date(temp_date[2] + "-" + temp_date[1] + "-" + temp_date[0] + "T00:00:00-00:00");
-        return new_date.getUTCFullYear() + "-" + formatTwoDigit(new_date.getUTCMonth() +1) + "-" + formatTwoDigit(new_date.getUTCDate());
+        return new_date.getUTCFullYear() + "-" + formatTwoDigit(new_date.getUTCMonth() + 1) + "-" + formatTwoDigit(new_date.getUTCDate());
     }
 
-    function formatBlockedPeriodCalendarEndDate(date){
+    function formatBlockedPeriodCalendarEndDate(date) {
         var temp_date = date.split(".");
         var new_date = new Date(temp_date[2] + "-" + temp_date[1] + "-" + temp_date[0] + "T00:00:00-00:00");
-        return new_date.getUTCFullYear() + "-" + formatTwoDigit(new_date.getUTCMonth() +1) + "-" + formatTwoDigit(new_date.getUTCDate() +1);
+        return new_date.getUTCFullYear() + "-" + formatTwoDigit(new_date.getUTCMonth() + 1) + "-" + formatTwoDigit(new_date.getUTCDate() + 1);
     }
 
     function computeDayBetweenStartAndEnd(startDate, endDate) {
@@ -647,51 +643,56 @@ $(document).ready(function () {
         }
         return arr;
     }
+
     function blockTillNextSunday() {
         var nextSunday = getNextDayOfWeek(new Date(), 7);
 
         var tomorrow = new Date();
         tomorrow.setDate(tomorrow.getDate() + 1);
 
-        var dateArr = computeDayBetweenStartAndEnd(tomorrow , nextSunday);
+        var dateArr = computeDayBetweenStartAndEnd(tomorrow, nextSunday);
 
-        for(var i = 0; i <= dateArr.length; i++){
+        for (var i = 0; i <= dateArr.length; i++) {
             listOfBlockedDates.push(dateArr[i]);
         }
     }
+
     function blockNextFiveSundaysInCalendar() {
-        for(var i = 0; i < 52; i++){
+        for (var i = 0; i < 52; i++) {
             blockAllSundaysEventtwo(formatBlockDate(dayToCalculateNextSundays));
             dayToCalculateNextSundays.setDate(dayToCalculateNextSundays.getDate() + 7);
         }
     }
+
     function blockPreviousFiveSundaysInCalendar() {
 
-        for(var i = 0; i < 52; i++){
+        for (var i = 0; i < 52; i++) {
             dayToCalculatePreviousSundays.setDate(dayToCalculatePreviousSundays.getDate() - 7);
             blockAllSundaysEventtwo(formatBlockDate(dayToCalculatePreviousSundays));
         }
     }
+
     function formatBlockDate(date) {
         var day = date.getDate();
         var month = date.getMonth() + 1;
         var year = date.getFullYear();
 
-        if(day<10){
+        if (day < 10) {
             day = '0' + day;
-        }else{
+        } else {
             day = '' + day;
         }
 
-        if(month<10){
+        if (month < 10) {
             month = '0' + month;
-        }else{
+        } else {
             month = '' + month;
         }
 
         return year + '-' + month + '-' + day;
     }
-    function blockAllSundaysEventtwo(Sunday){
+
+    function blockAllSundaysEventtwo(Sunday) {
 
         $("#calendar").fullCalendar('renderEvent',
             {
@@ -705,13 +706,14 @@ $(document).ready(function () {
             true
         );
     }
-    function blockedPeriodEventtwo(start, end){
+
+    function blockedPeriodEventtwo(start, end) {
         $("#calendar").fullCalendar('renderEvent',
             {
                 id: "blocked",
                 title: "",
                 start: start,
-                end:  end,
+                end: end,
                 rendering: "background",
                 className: "blocked_event",
                 color: "#ffad00"

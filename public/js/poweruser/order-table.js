@@ -93,9 +93,9 @@ $(document).ready(function () {
         var divToPrint = document.getElementById("printTable");
         newWin = window.open("");
         newWin.document.write(divToPrint.outerHTML);
-        newWin.print();
-        newWin.close();
-        refresh();
+        //newWin.close();
+        //newWin.print();
+        //refresh();
     }
 
     $(".button-print-order").click(function () {

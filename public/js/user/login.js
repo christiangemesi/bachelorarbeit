@@ -33,10 +33,6 @@ $(document).ready(function () {
         blockNextFiveSaturdayAfterTwoPmInCalendar();
     });
 
-    $(".fc-corner-left").click(function () {
-        blockPreviousFiveSundaysInCalendar();
-    });
-
 
     /**
      * Focus is set on button click on glyphicon
@@ -121,7 +117,6 @@ $(document).ready(function () {
 
                 blockDatesInDatepicker();
                 blockNextFiveSundaysInCalendar();
-                blockPreviousFiveSundaysInCalendar();
 
 
                 $("#calendar").fullCalendar("render");
@@ -308,6 +303,9 @@ $(document).ready(function () {
         })
     }
 
+    /**
+     * block dates till next sunday
+     */
     function blockTillNextSunday() {
         var nextSunday = getNextDayOfWeek(new Date(), 7);
 
@@ -321,15 +319,23 @@ $(document).ready(function () {
         }
     }
 
+    /**
+     * add block days before order startdate
+     * @param date
+     * @returns {string}
+     */
     function addBlockStartdateDailyOrder(date) {
         var temp_date = new Date(date + "T00:00:00-00:00");
         temp_date.setDate(temp_date.getUTCDate() - 7);
         return temp_date.getUTCFullYear() + "-" + formatTwoDigit(temp_date.getUTCMonth() + 1) + "-" + formatTwoDigit(temp_date.getUTCDate());
     }
 
+    /**
+     * put All Dates between start and end date in an array
+     */
     function computeDayBetweenStartAndEnd(startDate, endDate) {
 
-        var arr = new Array();
+        var arr = [];
         var dt = new Date(startDate);
 
         while (dt <= endDate) {
@@ -339,6 +345,9 @@ $(document).ready(function () {
         return arr;
     }
 
+    /**
+     * Block the the next following Sundays in the calendar
+     */
     function blockNextFiveSundaysInCalendar() {
         for (var i = 0; i < 20; i++) {
             blockAllSundaysEvent(formatDate(dayToCalculateNextSundays));
@@ -346,13 +355,9 @@ $(document).ready(function () {
         }
     }
 
-    function blockPreviousFiveSundaysInCalendar() {
-        for (var i = 0; i < 10; i++) {
-            dayToCalculatePreviousSundays.setDate(dayToCalculatePreviousSundays.getDate() - 7);
-            blockAllSundaysEvent(formatDate(dayToCalculatePreviousSundays));
-        }
-    }
-
+    /**
+     *  Block Sundays in the datepicker
+     */
     function blockDatesInDatepicker() {
         var nextSunday = getNextDayOfWeek(new Date, 7);
         for (var i = 0; i < 5; i++) {
@@ -366,6 +371,9 @@ $(document).ready(function () {
         }
     }
 
+    /**
+     * The Library is Closed on Sunday, so users can't order a themebox for a sunday
+     */
     function blockAllSundaysEvent(Sunday) {
         $("#calendar").fullCalendar('renderEvent',
             {
@@ -380,6 +388,9 @@ $(document).ready(function () {
         );
     }
 
+    /**
+     * The Library is closed on saturdays after 2pm, so users can't order a themebox for a saturday after 2pm
+     */
     function blockAllSaturdayAfterTwoPmEvent(start, end) {
         $("#calendar").fullCalendar('renderEvent',
             {
@@ -402,6 +413,10 @@ $(document).ready(function () {
         }
     }
 
+    /**
+     * Sets the available Ending times for selection based on the selected date and existing orders.
+     * (This Function sets the possible starting times for the hourly order after the user logs in)
+     */
     function blockEndTimes() {
 
         if(selectedThemeboxInfo.themebox.fk_order_type === 2){
@@ -475,6 +490,10 @@ $(document).ready(function () {
         removeBlockedHoursFromDropdown(blockedHours, "#user-edit-dropdown-bis");
     }
 
+    /**
+     * Sets the available Starting times for selection based on the selected date and existing orders.
+     * (This Function sets the possible starting times for the hourly order after the user logs in)
+     */
     function blockStartTimes() {
         if(selectedThemeboxInfo.themebox.fk_order_type === 2){
             return;
@@ -524,22 +543,30 @@ $(document).ready(function () {
                 }
             }
         });
-
-
         removeBlockedHoursFromDropdown(blockedHours, "#user-edit-dropdown-von");
-
     }
 
     $("#user-edit-dropdown-von").change(function () {
         $("#user-edit-dropdown-bis").prop("disabled", false);
         setEndingTimesSelectionOnStartzeitChange();
-        removeEvent();
+
+        $("#calendar").fullCalendar('removeEvents', function (event) {
+            return event.className == "myOrder";
+        });
+
+        $("#calendar").fullCalendar('removeEvents', function (event) {
+            return event.className == "newOrder";
+        });
+
     });
 
     $("#user-edit-dropdown-bis").change(function () {
         userUpdateEvent();
     });
 
+    /**
+     * Sets the available ending times for selection based on the selected start time and existing orders.
+     */
     function setEndingTimesSelectionOnStartzeitChange() {
 
         addAllHoursToDropdown("#user-edit-dropdown-bis");
@@ -617,8 +644,10 @@ $(document).ready(function () {
         return tmp_data[2] + "." + tmp_data[1] + "." + tmp_data[0];
     }
 
+    /**
+     * Adds the Buttons to switch from Monthly to Weekly view and vice versa
+     */
     function loadViewChangeButtons() {
-
 
         //prevent buttons from being added multiple times
         if ($(".fc-toolbar .fc-left .fc-week-view-button").length !== 0) {
@@ -644,8 +673,9 @@ $(document).ready(function () {
             switchToWeekButton.show();
         });
 
-        $(".fc-toolbar .fc-left").append(switchToWeekButton);
-        $(".fc-toolbar .fc-left").append(switchToMonthButton);
+        $(".fc-toolbar .fc-left")
+            .append(switchToWeekButton)
+            .append(switchToMonthButton);
     }
 
     /**
@@ -667,7 +697,15 @@ $(document).ready(function () {
                 $("#user-edit-dropdown-bis").val($("#user-edit-dropdown-bis option:first").val());
                 //disable dropdown-bis
                 $("#user-edit-dropdown-bis").prop("disabled", true);
-                removeEvent();
+
+                $("#calendar").fullCalendar('removeEvents', function (event) {
+                    return event.className == "myOrder";
+                });
+
+                $("#calendar").fullCalendar('removeEvents', function (event) {
+                    return event.className == "newOrder";
+                });
+
                 //reset the carrusel button
                 $("#carousel-right").prop("disabled", true);
                 setStartingTimesSelection();
@@ -683,6 +721,9 @@ $(document).ready(function () {
         }
     });
 
+    /**
+     * Sets the available starting times for selection based on the selected date and existing orders.
+     */
     function setStartingTimesSelection() {
 
         //cleanup to show correct values
@@ -744,6 +785,9 @@ $(document).ready(function () {
         removeBlockedHoursFromDropdown(blockedHours, "#user-edit-dropdown-von");
     }
 
+    /**
+     * formats date in the format YYYY-MM-DD
+     */
     function formatDate(date) {
         var day = date.getDate();
         var month = date.getMonth() + 1;
@@ -770,6 +814,9 @@ $(document).ready(function () {
         });
     }
 
+    /**
+     * Remove the dateTime values where the object is already ordered from the dropdown
+     * */
     function removeBlockedHoursFromDropdown(blockedHours, dropdownClassName) {
         $(dropdownClassName + " option").each(function () {
             var optionValue = $(this).val();
@@ -787,6 +834,9 @@ $(document).ready(function () {
         });
     }
 
+    /**
+     * remove 30 minutes from time
+     */
     function subtractMinutesFromTime(time, minutes) {
         var timeArray = time.split(':');
         var hours = parseInt(timeArray[0], 10);
@@ -801,6 +851,10 @@ $(document).ready(function () {
         return padWithZero(newHours) + ':' + padWithZero(newMins);
     }
 
+
+    /**
+     * Add 30 minutes to time
+     */
     function addMinutesToTime(time, minutes) {
         var timeArray = time.split(':');
         var hours = parseInt(timeArray[0], 10);
@@ -819,6 +873,9 @@ $(document).ready(function () {
         return value < 10 ? '0' + value : value;
     }
 
+    /**
+     * Add all hours from 08:00 until 18:00 in 30-minute intervals to dropdown
+     */
     function addAllHoursToDropdown(dropdownClassName) {
         // Remove all options from the dropdown
         $(dropdownClassName).empty();
@@ -836,16 +893,6 @@ $(document).ready(function () {
             $(dropdownClassName).append('<option value="' + currentTime + '">' + currentTime + '</option>');
             currentTime = addMinutesToTime(currentTime, 30);
         }
-    }
-
-    function removeEvent() {
-        $("#calendar").fullCalendar('removeEvents', function (event) {
-            return event.className == "myOrder";
-        });
-
-        $("#calendar").fullCalendar('removeEvents', function (event) {
-            return event.className == "newOrder";
-        });
     }
 
     /**
@@ -891,7 +938,10 @@ $(document).ready(function () {
      */
 
 
-
+    /**
+     * Bind start date and end date so that the end date is always after the start date
+     * For Hourly orders the end date is always the same as the start date
+     */
     function bindEndData() {
         var end_date = $('#end-date');
         var start_date = $("#start-date").datepicker('getDate');

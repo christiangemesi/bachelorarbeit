@@ -457,6 +457,9 @@ $(document).ready(function () {
         }
     });
 
+    /**
+     * Set all the possible end times for the hourly order for poweruser on createOrder
+     */
     function setAppropriateEndTimesOrderAdd(){
         //get the selected start time
         var selectedStartTime = $("#pu_orderAdd-dropdown-von").val();
@@ -476,6 +479,9 @@ $(document).ready(function () {
         $("#pu_orderAdd-dropdown-bis option[value='" + selectedStartTime + "']").remove();
     }
 
+    /**
+     *  Set all the possible end times for the hourly order for poweruser on editOrder
+     */
     function setAppropriateEndTimes() {
         //get the selected start time
         var selectedStartTime = $("#pu_dropdown-von").val();

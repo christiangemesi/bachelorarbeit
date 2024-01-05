@@ -69,7 +69,11 @@ $(document).ready(function () {
                     $("#dropdown-bis").val($("#dropdown-bis option:first").val());
                     //disable dropdown-bis
                     $("#dropdown-bis").prop("disabled", true);
-                    removeEvent();
+
+                    $("#calendar").fullCalendar('removeEvents', function (event) {
+                        return event.className == "new_event";
+                    });
+
                     //reset the carrusel button
                     $("#carousel-right").prop("disabled", true);
                     setStartingTimesSelection();
@@ -310,7 +314,11 @@ $(document).ready(function () {
         $("#dropdown-von").change(function () {
             $("#dropdown-bis").prop("disabled", false);
             setEndingTimesSelectionOnStartzeitChange();
-            removeEvent();
+
+            $("#calendar").fullCalendar('removeEvents', function (event) {
+                return event.className == "new_event";
+            });
+
         });
 
         $("#dropdown-bis").change(function () {
@@ -1195,12 +1203,6 @@ $(document).ready(function () {
             $('#carousel-right').prop('disabled', false);
 
             $('#calendar').fullCalendar('gotoDate', start);
-        }
-
-        function removeEvent() {
-            $("#calendar").fullCalendar('removeEvents', function (event) {
-                return event.className == "new_event";
-            });
         }
 
         /**

@@ -21,7 +21,7 @@ function addEvent() {
 }
 
 /**
- * update calendar event dates
+ * update calendar event dates by poweruser/admin on edit order
  */
 function updateEvent() {
     hideErrorBoxes();
@@ -55,12 +55,11 @@ function updateEvent() {
     $("#button-save-order-change").prop('disabled', false);
 }
 
-function removeSpecificEvent(jQueryCalendar, className) {
-    jQueryCalendar.fullCalendar('removeEvents', function (event) {
-        return event.className == className;
-    });
-}
 
+
+/**
+ * update calendar event dates by user on edit order
+ */
 function userUpdateEvent() {
     hideErrorBoxes();
 
@@ -93,6 +92,9 @@ function userUpdateEvent() {
     $("#button-save-order-change").prop('disabled', false);
 }
 
+/**
+ * update calendar event dates by poweruser on create order
+ */
 function orderAddUpdateEvent() {
 
     var startTime = $('#pu_orderAdd-dropdown-von').val();
@@ -124,6 +126,10 @@ function orderAddUpdateEvent() {
     $("#button-save-orderAdd-change").prop('disabled', false);
 }
 
+/**
+ * Takes a Date and returns a string in the format "yyyy-mm-dd hh:mm:ss"
+ * (25.01.2024 13:30) -> (2024-01-25 13:30:00-00:00)
+ */
 function formatCalendarDateTimeCompare(date) {
     var temp_date = date.split(" ");
     var dateComponents = temp_date[0].split(".");
@@ -132,7 +138,7 @@ function formatCalendarDateTimeCompare(date) {
         dateComponents[2] + "-" + dateComponents[1] + "-" + dateComponents[0] +
         "T" + timeComponents[0] + ":" + timeComponents[1] + ":00-00:00"
     );
-    var returnValue = new_date.getUTCFullYear() +
+    return new_date.getUTCFullYear() +
         "-" +
         formatTwoDigit(new_date.getUTCMonth() + 1) +
         "-" +
@@ -141,9 +147,7 @@ function formatCalendarDateTimeCompare(date) {
         formatTwoDigit(new_date.getUTCHours()) +
         ":" +
         formatTwoDigit(new_date.getUTCMinutes()) +
-        ":00-00:00"
-
-    return (returnValue);
+        ":00-00:00";
 }
 
 /**
@@ -155,12 +159,6 @@ function errorHandling(msg, box) {
     $(box).html(msg);
     $(box).css("display", "block");
     $("#button-save-order-change").prop('disabled', true);
-}
-
-function infoHandling(msg, box) {
-    $(box).html(msg);
-    $(box).css("display", "block");
-
 }
 
 /**
@@ -218,6 +216,9 @@ function createEvent(start, end, isHourly) {
     $('#carousel-right').prop('disabled', false);
 }
 
+/**
+ * create calendar event
+ */
 function orderAddCreateEvent(start, end, isHourly) {
     $("#orderAdd-calendar").fullCalendar('renderEvent',
         {
@@ -277,12 +278,18 @@ function formatDate(date) {
     return tmp_data[2] + "." + tmp_data[1] + "." + tmp_data[0];
 }
 
+/**
+ * Takes a Date and returns a string in the format "dd.mm.yyyy"
+ */
 function formatDateWithoutTime(date) {
     var tmp_data = date.split(" ");
     var tmp_date = tmp_data[0].split("-");
     return tmp_date[2] + "." + tmp_date[1] + "." + tmp_date[0];
 }
 
+/**
+ * Takes a Date and returns a string in the format "hh:mm"
+ */
 function formatTimeWithoutDate(date) {
     var tmp_data = date.split(" ");
     var tmp_time = tmp_data[1].split(":");

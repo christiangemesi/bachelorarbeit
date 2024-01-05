@@ -26,7 +26,6 @@ $(document).ready(function () {
         dayToCalculateNextSaturdays.setSeconds(0);
 
 
-
         // initialize the multiselect
         $('#dropdown2').multiselect({});
 
@@ -139,7 +138,7 @@ $(document).ready(function () {
                     start: '13:30',
                     end: '18:00'
                 });
-                blockedThirtyMinutes += 9*30;
+                blockedThirtyMinutes += 9 * 30;
             }
 
             selectedDateOrders.forEach(function (order) {
@@ -162,7 +161,7 @@ $(document).ready(function () {
             });
 
             //the whole day is blocked
-            if(blockedThirtyMinutes >= 600) {
+            if (blockedThirtyMinutes >= 600) {
                 //disable the dropdown-von
                 $("#dropdown-von").prop("disabled", true);
                 //show error message
@@ -450,40 +449,6 @@ $(document).ready(function () {
         }
 
         /**
-         *
-         */
-        function loadViewChangeButtons() {
-
-            //prevent buttons from being added multiple times
-            if ($(".fc-toolbar .fc-left .fc-week-view-button").length !== 0) {
-                return;
-            }
-
-            var switchToWeekButton = $('<button type="button" class="fc-week-view-button fc-button fc-state-default fc-corner-left fc-corner-right">Wochenansicht</button>');
-            var switchToMonthButton = $('<button type="button" class="fc-month-view-button fc-button fc-state-default fc-corner-left fc-corner-right">Monatsansicht</button>');
-            switchToMonthButton.hide();
-
-
-            switchToWeekButton.on("click", function () {
-                $("#calendar").fullCalendar("changeView", "agendaWeek");
-                //dont show the week button, instead show the month button
-                switchToWeekButton.hide();
-                switchToMonthButton.show();
-            });
-
-            switchToMonthButton.on("click", function () {
-                $("#calendar").fullCalendar("changeView", "month");
-                //dont show the month button, instead show the week button
-                switchToMonthButton.hide();
-                switchToWeekButton.show();
-            });
-
-            $(".fc-toolbar .fc-left").append(switchToWeekButton);
-            $(".fc-toolbar .fc-left").append(switchToMonthButton);
-        }
-
-
-        /**
          * load calendar and themebox detail list
          * @param themebox_Id
          */
@@ -504,8 +469,6 @@ $(document).ready(function () {
             dayToCalculateNextSaturdaysEnd.setHours(18);
             dayToCalculateNextSaturdaysEnd.setMinutes(0);
             dayToCalculateNextSaturdaysEnd.setSeconds(0);
-
-
 
 
             $.ajax({
@@ -541,7 +504,6 @@ $(document).ready(function () {
                     loadBlockedDates();
 
                     blockNextFiveSundaysInCalendar();
-                    blockPreviousFiveSundaysInCalendar();
                     blockNextFiveSaturdayAfterTwoPmInCalendar();
 
                     var orders = response["data"]["orders"];
@@ -577,7 +539,6 @@ $(document).ready(function () {
                         // die Option wird nur für die tagesorders angezeigt, bitte beide zeilen einkommentieren
                         //WICHTIG: ID der Option in der DB für "Lieferung an Aargauer Schulen" muss 2 sein
                         //$("#thekre-dropdown option[value='2']").prop("disabled", false).show();
-
 
 
                         $("#ausleihdauer-text").html("Ausleihdauer max. 8 Wochen");
@@ -787,25 +748,22 @@ $(document).ready(function () {
             blockNextFiveSaturdayAfterTwoPmInCalendar();
         });
 
-        $(".fc-corner-left").click(function () {
-            blockPreviousFiveSundaysInCalendar();
-        });
 
-
+        /**
+         *  Block Sundays in the datepicker
+         */
         function blockDatesInDatepicker() {
             var nextSunday = getNextDayOfWeek(new Date, 7);
             for (var i = 0; i < 5; i++) {
                 listOfBlockedDates.push(formatDate(nextSunday));
                 nextSunday.setDate(nextSunday.getDate() - 7);
             }
-            nextSunday = getNextDayOfWeek(new Date, 7);
-            for (var i = 0; i < 200; i++) {
-                nextSunday.setDate(nextSunday.getDate() + 7);
-                listOfBlockedDates.push(formatDate(nextSunday));
-            }
         }
 
 
+        /**
+         * Block the the next following Sundays in the calendar
+         */
         function blockNextFiveSundaysInCalendar() {
             for (var i = 0; i < 10; i++) {
                 blockAllSundaysEvent(formatDate(dayToCalculateNextSundays));
@@ -813,16 +771,11 @@ $(document).ready(function () {
             }
         }
 
-
-        function blockPreviousFiveSundaysInCalendar() {
-            for (var i = 0; i < 10; i++) {
-                dayToCalculatePreviousSundays.setDate(dayToCalculatePreviousSundays.getDate() - 7);
-                blockAllSundaysEvent(formatDate(dayToCalculatePreviousSundays));
-            }
-        }
-
+        /**
+         * Block the the next following Saturdays after 2 pm in the calendar since the library is closed
+         */
         function blockNextFiveSaturdayAfterTwoPmInCalendar() {
-            for(var i = 0; i < 5; i++) {
+            for (var i = 0; i < 5; i++) {
                 blockAllSaturdayAfterTwoPmEvent(dayToCalculateNextSaturdaysStart, dayToCalculateNextSaturdaysEnd);
                 dayToCalculateNextSaturdaysStart.setDate(dayToCalculateNextSaturdaysStart.getDate() + 7);
                 dayToCalculateNextSaturdaysEnd.setDate(dayToCalculateNextSaturdaysEnd.getDate() + 7);
@@ -1104,6 +1057,10 @@ $(document).ready(function () {
             return new_date;
         }
 
+        /**
+         * Takes a Date and returns a string in the format "yyyy-mm-dd hh:mm:ss"
+         * (25.01.2024 13:30) -> (2024-01-25 13:30:00-00:00)
+         */
         function formatCalendarDateTimeCompare(date) {
             var temp_date = date.split(" ");
             var dateComponents = temp_date[0].split(".");

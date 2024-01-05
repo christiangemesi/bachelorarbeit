@@ -364,11 +364,6 @@ $(document).ready(function () {
             listOfBlockedDates.push(formatDate(nextSunday));
             nextSunday.setDate(nextSunday.getDate() - 7);
         }
-        nextSunday = getNextDayOfWeek(new Date, 7);
-        for (var i = 0; i < 200; i++) {
-            nextSunday.setDate(nextSunday.getDate() + 7);
-            listOfBlockedDates.push(formatDate(nextSunday));
-        }
     }
 
     /**
@@ -405,6 +400,9 @@ $(document).ready(function () {
         );
     }
 
+    /**
+     * Block the the next following Saturdays after 2 pm in the calendar since the library is closed
+     */
     function blockNextFiveSaturdayAfterTwoPmInCalendar() {
         for(var i = 0; i < 20; i++) {
             blockAllSaturdayAfterTwoPmEvent(dayToCalculateNextSaturdaysStart, dayToCalculateNextSaturdaysEnd);
@@ -644,39 +642,6 @@ $(document).ready(function () {
         return tmp_data[2] + "." + tmp_data[1] + "." + tmp_data[0];
     }
 
-    /**
-     * Adds the Buttons to switch from Monthly to Weekly view and vice versa
-     */
-    function loadViewChangeButtons() {
-
-        //prevent buttons from being added multiple times
-        if ($(".fc-toolbar .fc-left .fc-week-view-button").length !== 0) {
-            return;
-        }
-
-        var switchToWeekButton = $('<button type="button" class="fc-week-view-button fc-button fc-state-default fc-corner-left fc-corner-right">Wochensicht</button>');
-        var switchToMonthButton = $('<button type="button" class="fc-month-view-button fc-button fc-state-default fc-corner-left fc-corner-right">Monatssicht</button>');
-        switchToMonthButton.hide();
-
-
-        switchToWeekButton.on("click", function () {
-            $("#calendar").fullCalendar("changeView", "agendaWeek");
-            //dont show the week button, instead show the month button
-            switchToWeekButton.hide();
-            switchToMonthButton.show();
-        });
-
-        switchToMonthButton.on("click", function () {
-            $("#calendar").fullCalendar("changeView", "month");
-            //dont show the month button, instead show the week button
-            switchToMonthButton.hide();
-            switchToWeekButton.show();
-        });
-
-        $(".fc-toolbar .fc-left")
-            .append(switchToWeekButton)
-            .append(switchToMonthButton);
-    }
 
     /**
      * Datepicker start date onselect

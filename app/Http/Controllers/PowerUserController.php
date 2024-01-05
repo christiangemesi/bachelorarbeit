@@ -463,7 +463,7 @@ class PowerUserController extends Controller
             } catch (Exception $e) {
                 return response()->json($hourly_order->fk_themebox, 500);
             }
-        } else {
+        } else { // daily order
             $newOrder = new Order();
             $newOrder->fk_themebox = $request->themeboxId;
             $newOrder->startdate = $this->formatDate($path[0]["value"]);
@@ -512,6 +512,9 @@ class PowerUserController extends Controller
         }
     }
 
+    /**
+     * Concatenate date and time
+     */
     private function concatenateDatetime($date, $time)
     {
         $tempDate = explode(".", $date);

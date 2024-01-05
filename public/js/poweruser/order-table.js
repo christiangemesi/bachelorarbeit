@@ -765,33 +765,6 @@ $(document).ready(function () {
         })
     })
 
-    function loadViewChangeButtons() {
-
-        if ($(".fc-toolbar .fc-left .fc-week-view-button").length !== 0) {
-            return;
-        }
-
-        var switchToWeekButton = $('<button type="button" class="fc-week-view-button fc-button fc-state-default fc-corner-left fc-corner-right">Wochensicht</button>');
-        var switchToMonthButton = $('<button type="button" class="fc-month-view-button fc-button fc-state-default fc-corner-left fc-corner-right">Monatssicht</button>');
-        switchToMonthButton.hide();
-
-        switchToWeekButton.on("click", function () {
-            $("#calendar, #orderAdd-calendar").fullCalendar("changeView", "agendaWeek");
-            //dont show the week button, instead show the month button
-            $(".fc-week-view-button").hide();
-            $(".fc-month-view-button").show();
-        });
-
-        switchToMonthButton.on("click", function () {
-            $("#calendar, #orderAdd-calendar").fullCalendar("changeView", "month");
-            //dont show the month button, instead show the week button
-            $(".fc-month-view-button").hide();
-            $(".fc-week-view-button").show();
-        });
-
-        $(".fc-toolbar .fc-left").append(switchToWeekButton).append(switchToMonthButton);
-    }
-
 
     $('#orderAdd-delivery').click(function () {
         if ($("#orderAdd-delivery").val() == "1") {

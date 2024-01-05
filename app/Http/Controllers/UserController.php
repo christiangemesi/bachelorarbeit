@@ -232,6 +232,9 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * put date and time together
+     */
     private function concatenateDatetime($date, $time)
     {
         $tempDate = explode(".", $date);
@@ -337,7 +340,6 @@ class UserController extends Controller
             $view = 'user.mail_delivery_school';
         } else {
 
-
             $mail = EditMail::find(1);
             $html_db = $mail->mail_text;
 
@@ -401,7 +403,7 @@ class UserController extends Controller
                 $status = Status::find($order[0]->fk_status);
                 $delivery = Delivery::find($order[0]->fk_delivery);
 
-                if($isHourlyOrder->count() > 0){
+                if ($isHourlyOrder->count() > 0) {
                     $orders = HourlyOrder::where('fk_themebox', $themebox->pk_themebox)->get();
                 } else {
                     $orders = Order::where('fk_themebox', $themebox->pk_themebox)->get();
@@ -441,22 +443,21 @@ class UserController extends Controller
     public function updateOrderDates(Request $request)
     {
         //error log each value from path with its index
-        for($i = 0; $i < count($request->order_data); $i++){
+        for ($i = 0; $i < count($request->order_data); $i++) {
             error_log($i . " " . $request->order_data[$i]["value"]);
         }
 
 
-
-        $orderId =$request->order_data[0]["value"];
+        $orderId = $request->order_data[0]["value"];
 
         $isHourlyOrder = false;
         $order = Order::find($orderId);
-        if($order == null){
+        if ($order == null) {
             $order = HourlyOrder::find($orderId);
             $isHourlyOrder = true;
         }
 
-        if(!$isHourlyOrder) {
+        if (!$isHourlyOrder) {
             try {
                 Order::find($request->order_data[0]["value"])->update(
                     ['startdate' => $this->formatDate($request->order_data[1]["value"]),

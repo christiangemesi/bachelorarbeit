@@ -431,7 +431,7 @@ class AdminController extends Controller
             $isHourlyOrder = true;
         }
 
-        if(!$isHourlyOrder){
+        if(!$isHourlyOrder){ // daily order
             try {
                 //if new status is "ready"
                 if (2 == $request->order_data[3]["value"] && 1 == $request->order_data[9]["value"]) {
@@ -462,7 +462,7 @@ class AdminController extends Controller
             } catch (Exception $e) {
                 return response()->json($e, 500);
             }
-        } else {
+        } else { // hourly order
             try {
                 HourlyOrder::find($request->order_data[0]["value"])->update(
                     ['startdate' => $this->concatenateDatetime($request->order_data[1]["value"], $request->order_data[3]["value"]),
@@ -483,6 +483,9 @@ class AdminController extends Controller
         }
     }
 
+    /**
+     * put date and time together
+     */
     private function concatenateDatetime($date, $time)
     {
         $tempDate = explode(".", $date);
@@ -614,6 +617,7 @@ class AdminController extends Controller
             return response()->json($e, 500);
         }
     }
+
 
     public function removeCategory(Request $request)
     {

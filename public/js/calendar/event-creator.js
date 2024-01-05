@@ -55,7 +55,39 @@ function updateEvent() {
     $("#button-save-order-change").prop('disabled', false);
 }
 
+/**
+ * Adds the Buttons to switch from Monthly to Weekly view and vice versa
+ */
+function loadViewChangeButtons() {
 
+    //prevent buttons from being added multiple times
+    if ($(".fc-toolbar .fc-left .fc-week-view-button").length !== 0) {
+        return;
+    }
+
+    var switchToWeekButton = $('<button type="button" class="fc-week-view-button fc-button fc-state-default fc-corner-left fc-corner-right">Wochensicht</button>');
+    var switchToMonthButton = $('<button type="button" class="fc-month-view-button fc-button fc-state-default fc-corner-left fc-corner-right">Monatssicht</button>');
+    switchToMonthButton.hide();
+
+
+    switchToWeekButton.on("click", function () {
+        $("#calendar, #orderAdd-calendar").fullCalendar("changeView", "agendaWeek");
+        //dont show the week button, instead show the month button
+        switchToWeekButton.hide();
+        switchToMonthButton.show();
+    });
+
+    switchToMonthButton.on("click", function () {
+        $("#calendar, #orderAdd-calendar").fullCalendar("changeView", "month");
+        //dont show the month button, instead show the week button
+        switchToMonthButton.hide();
+        switchToWeekButton.show();
+    });
+
+    $(".fc-toolbar .fc-left")
+        .append(switchToWeekButton)
+        .append(switchToMonthButton);
+}
 
 /**
  * update calendar event dates by user on edit order

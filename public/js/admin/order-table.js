@@ -370,7 +370,13 @@ $(document).ready(function () {
             bindEndData();
 
             if (selectedThemeboxInfo.fk_order_type === 1) { // hourly order
-                removeEvent();
+                $("#calendar").fullCalendar('removeEvents', function (event) {
+                    return event.className == "newOrder";
+                });
+
+                $("#calendar").fullCalendar('removeEvents', function (event) {
+                    return event.className == "new_event";
+                });
 
                 //reset the dropdowns
                 $("#pu_dropdown-von").val($("#pu_dropdown-von option:first").val());
@@ -595,91 +601,12 @@ $(document).ready(function () {
         });
     }
 
-    function loadViewChangeButtons() {
-
-        if ($(".fc-toolbar .fc-left .fc-week-view-button").length !== 0) {
-            return;
-        }
-
-        var switchToWeekButton = $('<button type="button" class="fc-week-view-button fc-button fc-state-default fc-corner-left fc-corner-right">Wochensicht</button>');
-        var switchToMonthButton = $('<button type="button" class="fc-month-view-button fc-button fc-state-default fc-corner-left fc-corner-right">Monatssicht</button>');
-        switchToMonthButton.hide();
-
-        switchToWeekButton.on("click", function () {
-            $("#calendar, #orderAdd-calendar").fullCalendar("changeView", "agendaWeek");
-            //dont show the week button, instead show the month button
-            $(".fc-week-view-button").hide();
-            $(".fc-month-view-button").show();
-        });
-
-        switchToMonthButton.on("click", function () {
-            $("#calendar, #orderAdd-calendar").fullCalendar("changeView", "month");
-            //dont show the month button, instead show the week button
-            $(".fc-month-view-button").hide();
-            $(".fc-week-view-button").show();
-        });
-
-        $(".fc-toolbar .fc-left").append(switchToWeekButton).append(switchToMonthButton);
-    }
 
     $("#pu_dropdown-von").change(function () {
         setAppropriateEndTimes();
         $("#pu_dropdown-bis").prop("disabled", false);
         //set the first value
         $("#pu_dropdown-bis").val($("#pu_dropdown-bis option:first").val());
-        removeEvent();
-    });
-
-    $("#pu_dropdown-bis").change(function () {
-        updateEvent();
-    });
-
-    function disableAllOptions() {
-        $("#orderAdd-start-date").prop("disabled", true);
-        $("#orderAdd-end-date").prop("disabled", true);
-        $("#pu_orderAdd-dropdown-von").prop("disabled", true);
-        $("#pu_orderAdd-dropdown-bis").prop("disabled", true);
-        $("#orderAdd-nachname").prop("disabled", true);
-        $("#orderAdd-name").prop("disabled", true);
-        $("#orderAdd-email").prop("disabled", true);
-        $("#orderAdd-phone").prop("disabled", true);
-        $("#orderAdd-Nebisnumber").prop("disabled", true);
-        $("#orderAdd-delivery").prop("disabled", true);
-    }
-
-    function enableAllOptions() {
-        $("#orderAdd-start-date").prop("disabled", false);
-        $("#orderAdd-end-date").prop("disabled", false);
-        $("#pu_orderAdd-dropdown-von").prop("disabled", false);
-        $("#pu_orderAdd-dropdown-bis").prop("disabled", false);
-        $("#orderAdd-nachname").prop("disabled", false);
-        $("#orderAdd-name").prop("disabled", false);
-        $("#orderAdd-email").prop("disabled", false);
-        $("#orderAdd-phone").prop("disabled", false);
-        $("#orderAdd-Nebisnumber").prop("disabled", false);
-        $("#orderAdd-delivery").prop("disabled", false);
-    }
-
-    function loadHourlyView(order_type, orders) {
-        //reset the selection so that the option is null
-        $("#pu_orderAdd-dropdown-von").val($("#pu_orderAdd-dropdown-von option:first").val());
-        $("#pu_orderAdd-dropdown-bis").val($("#pu_orderAdd-dropdown-bis option:first").val());
-        if (order_type !== 1) {
-            $("#pu_themebox-datepicker-bis").show();
-            $("#pu_orderAdd-time-select").hide();
-            return;
-        }
-
-        //hide themebox-datepicker-bis
-        $("#pu_themebox-datepicker-bis").hide();
-
-        $("#pu_orderAdd-time-select").show();
-        //the selection should be disabled by default until the dates are chosen
-        $("#pu_orderAdd-dropdown-von").prop("disabled", true);
-        $("#pu_orderAdd-dropdown-bis").prop("disabled", true);
-    }
-
-    function removeEvent() {
         $("#calendar").fullCalendar('removeEvents', function (event) {
             return event.className == "newOrder";
         });
@@ -687,7 +614,13 @@ $(document).ready(function () {
         $("#calendar").fullCalendar('removeEvents', function (event) {
             return event.className == "new_event";
         });
-    }
+    });
+
+    $("#pu_dropdown-bis").change(function () {
+        updateEvent();
+    });
+
+
 
     function formatBlockedPeriodCalendarStartDate(date){
         let temp_date = date.split(".");

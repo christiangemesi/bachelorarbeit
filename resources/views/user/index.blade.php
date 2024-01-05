@@ -7,6 +7,7 @@
     <script src="{{ asset('js/calendar/moment.min.js') }}"></script>
     <script src="{{ asset('js/user/order-form.js') }}"></script>
     <script src="{{asset('js/user/login.js')}}"></script>
+    <script src="{{asset('js/calendar/event-creator.js')}}"></script>
     <link rel="stylesheet" href="{{ asset('css/calendar/fullcalendar.css') }}">
     <script src="{{ asset('js/calendar/fullcalendar.js') }}"></script>
     <script src="{{ asset('js/calendar/de-ch.js') }}"></script>
@@ -29,7 +30,7 @@
         <div class="col-md-12 main-Panel">
             <div class="row">
                 <div class="col-md-12">
-                    <h1>Themenkisten und Lernroboter Bibliothek Brugg-Windisch</h1>
+                    <h1>Themenkisten unddsdsds Lernroboter Bibliothek Brugg-Windisch</h1>
 
                     <div class="progress">
                         <div id="order-progress-bar" class="progress-bar thekre-progress" role="progressbar" aria-valuenow="40"

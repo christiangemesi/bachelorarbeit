@@ -687,6 +687,8 @@ $(document).ready(function () {
 
         //cleanup to show correct values
         addAllHoursToDropdown("#user-edit-dropdown-von");
+        hideErrorBoxes();
+
 
         var startDate = formatDate($("#start-date").datepicker("getDate"));
         var selectedDateOrders = getSelectedDateOrders(startDate);
@@ -735,7 +737,7 @@ $(document).ready(function () {
             $("#carousel-right").prop("disabled", true);
             $("#user-edit-dropdown-von").prop("disabled", true);
 
-            errorHandling("ACHTUNG! Diese Änderung kann nicht rückgängig gemacht werden!", "#error-calendar-message-box");
+            errorHandling("Der gewählte Tag ist leider ausgebucht. Bitte wählen Sie einen anderen Tag.", "#error-calendar-message-box");
         }
 
 

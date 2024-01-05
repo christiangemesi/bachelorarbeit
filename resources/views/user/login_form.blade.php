@@ -78,8 +78,6 @@
                                             <input type="text" class="form-control cursor-pointer modal-datepicker" id="end-date" name="end-date">
                                             <span class="input-group-addon cursor-pointer" id="order-to-glyphicon"><i class="glyphicon glyphicon-calendar"></i></span>
                                         </div>
-                                        <div class="alert alert-danger display-none" id="error-calendar-message-box"></div>
-                                        <div class="alert alert-info display-none" id="info-calendar-message-box"></div>
                                     </div>
 
                                     <div id="user-edit-themebox-time-select" >
@@ -135,6 +133,9 @@
                                             <option value="18:00">18:00</option>
                                         </select>
                                     </div>
+
+                                    <div class="alert alert-danger display-none" id="error-calendar-message-box"></div>
+                                    <div class="alert alert-info display-none" id="info-calendar-message-box"></div>
 
                                     <div class="form-group">
                                         <label class="float-left" for="status">Status</label>

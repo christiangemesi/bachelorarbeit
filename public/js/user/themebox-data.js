@@ -78,10 +78,10 @@ $(document).ready(function () {
                 if ($("#end-date").datepicker("getDate") != null) {
                     if (selectedThemeboxInfo.themebox.fk_order_type === 2) { // daily order
                         addEvent();
+                        $("#end-date").removeAttr("disabled");
+                        $("#info-calendar-message-box").css("display", "none");
                     }
                 }
-                $("#end-date").removeAttr("disabled");
-                $("#info-calendar-message-box").css("display", "none");
             }
         });
 
@@ -110,7 +110,7 @@ $(document).ready(function () {
             addAllHoursToDropdown("#dropdown-von");
 
             // disable the error message
-            $("#error-calendar-message-box").css("display", "none");
+            //$("#error-calendar-message-box").css("display", "none");
 
 
             var startDate = formatDate($("#start-date").datepicker("getDate"));
@@ -155,7 +155,6 @@ $(document).ready(function () {
                     currentBlockStart = addMinutesToTime(currentBlockStart, 30);
                 }
             });
-            console.log(blockedThirtyMinutes);
 
             //the whole day is blocked
             if(blockedThirtyMinutes >= 600) {

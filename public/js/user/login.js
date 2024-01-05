@@ -270,7 +270,7 @@ $(document).ready(function () {
                         }, true);
 
 
-                        var dateArr = computeDayBetweenStartAndEnd(new Date(addBlockStartdateDailyOrder(value['startdate'])), new Date(addBlockEnddateDailyOrder(value['enddate'])));
+                        var dateArr = computeDayBetweenStartAndEnd(new Date(addBlockStartdateDailyOrder(value['startdate'])), new Date(addBlockEnddate(value['enddate'])));
                         for (var i = 0; i <= dateArr.length; i++) {
                             listOfBlockedDates.push(dateArr[i]);
                         }
@@ -676,10 +676,10 @@ $(document).ready(function () {
             if ($("#end-date").datepicker("getDate") != null) {
                 if (selectedThemeboxInfo.themebox.fk_order_type === 2) { // daily order
                     userUpdateEvent();
+                    $("#end-date").removeAttr("disabled");
+                    $("#info-calendar-message-box").css("display", "none");
                 }
             }
-            $("#end-date").removeAttr("disabled");
-            $("#info-calendar-message-box").css("display", "none");
         }
     });
 
@@ -693,6 +693,22 @@ $(document).ready(function () {
 
         // Create an array for blocked hours on the selected date
         var blockedHours = [];
+        var blockedThirtyMinutes = 0;
+
+        // by default push 17:30 and 18:00 as blocked hour
+        blockedHours.push({
+            start: '17:30',
+            end: '18:00'
+        });
+        blockedThirtyMinutes += 30;
+
+        if (new Date(startDate).getDay() === 6) {
+            blockedHours.push({
+                start: '13:30',
+                end: '18:00'
+            });
+            blockedThirtyMinutes += 9*30;
+        }
 
         selectedDateOrders.forEach(function (order) {
             var startHour = order.startdate.split(' ')[1].substring(0, 5);
@@ -708,22 +724,18 @@ $(document).ready(function () {
                         start: currentBlockStart,
                         end: currentBlockEnd
                     });
+                    blockedThirtyMinutes += 30;
 
                     currentBlockStart = addMinutesToTime(currentBlockStart, 30);
                 }
             }
         });
-        // by default push 17:30 and 18:00 as blocked hour
-        blockedHours.push({
-            start: '17:30',
-            end: '18:00'
-        });
 
-        if (new Date(startDate).getDay() === 6) {
-            blockedHours.push({
-                start: '13:30',
-                end: '18:00'
-            });
+        if(blockedThirtyMinutes >= 600) {
+            $("#carousel-right").prop("disabled", true);
+            $("#user-edit-dropdown-von").prop("disabled", true);
+
+            errorHandling("ACHTUNG! Diese Änderung kann nicht rückgängig gemacht werden!", "#error-calendar-message-box");
         }
 
 

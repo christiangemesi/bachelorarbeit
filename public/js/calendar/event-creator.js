@@ -151,6 +151,12 @@ function errorHandling(msg, box) {
     $("#button-save-order-change").prop('disabled', true);
 }
 
+function infoHandling(msg, box) {
+    $(box).html(msg);
+    $(box).css("display", "block");
+
+}
+
 /**
  * hide calendar error msg
  */

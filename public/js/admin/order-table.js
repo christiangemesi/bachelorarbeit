@@ -343,21 +343,20 @@ $(document).ready(function () {
      * show / hide delivery input fields
      */
     $('#delivery').click(function () {
-        if ($("#delivery").val() === "1") {
-            $("#order-delivery-type").hide();
-            lastNameValidate();
-            firstNameValidate();
-            emailValidate();
-            phoneValidate();
-            nebisValidate();
-        }
-        else {
+        if($("#delivery").val() === "2") {
             $("#order-delivery-type").show();
             schoolnameValidate();
             schoolstreetValidate();
             schoolcityValidate();
             placeofhandoverValidate();
             schoolphoneValidate();
+        } else {
+            $("#order-delivery-type").hide();
+            lastNameValidate();
+            firstNameValidate();
+            emailValidate();
+            phoneValidate();
+            nebisValidate();
         }
     });
 
@@ -370,6 +369,8 @@ $(document).ready(function () {
             bindEndData();
 
             if (selectedThemeboxInfo.fk_order_type === 1) { // hourly order
+                $('#button-save-order-change').prop('disabled', true);
+
                 $("#calendar").fullCalendar('removeEvents', function (event) {
                     return event.className == "newOrder";
                 });
@@ -605,6 +606,7 @@ $(document).ready(function () {
     $("#pu_dropdown-von").change(function () {
         setAppropriateEndTimes();
         $("#pu_dropdown-bis").prop("disabled", false);
+        $('#button-save-order-change').prop('disabled', true);
         //set the first value
         $("#pu_dropdown-bis").val($("#pu_dropdown-bis option:first").val());
         $("#calendar").fullCalendar('removeEvents', function (event) {

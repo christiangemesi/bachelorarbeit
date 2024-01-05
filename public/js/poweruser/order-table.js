@@ -159,6 +159,8 @@ $(document).ready(function () {
             success: function (response) {
                 selectedThemeboxInfo = response["themebox"]
 
+                console.log(response);
+
                 bindEndData();
                 addBlockDateFromToday();
                 loadBlockedDates();
@@ -253,6 +255,7 @@ $(document).ready(function () {
                 } else {
                     $("#order-delivery-type").css("display", "none");
                 }
+
 
                 orders = response["orders"];
                 old_startdate = $("#start-date").val();
@@ -367,20 +370,20 @@ $(document).ready(function () {
      * show / hide delivery input fields
      */
     $('#delivery').click(function () {
-        if ($("#delivery").val() === "1") {
-            $("#order-delivery-type").hide();
-            lastNameValidate();
-            firstNameValidate();
-            emailValidate();
-            phoneValidate();
-            nebisValidate();
-        } else {
+        if($("#delivery").val() === "2") {
             $("#order-delivery-type").show();
             schoolnameValidate();
             schoolstreetValidate();
             schoolcityValidate();
             placeofhandoverValidate();
             schoolphoneValidate();
+        } else {
+            $("#order-delivery-type").hide();
+            lastNameValidate();
+            firstNameValidate();
+            emailValidate();
+            phoneValidate();
+            nebisValidate();
         }
     });
 
@@ -393,6 +396,7 @@ $(document).ready(function () {
             bindEndData();
 
             if (selectedThemeboxInfo.fk_order_type === 1) { // hourly order
+                $("#button-save-order-change").prop("disabled", true);
                 removeEvent();
 
                 //reset the dropdowns
@@ -859,6 +863,7 @@ $(document).ready(function () {
     });
 
     $("#pu_dropdown-von").change(function () {
+        $("#button-save-order-change").prop("disabled", true);
         setAppropriateEndTimes();
         $("#pu_dropdown-bis").prop("disabled", false);
         //set the first value

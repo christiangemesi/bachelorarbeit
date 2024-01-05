@@ -546,6 +546,7 @@ $(document).ready(function () {
 
     $("#user-edit-dropdown-von").change(function () {
         $("#user-edit-dropdown-bis").prop("disabled", false);
+        $("#button-save-order-change").prop("disabled", true);
         setEndingTimesSelectionOnStartzeitChange();
 
         $("#calendar").fullCalendar('removeEvents', function (event) {
@@ -657,6 +658,7 @@ $(document).ready(function () {
             bindEndData();
 
             if (selectedThemeboxInfo.themebox.fk_order_type === 1) { // Hourly order
+                $("#button-save-order-change").prop("disabled", true);
                 // reset the dropdown-von and dropdown-bis
                 $("#user-edit-dropdown-von").val($("#user-edit-dropdown-von option:first").val());
                 $("#user-edit-dropdown-bis").val($("#user-edit-dropdown-bis option:first").val());

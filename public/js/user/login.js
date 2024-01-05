@@ -823,7 +823,6 @@ $(document).ready(function () {
         // Remove all options from the dropdown
         $(dropdownClassName).empty();
 
-        console.log(dropdownClassName);
 
         if (dropdownClassName === "#user-edit-dropdown-von") {
             $(dropdownClassName).append('<option value="" selected disabled hidden>Startzeit</option>');

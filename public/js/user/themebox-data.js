@@ -864,7 +864,6 @@ $(document).ready(function () {
          * create new blocked sunday
          */
         function blockAllSundaysEvent(Sunday) {
-            console.log(Sunday)
             $("#calendar").fullCalendar('renderEvent',
                 {
                     id: "blocked",

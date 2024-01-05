@@ -8,7 +8,6 @@ function notEmptyValidate(namevar, statusvar, iconvar) {
 
     // Check if the element is a dropdown (for Category/OrderType selection)
     if (name.tagName === "SELECT") {
-        console.log(name)
         status.style.display = "none";
         name.parentNode.className = "form-group has-success has-feedback";
         icon.className = "glyphicon glyphicon-ok form-control-feedback";

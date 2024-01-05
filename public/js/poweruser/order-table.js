@@ -316,7 +316,6 @@ $(document).ready(function () {
      * save order changes
      */
     $('#button-save-order-change').click(function () {
-        console.log($('#order-edit-form').serializeArray());
         $.ajax({
             url: "poweruser/updateOrder",
             type: 'POST',
@@ -719,7 +718,6 @@ $(document).ready(function () {
                 });
                 response["orderData"].forEach(function (element) {
                     var isHourlyOrder = response["themebox"]["fk_order_type"] === 1;
-                    console.log(element)
                     $('#orderAdd-calendar').fullCalendar("renderEvent", {
                         title: "",
                         start: addTime(element["order_startdate"]),

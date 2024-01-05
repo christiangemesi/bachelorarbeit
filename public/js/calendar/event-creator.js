@@ -55,6 +55,12 @@ function updateEvent() {
     $("#button-save-order-change").prop('disabled', false);
 }
 
+function removeSpecificEvent(jQueryCalendar, className) {
+    jQueryCalendar.fullCalendar('removeEvents', function (event) {
+        return event.className == className;
+    });
+}
+
 function userUpdateEvent() {
     hideErrorBoxes();
 

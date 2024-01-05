@@ -85,7 +85,6 @@ $(document).ready(function () {
             type: 'POST',
             data: {themebox_id: $(this).val()},
             success: function (response) {
-                console.log(response)
                 $("#themebox-edit-form-name").val(response[0]["title"]);
                 $("#themebox-edit-form-signature").val(response[0]["signatur"]);
                 $("#themebox-edit-form-schoollevel").val(response[0]["schoollevel"]);

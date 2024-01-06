@@ -1270,7 +1270,7 @@ $(document).ready(function () {
                 $('#delete-warning-header-text').text("Die Lieferung an Aargauer Schulen ist kostenpflichtig.");
                 $('#button-submit-order').text("Themenkiste liefern lassen");
             } else {
-                $('#delete-warning-header-text').text("Wollen Sie die Themenkiste/Lernroboter wirklich bestellen und selbst Abholen?");
+                $('#delete-warning-header-text').text("Wollen Sie die Themenkiste/Lernroboter wirklich bestellen und selbst abholen?");
                 $('#button-submit-order').text("Themenkiste bestellen");
             }
             prepareOrderConfirmModal();

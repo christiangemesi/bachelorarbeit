@@ -259,7 +259,7 @@
                                                 <span id="orderAdd-phoneInputStatus" class="errorHeader">Telefonnummer wird benötigt!</span>
                                             </div>
                                             <div class="form-group">
-                                                <label class="float-left" for="orderAdd-Nebisnumber" >Bibliotheksausweisnumber</label>
+                                                <label class="float-left" for="orderAdd-Nebisnumber" >Bibliotheksausweisnummer</label>
                                                 <input type="text" class="form-control" id="orderAdd-Nebisnumber" name="orderAdd-Nebisnumber" onkeyup="nebisValidate('orderAdd-Nebisnumber','orderAdd-nebisInputStatus','orderAdd-nebisIcon')" onblur="nebisValidate('orderAdd-Nebisnumber','orderAdd-nebisInputStatus','orderAdd-nebisIcon')">
                                                 <span id="orderAdd-nebisIcon" aria-hidden="true"></span>
                                                 <span id="orderAdd-nebisInputStatus" class="errorHeader">Nummer wird benötigt!</span>

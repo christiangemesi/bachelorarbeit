@@ -32,7 +32,7 @@
                         <label for="order-number">Bestellnummmer:</label>
                         <input type="text" class="form-control" id="ordernumber" name="ordernumber" autocomplete="off"/>
                     </div>
-                    <button id="user-login-button" class="btn btn-success btn-lg" >Bestellung Suchen</button>
+                    <button id="user-login-button" class="btn btn-success btn-lg" >Bestellung suchen</button>
                 </div>
             </div>
         </div>

@@ -30,7 +30,7 @@
         <div class="col-md-12 main-Panel">
             <div class="row">
                 <div class="col-md-12">
-                    <h1>Themenkisten unddsdsds Lernroboter Bibliothek Brugg-Windisch</h1>
+                    <h1>Themenkisten und Lernroboter Bibliothek Brugg-Windisch</h1>
 
                     <div class="progress">
                         <div id="order-progress-bar" class="progress-bar thekre-progress" role="progressbar" aria-valuenow="40"
@@ -126,7 +126,7 @@
                                                             </tr>
                                                         </table>
                                                         <p class="text-max-order-date-info">
-                                                            <i id="ausleihdauer-text">Ausleihdauer max. 6 Wochen</i>
+                                                            <i id="ausleihdauer-text">Ausleihdauer max. 8 Wochen</i>
                                                         </p>
 
                                                         <div id="themebox-time-select">

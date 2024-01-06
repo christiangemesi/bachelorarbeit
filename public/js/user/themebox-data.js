@@ -81,7 +81,6 @@ $(document).ready(function () {
                 if ($("#end-date").datepicker("getDate") != null) {
                     if (selectedThemeboxInfo.themebox.fk_order_type === 2) { // daily order
                         addEvent();
-                        $("#end-date").removeAttr("disabled");
                         $("#info-calendar-message-box").css("display", "none");
                     }
                 }
@@ -566,7 +565,6 @@ $(document).ready(function () {
                     });
 
                     hideErrorBoxes();
-                    $("#end-date").prop("disabled", true);
                     $("#start-date").val("");
                     $("#end-date").val("");
 
@@ -1219,7 +1217,7 @@ $(document).ready(function () {
                 //enable the dropdowns
                 $("#dropdown-von").prop("disabled", false);
             } else {
-
+                $("#end-date").prop("disabled", false);
             }
         }
 

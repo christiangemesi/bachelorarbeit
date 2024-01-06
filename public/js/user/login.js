@@ -120,6 +120,7 @@ $(document).ready(function () {
 
 
                 $("#calendar").fullCalendar("render");
+                $("#calendar").fullCalendar("removeEvents");
                 $("#calendar").fullCalendar('removeEvents', function (event) {
                     return event.className == "newOrder";
                 });

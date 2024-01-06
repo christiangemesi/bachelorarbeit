@@ -750,7 +750,7 @@ class AdminController extends Controller
                     'size' => $request->themebox_data[5]["value"],
                     'weight' => $request->themebox_data[6]["value"],
                     'fk_category' => $request->themebox_data[7]["value"],
-                    //'fk_order_type' => $request->themebox_data[8]["value"],
+                    //'fk_order_type' => $request->themebox_data[8]["value"], //order_type kann nicht geändert werden, da man auch nicht weiss ab wann die änderung gelten soll
                     'content' => $request->themebox_data[8]["value"],
                     'extra_text' => $request->themebox_data[9]["value"]]
             );

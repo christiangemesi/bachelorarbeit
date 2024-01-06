@@ -116,6 +116,8 @@ $(document).ready(function () {
                         break;
                     }
                 }
+                $("#themebox-edit-form-order_type").prop('disabled', true);
+
 
 
 

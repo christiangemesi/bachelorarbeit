@@ -750,13 +750,13 @@ class AdminController extends Controller
                     'size' => $request->themebox_data[5]["value"],
                     'weight' => $request->themebox_data[6]["value"],
                     'fk_category' => $request->themebox_data[7]["value"],
-                    'fk_order_type' => $request->themebox_data[8]["value"],
-                    'content' => $request->themebox_data[9]["value"],
-                    'extra_text' => $request->themebox_data[10]["value"]]
+                    //'fk_order_type' => $request->themebox_data[8]["value"],
+                    'content' => $request->themebox_data[8]["value"],
+                    'extra_text' => $request->themebox_data[9]["value"]]
             );
 
             $status = 0;
-            if (!empty($request->themebox_data[10]["value"])) {
+            if (!empty($request->themebox_data[9]["value"])) {
                 $status = 1;
             }
 

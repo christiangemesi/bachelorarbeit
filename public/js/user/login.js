@@ -115,8 +115,7 @@ $(document).ready(function () {
                 bindEndData();
                 loadViewChangeButtons();
 
-                blockDatesInDatepicker();
-                blockNextFiveSundaysInCalendar();
+
 
 
                 $("#calendar").fullCalendar("render");
@@ -135,6 +134,8 @@ $(document).ready(function () {
                     }
                 );
 
+                blockDatesInDatepicker();
+                blockNextFiveSundaysInCalendar();
                 blockNextFiveSaturdayAfterTwoPmInCalendar();
 
 
@@ -368,6 +369,13 @@ $(document).ready(function () {
             listOfBlockedDates.push(formatDate(nextSunday));
             nextSunday.setDate(nextSunday.getDate() - 7);
         }
+
+        nextSunday = getNextDayOfWeek(new Date, 7);
+        for (var i = 0; i < 200; i++) {
+            nextSunday.setDate(nextSunday.getDate() + 7);
+            listOfBlockedDates.push(formatDate(nextSunday));
+        }
+
     }
 
     /**

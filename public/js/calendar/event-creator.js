@@ -73,15 +73,17 @@ function loadViewChangeButtons() {
     switchToWeekButton.on("click", function () {
         $("#calendar, #orderAdd-calendar").fullCalendar("changeView", "agendaWeek");
         //dont show the week button, instead show the month button
-        switchToWeekButton.hide();
-        switchToMonthButton.show();
+        $(".fc-week-view-button").hide();
+        $(".fc-month-view-button").show();
+
+
     });
 
     switchToMonthButton.on("click", function () {
         $("#calendar, #orderAdd-calendar").fullCalendar("changeView", "month");
         //dont show the month button, instead show the week button
-        switchToMonthButton.hide();
-        switchToWeekButton.show();
+        $(".fc-month-view-button").hide();
+        $(".fc-week-view-button").show();
     });
 
     $(".fc-toolbar .fc-left")

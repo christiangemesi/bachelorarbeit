@@ -143,10 +143,12 @@ class UserController extends Controller
         //set the order_type where as 1 == hourly order and 2 == daily order
         $order_type = $request->selectedVon || $request->selectedBis ? 1 : 2;
 
+        error_log($request);
+
         if ($order_type == 1) { //hourly order
             $startDatetime = $this->concatenateDatetime($request->startdate, $request->selectedVon);
 
-            $endDatetime = $this->concatenateDatetime($request->enddate, $request->selectedBis);
+            $endDatetime = $this->concatenateDatetime($request->startdate, $request->selectedBis);
             $hourly_order = new HourlyOrder();
             $hourly_order->fk_themebox = $request->themeboxId;
             $hourly_order->startdate = $startDatetime;

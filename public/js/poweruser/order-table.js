@@ -746,8 +746,8 @@ $(document).ready(function () {
                 dayToCalculatePreviousSundays = getNextDayOfWeek(new Date, 7);
 
                 blockTillNextSunday();
-                blockNextFiveSundaysInCalendar();
-                blockPreviousFiveSundaysInCalendar();
+                //blockNextFiveSundaysInCalendar();
+                //blockPreviousFiveSundaysInCalendar();
 
                 $('#order-add-modal').modal('show',
                     {

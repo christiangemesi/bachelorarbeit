@@ -815,6 +815,7 @@ $(document).ready(function () {
             type: "POST",
             data: {fk_thembox},
             success: function (response) {
+                console.log(response);
                 selectedThemeboxInfo = response["themebox"]
                 $("#orderAdd-calendar").fullCalendar("render");
                 $("#orderAdd-calendar").fullCalendar("removeEvents");
@@ -833,6 +834,7 @@ $(document).ready(function () {
                 blockTillNextSunday();
                 blockNextFiveSundaysInCalendar();
                 blockPreviousFiveSundaysInCalendar();
+
 
 
                 response["orderData"].forEach(function (element) {
@@ -931,6 +933,8 @@ $(document).ready(function () {
             $("#pu_orderAdd-time-select").hide();
             return;
         }
+
+        $("#orderAdd-Von-text").html("Am");
 
         //hide themebox-datepicker-bis
         $("#pu_themebox-datepicker-bis").hide();

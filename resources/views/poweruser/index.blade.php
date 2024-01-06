@@ -162,7 +162,7 @@
                                             </select>
                                         </div>
                                         <div class="form-group text-align-left" id="pu_themebox-datepicker-von">
-                                            <label for="orderAdd-start-date">Von</label>
+                                            <label for="orderAdd-start-date" id="orderAdd-Von-text">Von</label>
                                             <div class="input-group">
                                                 <input type="text" class="form-control cursor-pointer modal-datepicker" id="orderAdd-start-date" name="orderAdd-start-date">
                                                 <span class="input-group-addon cursor-pointer" id="orderAdd-from-glyphicon"><i class="glyphicon glyphicon-calendar"></i></span>

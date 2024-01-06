@@ -151,6 +151,9 @@ $(document).ready(function () {
                     $('#user-edit-dropdown-bis option[value="' + formatTimeWithoutDate(response["order"][0]["enddate"]) + '"]').prop("selected", true);
 
                     $("#order-id").val(response["order"][0]["pk_hourly_order"]);
+
+                    //set user-edit-von-text to Am
+                    $("#user-edit-von-text").html("Am");
                 } else {
                     blockTillNextSunday();
                     addBlockDateFromToday();

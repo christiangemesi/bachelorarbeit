@@ -66,7 +66,7 @@
                                     </div>
 
                                     <div class="form-group text-align-left">
-                                        <label for="start-date">Von</label>
+                                        <label for="start-date" id="user-edit-von-text">Von</label>
                                         <div class="input-group">
                                             <input type="text" class="form-control cursor-pointer modal-datepicker" id="start-date" name="start-date">
                                             <span class="input-group-addon cursor-pointer" id="order-from-glyphicon"><i class="glyphicon glyphicon-calendar"></i></span>

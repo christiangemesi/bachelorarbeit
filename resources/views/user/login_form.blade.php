@@ -32,7 +32,7 @@
                         <label for="order-number">Bestellnummmer:</label>
                         <input type="text" class="form-control" id="ordernumber" name="ordernumber" autocomplete="off"/>
                     </div>
-                    <button id="user-login-button" class="btn btn-success btn-lg" >Bestellung Suchen</button>
+                    <button id="user-login-button" class="btn btn-success btn-lg" >Bestellung suchen</button>
                 </div>
             </div>
         </div>
@@ -66,21 +66,76 @@
                                     </div>
 
                                     <div class="form-group text-align-left">
-                                        <label for="start-date">Von</label>
+                                        <label for="start-date" id="user-edit-von-text">Von</label>
                                         <div class="input-group">
                                             <input type="text" class="form-control cursor-pointer modal-datepicker" id="start-date" name="start-date">
                                             <span class="input-group-addon cursor-pointer" id="order-from-glyphicon"><i class="glyphicon glyphicon-calendar"></i></span>
                                         </div>
                                     </div>
-                                    <div class="form-group text-align-left">
+                                    <div class="form-group text-align-left" id="end-date_box">
                                         <label for="end-date">Bis</label>
                                         <div class="input-group">
                                             <input type="text" class="form-control cursor-pointer modal-datepicker" id="end-date" name="end-date">
                                             <span class="input-group-addon cursor-pointer" id="order-to-glyphicon"><i class="glyphicon glyphicon-calendar"></i></span>
                                         </div>
-                                        <div class="alert alert-danger display-none" id="error-calendar-message-box"></div>
-                                        <div class="alert alert-info display-none" id="info-calendar-message-box"></div>
                                     </div>
+
+                                    <div id="user-edit-themebox-time-select" >
+                                        <label for="user-edit-dropdown-von">Von:</label>
+                                        <select id="user-edit-dropdown-von" name="dropdown-von">
+                                            <option value="user-edit-dropdown-von-title" disabled selected>Startzeit</option>
+                                            <option value="08:00">08:00</option>
+                                            <option value="08:30">08:30</option>
+                                            <option value="09:00">09:00</option>
+                                            <option value="09:30">09:30</option>
+                                            <option value="10:00">10:00</option>
+                                            <option value="10:30">10:30</option>
+                                            <option value="11:00">11:00</option>
+                                            <option value="11:30">11:30</option>
+                                            <option value="12:00">12:00</option>
+                                            <option value="12:30">12:30</option>
+                                            <option value="13:00">13:00</option>
+                                            <option value="13:30">13:30</option>
+                                            <option value="14:00">14:00</option>
+                                            <option value="14:30">14:30</option>
+                                            <option value="15:00">15:00</option>
+                                            <option value="15:30">15:30</option>
+                                            <option value="16:00">16:00</option>
+                                            <option value="16:30">16:30</option>
+                                            <option value="17:00">17:00</option>
+                                            <option value="17:30">17:30</option>
+                                            <option value="18:00">18:00</option>
+                                        </select>
+
+                                        <label for="user-edit-dropdown-bis">Bis:</label>
+                                        <select id="user-edit-dropdown-bis" name="dropdown-bis">
+                                            <option value="user-edit-dropdown-bis-title" disabled selected>Endzeit</option>
+                                            <option value="08:00">08:00</option>
+                                            <option value="08:30">08:30</option>
+                                            <option value="09:00">09:00</option>
+                                            <option value="09:30">09:30</option>
+                                            <option value="10:00">10:00</option>
+                                            <option value="10:30">10:30</option>
+                                            <option value="11:00">11:00</option>
+                                            <option value="11:30">11:30</option>
+                                            <option value="12:00">12:00</option>
+                                            <option value="12:30">12:30</option>
+                                            <option value="13:00">13:00</option>
+                                            <option value="13:30">13:30</option>
+                                            <option value="14:00">14:00</option>
+                                            <option value="14:30">14:30</option>
+                                            <option value="15:00">15:00</option>
+                                            <option value="15:30">15:30</option>
+                                            <option value="16:00">16:00</option>
+                                            <option value="16:30">16:30</option>
+                                            <option value="17:00">17:00</option>
+                                            <option value="17:30">17:30</option>
+                                            <option value="18:00">18:00</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="alert alert-danger display-none" id="error-calendar-message-box"></div>
+                                    <div class="alert alert-info display-none" id="info-calendar-message-box"></div>
 
                                     <div class="form-group">
                                         <label class="float-left" for="status">Status</label>

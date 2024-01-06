@@ -134,9 +134,9 @@ The exact same Commandline commands can be copied into the Terminal
 >  cd deployment # change into the deployment folder
 >  docker compose up # start the docker container
 >```
-> 3. Open the application in your browser at http://127.0.0.1:8000 
-> Note: If the application is run for the first time the database needs to be importet manually. (see step 7 of the [Installation Development Environment](#Installation Development Environment))
-> Note2: The thekre_admin user does also need to be created if run for the first time. (see step 7 of the [Installation Development Environment](#Installation Development Environment))
+> 3. Open the application in your browser at http://127.0.0.1:8000  
+> Note: If the application is run for the first time the database needs to be importet manually. (see step 7 of the [Installation Development Environment](#Installation Development Environment))  
+> Note 2: The thekre_admin user does also need to be created if run for the first time. (see step 7 of the [Installation Development Environment](#Installation Development Environment))
 
 >.env file:
 > ``` 

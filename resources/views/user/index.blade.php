@@ -7,6 +7,7 @@
     <script src="{{ asset('js/calendar/moment.min.js') }}"></script>
     <script src="{{ asset('js/user/order-form.js') }}"></script>
     <script src="{{asset('js/user/login.js')}}"></script>
+    <script src="{{asset('js/calendar/event-creator.js')}}"></script>
     <link rel="stylesheet" href="{{ asset('css/calendar/fullcalendar.css') }}">
     <script src="{{ asset('js/calendar/fullcalendar.js') }}"></script>
     <script src="{{ asset('js/calendar/de-ch.js') }}"></script>
@@ -106,7 +107,7 @@
                                                         <label class="label-chose-order-period">gewünschte Ausleihperiode</label>
                                                         <table id="themebox-infobox-select-date">
                                                             <tr>
-                                                                <td>Von:</td>
+                                                                <td id="Von-text">Von:</td>
                                                                 <td>
                                                                     <div class="input-group">
                                                                         <input type="text" class="form-control cursor-pointer" id="start-date" name="startdate">
@@ -114,7 +115,7 @@
                                                                     </div>
                                                                 </td>
                                                             </tr>
-                                                            <tr>
+                                                            <tr id="themebox-datepicker-bis">
                                                                 <td>Bis: </td>
                                                                 <td>
                                                                     <div class="input-group">
@@ -125,8 +126,63 @@
                                                             </tr>
                                                         </table>
                                                         <p class="text-max-order-date-info">
-                                                            <i>Ausleihdauer max. 6 Wochen</i>
+                                                            <i id="ausleihdauer-text">Ausleihdauer max. 8 Wochen</i>
                                                         </p>
+
+                                                        <div id="themebox-time-select">
+                                                            <label for="dropdown-von">Von:</label>
+                                                            <select id="dropdown-von" name="selectedVon">
+                                                                <option value="dropdown-von-title" disabled selected>Startzeit</option>
+                                                                <option value="08:00">08:00</option>
+                                                                <option value="08:30">08:30</option>
+                                                                <option value="09:00">09:00</option>
+                                                                <option value="09:30">09:30</option>
+                                                                <option value="10:00">10:00</option>
+                                                                <option value="10:30">10:30</option>
+                                                                <option value="11:00">11:00</option>
+                                                                <option value="11:30">11:30</option>
+                                                                <option value="12:00">12:00</option>
+                                                                <option value="12:30">12:30</option>
+                                                                <option value="13:00">13:00</option>
+                                                                <option value="13:30">13:30</option>
+                                                                <option value="14:00">14:00</option>
+                                                                <option value="14:30">14:30</option>
+                                                                <option value="15:00">15:00</option>
+                                                                <option value="15:30">15:30</option>
+                                                                <option value="16:00">16:00</option>
+                                                                <option value="16:30">16:30</option>
+                                                                <option value="17:00">17:00</option>
+                                                                <option value="17:30">17:30</option>
+                                                                <option value="18:00">18:00</option>
+                                                            </select>
+
+                                                            <label for="dropdown-bis">Bis:</label>
+                                                            <select id="dropdown-bis" name="selectedBis">
+                                                                <option value="dropdown-bis-title" disabled selected>Endzeit</option>
+                                                                <option value="08:00">08:00</option>
+                                                                <option value="08:30">08:30</option>
+                                                                <option value="09:00">09:00</option>
+                                                                <option value="09:30">09:30</option>
+                                                                <option value="10:00">10:00</option>
+                                                                <option value="10:30">10:30</option>
+                                                                <option value="11:00">11:00</option>
+                                                                <option value="11:30">11:30</option>
+                                                                <option value="12:00">12:00</option>
+                                                                <option value="12:30">12:30</option>
+                                                                <option value="13:00">13:00</option>
+                                                                <option value="13:30">13:30</option>
+                                                                <option value="14:00">14:00</option>
+                                                                <option value="14:30">14:30</option>
+                                                                <option value="15:00">15:00</option>
+                                                                <option value="15:30">15:30</option>
+                                                                <option value="16:00">16:00</option>
+                                                                <option value="16:30">16:30</option>
+                                                                <option value="17:00">17:00</option>
+                                                                <option value="17:30">17:30</option>
+                                                                <option value="18:00">18:00</option>
+                                                            </select>
+                                                        </div>
+
                                                         <div class="alert alert-danger display-none" id="error-calendar-message-box"></div>
                                                         <div class="alert alert-info display-none" id="info-calendar-message-box"></div>
                                                     </div>
@@ -208,14 +264,12 @@
 
                                         <label class="form-control-label" for="thekre-dropdown">Lieferart</label>
                                         <select name="delivery" id="thekre-dropdown" class="selectpicker form-dropdown">
-
                                             @foreach ($deliveries as $delivery)
                                                 <option  value={{ $delivery->pk_delivery }}>{{ $delivery->type }}</option>
                                             @endforeach
-
                                         </select>
                                         <div id="delivery-data-box">
-                                            <p id="user-delivery-info"><span class="glyphicon glyphicon-info-sign"></span>  Die Themenkiste kann an der Infotheke der FHNW Bibliothek Brugg-Windisch abgeholt werden.</p>
+                                            <p id="user-delivery-info"><span class="glyphicon glyphicon-info-sign"></span>  Die Themenkiste kann an der Infotheke der FHNW Bibliothek Brugg-Windisch abgeholt werden. Beachten Sie dass Elektronische Geräte das Bibliotheksgebäude nicht verlassen dürfen.</p>
                                             <div id="school-Address">
                                                 <p id="user-delivery-info"><span class="glyphicon glyphicon-info-sign"></span>  Die Lieferung an Aargauer Schulen ist kostenpflichtig.</p>
                                                 <div class="form-group has-feedback">

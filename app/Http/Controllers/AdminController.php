@@ -3,20 +3,18 @@
 namespace ThekRe\Http\Controllers;
 
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
-use League\Flysystem\Exception;
-use PhpParser\Node\Expr\Array_;
 use ThekRe\Blocked_Period;
 use ThekRe\Category;
+use ThekRe\HourlyOrder;
+use ThekRe\Order_Type;
 use ThekRe\Delivery;
 use ThekRe\Http\Requests;
 use ThekRe\Login;
@@ -26,8 +24,7 @@ use ThekRe\Themebox;
 use ThekRe\EditMail;
 use ThekRe\PasswordResets;
 use Illuminate\Support\Facades\Mail;
-use Throwable;
-use function MongoDB\BSON\toJSON;
+
 
 class AdminController extends Controller
 {
@@ -249,11 +246,21 @@ class AdminController extends Controller
         if ($this->checkLogin()) {
             $themeboxes = $this->getThemeboxes();
             $categories = $this->getCategories();
+            $order_types = $this->getOrderTypes();
+            error_log($order_types);
 
-            return view('admin.themebox_index', ['themeboxes' => $themeboxes, 'categories' => $categories]);
+
+            return view('admin.themebox_index', ['themeboxes' => $themeboxes, 'categories' => $categories, 'order_types' => $order_types]);
         } else {
             return view('admin.login_form');
         }
+    }
+
+    public function getOrderTypes()
+    {
+        $order_types = Order_Type::all();
+        $order_types = $order_types->sortBy('name');
+        return $order_types;
     }
 
     /**
@@ -314,7 +321,6 @@ class AdminController extends Controller
     {
         $orders = Order::get();
         $order_list = array();
-
         $counter = 0;
         foreach ($orders as $order) {
             $themebox = Themebox::find($order->fk_themebox);
@@ -334,6 +340,27 @@ class AdminController extends Controller
             $counter++;
         }
 
+        $hourly_orders = HourlyOrder::get();
+        // Process hourly orders
+        foreach ($hourly_orders as $hourly_order) {
+            $themebox = Themebox::find($hourly_order->fk_themebox);
+            $status = Status::find($hourly_order->fk_status);
+            $delivery = Delivery::find($hourly_order->fk_delivery);
+
+            $order_list[] = array(
+                "themebox" => $themebox["title"],
+                "name" => $hourly_order->name,
+                "startdate" => date('d.m.Y H:i:s', strtotime($hourly_order->startdate)),
+                "enddate" => date('d.m.Y H:i:s', strtotime($hourly_order->enddate)),
+                "deliverytype" => $delivery["type"],
+                "themeboxsig" => $themebox["signatur"],
+                "fk_status" => $hourly_order->fk_status,
+                "status" => $status["name"],
+                "order_id" => $hourly_order->pk_hourly_order,
+                "ordernumber" => $hourly_order->ordernumber
+            );
+        }
+
         return $order_list;
     }
 
@@ -345,22 +372,41 @@ class AdminController extends Controller
     public function getOrder(Request $request)
     {
         $order = Order::find($request->order_id);
+        if($order == null){
+            try {
+                $order = HourlyOrder::find($request->order_id);
+                $themebox = Themebox::find($order->fk_themebox);
+                $all_status = Status::get();
+                $all_deliveries = Delivery::get();
+                $orders = HourlyOrder::where('fk_themebox', $themebox->pk_themebox)->get();
 
-        try {
-            $themebox = Themebox::find($order->fk_themebox);
-            $all_status = Status::get();
-            $all_deliveries = Delivery::get();
-            $orders = Order::where('fk_themebox', $themebox->pk_themebox)->get();
+                $data = array("order" => $order,
+                    "themebox" => $themebox,
+                    "all_status" => $all_status,
+                    "all_deliveries" => $all_deliveries,
+                    "orders" => $orders);
 
-            $data = array("order" => $order,
-                "themebox" => $themebox,
-                "all_status" => $all_status,
-                "all_deliveries" => $all_deliveries,
-                "orders" => $orders);
+                return response()->json($data, 200);
+            } catch (Exception $e) {
+                return response()->json($e, 500);
+            }
+        } else {
+            try {
+                $themebox = Themebox::find($order->fk_themebox);
+                $all_status = Status::get();
+                $all_deliveries = Delivery::get();
+                $orders = Order::where('fk_themebox', $themebox->pk_themebox)->get();
 
-            return response()->json($data, 200);
-        } catch (Exception $e) {
-            return response()->json($e, 500);
+                $data = array("order" => $order,
+                    "themebox" => $themebox,
+                    "all_status" => $all_status,
+                    "all_deliveries" => $all_deliveries,
+                    "orders" => $orders);
+
+                return response()->json($data, 200);
+            } catch (Exception $e) {
+                return response()->json($e, 500);
+            }
         }
     }
 
@@ -371,36 +417,84 @@ class AdminController extends Controller
      */
     public function updateOrder(Request $request)
     {
-        try {
-            //if new status is "ready"
-            if (2 == $request->order_data[3]["value"] && 1 == $request->order_data[9]["value"]) {
-                $this->sendEmail($request->order_data[0]["value"]);
-            }
-            Order::find($request->order_data[0]["value"])->update(
-                ['startdate' => $this->formatDate($request->order_data[1]["value"]),
-                    'enddate' => $this->formatDate($request->order_data[2]["value"]),
-                    'fk_status' => $request->order_data[3]["value"],
-                    'name' => $request->order_data[4]["value"],
-                    'surname' => $request->order_data[5]["value"],
-                    'email' => $request->order_data[6]["value"],
-                    'phonenumber' => $request->order_data[7]["value"],
-                    'nebisusernumber' => $request->order_data[8]["value"],
-                    'fk_delivery' => $request->order_data[9]["value"]
-                ]);
-
-            if ($request->order_data[9]["value"] == 2) {
-                Order::find($request->order_data[0]["value"])->update(
-                    ['schoolname' => $request->order_data[10]["value"],
-                        'schoolstreet' => $request->order_data[11]["value"],
-                        'schoolcity' => $request->order_data[12]["value"],
-                        'placeofhandover' => $request->order_data[13]["value"],
-                        'schoolphonenumber' => $request->order_data[14]["value"]]);
-            }
-
-            return response()->json($request->order_data[3]["value"], 200);
-        } catch (Exception $e) {
-            return response()->json($e, 500);
+        //error_log each value
+        foreach ($request->order_data as $order_data) {
+            error_log($order_data["name"] . " " . $order_data["value"]);
         }
+
+        $orderId =$request->order_data[0]["value"];
+
+        $isHourlyOrder = false;
+        $order = Order::find($orderId);
+        if($order == null){
+            $order = HourlyOrder::find($orderId);
+            $isHourlyOrder = true;
+        }
+
+        if(!$isHourlyOrder){ // daily order
+            try {
+                //if new status is "ready"
+                if (2 == $request->order_data[3]["value"] && 1 == $request->order_data[9]["value"]) {
+                    $this->sendEmail($request->order_data[0]["value"]);
+                }
+                Order::find($request->order_data[0]["value"])->update(
+                    ['startdate' => $this->formatDate($request->order_data[1]["value"]),
+                        'enddate' => $this->formatDate($request->order_data[2]["value"]),
+                        'fk_status' => $request->order_data[3]["value"],
+                        'name' => $request->order_data[4]["value"],
+                        'surname' => $request->order_data[5]["value"],
+                        'email' => $request->order_data[6]["value"],
+                        'phonenumber' => $request->order_data[7]["value"],
+                        'nebisusernumber' => $request->order_data[8]["value"],
+                        'fk_delivery' => $request->order_data[9]["value"],
+                    ]);
+
+                if ($request->order_data[9]["value"] == 2) {
+                    Order::find($request->order_data[0]["value"])->update(
+                        ['schoolname' => $request->order_data[10]["value"],
+                            'schoolstreet' => $request->order_data[11]["value"],
+                            'schoolcity' => $request->order_data[12]["value"],
+                            'placeofhandover' => $request->order_data[13]["value"],
+                            'schoolphonenumber' => $request->order_data[14]["value"]]);
+                }
+
+                return response()->json($request->order_data[3]["value"], 200);
+            } catch (Exception $e) {
+                return response()->json($e, 500);
+            }
+        } else { // hourly order
+            try {
+                HourlyOrder::find($request->order_data[0]["value"])->update(
+                    ['startdate' => $this->concatenateDatetime($request->order_data[1]["value"], $request->order_data[3]["value"]),
+                        'enddate' => $this->concatenateDatetime($request->order_data[2]["value"], $request->order_data[4]["value"]),
+                        'fk_status' => $request->order_data[5]["value"],
+                        'name' => $request->order_data[6]["value"],
+                        'surname' => $request->order_data[7]["value"],
+                        'email' => $request->order_data[8]["value"],
+                        'phonenumber' => $request->order_data[9]["value"],
+                        'nebisusernumber' => $request->order_data[10]["value"],
+                        'fk_delivery' => $request->order_data[11]["value"],
+                    ]);
+
+                return response()->json($request->order_data[5]["value"], 200);
+            } catch (Exception $e) {
+                return response()->json($e, 500);
+            }
+        }
+    }
+
+    /**
+     * put date and time together
+     */
+    private function concatenateDatetime($date, $time)
+    {
+        $tempDate = explode(".", $date);
+        $newDate = $tempDate[2] . "-" . $tempDate[1] . "-" . $tempDate[0];
+
+        // Concatenate date and time
+        $datetimeString = $newDate . " " . $time;
+
+        return $datetimeString;
     }
 
     /**
@@ -442,17 +536,37 @@ class AdminController extends Controller
         $order_id = $request_data[1];
         $new_state_id = $request_data[0];
         $status_ready = 0;
-        $order = Order::find($order_id);
 
-        try {
-            if ("Bereit" == Status::find($new_state_id)->name && 1 == $order["fk_delivery"]) {
-                $this->sendEmail($order_id);
-                $status_ready = 1;
+        $isHourlyOrder = false;
+        if(Order::find($order_id)){
+            $order = Order::find($order_id);
+        } else {
+            $order = HourlyOrder::find($order_id);
+            $isHourlyOrder = true;
+        }
+
+        if(!$isHourlyOrder){
+            try {
+                if ("Bereit" == Status::find($new_state_id)->name && (1 == $order["fk_delivery"])){
+                    $this->sendEmail($order_id);
+                    $status_ready = 1;
+                }
+                Order::find($order_id)->update(['fk_status' => $new_state_id]);
+                return response()->json($status_ready, 200);
+            } catch (Exception $e) {
+                return response()->json($e, 500);
             }
-            Order::find($order_id)->update(['fk_status' => $new_state_id]);
-            return response()->json($status_ready, 200);
-        } catch (Exception $e) {
-            return response()->json($e, 500);
+        } else {
+            try {
+                if ("Bereit" == Status::find($new_state_id)->name){
+                    //$this->sendEmail($order_id); // dont send email for hourly orders
+                    $status_ready = 1;
+                }
+                HourlyOrder::find($order_id)->update(['fk_status' => $new_state_id]);
+                return response()->json($status_ready, 200);
+            } catch (Exception $e) {
+                return response()->json($e, 500);
+            }
         }
     }
 
@@ -465,6 +579,9 @@ class AdminController extends Controller
     {
         $order_id = $request->order_id;
         $order = Order::find($order_id);
+        if($order == null){
+            $order = HourlyOrder::find($order_id);
+        }
 
         try {
             $order->forceDelete();
@@ -501,6 +618,7 @@ class AdminController extends Controller
         }
     }
 
+
     public function removeCategory(Request $request)
     {
         $category_id = $request->category_id;
@@ -530,6 +648,7 @@ class AdminController extends Controller
     {
         try {
             $orders = Order::where('startdate', 'like', '%' . $request->year . '%')->get();
+            $hourly_orders = HourlyOrder::where('startdate', 'like', '%' . $request->year . '%')->get();
             $themeboxes = Themebox::get();
 
             $themeboxes_tmp = array();
@@ -537,6 +656,11 @@ class AdminController extends Controller
                 $themeboxes_tmp[$themebox->title] = 0;
                 foreach ($orders as $order) {
                     if ($order->fk_themebox == $themebox->pk_themebox) {
+                        $themeboxes_tmp[$themebox->title] = $themeboxes_tmp[$themebox->title] + 1;
+                    }
+                }
+                foreach ($hourly_orders as $hourly_order) {
+                    if ($hourly_order->fk_themebox == $themebox->pk_themebox) {
                         $themeboxes_tmp[$themebox->title] = $themeboxes_tmp[$themebox->title] + 1;
                     }
                 }
@@ -564,8 +688,9 @@ class AdminController extends Controller
         $themebox->size = $request->themebox_data[4]["value"];
         $themebox->weight = $request->themebox_data[5]["value"];
         $themebox->fk_category = $request->themebox_data[6]["value"];
-        $themebox->content = $request->themebox_data[7]["value"];
-        $themebox->extra_text = $request->themebox_data[8]["value"];
+        $themebox->fk_order_type = $request->themebox_data[7]["value"];
+        $themebox->content = $request->themebox_data[8]["value"];
+        $themebox->extra_text = $request->themebox_data[9]["value"];
         $themebox->complete = true;
 
         try {
@@ -596,8 +721,9 @@ class AdminController extends Controller
         $themebox = Themebox::find($themebox_Id);
 
         $category = Category::find($themebox->fk_category);
+        $order_type = Order_Type::find($themebox->fk_order_type);
 
-        return response()->json([$themebox, $category], 200);
+        return response()->json([$themebox, $category,$order_type], 200);
     }
 
     public function getCategory(Request $request)
@@ -624,12 +750,13 @@ class AdminController extends Controller
                     'size' => $request->themebox_data[5]["value"],
                     'weight' => $request->themebox_data[6]["value"],
                     'fk_category' => $request->themebox_data[7]["value"],
+                    //'fk_order_type' => $request->themebox_data[8]["value"], //order_type kann nicht geändert werden, da man auch nicht weiss ab wann die änderung gelten soll
                     'content' => $request->themebox_data[8]["value"],
                     'extra_text' => $request->themebox_data[9]["value"]]
             );
 
             $status = 0;
-            if (!empty($request->themebox_data[10]["value"])) {
+            if (!empty($request->themebox_data[9]["value"])) {
                 $status = 1;
             }
 

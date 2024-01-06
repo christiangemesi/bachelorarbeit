@@ -106,6 +106,21 @@ $(document).ready(function () {
                     }
                 }
 
+                const order_typeElement = document.getElementById("themebox-edit-form-order_type");
+                const order_typeOptions = order_typeElement.options;
+                for (var l = 0; l < order_typeOptions.length; l++) {
+                    // Convert both values to integers for strict comparison
+                    if (parseInt(order_typeOptions[l].value, 10) === parseInt(response[2]["pk_order_type"], 10)) {
+                        // Set the selected attribute for the matched option
+                        order_typeOptions[l].selected = true;
+                        break;
+                    }
+                }
+                $("#themebox-edit-form-order_type").prop('disabled', true);
+
+
+
+
 
                 if (1 === response[0]["complete"]) {
                     $("#themebox-edit-form-complete").prop('checked', true);
@@ -124,6 +139,7 @@ $(document).ready(function () {
                 notEmptyValidate('themebox-edit-form-weight','themebox-edit-form-weight-status','themebox-edit-form-weight-icon');
                 notEmptyValidate('themebox-edit-form-content','themebox-edit-form-content-status','themebox-edit-form-content-icon');
                 notEmptyValidate('themebox-edit-form-category','themebox-edit-form-category-status','themebox-edit-form-category-icon');
+                notEmptyValidate('themebox-edit-form-order_type','themebox-edit-form-order_type-status','themebox-edit-form-order_type-icon');
 
 
             },
@@ -197,8 +213,8 @@ $(document).ready(function () {
         },
         "columnDefs": [
             {
-                "searchable": false, "targets": 7,
-                "orderable": false, "targets": 7
+                "searchable": false, "targets": 8,
+                "orderable": false, "targets": 8
             }
         ]
     });

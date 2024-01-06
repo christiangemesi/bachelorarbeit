@@ -9,6 +9,7 @@ use League\Flysystem\Exception;
 use ThekRe\Blocked_Period;
 use ThekRe\Category;
 use ThekRe\Delivery;
+use ThekRe\HourlyOrder;
 use ThekRe\Http\Requests;
 use ThekRe\Order;
 use ThekRe\Themebox;
@@ -104,8 +105,12 @@ class UserController extends Controller
         $themebox_Id = $request["themeboxId"];
         $themebox = Themebox::find($themebox_Id);
 
-
-        $orders = Order::select('startdate', 'enddate')->where('fk_themebox', '=', $themebox_Id)->get();
+        //if the fk_order_type of the themebox is 1, then it is a hourly order so we need to get the hourly orders
+        if ($themebox->fk_order_type == 1) {
+            $orders = HourlyOrder::select('startdate', 'enddate')->where('fk_themebox', '=', $themebox_Id)->get();
+        } else {
+            $orders = Order::select('startdate', 'enddate')->where('fk_themebox', '=', $themebox_Id)->get();
+        }
 
         $data = array(
             "themebox" => $themebox,
@@ -132,57 +137,116 @@ class UserController extends Controller
     /**
      * create new order
      * @param Request $request
-     * @return Factory|View
      */
     public function createOrder(Request $request)
     {
+        error_log($request);
 
-        $order = new Order();
-        $order->fk_themebox = $request->themeboxId;
-        $order->startdate = $this->formatDate($request->startdate);
-        $order->enddate = $this->formatDate($request->enddate);
-        $order->name = $request->name;
-        $order->surname = $request->surname;
-        $order->email = $request->email;
-        $order->phonenumber = $request->phone;
-        $order->nebisusernumber = $request->nebisusernumber;
-        $order->fk_delivery = $request->delivery;
+        //set the order_type where as 1 == hourly order and 2 == daily order
+        $order_type = $request->selectedVon || $request->selectedBis ? 1 : 2;
 
-        if ($request->delivery == 2) {
-            $order->schoolname = $request->schoolname;
-            $order->schoolstreet = $request->schoolstreet;
-            $order->schoolcity = $request->schoolcity;
-            $order->schoolphonenumber = $request->schoolphonenumber;
-            $order->placeofhandover = $request->placeofhandover;
-        }
+        if ($order_type == 1) { //hourly order
+            $startDatetime = $this->concatenateDatetime($request->startdate, $request->selectedVon);
 
-        $order->fk_status = 1;
-        $order->ordernumber = $this->createOrdernumber();
-        $dt = Carbon::now();
-        $order->datecreated = $dt;
+            $endDatetime = $this->concatenateDatetime($request->enddate, $request->selectedBis);
+            $hourly_order = new HourlyOrder();
+            $hourly_order->fk_themebox = $request->themeboxId;
+            $hourly_order->startdate = $startDatetime;
+            $hourly_order->enddate = $endDatetime;
+            $hourly_order->name = $request->name;
+            $hourly_order->surname = $request->surname;
+            $hourly_order->email = $request->email;
+            $hourly_order->phonenumber = $request->phone;
+            $hourly_order->nebisusernumber = $request->nebisusernumber;
+            $hourly_order->fk_status = 1;
+            $hourly_order->ordernumber = $this->createOrdernumber();
+            $hourly_order->fk_delivery = $request->delivery;
+            $dt = Carbon::now();
+            $hourly_order->datecreated = $dt;
 
-        $themebox = Themebox::find($order->fk_themebox);
+            $themebox = Themebox::find($hourly_order->fk_themebox);
 
-        $mail_data = array(
-            'title' => $themebox->title,
-            'signatur' => $themebox->signatur,
-            'startdate' => $request->startdate,
-            'enddate' => $request->enddate,
-            'receiver_mail' => $order->email,
-            'receiver_name' => $order->name,
-            'receiver_surname' => $order->surname,
-            'ordernumber' => $order->ordernumber,
-            'extra_text' => $themebox->extra_text
-        );
+            $mail_data = array(
+                'title' => $themebox->title,
+                'signatur' => $themebox->signatur,
+                'startdate' => $request->startdate . " " . $request->selectedVon,
+                'enddate' => $request->enddate . " " . $request->selectedBis,
+                'receiver_mail' => $hourly_order->email,
+                'receiver_name' => $hourly_order->name,
+                'receiver_surname' => $hourly_order->surname,
+                'ordernumber' => $hourly_order->ordernumber,
+                'extra_text' => $themebox->extra_text
+            );
 
-        try {
-            $this->sendEmail($mail_data, $request->delivery);
-            $order->save();
-            return redirect()->route('orderSuccess');
-        } catch (Exception $e) {
-            return redirect()->route('orderFailed');
+            try {
+                $this->sendEmail($mail_data, $request->delivery);
+                $hourly_order->save();
+                return redirect()->route('orderSuccess');
+            } catch (Exception $e) {
+                return redirect()->route('orderFailed');
+            }
+        } else { //daily order
+            $order = new Order();
+            $order->fk_themebox = $request->themeboxId;
+            $order->startdate = $this->formatDate($request->startdate);
+            $order->enddate = $this->formatDate($request->enddate);
+            $order->name = $request->name;
+            $order->surname = $request->surname;
+            $order->email = $request->email;
+            $order->phonenumber = $request->phone;
+            $order->nebisusernumber = $request->nebisusernumber;
+            $order->fk_delivery = $request->delivery;
+
+            if ($request->delivery == 2) {
+                $order->schoolname = $request->schoolname;
+                $order->schoolstreet = $request->schoolstreet;
+                $order->schoolcity = $request->schoolcity;
+                $order->schoolphonenumber = $request->schoolphonenumber;
+                $order->placeofhandover = $request->placeofhandover;
+            }
+
+            $order->fk_status = 1;
+            $order->ordernumber = $this->createOrdernumber();
+            $dt = Carbon::now();
+            $order->datecreated = $dt;
+
+            $themebox = Themebox::find($order->fk_themebox);
+
+            $mail_data = array(
+                'title' => $themebox->title,
+                'signatur' => $themebox->signatur,
+                'startdate' => $request->startdate,
+                'enddate' => $request->enddate,
+                'receiver_mail' => $order->email,
+                'receiver_name' => $order->name,
+                'receiver_surname' => $order->surname,
+                'ordernumber' => $order->ordernumber,
+                'extra_text' => $themebox->extra_text
+            );
+
+            try {
+                $this->sendEmail($mail_data, $request->delivery);
+                $order->save();
+                return redirect()->route('orderSuccess');
+            } catch (Exception $e) {
+                return redirect()->route('orderFailed');
+            }
         }
     }
+
+    /**
+     * put date and time together
+     */
+    private function concatenateDatetime($date, $time)
+    {
+        $tempDate = explode(".", $date);
+        $newDate = $tempDate[2] . "-" . $tempDate[1] . "-" . $tempDate[0];
+
+        $datetimeString = $newDate . " " . $time;
+
+        return $datetimeString;
+    }
+
 
     /**
      * format date from DD.MM.YYYY to YYYY-MM-DD
@@ -278,10 +342,7 @@ class UserController extends Controller
             $view = 'user.mail_delivery_school';
         } else {
 
-            error_log("delivery_type: " . $delivery_type);
-
             $mail = EditMail::find(1);
-            error_log("mail: " . $mail);
             $html_db = $mail->mail_text;
 
             $html_replaced = str_replace("!titel!", $mail_data['title'], $html_db);
@@ -330,14 +391,25 @@ class UserController extends Controller
      */
     public function login(Request $request)
     {
-        $order = Order::where('name', $request->name)->where('ordernumber', '=', $request->ordernumber)->get();
+        $isHourlyOrder = HourlyOrder::where('ordernumber', $request->ordernumber)->where('name', $request->name)->get();
+
+        $order = HourlyOrder::where('ordernumber', $request->ordernumber)->where('name', $request->name)->get();
+
+        if (count($order) == 0) {
+            $order = Order::where('ordernumber', $request->ordernumber)->where('name', $request->name)->get();
+        }
 
         try {
             if (count($order) != 0) {
                 $themebox = Themebox::find($order[0]->fk_themebox);
                 $status = Status::find($order[0]->fk_status);
                 $delivery = Delivery::find($order[0]->fk_delivery);
-                $orders = Order::where('fk_themebox', $themebox->pk_themebox)->get();
+
+                if ($isHourlyOrder->count() > 0) {
+                    $orders = HourlyOrder::where('fk_themebox', $themebox->pk_themebox)->get();
+                } else {
+                    $orders = Order::where('fk_themebox', $themebox->pk_themebox)->get();
+                }
 
                 $data = array("order" => $order,
                     "themebox" => $themebox,
@@ -372,21 +444,55 @@ class UserController extends Controller
      */
     public function updateOrderDates(Request $request)
     {
-        try {
-            Order::find($request->order_data[0]["value"])->update(
-                ['startdate' => $this->formatDate($request->order_data[1]["value"]),
-                    'enddate' => $this->formatDate($request->order_data[2]["value"]),
-                    'name' => $request->order_data[3]["value"],
-                    'surname' => $request->order_data[4]["value"],
-                    'email' => $request->order_data[5]["value"],
-                    'phonenumber' => $request->order_data[6]["value"],
-                    // 'nebisusernumber' => $request->order_data[7]["value"]
-                ]
-            );
+        //error log each value from path with its index
+        for ($i = 0; $i < count($request->order_data); $i++) {
+            error_log($i . " " . $request->order_data[$i]["value"]);
+        }
 
-            return response()->json([], 200);
-        } catch (Exception $e) {
-            return response()->json([], 500);
+
+        $orderId = $request->order_data[0]["value"];
+
+        $isHourlyOrder = false;
+        $order = Order::find($orderId);
+        if ($order == null) {
+            $order = HourlyOrder::find($orderId);
+            $isHourlyOrder = true;
+        }
+
+        if (!$isHourlyOrder) {
+            try {
+                Order::find($request->order_data[0]["value"])->update(
+                    ['startdate' => $this->formatDate($request->order_data[1]["value"]),
+                        'enddate' => $this->formatDate($request->order_data[2]["value"]),
+                        'name' => $request->order_data[3]["value"],
+                        'surname' => $request->order_data[4]["value"],
+                        'email' => $request->order_data[5]["value"],
+                        'phonenumber' => $request->order_data[6]["value"],
+                        // 'nebisusernumber' => $request->order_data[7]["value"]
+                    ]
+                );
+
+                return response()->json([], 200);
+            } catch (Exception $e) {
+                return response()->json([], 500);
+            }
+        } else {
+            try {
+                HourlyOrder::find($request->order_data[0]["value"])->update(
+                    ['startdate' => $this->concatenateDatetime($request->order_data[1]["value"], $request->order_data[3]["value"]),
+                        'enddate' => $this->concatenateDatetime($request->order_data[2]["value"], $request->order_data[4]["value"]),
+                        'name' => $request->order_data[5]["value"],
+                        'surname' => $request->order_data[6]["value"],
+                        'email' => $request->order_data[7]["value"],
+                        'phonenumber' => $request->order_data[8]["value"],
+                        // 'nebisusernumber' => $request->order_data[9]["value"]
+                    ]
+                );
+
+                return response()->json([], 200);
+            } catch (Exception $e) {
+                return response()->json([], 500);
+            }
         }
     }
 
@@ -441,7 +547,6 @@ class UserController extends Controller
 
         return response()->json(['data' => $data]);
     }
-
 
 
 }

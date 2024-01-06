@@ -6,7 +6,7 @@ function notEmptyValidate(namevar, statusvar, iconvar) {
     var status = document.getElementById(statusvar);
     var icon = document.getElementById(iconvar);
 
-    // Check if the element is a dropdown (for Category selection)
+    // Check if the element is a dropdown (for Category/OrderType selection)
     if (name.tagName === "SELECT") {
         status.style.display = "none";
         name.parentNode.className = "form-group has-success has-feedback";
@@ -57,7 +57,7 @@ function checkform() {
     var cansubmitf = true;
     var cansubmits = true;
 
-    const NUMBER_OF_FIELDS_TO_BE_CHECKED = 8;
+    const NUMBER_OF_FIELDS_TO_BE_CHECKED = 9;
 
     for (var i = 0; i < NUMBER_OF_FIELDS_TO_BE_CHECKED; i++) {
         if (f[i].type === "select-one") { // Check if the element is a dropdown

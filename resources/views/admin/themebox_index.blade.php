@@ -125,7 +125,7 @@
                                           class="errorHeader">Gewicht wird benötigt!</span>
                                 </div>
                                 <div class="form-group has-feedback">
-                                    <label class="themebox-form-label" for="themebox-form-category">Kategorie </label>
+                                    <label class="themebox-form-label" for="themebox-form-category">Kategorie *</label>
                                     <select class="form-control" name="category" id="themebox-form-category"
                                             onchange="notEmptyValidate('themebox-form-category', 'themebox-form-category-status', 'themebox-form-category-icon')">
                                         <option value="none" disabled selected>Bitte Kategorie auswählen</option>
@@ -137,49 +137,62 @@
                                     <span id="themebox-form-category-status" class="errorHeader">Kategorie wird benötigt!</span>
                                 </div>
                                 <div class="form-group has-feedback">
-                                    <label class="themebox-form-label" for="themebox-form-content">Inhalt * </label>
-                                    <textarea id="themebox-form-content" name="content"
-                                              class="form-control themebox-edit-form-content" rows="5"
-                                              onblur="notEmptyValidate('themebox-form-content','themebox-form-content-status','themebox-form-content-icon')"
-                                              onkeyup="notEmptyValidate('themebox-form-content','themebox-form-content-status','themebox-form-content-icon')"></textarea>
-                                    <span id="themebox-form-content-icon"></span>
-                                    <span id="themebox-form-content-status"
-                                          class="errorHeader">Inhalt wird benötigt!</span>
+                                    <label class="themebox-form-label" for="themebox-form-order_type">Ausleihetyp *</label>
+                                    <select class="form-control" name="order_type" id="themebox-form-order_type"
+                                            onchange="notEmptyValidate('themebox-form-order_type', 'themebox-form-order_type-status', 'themebox-form-order_type-icon')">
+                                        <option value="none" disabled selected>Bitte Ausleihetyp auswählen</option>
+                                        @foreach ($order_types as $order_type)
+                                            <option value="{{$order_type['pk_order_type']}}">{{$order_type['name']}}</option>
+                                        @endforeach
+                                    </select>
+                                    <span id="themebox-form-order_type-icon"></span>
+                                    <span id="themebox-form-order_type-status" class="errorHeader">Ausleihetyp wird benötigt!</span>
                                 </div>
-                                <div class="form-group has-feedback">
-                                    <label class="themebox-form-label" for="themebox-form-extra_text">Wichtige
-                                        Info</label>
-                                    <div id="summernote_create" name="extra_text"></div>
-                                </div>
-                                <div hidden>
-                                    <input id="extra_text_create" name="extra_text_create">
-                                </div>
+
+                            <div class="form-group has-feedback">
+                                <label class="themebox-form-label" for="themebox-form-content">Inhalt * </label>
+                                <textarea id="themebox-form-content" name="content"
+                                          class="form-control themebox-edit-form-content" rows="5"
+                                          onblur="notEmptyValidate('themebox-form-content','themebox-form-content-status','themebox-form-content-icon')"
+                                          onkeyup="notEmptyValidate('themebox-form-content','themebox-form-content-status','themebox-form-content-icon')"></textarea>
+                                <span id="themebox-form-content-icon"></span>
+                                <span id="themebox-form-content-status"
+                                      class="errorHeader">Inhalt wird benötigt!</span>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <label class="themebox-form-label" for="themebox-form-extra_text">Wichtige
+                                    Info</label>
+                                <div id="summernote_create" name="extra_text"></div>
+                            </div>
+                            <div hidden>
+                                <input id="extra_text_create" name="extra_text_create">
                             </div>
                         </div>
-                    </form>
-                </div>
-                <div class="panel-footer">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Schliessen</button>
-                        </div>
-                        <div class="col-md-10">
-                            <button type="button" id="create-themebox-button" class="btn btn-success float-right"
-                                    data-dismiss="modal" disabled>Speichern
-                            </button>
-                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="col-md-2">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Schliessen</button>
+                    </div>
+                    <div class="col-md-10">
+                        <button type="button" id="create-themebox-button" class="btn btn-success float-right"
+                                data-dismiss="modal" disabled>Speichern
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <div class="modal fade" id="themebox-edit-modal" tabindex="-1">
-        <div class="modal-dialog " role="document">
-            <div class="modal-content">
-                <div class="modal-header modal-header-primary">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+<div class="modal fade" id="themebox-edit-modal" tabindex="-1">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content">
+            <div class="modal-header modal-header-primary">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
                     </button>
                     <div class="panel-heading themebox-new-title">
                         Themenkiste bearbeiten
@@ -252,8 +265,7 @@
                                     <span id="themebox-edit-form-weight-status" class="errorHeader">Gewicht wird benötigt!</span>
                                 </div>
                                 <div class="form-group has-feedback">
-                                    <label class="themebox-form-label"
-                                           for="themebox-edit-form-category">Kategorie </label>
+                                    <label class="themebox-form-label" for="themebox-edit-form-category">Kategorie *</label>
                                     <select class="form-control" name="category" id="themebox-edit-form-category"
                                             onblur="notEmptyValidate('themebox-edit-form-category', 'themebox-edit-form-category-status', 'themebox-edit-form-category-icon')"
                                             onkeyup="notEmptyValidate('themebox-edit-form-category', 'themebox-edit-form-category-status', 'themebox-edit-form-category-icon')">
@@ -265,6 +277,22 @@
                                     <span id="themebox-edit-form-category-icon"></span>
                                     <span id="themebox-edit-form-category-status" class="errorHeader">Kategorie wird benötigt!</span>
                                 </div>
+                                <div class="form-group has-feedback">
+
+                                    <label class="themebox-form-label" for="themebox-edit-form-order_type">Ausleihetyp *</label>
+                                    <select class="form-control" name="order_type" id="themebox-edit-form-order_type"
+                                            onblur="notEmptyValidate('themebox-edit-form-order_type', 'themebox-edit-form-order_type-status', 'themebox-edit-form-order_type-icon')"
+                                            onkeyup="notEmptyValidate('themebox-edit-form-order_type', 'themebox-edit-form-order_type-status', 'themebox-edit-form-order_type-icon')">
+                                        <option value="none" disabled selected>Bitte Ausleihetyp auswählen</option>
+                                        @foreach ($order_types as $order_type)
+                                            <option value="{{$order_type['pk_order_type']}}">{{$order_type['name']}}</option>
+                                        @endforeach
+                                    </select>
+                                    <span id="themebox-edit-form-order_type-icon"></span>
+                                    <span id="themebox-edit-form-order_type-status" class="errorHeader">Ausleihetyp wird benötigt!</span>
+                                </div>
+
+
                                 <div class="form-group has-feedback">
                                     <label class="themebox-form-label" for="themebox-edit-form-content">Inhalt
                                         * </label>
@@ -330,6 +358,7 @@
                     <th>Grösse</th>
                     <th>Gewicht</th>
                     <th>Kategorie</th>
+                    <th>Ausleihetyp</th>
                     <th>Vollständig</th>
                     <th class="edit-column-width"></th>
                 </tr>
@@ -347,6 +376,13 @@
                             @foreach ($categories as $category)
                                 @if ($category["pk_category"] == $themebox["fk_category"])
                                     {{$category["name"]}}
+                                @endif
+                            @endforeach
+                        </td>
+                        <td>
+                            @foreach($order_types as $order_type)
+                                @if($order_type["pk_order_type"] == $themebox["fk_order_type"])
+                                    {{$order_type["name"]}}
                                 @endif
                             @endforeach
                         </td>

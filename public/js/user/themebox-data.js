@@ -68,6 +68,7 @@ $(document).ready(function () {
                     $("#dropdown-bis").val($("#dropdown-bis option:first").val());
                     //disable dropdown-bis
                     $("#dropdown-bis").prop("disabled", true);
+                    $("#end-date").prop("disabled", false);
 
                     $("#calendar").fullCalendar('removeEvents', function (event) {
                         return event.className == "new_event";
@@ -518,6 +519,7 @@ $(document).ready(function () {
 
                         $("#thekre-dropdown option[value='3']").prop("disabled", false).show();
                         $("#thekre-dropdown option[value='1']").prop("disabled", true).hide();
+                        $("#thekre-dropdown").val("3");
 
                         //Folgende Zeile kann eingefügt werden, wenn die Option "Lieferung an die Schule" wieder aktiviert werden soll
                         // die Option wird nur für die tagesorders angezeigt, bitte beide zeilen einkommentieren
@@ -532,6 +534,7 @@ $(document).ready(function () {
                         //make the thekre-dropdown option disable and also not show the one with the name "Gebrauch in der Bibliothek"
                         $("#thekre-dropdown option[value='3']").prop("disabled", true).hide();
                         $("#thekre-dropdown option[value='1']").prop("disabled", false).show();
+                        $("#thekre-dropdown").val("1");
 
                         //Folgende Zeile kann eingefügt werden, wenn die Option "Lieferung an die Schule" wieder aktiviert werden soll
                         // die Option wird nur für die tagesorders angezeigt, bitte beide zeilen einkommentieren

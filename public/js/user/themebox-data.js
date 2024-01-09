@@ -607,6 +607,7 @@ $(document).ready(function () {
          * Resets the dropdowns and themebox list to their initial states. (i.e. no filters applied, shows all themeboxes)
          */
         $("#resetCategoryFilterBtn").on("click", function () {
+            $("#resetCategoryFilterBtn").css("display", "none");
             // Reset the dropdown to its initial state
             $("#dropdown1").val("");
             // Reset the multiselect to its initial state
@@ -677,6 +678,9 @@ $(document).ready(function () {
                 // If no value is selected, set it to null or an empty string
                 selectedSchoolLevels = null; // or selectedSchoolLevels = "";
             }
+
+            //if the dropdown1 or dropdown2 is selected, make the resetFilterButton visible
+            $("#resetCategoryFilterBtn").css("display", "block");
 
             // Call updateSelectionListFromCategory function
             updateSelectionListFromFilter(selectedCategoryData, selectedSchoolLevels);

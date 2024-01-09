@@ -69,11 +69,10 @@
                                                     <option value="{{ $schulklasse->schoollevel }}">{{ $schulklasse->schoollevel }}</option>
                                                 @endforeach
                                             </select>
-
-                                            <button type="button" id="resetCategoryFilterBtn" class="btn btn-default custom-height">
-                                                Filter<br> zurücksetzen
-                                            </button>
                                         </div>
+                                        <button type="button" id="resetCategoryFilterBtn" class="btn btn-default">
+                                            Filter zurücksetzen
+                                        </button>
 
                                         <div class="list-group thekre-list">
                                             <ul id="themebox-list-ul">

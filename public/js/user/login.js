@@ -116,8 +116,6 @@ $(document).ready(function () {
                 loadViewChangeButtons();
 
 
-
-
                 $("#calendar").fullCalendar("render");
                 $("#calendar").fullCalendar("removeEvents");
                 $("#calendar").fullCalendar('removeEvents', function (event) {
@@ -187,7 +185,6 @@ $(document).ready(function () {
                 $("#user-edit-dropdown-bis").prop('disabled', editable);
 
 
-
                 if (response["order"][0]["fk_status"] === 1) {
                     lastNameValidate();
                     firstNameValidate();
@@ -208,13 +205,16 @@ $(document).ready(function () {
                 var footer = '<div class="row">';
                 if (!editable) {
                     footer += '<div class="col-md-4"><button type="button" class="btn btn-default float-left" id="user-cancel-edit-order" data-dismiss="modal">Schliessen</button></div>';
-                    footer += '<div class="col-md-4"><button type="submit" id="button-save-order-change" class="btn btn-primary float-center" data-dismiss="modal" tabindex=8>Speichern</button></div>';
-                    footer += '<div class="col-md-4"><button type="button" class="btn btn-danger float-right" id="btn-remove-order" data-dismiss="modal">Bestellung löschen</button></div>';
+                    footer += '<div class="col-md-8">';
+                    footer += '<button type="submit" id="button-save-order-change" class="btn btn-primary" data-dismiss="modal" tabindex=8>Speichern</button>';
+                    footer += '<button type="button" class="btn btn-danger float-right" id="btn-remove-order" data-dismiss="modal">Bestellung löschen</button>';
+                    footer += '</div>';
                 } else {
                     footer += '<div class="col-md-12"><button type="button" class="btn btn-default float-right" data-dismiss="modal">Schliessen</button></div>';
                 }
 
                 $('#modal-view-order-footer').html(footer);
+
 
                 orders = response["orders"];
                 old_startdate = $("#start-date").val();
@@ -416,7 +416,7 @@ $(document).ready(function () {
      * Block the the next following Saturdays after 2 pm in the calendar since the library is closed
      */
     function blockNextFiveSaturdayAfterTwoPmInCalendar() {
-        for(var i = 0; i < 20; i++) {
+        for (var i = 0; i < 20; i++) {
             blockAllSaturdayAfterTwoPmEvent(dayToCalculateNextSaturdaysStart, dayToCalculateNextSaturdaysEnd);
             dayToCalculateNextSaturdaysStart.setDate(dayToCalculateNextSaturdaysStart.getDate() + 7);
             dayToCalculateNextSaturdaysEnd.setDate(dayToCalculateNextSaturdaysEnd.getDate() + 7);
@@ -429,7 +429,7 @@ $(document).ready(function () {
      */
     function blockEndTimes() {
 
-        if(selectedThemeboxInfo.themebox.fk_order_type === 2){
+        if (selectedThemeboxInfo.themebox.fk_order_type === 2) {
             return;
         }
 
@@ -505,7 +505,7 @@ $(document).ready(function () {
      * (This Function sets the possible starting times for the hourly order after the user logs in)
      */
     function blockStartTimes() {
-        if(selectedThemeboxInfo.themebox.fk_order_type === 2){
+        if (selectedThemeboxInfo.themebox.fk_order_type === 2) {
             return;
         }
 
@@ -729,14 +729,14 @@ $(document).ready(function () {
                 start: '13:30',
                 end: '18:00'
             });
-            blockedThirtyMinutes += 9*30;
+            blockedThirtyMinutes += 9 * 30;
         }
 
         selectedDateOrders.forEach(function (order) {
             var startHour = order.startdate.split(' ')[1].substring(0, 5);
             var endHour = order.enddate.split(' ')[1].substring(0, 5);
 
-            if(order.pk_hourly_order !== selectedThemeboxInfo.order[0].pk_hourly_order) {
+            if (order.pk_hourly_order !== selectedThemeboxInfo.order[0].pk_hourly_order) {
                 // Add all the values between startHour-30 and endHour+30 in 30-minute intervals to blockedHours
                 var currentBlockStart = subtractMinutesFromTime(startHour, 30);
                 while (currentBlockStart < endHour) {
@@ -753,7 +753,7 @@ $(document).ready(function () {
             }
         });
 
-        if(blockedThirtyMinutes >= 600) {
+        if (blockedThirtyMinutes >= 600) {
             $("#carousel-right").prop("disabled", true);
             $("#user-edit-dropdown-von").prop("disabled", true);
 

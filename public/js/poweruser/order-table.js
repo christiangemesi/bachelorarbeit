@@ -739,7 +739,6 @@ $(document).ready(function () {
                 });
 
 
-
                 loadBlockedDates();
 
                 dayToCalculateNextSundays = getNextDayOfWeek(new Date, 7);

@@ -277,10 +277,11 @@ $(document).ready(function () {
 
                         $('#calendar').fullCalendar('gotoDate', addTime(value["startdate"]));
                     } else if (value["pk_hourly_order"] == $("#order-id").val()) {
+                        console.log(value["startdate"]);
                         var startDateTime = value["startdate"] + "-00:00";
                         var endDateTime = value["enddate"] + "-00:00";
                         $('#calendar').fullCalendar("renderEvent", {
-                            title: "",
+                            title: extractTimeFromDate(value["startdate"]) + " - " + extractTimeFromDate(value["enddate"]),
                             start: startDateTime,
                             end: endDateTime,
                             rendering: "",
@@ -292,7 +293,7 @@ $(document).ready(function () {
                         var startDateTime = value["startdate"] + "-00:00";
                         var endDateTime = value["enddate"] + "-00:00";
                         $('#calendar').fullCalendar("renderEvent", {
-                            title: "",
+                            title: isHourlyOrder ? extractTimeFromDate(value["startdate"]) + " - " + extractTimeFromDate(value["enddate"]) : "",
                             start: !isHourlyOrder ? addBlockStartdate(value["startdate"]) : startDateTime,
                             end: !isHourlyOrder ? addBlockEnddate(value["enddate"]) : endDateTime,
                             rendering: !isHourlyOrder ? "background" : "",
@@ -306,6 +307,18 @@ $(document).ready(function () {
                 $('#login-user-error-message-box').html('Die Bestellung konnte nicht gefunden werden. Bitte überprüfen Sie Nachname der Bestellperson sowie Bestellnummer. <br>Ansonsten kontaktieren Sie die Campusbibliothek unter <a href="mailto:bibliothek.windisch@fhnw.ch">bibliothek.windisch@fhnw.ch</a> ');
             }
         })
+    }
+
+    function extractTimeFromDate(dateString) {
+        // Parse the input date string
+        const dateObject = new Date(dateString);
+
+        // Extract hours and minutes
+        const hours = dateObject.getHours().toString().padStart(2, '0');
+        const minutes = dateObject.getMinutes().toString().padStart(2, '0');
+
+        // Combine hours and minutes
+        return `${hours}:${minutes}`;
     }
 
     /**

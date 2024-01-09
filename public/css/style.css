@@ -780,5 +780,12 @@ h2{
     display: inline-table;
 }
 
+.fc-time2 {
+    display: none;
+}
+
+.fc-content > .fc-time {
+    display: none;
+}
 
 

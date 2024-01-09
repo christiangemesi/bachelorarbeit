@@ -206,3 +206,11 @@
 .fc button {
 	display: none; /* don't display any button-related controls */
 }
+
+.fc-time2 {
+	display: none;
+}
+
+.fc-content > .fc-time {
+	display: none;
+}

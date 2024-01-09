@@ -552,7 +552,7 @@ $(document).ready(function () {
                     $.each(orders, function (index, value) {
                         $('#calendar').fullCalendar("renderEvent", {
                             id: "borrowed",
-                            title: "",
+                            title: !isDailyOrder ? extractTimeFromDate(value["startdate"]) + " - " + extractTimeFromDate(value["enddate"]) : "",
                             start: isDailyOrder ? addBlockStartdateDailyOrder(value["startdate"]) : value["startdate"],
                             end: isDailyOrder ? addBlockEnddateDailyOrder(value["enddate"]) : value["enddate"],
                             rendering: isDailyOrder ? "background" : "",
@@ -581,6 +581,18 @@ $(document).ready(function () {
             });
 
         }
+
+    function extractTimeFromDate(dateString) {
+        // Parse the input date string
+        const dateObject = new Date(dateString);
+
+        // Extract hours and minutes
+        const hours = dateObject.getHours().toString().padStart(2, '0');
+        const minutes = dateObject.getMinutes().toString().padStart(2, '0');
+
+        // Combine hours and minutes
+        return `${hours}:${minutes}`;
+    }
 
         function loadHourlyView(order_type, orders) {
             //reset the selection so that the option is null
@@ -1090,7 +1102,7 @@ $(document).ready(function () {
                 formatTwoDigit(new_date.getUTCHours()) +
                 ":" +
                 formatTwoDigit(new_date.getUTCMinutes()) +
-                ":00-00:00"
+                ":00"
             return (returnValue);
         }
 
@@ -1156,9 +1168,10 @@ $(document).ready(function () {
          * @param isHourly
          */
         function createEvent(start, end, isHourly) {
+            console.log(start, end, isHourly)
             $("#calendar").fullCalendar('renderEvent',
                 {
-                    title: "",
+                    title: isHourly ? extractTimeFromDate(start) + " - "+ extractTimeFromDate(end) : "",
                     start: start,
                     end: end,
                     rendering: !isHourly ? "background" : "",

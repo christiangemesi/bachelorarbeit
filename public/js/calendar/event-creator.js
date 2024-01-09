@@ -181,7 +181,7 @@ function formatCalendarDateTimeCompare(date) {
         formatTwoDigit(new_date.getUTCHours()) +
         ":" +
         formatTwoDigit(new_date.getUTCMinutes()) +
-        ":00-00:00";
+        ":00";
 }
 
 /**
@@ -234,9 +234,10 @@ function formatCalendarEndDate(date) {
  * @param isHourly
  */
 function createEvent(start, end, isHourly) {
+
     $("#calendar").fullCalendar('renderEvent',
         {
-            title: "",
+            title: isHourly ? extractTimeFromDate(start) + " - "+ extractTimeFromDate(end) : "",
             start: start,
             end: end,
             rendering: !isHourly ? "background": "",
@@ -254,9 +255,10 @@ function createEvent(start, end, isHourly) {
  * create calendar event
  */
 function orderAddCreateEvent(start, end, isHourly) {
+    console.log(start, end, isHourly);
     $("#orderAdd-calendar").fullCalendar('renderEvent',
         {
-            title: "",
+            title: isHourly ? extractTimeFromDate(start) + " - "+ extractTimeFromDate(end) : "",
             start: start,
             end: end,
             rendering: !isHourly ? "background" : "",
@@ -270,6 +272,22 @@ function orderAddCreateEvent(start, end, isHourly) {
     $('#carousel-right').prop('disabled', false);
 
     $('#orderAdd-calendar').fullCalendar('gotoDate', start);
+}
+
+/**
+ * Takes a Date and returns a string in the format "hh:mm"
+ * 2024-01-24 08:30:00 -> 08:30
+ */
+function extractTimeFromDate(dateString) {
+    // Parse the input date string
+    const dateObject = new Date(dateString);
+
+    // Extract hours and minutes
+    const hours = dateObject.getHours().toString().padStart(2, '0');
+    const minutes = dateObject.getMinutes().toString().padStart(2, '0');
+
+    // Combine hours and minutes
+    return `${hours}:${minutes}`;
 }
 
 /**

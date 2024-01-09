@@ -17,10 +17,13 @@
 
 #resetCategoryFilterBtn {
     white-space: normal; /* Allow text to wrap onto multiple lines */
+    /* bold */
+    font-weight: bold;
     font-size: 12px;
     margin: -20px 25px 25px 25px;
     display: none;
 }
+
 
 #dropdown1, #dropdown1 ~ .multiselect-container, #dropdown1 ~ .multiselect-container li {
     cursor: pointer;

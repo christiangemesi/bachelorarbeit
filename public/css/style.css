@@ -152,9 +152,8 @@ body{
 
 .thekre-list{
     overflow-y: auto;
-    position: fixed;
     height: 100%;
-    width: inherit;
+    width: 100%;
 }
 
 .thekre-row{
@@ -773,7 +772,7 @@ h2{
 }
 
 #themebox-list-search{
-    width: 105%;
+    width: 100%;
 }
 
 #themebox-extra-text-modal-box{

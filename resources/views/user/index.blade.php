@@ -50,7 +50,7 @@
                             <div class="item active">
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <div class="input-group col-md-12">
+                                        <div class="Search">
                                             <input type="text" class="form-control" id="themebox-list-search" placeholder="Suche nach Themenkiste..">
                                         </div>
 

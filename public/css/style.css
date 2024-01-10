@@ -148,8 +148,8 @@ body{
 .sidebar-nav-text{
     padding-top: 50px;
     height: 50px;
+    margin-left: -20px;
 }
-
 
 .thekre-list{
     overflow-y: auto;

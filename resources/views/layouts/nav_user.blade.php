@@ -1,3 +1,4 @@
+
 <div class="col-md-2">
     <!-- Sidebar -->
     <div id="sidebar-wrapper">
@@ -8,7 +9,14 @@
                 </a>
             </li>
             <li class="sidebar-nav-text">
-                <a href="{{ env('APP_URL') }}/user"><div class="nav-text"> Bestellformular</div></a>
+                <a href="{{ env('APP_URL') }}/user">
+                    <div class="nav-text"><span class="glyphicon glyphicon-pencil glyphicon-sm" aria-hidden="true"></span> Bestellformular</div>
+                </a>
+            </li>
+            <li class="sidebar-nav-text site-switch">
+                <a href="{{ env('APP_URL') }}/user">
+                    <div class="nav-text"><span class="glyphicon glyphicon-home glyphicon-sm" aria-hidden="true"></span> ThekRe Startseite</div>
+                </a>
             </li>
         </ul>
     </div>

@@ -116,31 +116,40 @@ body {
         padding-left: 50px;
     }
 
-    #sidebar-wrapper{
-        left: 0px;
-        margin-left: 0px;
+    #sidebar-wrapper {
+        left: 0;
+        margin-left: 0;
     }
 
     #wrapper.toggled #sidebar-wrapper {
         width: 62px;
     }
+
     #fhnw-logo {
         margin-top: 15px;
         height: 20px;
     }
 
-    .sidebar-brand{
+    .sidebar-brand {
         display: none;
     }
 
-    .sidebar-nav{
+    .sidebar-nav {
         width: 62px;
     }
 
-    .nav-text{
-        display: none;
+    .glyphicon {
+        display: inline-block;
+        margin-right: 5px;
+    }
+
+    /* Hide text in sidebar */
+    .nav-text {
+        visibility: hidden;
     }
 }
+
+
 
 @media(min-width:768px) {
     #wrapper {

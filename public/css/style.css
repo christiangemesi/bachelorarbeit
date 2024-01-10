@@ -140,15 +140,23 @@ body{
     margin-top: 10px;
 }
 
-.sidebar-nav{
+.sidebar-nav {
     font-family: Raleway, serif;
-    font-size: 20px;
+    font-size: 18px;
 }
 
-.sidebar-nav-text{
+.sidebar-nav-text {
     padding-top: 50px;
     height: 50px;
-    margin-left: -20px;
+    margin-left: -40px;
+}
+
+.nav-icon {
+    display: inline-block;
+}
+
+.nav-text {
+    display: inline-block;
 }
 
 .thekre-list{

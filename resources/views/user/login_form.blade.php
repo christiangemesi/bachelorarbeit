@@ -22,7 +22,7 @@
         <div class="col-md-12 main-Panel">
             <div class="row">
                 <div class="col-md-12">
-                    <h1>Bestellverwaltung</h1>
+                    <h1 class="admin-header">Bestellverwaltung</h1>
                     <br>
                     <div class="form-group">
                         <label for="name">Nachname der Bestellperson:</label>

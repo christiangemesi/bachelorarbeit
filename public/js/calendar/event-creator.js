@@ -75,8 +75,6 @@ function loadViewChangeButtons() {
         //dont show the week button, instead show the month button
         $(".fc-week-view-button").hide();
         $(".fc-month-view-button").show();
-
-
     });
 
     switchToMonthButton.on("click", function () {

@@ -788,4 +788,13 @@ h2{
     display: none;
 }
 
+/* themebox time select padding left 5px */
+#themebox-time-select{
+    padding-left: 5px;
+}
+
+#pu_dropdown-von, #pu_dropdown-bis, #dropdown-von, #dropdown-bis, #pu_orderAdd-dropdown-von, #pu_orderAdd-dropdown-bis, #user-edit-dropdown-von, #user-edit-dropdown-bis{
+    border-radius: 5px;
+}
+
 

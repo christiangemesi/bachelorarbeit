@@ -18,9 +18,8 @@
     <script src="{{ asset('js/calendar/add-first-block.js') }}"></script>
     <script src="{{ asset('js/callback-modal.js') }}"></script>
 
-    <div id="page-content-wrapper">
-        <div class="col-md-12 main-Panel">
-            <div class="row">
+    <div id="wrapper">
+        <div class="col-md-12 admin-Panel">
                 <div class="col-md-12">
                     <h1>Bestellverwaltung</h1>
                     <br>
@@ -35,7 +34,6 @@
                     <button id="user-login-button" class="btn btn-success btn-lg" >Bestellung suchen</button>
                 </div>
             </div>
-        </div>
     </div>
 
     <div class="modal fade" id="order-edit-user-modal"  tabindex="-1">

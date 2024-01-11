@@ -173,10 +173,8 @@
             </div>
             <div class="panel-footer">
                 <div class="row">
-                    <div class="col-md-2">
+                    <div class="col-md-12">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Schliessen</button>
-                    </div>
-                    <div class="col-md-10">
                         <button type="button" id="create-themebox-button" class="btn btn-success float-right"
                                 data-dismiss="modal" disabled>Speichern
                         </button>
@@ -326,10 +324,8 @@
                 </div>
                 <div class="panel-footer">
                     <div class="row">
-                        <div class="col-md-2">
+                        <div class="col-md-12">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Schliessen</button>
-                        </div>
-                        <div class="col-md-10">
                             <button type="button" id="button-save-themebox-change" class="btn btn-primary float-right"
                                     data-dismiss="modal">Speichern
                             </button>

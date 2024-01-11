@@ -95,10 +95,8 @@
                 </div>
                 <div class="panel-footer">
                     <div class="row">
-                        <div class="col-md-2">
+                        <div class="col-md-12">
                             <button type="button" class="btn btn-default callback-close" data-dismiss="modal">Schliessen</button>
-                        </div>
-                        <div class="col-md-10">
                             <button type="button" id="create-blocked-period-button" class="btn btn-success float-right" data-dismiss="modal" disabled>Speichern</button>
                         </div>
                     </div>
@@ -161,11 +159,9 @@
                 </div>
                 <div class="panel-footer">
                     <div class="row">
-                        <div class="col-md-2">
+                        <div class="col-md-12">
                             <button type="button" class="btn btn-default callback-close" data-dismiss="modal">Schliessen</button>
-                        </div>
-                        <div class="col-md-10">
-                            <button type="button" id="button-save-blocked-period-change" class="btn btn-primary float-right" data-dismiss="modal">Speichern</button>
+                            <button type="button" id="button-save-blocked-period-change" class="btn btn-prima7ry float-right" data-dismiss="modal">Speichern</button>
                         </div>
                     </div>
                 </div>

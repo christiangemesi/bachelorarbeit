@@ -486,6 +486,14 @@ h2{
     font-size: 4em;
 }
 
+.panel-heading {
+    text-align: center;
+}
+
+.panel-footer {
+    text-align: center;
+}
+
 .button-modal{
     float: right;
 }

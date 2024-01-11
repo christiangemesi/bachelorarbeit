@@ -152,6 +152,7 @@ $(document).ready(function () {
      * get order data for edit modal
      */
     $(".button-edit-order").click(function () {
+        console.log("before");
         $.ajax({
             url: "poweruser/getOrder",
             type: 'POST',
@@ -271,7 +272,6 @@ $(document).ready(function () {
                         }, true);
                         $('#calendar').fullCalendar('gotoDate', addTime(value["startdate"]));
                     } else if (value["pk_hourly_order"] == $("#order-id").val()) {
-                        console.log(value["startdate"]);
                         var startDateTime = value["startdate"] + "-00:00";
                         var endDateTime = value["enddate"] + "-00:00";
                         $('#calendar').fullCalendar("renderEvent", {
@@ -284,7 +284,6 @@ $(document).ready(function () {
                         }, true);
                         $('#calendar').fullCalendar('gotoDate', startDateTime);
                     } else { // render blocked events
-                        console.log(value["startdate"]);
                         var startDateTime = value["startdate"] + "-00:00";
                         var endDateTime = value["enddate"] + "-00:00";
                         $('#calendar').fullCalendar("renderEvent", {
@@ -999,7 +998,7 @@ $(document).ready(function () {
     function loadBlockedDates() {
 
         $.ajax({
-            url: "../" + "/" + "user/getBlockedPeriods",
+            url: "../" + "user/getBlockedPeriods",
             type: "POST",
             data: {},
             success: function (data) {

@@ -1168,7 +1168,6 @@ $(document).ready(function () {
          * @param isHourly
          */
         function createEvent(start, end, isHourly) {
-            console.log(start, end, isHourly)
             $("#calendar").fullCalendar('renderEvent',
                 {
                     title: isHourly ? extractTimeFromDate(start) + " - "+ extractTimeFromDate(end) : "",

@@ -253,7 +253,6 @@ function createEvent(start, end, isHourly) {
  * create calendar event
  */
 function orderAddCreateEvent(start, end, isHourly) {
-    console.log(start, end, isHourly);
     $("#orderAdd-calendar").fullCalendar('renderEvent',
         {
             title: isHourly ? extractTimeFromDate(start) + " - "+ extractTimeFromDate(end) : "",

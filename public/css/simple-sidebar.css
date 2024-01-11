@@ -116,6 +116,10 @@ body {
         padding-left: 50px;
     }
 
+    .modal-footer{
+        text-align: center;
+    }
+
     #sidebar-wrapper {
         left: 0;
         margin-left: 0;

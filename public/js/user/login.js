@@ -204,7 +204,7 @@ $(document).ready(function () {
 
                 var footer = '<div class="row">';
                 if (!editable) {
-                    footer += '<div class="col-md-8">';
+                    footer += '<div class="col-md-12">';
                     footer += '<button type="button" class="btn btn-default float-left" id="user-cancel-edit-order" data-dismiss="modal">Schliessen</button>';
                     footer += '<button type="submit" id="button-save-order-change" class="btn btn-primary" data-dismiss="modal" tabindex=8>Speichern</button>';
                     footer += '<button type="button" class="btn btn-danger float-right" id="btn-remove-order" data-dismiss="modal">Bestellung löschen</button>';
@@ -274,6 +274,7 @@ $(document).ready(function () {
                         for (var i = 0; i <= dateArr.length; i++) {
                             listOfBlockedDates.push(dateArr[i]);
                         }
+                        console.log(listOfBlockedDates);
 
                         $('#calendar').fullCalendar('gotoDate', addTime(value["startdate"]));
                     } else if (value["pk_hourly_order"] == $("#order-id").val()) {

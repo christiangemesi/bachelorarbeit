@@ -565,6 +565,7 @@ $(document).ready(function () {
                                 listOfBlockedDates.push(dateArr[i]);
                             }
                         }
+
                     });
 
                     hideErrorBoxes();
@@ -1295,7 +1296,7 @@ $(document).ready(function () {
                 $('#button-submit-order').text("Themenkiste liefern lassen");
             } else {
                 $('#delete-warning-header-text').text("Wollen Sie die Themenkiste/Lernroboter wirklich bestellen und selbst abholen?");
-                $('#button-submit-order').text("Themenkiste bestellen");
+                $('#button-submit-order').text("Bestellen");
             }
             prepareOrderConfirmModal();
 

@@ -152,7 +152,6 @@ $(document).ready(function () {
      * get order data for edit modal
      */
     $(".button-edit-order").click(function () {
-        console.log("before");
         $.ajax({
             url: "poweruser/getOrder",
             type: 'POST',

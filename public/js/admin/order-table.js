@@ -591,7 +591,7 @@ $(document).ready(function () {
     function loadBlockedDates() {
 
         $.ajax({
-            url: "../" + "/" + "user/getBlockedPeriods",
+            url: "../" + "user/getBlockedPeriods",
             type: "POST",
             data: {},
             success: function (data) {

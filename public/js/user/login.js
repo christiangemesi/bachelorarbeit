@@ -207,7 +207,7 @@ $(document).ready(function () {
                     footer += '<div class="col-md-12">';
                     footer += '<button type="button" class="btn btn-default float-left" id="user-cancel-edit-order" data-dismiss="modal">Schliessen</button>';
                     footer += '<button type="submit" id="button-save-order-change" class="btn btn-primary" data-dismiss="modal" tabindex=8>Speichern</button>';
-                    footer += '<button type="button" class="btn btn-danger float-right" id="btn-remove-order" data-dismiss="modal">Bestellung löschen</button>';
+                    footer += '<button type="button" class="btn btn-danger float-right" id="btn-remove-order" data-dismiss="modal">Löschen</button>';
                     footer += '</div>';
                 } else {
                     footer += '<div class="col-md-12"><button type="button" class="btn btn-default float-right" data-dismiss="modal">Schliessen</button></div>';

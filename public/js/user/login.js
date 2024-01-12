@@ -111,6 +111,9 @@ $(document).ready(function () {
             data: {name: $('#name').val(), ordernumber: $('#ordernumber').val()},
             success: function (response) {
                 selectedThemeboxInfo = response;
+                //set user-edit-dropdown-von to null
+                $("#user-edit-dropdown-von").val("");
+                $("#user-edit-dropdown-bis").val("");
 
                 bindEndData();
                 loadViewChangeButtons();

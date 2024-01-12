@@ -132,7 +132,7 @@ $(document).ready(function () {
                     }
                 );
 
-                listOfBlockedDates.length = 0;
+                //listOfBlockedDates.length = 0;
                 blockDatesInDatepicker();
                 loadBlockedDates();
 
@@ -270,14 +270,6 @@ $(document).ready(function () {
                             className: "myOrder",
                             color: "#04B404"
                         }, true);
-
-
-                        var dateArr = computeDayBetweenStartAndEnd(new Date(addBlockStartdateDailyOrder(value['startdate'])), new Date(addBlockEnddate(value['enddate'])));
-                        for (var i = 0; i <= dateArr.length; i++) {
-                            listOfBlockedDates.push(dateArr[i]);
-                        }
-                        console.log(listOfBlockedDates);
-
                         $('#calendar').fullCalendar('gotoDate', addTime(value["startdate"]));
                     } else if (value["pk_hourly_order"] == $("#order-id").val()) {
 
@@ -316,13 +308,11 @@ $(document).ready(function () {
      * load blocked dates
      */
     function loadBlockedDates() {
-
         $.ajax({
             url: "./getBlockedPeriods",
             type: "POST",
             data: {},
             success: function (data) {
-
                 $.each(data, function (index, element) {
                     blockedPeriodEvent(formatBlockedPeriodCalendarStartDate(element.startdate), formatBlockedPeriodCalendarEndDate(element.enddate));
                     var blockedPeriodsArray = computeDayBetweenStartAndEnd(new Date(formatCalendarDate(element.startdate)), new Date(formatCalendarDate(element.enddate)));
@@ -336,6 +326,49 @@ $(document).ready(function () {
                 errorHandling("Es ist ein Fehler bei der Datenverarbeitung passiert. Bitte kontaktieren Sie die FHNW Bibliothek unter bibliothek.windisch@fhnw.ch", "#error-message-box");
             }
         });
+    }
+
+    /**
+     * format enddate blocked period
+     * @param date
+     * @returns {string}
+     */
+    function formatBlockedPeriodCalendarEndDate(date) {
+        var temp_date = date.split(".");
+        var new_date = new Date(temp_date[2] + "-" + temp_date[1] + "-" + temp_date[0] + "T00:00:00-00:00");
+        return new_date.getUTCFullYear() + "-" + formatTwoDigit(new_date.getUTCMonth() + 1) + "-" + formatTwoDigit(new_date.getUTCDate() + 1);
+    }
+
+    /**
+     * format startdate blocked period
+     * @param date
+     * @returns {string}
+     */
+    function formatBlockedPeriodCalendarStartDate(date) {
+        var temp_date = date.split(".");
+        var new_date = new Date(temp_date[2] + "-" + temp_date[1] + "-" + temp_date[0] + "T00:00:00-00:00");
+        return new_date.getUTCFullYear() + "-" + formatTwoDigit(new_date.getUTCMonth() + 1) + "-" + formatTwoDigit(new_date.getUTCDate());
+    }
+
+    /**
+     * create new blocked period
+     * @param start
+     * @param end
+     */
+    function blockedPeriodEvent(start, end) {
+
+        $("#calendar").fullCalendar('renderEvent',
+            {
+                id: "blocked",
+                title: "",
+                start: start,
+                end: end,
+                rendering: "background",
+                className: "blocked_event",
+                color: "#ffad00"
+            },
+            true
+        );
     }
 
     function extractTimeFromDate(dateString) {
@@ -417,7 +450,6 @@ $(document).ready(function () {
             nextSunday.setDate(nextSunday.getDate() + 7);
             listOfBlockedDates.push(formatDate(nextSunday));
         }
-
     }
 
     /**

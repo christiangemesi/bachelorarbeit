@@ -813,4 +813,12 @@ h2{
     border-radius: 5px;
 }
 
+.glyphicon-ok .glyphicon-calendar {
+    display: none;
+}
+
+/* glyphicon glyphicon-remove form-control-feedback then also display none of glyphicon glyphicon-calendar */
+.glyphicon-remove .glyphicon-calendar {
+    display: none;
+}
 

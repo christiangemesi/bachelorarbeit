@@ -75,7 +75,7 @@
                                             <input type="text" class="form-control cursor-pointer modal-datepicker" id="start-date" name="start-date" placeholder="24.12.2018"
                                                    onblur="notEmptyValidation('start-date', 'order-from-glyphicon', 'start-date-form-status')"
                                                    onkeyup="notEmptyValidation('start-date', 'order-from-glyphicon', 'start-date-form-status')"/>
-                                            <span class="input-group-addon cursor-pointer" id="order-from-glyphicon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                            <span class="input-group-addon cursor-pointer" id="order-from-glyphicon"><i id="startDate calendar icon1" class="glyphicon glyphicon-calendar"></i></span>
                                             <span id="start-date-form-status" class="errorHeader">Startdatum wird benötigt!</span>
                                         </div>
                                 </div>
@@ -85,7 +85,7 @@
                                         <input type="text" class="form-control cursor-pointer modal-datepicker" id="end-date" name="end-date" placeholder="03.01.2019"
                                                onblur="notEmptyValidation('end-date', 'order-to-glyphicon', 'end-date-form-status')"
                                                onkeyup="notEmptyValidation('end-date', 'order-to-glyphicon', 'end-date-form-status')"/>
-                                        <span class="input-group-addon cursor-pointer" id="order-to-glyphicon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                        <span class="input-group-addon cursor-pointer" id="order-to-glyphicon"><i id="startDate calendar icon2" class="glyphicon glyphicon-calendar"></i></span>
                                         <span id="end-date-form-status" class="errorHeader">Enddatum wird benötigt!</span>
                                     </div>
                                 </div>

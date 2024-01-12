@@ -226,14 +226,17 @@
                                 <hr>
                                 <div id="order-calendar-legend">
                                     <div class="row">
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             <div id="order-calendar-legend-free"> <div class="order-calendar-legend-text">Verfügbar</div></div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             <div id="order-calendar-legend-block"><div class="order-calendar-legend-text">Ausgeliehen</div></div>
                                         </div>
                                         <div class="col-md-3">
                                             <div id="order-calendar-legend-new"><div class="order-calendar-legend-text">Ihre Auswahl</div></div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div id="order-calendar-legend-blocked-period"><div class="order-calendar-legend-text">Bibliothek Geschlossen</div></div>
                                         </div>
                                     </div>
                                 </div>

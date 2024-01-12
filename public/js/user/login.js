@@ -132,13 +132,11 @@ $(document).ready(function () {
                     }
                 );
 
-                //listOfBlockedDates.length = 0;
                 blockDatesInDatepicker();
                 loadBlockedDates();
 
                 blockNextFiveSundaysInCalendar();
                 blockNextFiveSaturdayAfterTwoPmInCalendar();
-
 
                 var isHourlyOrder = response["themebox"]["fk_order_type"] === 1;
                 if (isHourlyOrder) {

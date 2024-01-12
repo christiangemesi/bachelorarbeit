@@ -96,7 +96,7 @@
                 <div class="panel-footer">
                     <div class="row">
                         <div class="col-md-12">
-                            <button type="button" class="btn btn-default callback-close" data-dismiss="modal">Schliessen</button>
+                            <button type="button" class="btn btn-default callback-close float-left" data-dismiss="modal">Schliessen</button>
                             <button type="button" id="create-blocked-period-button" class="btn btn-success float-right" data-dismiss="modal" disabled>Speichern</button>
                         </div>
                     </div>
@@ -139,7 +139,7 @@
                                         <input type="text" class="form-control cursor-pointer modal-datepicker" id="edit-blocked-period-start-date" name="start-date" placeholder="24.12.2018"
                                                onblur="notEmptyValidation('edit-blocked-period-start-date', 'edit-order-from-glyphicon', 'start-date-form-status')"
                                                onkeyup="notEmptyValidation('edit-blocked-period-start-date', 'edit-order-from-glyphicon', 'start-date-form-status')"/>
-                                        <span class="input-group-addon cursor-pointer" id="edit-order-from-glyphicon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                        <span class="input-group-addon cursor-pointer" id="edit-order-from-glyphicon"></span>
                                         <span id="start-date-form-status" class="errorHeader">Startdatum wird benötigt!</span>
                                     </div>
                                 </div>
@@ -149,7 +149,7 @@
                                         <input type="text" class="form-control cursor-pointer modal-datepicker" id="edit-blocked-period-end-date" name="end-date" placeholder="03.01.2019"
                                                onblur="notEmptyValidation('edit-blocked-period-end-date', 'edit-order-to-glyphicon', 'end-date-form-status')"
                                                onkeyup="notEmptyValidation('edit-blocked-period-end-date', 'edit-order-to-glyphicon', 'end-date-form-status')"/>
-                                        <span class="input-group-addon cursor-pointer" id="edit-order-to-glyphicon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                        <span class="input-group-addon cursor-pointer" id="edit-order-to-glyphicon"></span>
                                         <span id="end-date-form-status" class="errorHeader">Enddatum wird benötigt!</span>
                                     </div>
                                 </div>
@@ -160,8 +160,8 @@
                 <div class="panel-footer">
                     <div class="row">
                         <div class="col-md-12">
-                            <button type="button" class="btn btn-default callback-close" data-dismiss="modal">Schliessen</button>
-                            <button type="button" id="button-save-blocked-period-change" class="btn btn-prima7ry float-right" data-dismiss="modal">Speichern</button>
+                            <button type="button" class="btn btn-default callback-close float-left" data-dismiss="modal">Schliessen</button>
+                            <button type="button" id="button-save-blocked-period-change" class="btn btn-primary float-right" data-dismiss="modal">Speichern</button>
                         </div>
                     </div>
                 </div>

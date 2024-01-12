@@ -614,6 +614,10 @@ class AdminController extends Controller
 
     public function removeCategory(Request $request)
     {
+        if($request->category_id == 1){
+            return response()->json(["message" => "This Category cannot be deleted."], 401);
+        }
+
         $category_id = $request->category_id;
         $category = Category::find($category_id);
 

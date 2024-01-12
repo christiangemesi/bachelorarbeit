@@ -1,6 +1,5 @@
 $(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip();
-
     /**
      * remove themebox
      */

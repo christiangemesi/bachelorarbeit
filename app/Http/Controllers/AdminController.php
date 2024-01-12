@@ -247,8 +247,6 @@ class AdminController extends Controller
             $themeboxes = $this->getThemeboxes();
             $categories = $this->getCategories();
             $order_types = $this->getOrderTypes();
-            error_log($order_types);
-
 
             return view('admin.themebox_index', ['themeboxes' => $themeboxes, 'categories' => $categories, 'order_types' => $order_types]);
         } else {
@@ -417,11 +415,6 @@ class AdminController extends Controller
      */
     public function updateOrder(Request $request)
     {
-        //error_log each value
-        foreach ($request->order_data as $order_data) {
-            error_log($order_data["name"] . " " . $order_data["value"]);
-        }
-
         $orderId =$request->order_data[0]["value"];
 
         $isHourlyOrder = false;

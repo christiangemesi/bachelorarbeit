@@ -310,8 +310,8 @@
                                         </select>
                                         <div id="delivery-data-box">
                                             <p id="user-delivery-info"><span
-                                                        class="glyphicon glyphicon-info-sign"></span> Die Themenkiste
-                                                kann an der Infotheke der FHNW Bibliothek Brugg-Windisch abgeholt
+                                                        class="glyphicon glyphicon-info-sign"></span> Themenkisten
+                                                können an der Infotheke der FHNW Bibliothek Brugg-Windisch abgeholt
                                                 werden. Beachten Sie dass Elektronische Geräte das Bibliotheksgebäude
                                                 nicht verlassen dürfen.</p>
                                             <div id="school-Address">

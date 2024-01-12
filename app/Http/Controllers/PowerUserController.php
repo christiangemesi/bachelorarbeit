@@ -375,23 +375,15 @@ class PowerUserController extends Controller
     public function getOrderAddData(Request $request)
     {
         $fk_themboxrequest = $request->fk_thembox;
-        //find the themebox based on the id
         $themebox = Themebox::find($request->fk_thembox);
-        //error_log fk_order_type
-        error_log("fk_order_type: " . $themebox["fk_order_type"]);
-
-        error_log($themebox);
 
         $deliveries = Delivery::get();
 
         if($themebox["fk_order_type"] == 1){
-            error_log("hourly order");
             $orders = HourlyOrder::where('fk_themebox', $fk_themboxrequest)->get();
         } else {
-            error_log("normal order");
             $orders = Order::where('fk_themebox', $fk_themboxrequest)->get();
         }
-        error_log("orders: " . $orders);
 
         $counter = 0;
         $orderData = array();
@@ -411,12 +403,6 @@ class PowerUserController extends Controller
     public function addOrder(Request $request)
     {
         $path = $request->orderData;
-
-        // log each value of path with its index to the console
-        for ($i = 0; $i < count($path); $i++) {
-            error_log($i . " " . $path[$i]["value"]);
-        }
-
 
         if($request->orderType == 1){ // hourly order
 

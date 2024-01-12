@@ -132,7 +132,10 @@ $(document).ready(function () {
                     }
                 );
 
+                listOfBlockedDates.length = 0;
                 blockDatesInDatepicker();
+                loadBlockedDates();
+
                 blockNextFiveSundaysInCalendar();
                 blockNextFiveSaturdayAfterTwoPmInCalendar();
 
@@ -307,6 +310,32 @@ $(document).ready(function () {
                 $('#login-user-error-message-box').html('Die Bestellung konnte nicht gefunden werden. Bitte überprüfen Sie Nachname der Bestellperson sowie Bestellnummer. <br>Ansonsten kontaktieren Sie die Campusbibliothek unter <a href="mailto:bibliothek.windisch@fhnw.ch">bibliothek.windisch@fhnw.ch</a> ');
             }
         })
+    }
+
+    /**
+     * load blocked dates
+     */
+    function loadBlockedDates() {
+
+        $.ajax({
+            url: "./getBlockedPeriods",
+            type: "POST",
+            data: {},
+            success: function (data) {
+
+                $.each(data, function (index, element) {
+                    blockedPeriodEvent(formatBlockedPeriodCalendarStartDate(element.startdate), formatBlockedPeriodCalendarEndDate(element.enddate));
+                    var blockedPeriodsArray = computeDayBetweenStartAndEnd(new Date(formatCalendarDate(element.startdate)), new Date(formatCalendarDate(element.enddate)));
+
+                    for (var i = 0; i <= blockedPeriodsArray.length; i++) {
+                        listOfBlockedDates.push(blockedPeriodsArray[i]);
+                    }
+                });
+            },
+            error: function (xhr, status, error) {
+                errorHandling("Es ist ein Fehler bei der Datenverarbeitung passiert. Bitte kontaktieren Sie die FHNW Bibliothek unter bibliothek.windisch@fhnw.ch", "#error-message-box");
+            }
+        });
     }
 
     function extractTimeFromDate(dateString) {

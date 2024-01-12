@@ -518,6 +518,12 @@ $(document).ready(function () {
         // Find the corresponding orders for the selected date and start time
         var selectedDateOrders = getSelectedDateOrders(endDate);
 
+        var selectedOrderId = selectedThemeboxInfo.order[0].pk_hourly_order;
+        //get the orders from the selectedOrderId
+        var selectedOrder = selectedDateOrders.find(function (order) {
+            return order.pk_hourly_order === selectedOrderId;
+        });
+
         // Create an array for blocked hours on the selected date and start time
         var blockedHours = [];
         //add all the values until selectedStartTime+30 in 30-minute intervals to blockedHours
@@ -684,6 +690,12 @@ $(document).ready(function () {
         blockedHours.push({
             start: selectedStartTime,
             end: selectedStartTime
+        });
+
+        //remove the own order from selectedDateOrders
+        var selectedOrderId = selectedThemeboxInfo.order[0].pk_hourly_order;
+        selectedDateOrders = selectedDateOrders.filter(function (order) {
+            return order.pk_hourly_order !== selectedOrderId;
         });
 
         // find the first order that starts after the selectedStartTime

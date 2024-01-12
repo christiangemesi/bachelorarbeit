@@ -100,28 +100,39 @@ function userUpdateEvent() {
     var startTime = $('#user-edit-dropdown-von').val();
     var endTime = $('#user-edit-dropdown-bis').val();
     var isHourly = startTime !== null || endTime !== null;
+
     if (isHourly) {
         var startDateTime = $("#start-date").val() + " " + startTime;
         var endDateTime = $("#end-date").val() + " " + endTime;
-    }
-
-
-    $("#calendar").fullCalendar('removeEvents', function (event) {
-        return event.className == "newOrder";
-    });
-
-
-    $("#calendar").fullCalendar('removeEvents', function (event) {
-        return event.className == "myOrder";
-    });
-
-    if (isHourly) {
-        createEvent(formatCalendarDateTimeCompare(startDateTime), formatCalendarDateTimeCompare(endDateTime), isHourly);
+        var collision = checkEventCollision(formatCalendarDateTimeCompare(startDateTime), formatCalendarDateTimeCompare(endDateTime));
     } else {
-        createEvent(formatCalendarDate($("#start-date").val()), formatCalendarEndDate($("#end-date").val()), isHourly);
+        var collision = checkEventCollision(formatCalendarDateCompare($("#start-date").val()), formatCalendarDateCompare($("#end-date").val()));
     }
 
-    $("#button-save-order-change").prop('disabled', false);
+    if(collision){
+        $("#calendar").fullCalendar('removeEvents', function (event) {
+            return event.className == "newOrder";
+        });
+
+        $("#calendar").fullCalendar('removeEvents', function (event) {
+            return event.className == "myOrder";
+        });
+
+        $("#calendar").fullCalendar('removeEvents', function (event) {
+            return event.className == "new_event";
+        });
+
+        if (isHourly) {
+            createEvent(formatCalendarDateTimeCompare(startDateTime), formatCalendarDateTimeCompare(endDateTime), isHourly);
+        } else {
+            createEvent(formatCalendarDate($("#start-date").val()), formatCalendarEndDate($("#end-date").val()), isHourly);
+        }
+
+        $("#button-save-order-change").prop('disabled', false);
+    } else {
+        errorHandling("Ihre Auswahl steht in Konflikt mit einem anderen Bestelltermin", "#error-calendar-message-box");
+        $("#button-save-order-change").prop('disabled', false);
+    }
 }
 
 /**
@@ -235,10 +246,10 @@ function createEvent(start, end, isHourly) {
 
     $("#calendar").fullCalendar('renderEvent',
         {
-            title: isHourly ? extractTimeFromDate(start) + " - "+ extractTimeFromDate(end) : "",
+            title: isHourly ? extractTimeFromDate(start) + " - " + extractTimeFromDate(end) : "",
             start: start,
             end: end,
-            rendering: !isHourly ? "background": "",
+            rendering: !isHourly ? "background" : "",
             className: "newOrder",
             color: "#04B404"
         },
@@ -255,7 +266,7 @@ function createEvent(start, end, isHourly) {
 function orderAddCreateEvent(start, end, isHourly) {
     $("#orderAdd-calendar").fullCalendar('renderEvent',
         {
-            title: isHourly ? extractTimeFromDate(start) + " - "+ extractTimeFromDate(end) : "",
+            title: isHourly ? extractTimeFromDate(start) + " - " + extractTimeFromDate(end) : "",
             start: start,
             end: end,
             rendering: !isHourly ? "background" : "",
@@ -306,13 +317,18 @@ function formatCalendarDateCompare(date) {
  */
 function checkEventCollision(start, end) {
     var status = true;
-    $.each($("#calendar").fullCalendar('clientEvents'), function (index, value) {
-        if (value["className"][0] == "block") {
-            if ((start >= value["start"] && start <= value["end"] - 1 || start <= value["start"] && end >= value["start"])) {
-                status = false;
+    var current_date = new Date();
+    if (start <= current_date) {
+        status = false;
+    } else {
+        $.each($("#calendar").fullCalendar('clientEvents'), function (index, value) {
+            if (value["className"][0] == "block") {
+                if ((start >= value["start"] && start <= value["end"] - 1 || start <= value["start"] && end >= value["start"])) {
+                    status = false;
+                }
             }
-        }
-    });
+        });
+    }
 
     return status;
 }

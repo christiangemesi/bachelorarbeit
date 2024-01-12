@@ -215,7 +215,6 @@ $(document).ready(function () {
 
                 $('#modal-view-order-footer').html(footer);
 
-
                 orders = response["orders"];
                 old_startdate = $("#start-date").val();
                 old_enddate = $("#end-date").val();

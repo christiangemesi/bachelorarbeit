@@ -317,10 +317,7 @@ function formatCalendarDateCompare(date) {
  */
 function checkEventCollision(start, end) {
     var status = true;
-    var current_date = new Date();
-    if (start <= current_date) {
-        status = false;
-    } else {
+
         $.each($("#calendar").fullCalendar('clientEvents'), function (index, value) {
             if (value["className"][0] == "block") {
                 if ((start >= value["start"] && start <= value["end"] - 1 || start <= value["start"] && end >= value["start"])) {
@@ -328,7 +325,7 @@ function checkEventCollision(start, end) {
                 }
             }
         });
-    }
+
 
     return status;
 }

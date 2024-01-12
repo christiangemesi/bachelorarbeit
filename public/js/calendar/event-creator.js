@@ -130,8 +130,9 @@ function userUpdateEvent() {
 
         $("#button-save-order-change").prop('disabled', false);
     } else {
+        hideErrorBoxes();
         errorHandling("Ihre Auswahl steht in Konflikt mit einem anderen Bestelltermin", "#error-calendar-message-box");
-        $("#button-save-order-change").prop('disabled', false);
+        $("#button-save-order-change").prop('disabled', true);
     }
 }
 

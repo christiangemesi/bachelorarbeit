@@ -281,14 +281,34 @@ $(document).ready(function () {
                             className: "new_event",
                             color: "#04B404"
                         }, true);
+
+                        var endPlus30 = addMinutesToTime(endDateTime.split(' ')[1].substring(0, 5), 30);
+                        var finalEndDate = endDateTime.split(' ')[0] + " " + endPlus30 + ":00";
+
+                        $("#calendar").fullCalendar('renderEvent',
+                            {
+                                title: "Korrektur Personal",
+                                start: endDateTime,
+                                end: finalEndDate,
+                                rendering: "",
+                                className: "new_event",
+                                color: "#04B404"
+                            },
+                            true
+                        );
+
                         $('#calendar').fullCalendar('gotoDate', startDateTime);
                     } else { // render blocked events
                         var startDateTime = value["startdate"] + "-00:00";
                         var endDateTime = value["enddate"] + "-00:00";
+                        var endDateTimePlus30 = addMinutesToTime(endDateTime.split(' ')[1].substring(0, 5), 30);
+                        var finalEndDatePlus30 = endDateTime.split(' ')[0] + " " + endDateTimePlus30 + ":00";
+
+
                         $('#calendar').fullCalendar("renderEvent", {
                             title: isHourlyOrder ? extractTimeFromDate(value["startdate"]) + " - " + extractTimeFromDate(value["enddate"]) : "",
                             start: !isHourlyOrder ? addBlockStartdate(value["startdate"]) : startDateTime,
-                            end: !isHourlyOrder ? addBlockEnddate(value["enddate"]) : endDateTime,
+                            end: !isHourlyOrder ? addBlockEnddate(value["enddate"]) : finalEndDatePlus30,
                             rendering: !isHourlyOrder ? "background" : "",
                             className: "block"
                         }, true);
@@ -368,7 +388,7 @@ $(document).ready(function () {
      * show / hide delivery input fields
      */
     $('#delivery').click(function () {
-        if($("#delivery").val() === "2") {
+        if ($("#delivery").val() === "2") {
             $("#order-delivery-type").show();
             schoolnameValidate();
             schoolstreetValidate();
@@ -462,7 +482,7 @@ $(document).ready(function () {
     /**
      * Set all the possible end times for the hourly order for poweruser on createOrder
      */
-    function setAppropriateEndTimesOrderAdd(){
+    function setAppropriateEndTimesOrderAdd() {
         //get the selected start time
         var selectedStartTime = $("#pu_orderAdd-dropdown-von").val();
         //remove all options from the dropdown
@@ -726,6 +746,7 @@ $(document).ready(function () {
                 });
                 response["orderData"].forEach(function (element) {
                     var isHourlyOrder = response["themebox"]["fk_order_type"] === 1;
+
                     $('#orderAdd-calendar').fullCalendar("renderEvent", {
                         title: isHourlyOrder ? extractTimeFromDate(element["order_startdate"]) + " - " + extractTimeFromDate(element["order_enddate"]) : "",
                         start: addTime(element["order_startdate"]),
@@ -832,13 +853,17 @@ $(document).ready(function () {
                 blockPreviousFiveSundaysInCalendar();
 
 
-
                 response["orderData"].forEach(function (element) {
                     var isHourlyOrder = response["themebox"]["fk_order_type"] === 1;
+
+                    if (isHourlyOrder) {
+                        var endDateTimePlus30 = addMinutesToTime(element["order_enddate"].split(' ')[1].substring(0, 5), 30);
+                        var finalEndDatePlus30 = element["order_enddate"].split(' ')[0] + " " + endDateTimePlus30 + ":00";
+                    }
                     $('#orderAdd-calendar').fullCalendar("renderEvent", {
                         title: isHourlyOrder ? extractTimeFromDate(element["order_startdate"]) + " - " + extractTimeFromDate(element["order_enddate"]) : "",
                         start: !isHourlyOrder ? addTime(element["order_startdate"]) : element["order_startdate"],
-                        end: !isHourlyOrder ? addEndTime(element["order_enddate"]) : element["order_enddate"],
+                        end: !isHourlyOrder ? addEndTime(element["order_enddate"]) : finalEndDatePlus30,
                         rendering: !isHourlyOrder ? "background" : "",
                         className: "selected",
                         color: "#f44242"

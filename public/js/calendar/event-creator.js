@@ -323,6 +323,23 @@ function orderAddCreateEvent(start, end, isHourly) {
         true
     );
 
+    if(isHourly) {
+        var endPlus30 = addMinutesToTime(end.split(' ')[1].substring(0, 5), 30);
+        var finalEndDate = end.split(' ')[0] + " " + endPlus30 + ":00";
+
+        $("#orderAdd-calendar").fullCalendar('renderEvent',
+            {
+                title: "Korrektur Personal",
+                start: end,
+                end: finalEndDate,
+                rendering: "",
+                className: "new_event",
+                color: "#04B404"
+            },
+            true
+        );
+    }
+
     $('#themebox-infobox-select-date').css("display", "block");
     $('#carousel-right').prop('disabled', false);
 

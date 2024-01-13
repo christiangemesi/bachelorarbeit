@@ -160,6 +160,10 @@ function orderAddUpdateEvent() {
         return event.className == "newOrder";
     });
 
+    $("#calendar").fullCalendar('removeEvents', function (event) {
+        return event.className == "myOrder";
+    });
+
     $("#orderAdd-calendar").fullCalendar('removeEvents', function (event) {
         return event.className == "new_event";
     });
@@ -260,6 +264,7 @@ function createEvent(start, end, isHourly) {
         true
     );
 
+    //add the correction event if the order is hourly
     if(isHourly) {
         var endPlus30 = addMinutesToTime(end.split(' ')[1].substring(0, 5), 30);
         var finalEndDate = end.split(' ')[0] + " " + endPlus30 + ":00";

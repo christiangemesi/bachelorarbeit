@@ -199,6 +199,10 @@
                                                         </select>
                                                     </div>
 
+                                                    <p class="text-max-order-date-info">
+                                                        <i id="hourly-order-info">Bedenken Sie dass eine 30 Minütige Korrektur nach jeder Bestellung vom Personal durchgeführt wird.</i>
+                                                    </p>
+
                                                     <div class="alert alert-danger display-none"
                                                          id="error-calendar-message-box"></div>
                                                     <div class="alert alert-info display-none"

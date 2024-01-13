@@ -514,6 +514,7 @@ $(document).ready(function () {
                     if (response["data"]["themebox"]["fk_order_type"] === 1) { // Hourly order
                         $("#thekre-dropdown").val("3");
                         $("#ausleihdauer-text").html("Ausleihdauer max. 1 Tag");
+                        $("#hourly-order-info").css("display", "block");
                         $("#Von-text").html("Am:");
 
 
@@ -544,17 +545,24 @@ $(document).ready(function () {
 
 
                         $("#ausleihdauer-text").html("Ausleihdauer max. 8 Wochen");
+                        $("#hourly-order-info").css("display", "none");
                         $("#Von-text").html("Von:");
                     }
 
                     var isDailyOrder = response["data"]["themebox"]["fk_order_type"] === 2;
 
                     $.each(orders, function (index, value) {
+                        if(!isDailyOrder) {
+                            var endDate = value["enddate"];
+                            var endDatePlus30 = addMinutesToTime(value["enddate"].split(' ')[1].substring(0, 5), 30);
+                            var finalEndDate = endDate.split(' ')[0] + " " + endDatePlus30 + ":00";
+                        }
+
                         $('#calendar').fullCalendar("renderEvent", {
                             id: "borrowed",
-                            title: !isDailyOrder ? extractTimeFromDate(value["startdate"]) + " - " + extractTimeFromDate(value["enddate"]) : "",
+                            title: !isDailyOrder ? extractTimeFromDate(value["startdate"]) + " - " + extractTimeFromDate(finalEndDate) : "",
                             start: isDailyOrder ? addBlockStartdateDailyOrder(value["startdate"]) : value["startdate"],
-                            end: isDailyOrder ? addBlockEnddateDailyOrder(value["enddate"]) : value["enddate"],
+                            end: isDailyOrder ? addBlockEnddateDailyOrder(value["enddate"]) : finalEndDate,
                             rendering: isDailyOrder ? "background" : "",
                             className: "block"
                         }, true);
@@ -583,17 +591,17 @@ $(document).ready(function () {
 
         }
 
-    function extractTimeFromDate(dateString) {
-        // Parse the input date string
-        const dateObject = new Date(dateString);
+        function extractTimeFromDate(dateString) {
+            // Parse the input date string
+            const dateObject = new Date(dateString);
 
-        // Extract hours and minutes
-        const hours = dateObject.getHours().toString().padStart(2, '0');
-        const minutes = dateObject.getMinutes().toString().padStart(2, '0');
+            // Extract hours and minutes
+            const hours = dateObject.getHours().toString().padStart(2, '0');
+            const minutes = dateObject.getMinutes().toString().padStart(2, '0');
 
-        // Combine hours and minutes
-        return `${hours}:${minutes}`;
-    }
+            // Combine hours and minutes
+            return `${hours}:${minutes}`;
+        }
 
         function loadHourlyView(order_type, orders) {
             //reset the selection so that the option is null
@@ -831,7 +839,6 @@ $(document).ready(function () {
          * @param end
          */
         function blockedPeriodEvent(start, end) {
-
             $("#calendar").fullCalendar('renderEvent',
                 {
                     id: "blocked",
@@ -857,6 +864,21 @@ $(document).ready(function () {
                     title: "",
                     start: Sunday,
                     rendering: "background",
+                    className: "blocked_event",
+                    color: "#ffad00"
+                },
+                true
+            );
+        }
+
+        function blockStaffEventAfterOrder(start, end) {
+            $("#calendar").fullCalendar('renderEvent',
+                {
+                    //id: "blocked",
+                    title: "Korrektur Personal",
+                    start: start,
+                    end: end,
+                    rendering: "",
                     className: "blocked_event",
                     color: "#ffad00"
                 },
@@ -1171,7 +1193,7 @@ $(document).ready(function () {
         function createEvent(start, end, isHourly) {
             $("#calendar").fullCalendar('renderEvent',
                 {
-                    title: isHourly ? extractTimeFromDate(start) + " - "+ extractTimeFromDate(end) : "",
+                    title: isHourly ? extractTimeFromDate(start) + " - " + extractTimeFromDate(end) : "",
                     start: start,
                     end: end,
                     rendering: !isHourly ? "background" : "",
@@ -1180,6 +1202,22 @@ $(document).ready(function () {
                 },
                 true
             );
+            if(isHourly) {
+                var endPlus30 = addMinutesToTime(end.split(' ')[1].substring(0, 5), 30);
+                var finalEndDate = end.split(' ')[0] + " " + endPlus30 + ":00";
+
+                $("#calendar").fullCalendar('renderEvent',
+                    {
+                        title: "Korrektur Personal",
+                        start: end,
+                        end: finalEndDate,
+                        rendering: "",
+                        className: "new_event",
+                        color: "#04B404"
+                    },
+                    true
+                );
+            }
 
             $('#themebox-infobox-select-date').css("display", "block");
             $('#carousel-right').prop('disabled', false);

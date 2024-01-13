@@ -9289,7 +9289,7 @@ TimeGrid.mixin({
 			'>' +
 				'<div class="fc-content">' +
 					(timeText ?
-						'<div class="fc-time"' +
+						'<div class="fc-time2"' +
 						' data-start="' + htmlEscape(startTimeText) + '"' +
 						' data-full="' + htmlEscape(fullTimeText) + '"' +
 						'>' +

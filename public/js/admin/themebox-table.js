@@ -1,6 +1,5 @@
 $(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip();
-
     /**
      * remove themebox
      */
@@ -198,6 +197,7 @@ $(document).ready(function () {
      * initial datatable settings
      */
     $('#new-themebox-table').DataTable({
+        responsive: false,
         "lengthChange": false,
         "paging": false,
         "pageLength": 10,

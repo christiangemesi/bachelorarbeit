@@ -343,6 +343,11 @@
         <div class="row" style="display: none;">
             <button type="button" class="btn btn-success btn-create-themebox" id="button-create-themebox"><span class="glyphicon glyphicon-plus"></span> Themenkiste erstellen</button>
         </div>
+
+        <div class="thekre-row" id="new-order-table">
+            <!-- Search for the Table -->
+        </div>
+
         <div class="panel panel-default no-border" id="table-content">
             <table id="new-themebox-table" class="data-table table table-bordered" cellspacing="0" width="100%">
                 <thead>

@@ -140,21 +140,29 @@ body{
     margin-top: 10px;
 }
 
-.sidebar-nav{
+.sidebar-nav {
     font-family: Raleway, serif;
-    font-size: 20px;
+    font-size: 18px;
 }
 
-.sidebar-nav-text{
+.sidebar-nav-text {
     padding-top: 50px;
     height: 50px;
+    margin-left: -40px;
+}
+
+.nav-icon {
+    display: inline-block;
+}
+
+.nav-text {
+    display: inline-block;
 }
 
 .thekre-list{
     overflow-y: auto;
-    position: fixed;
     height: 100%;
-    width: inherit;
+    width: 100%;
 }
 
 .thekre-row{
@@ -197,6 +205,7 @@ body{
     cursor: pointer;
     height: 30px;
     margin-left: 15px;
+    margin-right: 15px;
     display: block;
     width: 100px;
     padding-left: 5px;
@@ -317,6 +326,7 @@ body{
     height: 20px;
     width: 20px;
     background-color: #FEC5BF;
+    border: 1px solid #bfbfbf;
 }
 
 #order-calendar-legend-new{
@@ -324,6 +334,7 @@ body{
     height: 20px;
     width: 20px;
     background-color: #A7EBC3;
+    border: 1px solid #bfbfbf;
 }
 
 #order-calendar-legend-blocked-period{
@@ -331,6 +342,7 @@ body{
     height: 20px;
     width: 20px;
     background-color: #ffe6b3;
+    border: 1px solid #bfbfbf;
 }
 
 #order-calendar-legend-free{
@@ -342,7 +354,7 @@ body{
 }
 
 .order-calendar-legend-text{
-    width: 120px;
+    width: 90px;
     padding-left: 25px;
     white-space: nowrap;
 }
@@ -474,7 +486,11 @@ h2{
     font-size: 4em;
 }
 
-.modal-content{
+.panel-heading {
+    text-align: center;
+}
+
+.panel-footer {
     text-align: center;
 }
 
@@ -773,12 +789,36 @@ h2{
 }
 
 #themebox-list-search{
-    width: 105%;
+    width: 100%;
 }
 
 #themebox-extra-text-modal-box{
     display: inline-table;
 }
 
+.fc-time2 {
+    display: none;
+}
 
+.fc-content > .fc-time {
+    display: none;
+}
+
+/* themebox time select padding left 5px */
+#themebox-time-select{
+    padding-left: 5px;
+}
+
+#pu_dropdown-von, #pu_dropdown-bis, #dropdown-von, #dropdown-bis, #pu_orderAdd-dropdown-von, #pu_orderAdd-dropdown-bis, #user-edit-dropdown-von, #user-edit-dropdown-bis{
+    border-radius: 5px;
+}
+
+.glyphicon-ok .glyphicon-calendar {
+    display: none;
+}
+
+/* glyphicon glyphicon-remove form-control-feedback then also display none of glyphicon glyphicon-calendar */
+.glyphicon-remove .glyphicon-calendar {
+    display: none;
+}
 

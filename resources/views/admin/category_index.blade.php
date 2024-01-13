@@ -81,16 +81,17 @@
                 </div>
                 <div class="panel-footer">
                     <div class="row">
-                        <div class="col-md-2">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Schliessen</button>
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-default float-left" data-dismiss="modal">Schliessen</button>
                         </div>
-                        <div class="col-md-10">
+                        <div class="col-md-6">
                             <button type="button" id="create-category-button" class="btn btn-success float-right"
                                     data-dismiss="modal" disabled>Speichern
                             </button>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -129,10 +130,8 @@
                 </div>
                 <div class="panel-footer">
                     <div class="row">
-                        <div class="col-md-2">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Schliessen</button>
-                        </div>
-                        <div class="col-md-10">
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-default float-left" data-dismiss="modal">Schliessen</button>
                             <button type="button" id="button-save-category-change" class="btn btn-primary float-right"
                                     data-dismiss="modal">Speichern
                             </button>
@@ -150,6 +149,11 @@
                         class="glyphicon glyphicon-plus"></span> Kategorie erstellen
             </button>
         </div>
+
+        <div class="thekre-row" id="new-order-table">
+            <!-- Search for the Table -->
+        </div>
+
         <div class="panel panel-default no-border" id="table-content">
             <table id="new-category-table" class="data-table table table-bordered" cellspacing="0" width="100%">
                 <thead>

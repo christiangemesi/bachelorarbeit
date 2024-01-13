@@ -75,8 +75,6 @@ function loadViewChangeButtons() {
         //dont show the week button, instead show the month button
         $(".fc-week-view-button").hide();
         $(".fc-month-view-button").show();
-
-
     });
 
     switchToMonthButton.on("click", function () {
@@ -102,28 +100,40 @@ function userUpdateEvent() {
     var startTime = $('#user-edit-dropdown-von').val();
     var endTime = $('#user-edit-dropdown-bis').val();
     var isHourly = startTime !== null || endTime !== null;
+
     if (isHourly) {
         var startDateTime = $("#start-date").val() + " " + startTime;
         var endDateTime = $("#end-date").val() + " " + endTime;
-    }
-
-
-    $("#calendar").fullCalendar('removeEvents', function (event) {
-        return event.className == "newOrder";
-    });
-
-
-    $("#calendar").fullCalendar('removeEvents', function (event) {
-        return event.className == "myOrder";
-    });
-
-    if (isHourly) {
-        createEvent(formatCalendarDateTimeCompare(startDateTime), formatCalendarDateTimeCompare(endDateTime), isHourly);
+        var collision = checkEventCollision(formatCalendarDateTimeCompare(startDateTime), formatCalendarDateTimeCompare(endDateTime));
     } else {
-        createEvent(formatCalendarDate($("#start-date").val()), formatCalendarEndDate($("#end-date").val()), isHourly);
+        var collision = checkEventCollision(formatCalendarDateCompare($("#start-date").val()), formatCalendarDateCompare($("#end-date").val()));
     }
 
-    $("#button-save-order-change").prop('disabled', false);
+    if(collision){
+        $("#calendar").fullCalendar('removeEvents', function (event) {
+            return event.className == "newOrder";
+        });
+
+        $("#calendar").fullCalendar('removeEvents', function (event) {
+            return event.className == "myOrder";
+        });
+
+        $("#calendar").fullCalendar('removeEvents', function (event) {
+            return event.className == "new_event";
+        });
+
+        if (isHourly) {
+            createEvent(formatCalendarDateTimeCompare(startDateTime), formatCalendarDateTimeCompare(endDateTime), isHourly);
+        } else {
+            createEvent(formatCalendarDate($("#start-date").val()), formatCalendarEndDate($("#end-date").val()), isHourly);
+        }
+
+        $("#button-save-order-change").prop('disabled', false);
+    } else {
+        hideErrorBoxes();
+        errorHandling("Ihre Auswahl steht in Konflikt mit einem anderen Bestelltermin", "#error-calendar-message-box");
+        $("#button-save-order-change").prop('disabled', true);
+    }
 }
 
 /**
@@ -181,7 +191,7 @@ function formatCalendarDateTimeCompare(date) {
         formatTwoDigit(new_date.getUTCHours()) +
         ":" +
         formatTwoDigit(new_date.getUTCMinutes()) +
-        ":00-00:00";
+        ":00";
 }
 
 /**
@@ -234,12 +244,13 @@ function formatCalendarEndDate(date) {
  * @param isHourly
  */
 function createEvent(start, end, isHourly) {
+
     $("#calendar").fullCalendar('renderEvent',
         {
-            title: "",
+            title: isHourly ? extractTimeFromDate(start) + " - " + extractTimeFromDate(end) : "",
             start: start,
             end: end,
-            rendering: !isHourly ? "background": "",
+            rendering: !isHourly ? "background" : "",
             className: "newOrder",
             color: "#04B404"
         },
@@ -256,7 +267,7 @@ function createEvent(start, end, isHourly) {
 function orderAddCreateEvent(start, end, isHourly) {
     $("#orderAdd-calendar").fullCalendar('renderEvent',
         {
-            title: "",
+            title: isHourly ? extractTimeFromDate(start) + " - " + extractTimeFromDate(end) : "",
             start: start,
             end: end,
             rendering: !isHourly ? "background" : "",
@@ -270,6 +281,22 @@ function orderAddCreateEvent(start, end, isHourly) {
     $('#carousel-right').prop('disabled', false);
 
     $('#orderAdd-calendar').fullCalendar('gotoDate', start);
+}
+
+/**
+ * Takes a Date and returns a string in the format "hh:mm"
+ * 2024-01-24 08:30:00 -> 08:30
+ */
+function extractTimeFromDate(dateString) {
+    // Parse the input date string
+    const dateObject = new Date(dateString);
+
+    // Extract hours and minutes
+    const hours = dateObject.getHours().toString().padStart(2, '0');
+    const minutes = dateObject.getMinutes().toString().padStart(2, '0');
+
+    // Combine hours and minutes
+    return `${hours}:${minutes}`;
 }
 
 /**
@@ -291,13 +318,15 @@ function formatCalendarDateCompare(date) {
  */
 function checkEventCollision(start, end) {
     var status = true;
-    $.each($("#calendar").fullCalendar('clientEvents'), function (index, value) {
-        if (value["className"][0] == "block") {
-            if ((start >= value["start"] && start <= value["end"] - 1 || start <= value["start"] && end >= value["start"])) {
-                status = false;
+
+        $.each($("#calendar").fullCalendar('clientEvents'), function (index, value) {
+            if (value["className"][0] == "block") {
+                if ((start >= value["start"] && start <= value["end"] - 1 || start <= value["start"] && end >= value["start"])) {
+                    status = false;
+                }
             }
-        }
-    });
+        });
+
 
     return status;
 }

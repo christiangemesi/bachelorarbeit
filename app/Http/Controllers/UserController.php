@@ -140,8 +140,6 @@ class UserController extends Controller
      */
     public function createOrder(Request $request)
     {
-        error_log($request);
-
         //set the order_type where as 1 == hourly order and 2 == daily order
         $order_type = $request->selectedVon || $request->selectedBis ? 1 : 2;
 
@@ -444,12 +442,6 @@ class UserController extends Controller
      */
     public function updateOrderDates(Request $request)
     {
-        //error log each value from path with its index
-        for ($i = 0; $i < count($request->order_data); $i++) {
-            error_log($i . " " . $request->order_data[$i]["value"]);
-        }
-
-
         $orderId = $request->order_data[0]["value"];
 
         $isHourlyOrder = false;

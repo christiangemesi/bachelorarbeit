@@ -159,8 +159,6 @@ $(document).ready(function () {
             success: function (response) {
                 selectedThemeboxInfo = response["themebox"]
 
-                console.log(response);
-
                 bindEndData();
                 addBlockDateFromToday();
                 loadBlockedDates();
@@ -276,7 +274,7 @@ $(document).ready(function () {
                         var startDateTime = value["startdate"] + "-00:00";
                         var endDateTime = value["enddate"] + "-00:00";
                         $('#calendar').fullCalendar("renderEvent", {
-                            title: "",
+                            title: extractTimeFromDate(value["startdate"]) + " - " + extractTimeFromDate(value["enddate"]),
                             start: startDateTime,
                             end: endDateTime,
                             rendering: "",
@@ -288,7 +286,7 @@ $(document).ready(function () {
                         var startDateTime = value["startdate"] + "-00:00";
                         var endDateTime = value["enddate"] + "-00:00";
                         $('#calendar').fullCalendar("renderEvent", {
-                            title: "",
+                            title: isHourlyOrder ? extractTimeFromDate(value["startdate"]) + " - " + extractTimeFromDate(value["enddate"]) : "",
                             start: !isHourlyOrder ? addBlockStartdate(value["startdate"]) : startDateTime,
                             end: !isHourlyOrder ? addBlockEnddate(value["enddate"]) : endDateTime,
                             rendering: !isHourlyOrder ? "background" : "",
@@ -729,7 +727,7 @@ $(document).ready(function () {
                 response["orderData"].forEach(function (element) {
                     var isHourlyOrder = response["themebox"]["fk_order_type"] === 1;
                     $('#orderAdd-calendar').fullCalendar("renderEvent", {
-                        title: "",
+                        title: isHourlyOrder ? extractTimeFromDate(element["order_startdate"]) + " - " + extractTimeFromDate(element["order_enddate"]) : "",
                         start: addTime(element["order_startdate"]),
                         end: addEndTime(element["order_enddate"]),
                         rendering: "background",
@@ -737,7 +735,6 @@ $(document).ready(function () {
                         color: "#f44242"
                     }, true);
                 });
-
 
 
                 loadBlockedDates();
@@ -815,7 +812,6 @@ $(document).ready(function () {
             type: "POST",
             data: {fk_thembox},
             success: function (response) {
-                console.log(response);
                 selectedThemeboxInfo = response["themebox"]
                 $("#orderAdd-calendar").fullCalendar("render");
                 $("#orderAdd-calendar").fullCalendar("removeEvents");
@@ -840,7 +836,7 @@ $(document).ready(function () {
                 response["orderData"].forEach(function (element) {
                     var isHourlyOrder = response["themebox"]["fk_order_type"] === 1;
                     $('#orderAdd-calendar').fullCalendar("renderEvent", {
-                        title: "",
+                        title: isHourlyOrder ? extractTimeFromDate(element["order_startdate"]) + " - " + extractTimeFromDate(element["order_enddate"]) : "",
                         start: !isHourlyOrder ? addTime(element["order_startdate"]) : element["order_startdate"],
                         end: !isHourlyOrder ? addEndTime(element["order_enddate"]) : element["order_enddate"],
                         rendering: !isHourlyOrder ? "background" : "",
@@ -851,6 +847,18 @@ $(document).ready(function () {
             }
         })
     });
+
+    function extractTimeFromDate(dateString) {
+        // Parse the input date string
+        const dateObject = new Date(dateString);
+
+        // Extract hours and minutes
+        const hours = dateObject.getHours().toString().padStart(2, '0');
+        const minutes = dateObject.getMinutes().toString().padStart(2, '0');
+
+        // Combine hours and minutes
+        return `${hours}:${minutes}`;
+    }
 
     $("#pu_orderAdd-dropdown-von").change(function () {
         setAppropriateEndTimesOrderAdd();
@@ -989,7 +997,7 @@ $(document).ready(function () {
     function loadBlockedDates() {
 
         $.ajax({
-            url: "../" + "/" + "user/getBlockedPeriods",
+            url: "../" + "user/getBlockedPeriods",
             type: "POST",
             data: {},
             success: function (data) {

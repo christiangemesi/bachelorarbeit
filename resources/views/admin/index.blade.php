@@ -359,11 +359,9 @@
                 </div>
                 <div class="panel-footer" id="modal-view-order-footer">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <button type="button" class="btn btn-default float-left" data-dismiss="modal">Schliessen
                             </button>
-                        </div>
-                        <div class="col-md-6">
                             <button type="button" id="button-save-order-change" class="btn btn-primary float-right"
                                     data-dismiss="modal">Speichern
                             </button>

@@ -10,17 +10,19 @@
 }
 
 .multiselect-container {
-    border-radius: 0px; /* Set border-radius to 0 to remove rounded corners */
+    border-radius: 0;
     padding: 0;
     margin: 0;
 }
 
 #resetCategoryFilterBtn {
-    white-space: normal; /* Allow text to wrap onto multiple lines */
-    width: auto; /* Set width to auto for dynamic width based on content */
-    height: 50px;
-    margin-left: 10px;
+    white-space: normal;
+    font-weight: bold;
+    font-size: 12px;
+    margin: -20px 25px 25px 25px;
+    display: none;
 }
+
 
 #dropdown1, #dropdown1 ~ .multiselect-container, #dropdown1 ~ .multiselect-container li {
     cursor: pointer;
@@ -36,22 +38,19 @@
     box-shadow: none;
     outline: 0;
     border-color: #CCCCCC;
-    background-color: white; /* Set the background color when dropdown is open */
+    background-color: white;
 }
-
 
 
 .multiselect-container > li > a > label:hover {
-    background-color: #1967d2; /* Default Bootstrap hover color */
-    color: white; /* Optional: Set text color to white for better visibility */
+    background-color: #1967d2;
+    color: white;
 }
 
 .multiselect-container > li > a > label:active {
-    background-color: #1967d2; /* Default Bootstrap active color */
-    color: white; /* Optional: Set text color to white for better visibility */
+    background-color: #1967d2;
+    color: white;
 }
-
-
 
 
 .multiselect-container > li > a.multiselect-all label {

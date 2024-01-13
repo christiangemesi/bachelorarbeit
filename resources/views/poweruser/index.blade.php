@@ -29,7 +29,9 @@
                 @include("layouts.callback_messages")
 
                 <div id="modal-delete-order-warning">
-                    <div class="panel-heading modal-header-warning"> <span class="glyphicon glyphicon-flash" id="thekmodal-glyphicon-flash" aria-hidden="true"></span>
+                    <div class="panel-heading modal-header-warning"><span class="glyphicon glyphicon-flash"
+                                                                          id="thekmodal-glyphicon-flash"
+                                                                          aria-hidden="true"></span>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -40,9 +42,13 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" id="button-delete-order-confirm" class="btn btn-lg btn-warning float-left">Eintrag löschen</button>
-                        <button type="button" class="btn btn-lg btn-default btn-modal float-right" data-dismiss="modal">Schliessen</button>
-                        <input type="hidden" id="object-remove-id" />
+                        <button type="button" id="button-delete-order-confirm"
+                                class="btn btn-lg btn-warning float-left">Eintrag löschen
+                        </button>
+                        <button type="button" class="btn btn-lg btn-default btn-modal float-right" data-dismiss="modal">
+                            Schliessen
+                        </button>
+                        <input type="hidden" id="object-remove-id"/>
                     </div>
                 </div>
             </div>
@@ -52,7 +58,9 @@
 
     <div class="col-md-12 admin-panel  data-table-thekre">
         <h1 class="admin-header">Bestellungen</h1>
-        <button type="button" class="btn btn-success btn-create-themebox" id="button-create-order"><span class="glyphicon glyphicon-plus"></span> Bestellung hinzufügen</button>
+        <button type="button" class="btn btn-success btn-create-themebox" id="button-create-order"><span
+                    class="glyphicon glyphicon-plus"></span> Bestellung hinzufügen
+        </button>
         <div class="row">
             <div class="col-sm-10">
             </div>
@@ -66,7 +74,9 @@
                 </select>
             </div>
         </div>
-        <div class="thekre-row"><div class="col-sm-12"></div></div>
+        <div class="thekre-row">
+            <div class="col-sm-12"></div>
+        </div>
         <div class="panel panel-default no-border  margin-top-less" id="table-content">
 
             <table id="new-order-table" class="data-table table table-bordered" cellspacing="0" width="100%">
@@ -119,11 +129,15 @@
                         </td>
                         <td>
                             <div id="outer">
-                                <button type="button" class="button-edit-order btn btn-primary inner" value="{{$order["order_id"]}}" aria-label="edit" data-toggle="tooltip" data-placement="top" title="Bestellung bearbeiten">
+                                <button type="button" class="button-edit-order btn btn-primary inner"
+                                        value="{{$order["order_id"]}}" aria-label="edit" data-toggle="tooltip"
+                                        data-placement="top" title="Bestellung bearbeiten">
                                     <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                                 </button>
 
-                                <button type="button" class="button-print-order btn btn-warning inner" value="{{$order["order_id"]}}" aria-label="print" data-toggle="tooltip" data-placement="top" title="Bestellung ausdrucken">
+                                <button type="button" class="button-print-order btn btn-warning inner"
+                                        value="{{$order["order_id"]}}" aria-label="print" data-toggle="tooltip"
+                                        data-placement="top" title="Bestellung ausdrucken">
                                     <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
                                 </button>
                             </div>
@@ -155,7 +169,9 @@
                                         <div class="form-group">
                                             <label class="float-left" for="orderAdd-thembox">Themenkiste</label>
                                             <select class="form-control" id="orderAdd-thembox">
-                                                <option value="orderAdd-thembox-title" disabled selected>Themenkiste auswählen</option>
+                                                <option value="orderAdd-thembox-title" disabled selected>Themenkiste
+                                                    auswählen
+                                                </option>
                                                 @foreach($themeboxes as $thembox)
                                                     <option value={{$thembox["pk_themebox"]}}>{{$thembox["title"]}}</option>
                                                 @endforeach
@@ -164,24 +180,34 @@
                                         <div class="form-group text-align-left" id="pu_themebox-datepicker-von">
                                             <label for="orderAdd-start-date" id="orderAdd-Von-text">Von</label>
                                             <div class="input-group">
-                                                <input type="text" class="form-control cursor-pointer modal-datepicker" id="orderAdd-start-date" name="orderAdd-start-date">
-                                                <span class="input-group-addon cursor-pointer" id="orderAdd-from-glyphicon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                                <input type="text" class="form-control cursor-pointer modal-datepicker"
+                                                       id="orderAdd-start-date" name="orderAdd-start-date">
+                                                <span class="input-group-addon cursor-pointer"
+                                                      id="orderAdd-from-glyphicon"><i
+                                                            class="glyphicon glyphicon-calendar"></i></span>
                                             </div>
                                         </div>
                                         <div class="form-group text-align-left" id="pu_themebox-datepicker-bis">
                                             <label for="orderAdd-end-date">Bis</label>
                                             <div class="input-group">
-                                                <input type="text" class="form-control cursor-pointer modal-datepicker" id="orderAdd-end-date" name="orderAdd-end-date">
-                                                <span class="input-group-addon cursor-pointer" id="orderAdd-to-glyphicon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                                <input type="text" class="form-control cursor-pointer modal-datepicker"
+                                                       id="orderAdd-end-date" name="orderAdd-end-date">
+                                                <span class="input-group-addon cursor-pointer"
+                                                      id="orderAdd-to-glyphicon"><i
+                                                            class="glyphicon glyphicon-calendar"></i></span>
                                             </div>
-                                            <div class="alert alert-danger display-none" id="error-calendar-message-box"></div>
-                                            <div class="alert alert-info display-none" id="info-calendar-message-box"></div>
+                                            <div class="alert alert-danger display-none"
+                                                 id="error-calendar-message-box"></div>
+                                            <div class="alert alert-info display-none"
+                                                 id="info-calendar-message-box"></div>
                                         </div>
 
                                         <div id="pu_orderAdd-time-select">
                                             <label for="pu_orderAdd-dropdown-von">Von:</label>
                                             <select id="pu_orderAdd-dropdown-von" name="pu_orderAdd-dropdown-von">
-                                                <option value="pu_orderAdd-dropdown-von-title" disabled selected>Startzeit</option>
+                                                <option value="pu_orderAdd-dropdown-von-title" disabled selected>
+                                                    Startzeit
+                                                </option>
                                                 <option value="08:00">08:00</option>
                                                 <option value="08:30">08:30</option>
                                                 <option value="09:00">09:00</option>
@@ -207,7 +233,9 @@
 
                                             <label for="pu_orderAdd-dropdown-bis">Bis:</label>
                                             <select id="pu_orderAdd-dropdown-bis" name="pu_orderAdd-dropdown-bis">
-                                                <option value="pu_orderAdd-dropdown-bis-title" disabled selected>Endzeit</option>
+                                                <option value="pu_orderAdd-dropdown-bis-title" disabled selected>
+                                                    Endzeit
+                                                </option>
                                                 <option value="08:00">08:00</option>
                                                 <option value="08:30">08:30</option>
                                                 <option value="09:00">09:00</option>
@@ -235,32 +263,47 @@
                                         <div id="orderAdd-personal-data-box-admin">
                                             <div class="form-group has-feedback">
                                                 <label class="float-left" for="orderAdd-nachname">Nachname</label>
-                                                <input type="text" class="form-control" id="orderAdd-nachname" name="orderAdd-nachname" maxlength="40" onkeyup="lastNameValidate('orderAdd-nachname','orderAdd-lastNameInputStatus','orderAdd-lastNameIcon')" onblur="lastNameValidate('orderAdd-nachname','orderAdd-lastNameInputStatus','orderAdd-lastNameIcon')"/>
+                                                <input type="text" class="form-control" id="orderAdd-nachname"
+                                                       name="orderAdd-nachname" maxlength="40"
+                                                       onkeyup="lastNameValidate('orderAdd-nachname','orderAdd-lastNameInputStatus','orderAdd-lastNameIcon')"
+                                                       onblur="lastNameValidate('orderAdd-nachname','orderAdd-lastNameInputStatus','orderAdd-lastNameIcon')"/>
                                                 <span id="orderAdd-lastNameIcon" aria-hidden="true"></span>
                                                 <span id="orderAdd-lastNameInputStatus" class="errorHeader">Nachname wird benötigt!</span>
                                             </div>
 
                                             <div class="form-group">
                                                 <label class="float-left" for="orderAdd-name">Vorname</label>
-                                                <input type="text" class="form-control" id="orderAdd-name" name="orderAdd-name" onkeyup="firstNameValidate('orderAdd-name','orderAdd-firstNameInputStatus','orderAdd-firstNameIcon')" onblur="firstNameValidate('orderAdd-name','orderAdd-firstNameInputStatus','orderAdd-firstNameIcon')"/>
+                                                <input type="text" class="form-control" id="orderAdd-name"
+                                                       name="orderAdd-name"
+                                                       onkeyup="firstNameValidate('orderAdd-name','orderAdd-firstNameInputStatus','orderAdd-firstNameIcon')"
+                                                       onblur="firstNameValidate('orderAdd-name','orderAdd-firstNameInputStatus','orderAdd-firstNameIcon')"/>
                                                 <span id="orderAdd-firstNameIcon"></span>
                                                 <span id="orderAdd-firstNameInputStatus" class="errorHeader">Vorname wird benötigt!</span>
                                             </div>
                                             <div class="form-group">
                                                 <label class="float-left" for="orderAdd-email">Email</label>
-                                                <input  type="email" class="form-control" id="orderAdd-email" name="orderAdd-email" onkeyup="emailValidate('orderAdd-email','orderAdd-emailInputStatus','orderAdd-emailIcon')" onblur="emailValidate('orderAdd-email','orderAdd-emailInputStatus','orderAdd-emailIcon')"/>
+                                                <input type="email" class="form-control" id="orderAdd-email"
+                                                       name="orderAdd-email"
+                                                       onkeyup="emailValidate('orderAdd-email','orderAdd-emailInputStatus','orderAdd-emailIcon')"
+                                                       onblur="emailValidate('orderAdd-email','orderAdd-emailInputStatus','orderAdd-emailIcon')"/>
                                                 <span id="orderAdd-emailIcon" aria-hidden="true"></span>
                                                 <span id="orderAdd-emailInputStatus" class="errorHeader">Email wird benötigt!</span>
                                             </div>
                                             <div class="form-group">
                                                 <label class="float-left" for="orderAdd-phone">Telefonnummer</label>
-                                                <input type="tel" class="form-control" id="orderAdd-phone" name="orderAdd-phone" onkeyup="phoneValidate('orderAdd-phone','orderAdd-phoneInputStatus','orderAdd-phoneIcon')" onblur="phoneValidate('orderAdd-phone','orderAdd-phoneInputStatus','orderAdd-phoneIcon')"/>
+                                                <input type="tel" class="form-control" id="orderAdd-phone"
+                                                       name="orderAdd-phone"
+                                                       onkeyup="phoneValidate('orderAdd-phone','orderAdd-phoneInputStatus','orderAdd-phoneIcon')"
+                                                       onblur="phoneValidate('orderAdd-phone','orderAdd-phoneInputStatus','orderAdd-phoneIcon')"/>
                                                 <span id="orderAdd-phoneIcon" aria-hidden="true"></span>
                                                 <span id="orderAdd-phoneInputStatus" class="errorHeader">Telefonnummer wird benötigt!</span>
                                             </div>
                                             <div class="form-group">
-                                                <label class="float-left" for="orderAdd-Nebisnumber" >Bibliotheksausweisnummer</label>
-                                                <input type="text" class="form-control" id="orderAdd-Nebisnumber" name="orderAdd-Nebisnumber" onkeyup="nebisValidate('orderAdd-Nebisnumber','orderAdd-nebisInputStatus','orderAdd-nebisIcon')" onblur="nebisValidate('orderAdd-Nebisnumber','orderAdd-nebisInputStatus','orderAdd-nebisIcon')">
+                                                <label class="float-left" for="orderAdd-Nebisnumber">Bibliotheksausweisnummer</label>
+                                                <input type="text" class="form-control" id="orderAdd-Nebisnumber"
+                                                       name="orderAdd-Nebisnumber"
+                                                       onkeyup="nebisValidate('orderAdd-Nebisnumber','orderAdd-nebisInputStatus','orderAdd-nebisIcon')"
+                                                       onblur="nebisValidate('orderAdd-Nebisnumber','orderAdd-nebisInputStatus','orderAdd-nebisIcon')">
                                                 <span id="orderAdd-nebisIcon" aria-hidden="true"></span>
                                                 <span id="orderAdd-nebisInputStatus" class="errorHeader">Nummer wird benötigt!</span>
                                             </div>
@@ -269,7 +312,8 @@
                                         <div>
                                             <div class="form-group">
                                                 <label class="float-left" for="orderAdd-delivery">Lieferart</label>
-                                                <select name="orderAdd-delivery" id="orderAdd-delivery" class="form-dropdown">
+                                                <select name="orderAdd-delivery" id="orderAdd-delivery"
+                                                        class="form-dropdown">
 
                                                 </select>
                                             </div>
@@ -277,32 +321,54 @@
                                         <div id="orderAdd-delivery-data-box-admin">
                                             <div id="orderAdd-delivery-type" class="display-none">
                                                 <div class="form-group has-feedback">
-                                                    <label class="float-left" for="orderAdd-schoolname">Name der Schule</label>
-                                                    <input type="text" class="form-control" id="orderAdd-schoolname" name="orderAdd-schoolname" maxlength="60" onkeyup = "schoolnameValidate('orderAdd-schoolname','orderAdd-schoolNameInputStatus','orderAdd-schoolNameIcon')" onblur="schoolnameValidate('orderAdd-schoolname','orderAdd-schoolNameInputStatus','orderAdd-schoolNameIcon')"/>
+                                                    <label class="float-left" for="orderAdd-schoolname">Name der
+                                                        Schule</label>
+                                                    <input type="text" class="form-control" id="orderAdd-schoolname"
+                                                           name="orderAdd-schoolname" maxlength="60"
+                                                           onkeyup="schoolnameValidate('orderAdd-schoolname','orderAdd-schoolNameInputStatus','orderAdd-schoolNameIcon')"
+                                                           onblur="schoolnameValidate('orderAdd-schoolname','orderAdd-schoolNameInputStatus','orderAdd-schoolNameIcon')"/>
                                                     <span id="orderAdd-schoolNameIcon" aria-hidden="true"></span>
                                                     <span id="orderAdd-schoolNameInputStatus" class="errorHeader">Name der Schule wird benötigt!</span>
                                                 </div>
                                                 <div class="form-group has-feedback">
-                                                    <label class="float-left" for="orderAdd-schoolstreet">Strasse und Nr</label>
-                                                    <input type="text" class="form-control" id="orderAdd-schoolstreet" name="orderAdd-schoolstreet" maxlength="60" onkeyup = "schoolstreetValidate('orderAdd-schoolstreet','orderAdd-schoolstreetInputStatus','orderAdd-schoolstreetIcon')" onblur="schoolstreetValidate('orderAdd-schoolstreet','orderAdd-schoolstreetInputStatus','orderAdd-schoolstreetIcon')"/>
+                                                    <label class="float-left" for="orderAdd-schoolstreet">Strasse und
+                                                        Nr</label>
+                                                    <input type="text" class="form-control" id="orderAdd-schoolstreet"
+                                                           name="orderAdd-schoolstreet" maxlength="60"
+                                                           onkeyup="schoolstreetValidate('orderAdd-schoolstreet','orderAdd-schoolstreetInputStatus','orderAdd-schoolstreetIcon')"
+                                                           onblur="schoolstreetValidate('orderAdd-schoolstreet','orderAdd-schoolstreetInputStatus','orderAdd-schoolstreetIcon')"/>
                                                     <span id="orderAdd-schoolstreetIcon" aria-hidden="true"></span>
                                                     <span id="orderAdd-schoolstreetInputStatus" class="errorHeader">Strasse und Nr wird benötigt!</span>
                                                 </div>
                                                 <div class="form-group has-feedback">
-                                                    <label class="float-left" for="orderAdd-schoolcity">PLZ und Ort</label>
-                                                    <input type="text" class="form-control" id="orderAdd-schoolcity" name="orderAdd-schoolcity" maxlength="60" onkeyup = "schoolcityValidate('orderAdd-schoolcity','orderAdd-schoolcityInputStatus','orderAdd-schoolcityIcon')" onblur="schoolcityValidate('orderAdd-schoolcity','orderAdd-schoolcityInputStatus','orderAdd-schoolcityIcon')"/>
+                                                    <label class="float-left" for="orderAdd-schoolcity">PLZ und
+                                                        Ort</label>
+                                                    <input type="text" class="form-control" id="orderAdd-schoolcity"
+                                                           name="orderAdd-schoolcity" maxlength="60"
+                                                           onkeyup="schoolcityValidate('orderAdd-schoolcity','orderAdd-schoolcityInputStatus','orderAdd-schoolcityIcon')"
+                                                           onblur="schoolcityValidate('orderAdd-schoolcity','orderAdd-schoolcityInputStatus','orderAdd-schoolcityIcon')"/>
                                                     <span id="orderAdd-schoolcityIcon" aria-hidden="true"></span>
                                                     <span id="orderAdd-schoolcityInputStatus" class="errorHeader">PLZ und Ort wird benötigt!</span>
                                                 </div>
                                                 <div class="form-group has-feedback">
-                                                    <label class="float-left" for="orderAdd-placeofhandover">Abgabeort an der Schule</label>
-                                                    <input type="text" class="form-control" id="orderAdd-placeofhandover" name="orderAdd-placeofhandover" maxlength="60" onkeyup = "placeofhandoverValidate('orderAdd-placeofhandover','orderAdd-placeofhandoverInputStatus','orderAdd-placeofhandoverIcon')" onblur="placeofhandoverValidate('orderAdd-placeofhandover','orderAdd-placeofhandoverInputStatus','orderAdd-placeofhandoverIcon')"/>
+                                                    <label class="float-left" for="orderAdd-placeofhandover">Abgabeort
+                                                        an der Schule</label>
+                                                    <input type="text" class="form-control"
+                                                           id="orderAdd-placeofhandover" name="orderAdd-placeofhandover"
+                                                           maxlength="60"
+                                                           onkeyup="placeofhandoverValidate('orderAdd-placeofhandover','orderAdd-placeofhandoverInputStatus','orderAdd-placeofhandoverIcon')"
+                                                           onblur="placeofhandoverValidate('orderAdd-placeofhandover','orderAdd-placeofhandoverInputStatus','orderAdd-placeofhandoverIcon')"/>
                                                     <span id="orderAdd-placeofhandoverIcon" aria-hidden="true"></span>
                                                     <span id="orderAdd-placeofhandoverInputStatus" class="errorHeader">Abgabeort wird benötigt!</span>
                                                 </div>
                                                 <div class="form-group has-feedback">
-                                                    <label class="float-left" for="orderAdd-schoolphoneInput">Tel.-Nr. der Schule</label>
-                                                    <input type="text" class="form-control" name="orderAdd-schoolphonenumber" id="orderAdd-schoolphonenumber" maxlength="40" onkeyup = "schoolphoneValidate('orderAdd-schoolphonenumber','orderAdd-schoolphoneInputStatus','orderAdd-schoolphoneIcon')" onblur="schoolphoneValidate('orderAdd-schoolphonenumber','orderAdd-schoolphoneInputStatus','orderAdd-schoolphoneIcon')"/>
+                                                    <label class="float-left" for="orderAdd-schoolphoneInput">Tel.-Nr.
+                                                        der Schule</label>
+                                                    <input type="text" class="form-control"
+                                                           name="orderAdd-schoolphonenumber"
+                                                           id="orderAdd-schoolphonenumber" maxlength="40"
+                                                           onkeyup="schoolphoneValidate('orderAdd-schoolphonenumber','orderAdd-schoolphoneInputStatus','orderAdd-schoolphoneIcon')"
+                                                           onblur="schoolphoneValidate('orderAdd-schoolphonenumber','orderAdd-schoolphoneInputStatus','orderAdd-schoolphoneIcon')"/>
                                                     <span id="orderAdd-schoolphoneIcon" aria-hidden="true"></span>
                                                     <span id="orderAdd-schoolphoneInputStatus" class="errorHeader">Telefonnummer wird benötigt!</span>
                                                 </div>
@@ -342,17 +408,17 @@
                             </div>
                         </div>
                     </div>
-                    <div class="panel-footer" id="order-add-modal-footer">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <button type="button" class="btn btn-default float-left" data-dismiss="modal">Schliessen
-                                </button>
-                            </div>
-                            <div class="col-md-6">
-                                <button type="button" id="button-save-orderAdd" class="btn btn-primary float-right"
-                                        data-dismiss="modal">Speichern
-                                </button>
-                            </div>
+                </div>
+                <div class="panel-footer" id="order-add-modal-footer">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-default float-left" data-dismiss="modal">Schliessen
+                            </button>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="button" id="button-save-orderAdd" class="btn btn-primary float-right"
+                                    data-dismiss="modal">Speichern
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -379,37 +445,49 @@
                                     <div class="row thekre-row">
                                         <div class="form-group">
                                             <label class="float-left" for="ordernumber-edit">Bestellnummer</label>
-                                            <input type="text" class="form-control" id="ordernumber-edit" name="ordernumber-edit" disabled/>
+                                            <input type="text" class="form-control" id="ordernumber-edit"
+                                                   name="ordernumber-edit" disabled/>
                                         </div>
                                         <div class="form-group">
                                             <label class="float-left" for="themebox-title">Themenkiste</label>
-                                            <input type="text" class="form-control" id="themebox-title" name="themebox-title" disabled/>
+                                            <input type="text" class="form-control" id="themebox-title"
+                                                   name="themebox-title" disabled/>
                                         </div>
                                         <div class="form-group">
                                             <label class="float-left" for="themebox-signature">Signatur</label>
-                                            <input type="text" class="form-control" id="themebox-signatur" name="themebox-signatur" disabled/>
+                                            <input type="text" class="form-control" id="themebox-signatur"
+                                                   name="themebox-signatur" disabled/>
                                         </div>
                                         <div class="form-group text-align-left">
                                             <label id="Von-text" for="start-date">Von</label>
                                             <div class="input-group">
-                                                <input type="text" class="form-control cursor-pointer modal-datepicker" id="start-date" name="start-date">
-                                                <span class="input-group-addon cursor-pointer" id="order-from-glyphicon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                                <input type="text" class="form-control cursor-pointer modal-datepicker"
+                                                       id="start-date" name="start-date">
+                                                <span class="input-group-addon cursor-pointer"
+                                                      id="order-from-glyphicon"><i
+                                                            class="glyphicon glyphicon-calendar"></i></span>
                                             </div>
                                         </div>
                                         <div class="form-group text-align-left" id="end-date_box">
                                             <label for="end-date">Bis</label>
                                             <div class="input-group">
-                                                <input type="text" class="form-control cursor-pointer modal-datepicker" id="end-date" name="end-date">
-                                                <span class="input-group-addon cursor-pointer" id="order-to-glyphicon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                                <input type="text" class="form-control cursor-pointer modal-datepicker"
+                                                       id="end-date" name="end-date">
+                                                <span class="input-group-addon cursor-pointer"
+                                                      id="order-to-glyphicon"><i
+                                                            class="glyphicon glyphicon-calendar"></i></span>
                                             </div>
-                                            <div class="alert alert-danger display-none" id="error-calendar-message-box"></div>
-                                            <div class="alert alert-info display-none" id="info-calendar-message-box"></div>
+                                            <div class="alert alert-danger display-none"
+                                                 id="error-calendar-message-box"></div>
+                                            <div class="alert alert-info display-none"
+                                                 id="info-calendar-message-box"></div>
                                         </div>
 
-                                        <div id="pu_themebox-time-select" >
+                                        <div id="pu_themebox-time-select">
                                             <label for="pu_dropdown-von">Von:</label>
                                             <select id="pu_dropdown-von" name="pu_dropdown-von">
-                                                <option value="pu_dropdown-von-title2" disabled selected>Startzeit</option>
+                                                <option value="pu_dropdown-von-title2" disabled selected>Startzeit
+                                                </option>
                                                 <option value="08:00">08:00</option>
                                                 <option value="08:30">08:30</option>
                                                 <option value="09:00">09:00</option>
@@ -467,40 +545,59 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="float-left" for="status">Bestelldatum</label>
-                                            <input type="text" class="form-control" id="datecreated" name="datecreated" disabled>
+                                            <input type="text" class="form-control" id="datecreated" name="datecreated"
+                                                   disabled>
                                         </div>
 
                                         <hr>
                                         <div id="personal-data-box-admin">
                                             <div class="form-group has-feedback">
                                                 <label class="float-left" for="lastname">Nachname</label>
-                                                <input type="text" class="form-control lastname" id="lastname" name="lastname" maxlength="40" onkeyup="lastNameValidate('lastname','lastNameInputStatus','lastNameIcon')" onblur="lastNameValidate('lastname','lastNameInputStatus','lastNameIcon')"/>
+                                                <input type="text" class="form-control lastname" id="lastname"
+                                                       name="lastname" maxlength="40"
+                                                       onkeyup="lastNameValidate('lastname','lastNameInputStatus','lastNameIcon')"
+                                                       onblur="lastNameValidate('lastname','lastNameInputStatus','lastNameIcon')"/>
                                                 <span id="lastNameIcon" aria-hidden="true"></span>
                                                 <span id="lastNameInputStatus" class="errorHeader">Nachname wird benötigt!</span>
                                             </div>
                                             <div class="form-group has-feedback">
                                                 <label class="float-left" for="surname">Vorname</label>
-                                                <input type="text" class="form-control surname" id="surname" name="surname" maxlength="40" onkeyup="firstNameValidate('surname','firstNameInputStatus','firstNameIcon')" onblur="firstNameValidate('surname','firstNameInputStatus','firstNameIcon')"/>
+                                                <input type="text" class="form-control surname" id="surname"
+                                                       name="surname" maxlength="40"
+                                                       onkeyup="firstNameValidate('surname','firstNameInputStatus','firstNameIcon')"
+                                                       onblur="firstNameValidate('surname','firstNameInputStatus','firstNameIcon')"/>
                                                 <span id="firstNameIcon"></span>
                                                 <span id="firstNameInputStatus" class="errorHeader">Vorname wird benötigt!</span>
                                             </div>
                                             <div class="form-group has-feedback">
                                                 <label class="float-left" for="email">Email</label>
-                                                <input type="text" class="form-control email" id="email" name="email" maxlength="60" onkeyup = "emailValidate('email','emailInputStatus','emailIcon')" onblur="emailValidate('email','emailInputStatus','emailIcon')"/>
+                                                <input type="text" class="form-control email" id="email" name="email"
+                                                       maxlength="60"
+                                                       onkeyup="emailValidate('email','emailInputStatus','emailIcon')"
+                                                       onblur="emailValidate('email','emailInputStatus','emailIcon')"/>
                                                 <span id="emailIcon" aria-hidden="true"></span>
-                                                <span id="emailInputStatus" class="errorHeader">Email wird benötigt!</span>
+                                                <span id="emailInputStatus"
+                                                      class="errorHeader">Email wird benötigt!</span>
                                             </div>
                                             <div class="form-group has-feedback">
                                                 <label class="float-left" for="phonenumber">Telefonnummer</label>
-                                                <input type="text" class="form-control phonenumber" id="phonenumber" name="phonenumber" maxlength="40" onkeyup = "phoneValidate('phonenumber','phoneInputStatus','phoneIcon')" onblur="phoneValidate('phonenumber','phoneInputStatus','phoneIcon')"/>
+                                                <input type="text" class="form-control phonenumber" id="phonenumber"
+                                                       name="phonenumber" maxlength="40"
+                                                       onkeyup="phoneValidate('phonenumber','phoneInputStatus','phoneIcon')"
+                                                       onblur="phoneValidate('phonenumber','phoneInputStatus','phoneIcon')"/>
                                                 <span id="phoneIcon" aria-hidden="true"></span>
                                                 <span id="phoneInputStatus" class="errorHeader">Telefonnummer wird benötigt!</span>
                                             </div>
                                             <div class="form-group has-feedback">
-                                                <label class="float-left" for="nebisusernumber">Bibliotheksnummer</label>
-                                                <input type="text" class="form-control nebisusernumber" id="nebisusernumber" name="nebisusernumber" maxlength="40" onkeyup = "nebisValidate('nebisnumber','nebisInputStatus','nebisIcon')" onblur="nebisValidate('nebisnumber','nebisInputStatus','nebisIcon')"/>
+                                                <label class="float-left"
+                                                       for="nebisusernumber">Bibliotheksnummer</label>
+                                                <input type="text" class="form-control nebisusernumber"
+                                                       id="nebisusernumber" name="nebisusernumber" maxlength="40"
+                                                       onkeyup="nebisValidate('nebisnumber','nebisInputStatus','nebisIcon')"
+                                                       onblur="nebisValidate('nebisnumber','nebisInputStatus','nebisIcon')"/>
                                                 <span id="nebisIcon" aria-hidden="true"></span>
-                                                <span id="nebisInputStatus" class="errorHeader">Nummer wird benötigt!</span>
+                                                <span id="nebisInputStatus"
+                                                      class="errorHeader">Nummer wird benötigt!</span>
                                             </div>
                                         </div>
 
@@ -514,31 +611,48 @@
                                             <div id="order-delivery-type" class="display-none">
                                                 <div class="form-group has-feedback">
                                                     <label class="float-left" for="schoolname">Name der Schule</label>
-                                                    <input type="text" class="form-control" id="schoolname" name="schoolname" maxlength="60" onkeyup = "schoolnameValidate('schoolname','schoolNameInputStatus','schoolNameIcon')" onblur="schoolnameValidate('schoolname','schoolNameInputStatus','schoolNameIcon')"/>
+                                                    <input type="text" class="form-control" id="schoolname"
+                                                           name="schoolname" maxlength="60"
+                                                           onkeyup="schoolnameValidate('schoolname','schoolNameInputStatus','schoolNameIcon')"
+                                                           onblur="schoolnameValidate('schoolname','schoolNameInputStatus','schoolNameIcon')"/>
                                                     <span id="schoolNameIcon" aria-hidden="true"></span>
                                                     <span id="schoolNameInputStatus" class="errorHeader">Name der Schule wird benötigt!</span>
                                                 </div>
                                                 <div class="form-group has-feedback">
                                                     <label class="float-left" for="schoolstreet">Strasse und Nr</label>
-                                                    <input type="text" class="form-control" id="schoolstreet" name="schoolstreet" maxlength="60" onkeyup = "schoolstreetValidate('schoolstreet','schoolstreetInputStatus','schoolstreetIcon')" onblur="schoolstreetValidate('schoolstreet','schoolstreetInputStatus','schoolstreetIcon')"/>
+                                                    <input type="text" class="form-control" id="schoolstreet"
+                                                           name="schoolstreet" maxlength="60"
+                                                           onkeyup="schoolstreetValidate('schoolstreet','schoolstreetInputStatus','schoolstreetIcon')"
+                                                           onblur="schoolstreetValidate('schoolstreet','schoolstreetInputStatus','schoolstreetIcon')"/>
                                                     <span id="schoolstreetIcon" aria-hidden="true"></span>
                                                     <span id="schoolstreetInputStatus" class="errorHeader">Strasse und Nr wird benötigt!</span>
                                                 </div>
                                                 <div class="form-group has-feedback">
                                                     <label class="float-left" for="schoolcity">PLZ und Ort</label>
-                                                    <input type="text" class="form-control" id="schoolcity" name="schoolcity" maxlength="60" onkeyup = "schoolcityValidate('schoolcity','schoolcityInputStatus','schoolcityIcon')" onblur="schoolcityValidate('schoolcity','schoolcityInputStatus','schoolcityIcon')"/>
+                                                    <input type="text" class="form-control" id="schoolcity"
+                                                           name="schoolcity" maxlength="60"
+                                                           onkeyup="schoolcityValidate('schoolcity','schoolcityInputStatus','schoolcityIcon')"
+                                                           onblur="schoolcityValidate('schoolcity','schoolcityInputStatus','schoolcityIcon')"/>
                                                     <span id="schoolcityIcon" aria-hidden="true"></span>
                                                     <span id="schoolcityInputStatus" class="errorHeader">PLZ und Ort wird benötigt!</span>
                                                 </div>
                                                 <div class="form-group has-feedback">
-                                                    <label class="float-left" for="placeofhandover">Abgabeort an der Schule</label>
-                                                    <input type="text" class="form-control" id="placeofhandover" name="placeofhandover" maxlength="60" onkeyup = "placeofhandoverValidate('placeofhandover','placeofhandoverInputStatus','placeofhandoverIcon')" onblur="placeofhandoverValidate('placeofhandover','placeofhandoverInputStatus','placeofhandoverIcon')"/>
+                                                    <label class="float-left" for="placeofhandover">Abgabeort an der
+                                                        Schule</label>
+                                                    <input type="text" class="form-control" id="placeofhandover"
+                                                           name="placeofhandover" maxlength="60"
+                                                           onkeyup="placeofhandoverValidate('placeofhandover','placeofhandoverInputStatus','placeofhandoverIcon')"
+                                                           onblur="placeofhandoverValidate('placeofhandover','placeofhandoverInputStatus','placeofhandoverIcon')"/>
                                                     <span id="placeofhandoverIcon" aria-hidden="true"></span>
                                                     <span id="placeofhandoverInputStatus" class="errorHeader">Abgabeort wird benötigt!</span>
                                                 </div>
                                                 <div class="form-group has-feedback">
-                                                    <label class="float-left" for="schoolphoneInput">Tel.-Nr. der Schule</label>
-                                                    <input type="text" class="form-control" name="schoolphonenumber" id="schoolphonenumber" maxlength="40" onkeyup = "schoolphoneValidate('schoolphonenumber','schoolphoneInputStatus','schoolphoneIcon')" onblur="schoolphoneValidate('schoolphonenumber','schoolphoneInputStatus','schoolphoneIcon')"/>
+                                                    <label class="float-left" for="schoolphoneInput">Tel.-Nr. der
+                                                        Schule</label>
+                                                    <input type="text" class="form-control" name="schoolphonenumber"
+                                                           id="schoolphonenumber" maxlength="40"
+                                                           onkeyup="schoolphoneValidate('schoolphonenumber','schoolphoneInputStatus','schoolphoneIcon')"
+                                                           onblur="schoolphoneValidate('schoolphonenumber','schoolphoneInputStatus','schoolphoneIcon')"/>
                                                     <span id="schoolphoneIcon" aria-hidden="true"></span>
                                                     <span id="schoolphoneInputStatus" class="errorHeader">Telefonnummer wird benötigt!</span>
                                                 </div>
@@ -580,13 +694,12 @@
                     </div>
 
                 </div>
+
                 <div class="panel-footer" id="modal-view-order-footer">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <button type="button" class="btn btn-default float-left" data-dismiss="modal">Schliessen
                             </button>
-                        </div>
-                        <div class="col-md-6">
                             <button type="button" id="button-save-order-change" class="btn btn-primary float-right"
                                     data-dismiss="modal">Speichern
                             </button>
@@ -597,7 +710,8 @@
         </div>
     </div>
 
-    <div class="modal fade" id="modal-order-edit-progress" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true" style="padding-top:15%;">
+    <div class="modal fade" id="modal-order-edit-progress" data-backdrop="static" data-keyboard="false" tabindex="-1"
+         role="dialog" aria-hidden="true" style="padding-top:15%;">
         <div class="modal-dialog modal-m">
             <div class="modal-content">
                 <div class="modal-header">

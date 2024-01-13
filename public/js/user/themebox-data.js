@@ -552,7 +552,7 @@ $(document).ready(function () {
                     $.each(orders, function (index, value) {
                         $('#calendar').fullCalendar("renderEvent", {
                             id: "borrowed",
-                            title: "",
+                            title: !isDailyOrder ? extractTimeFromDate(value["startdate"]) + " - " + extractTimeFromDate(value["enddate"]) : "",
                             start: isDailyOrder ? addBlockStartdateDailyOrder(value["startdate"]) : value["startdate"],
                             end: isDailyOrder ? addBlockEnddateDailyOrder(value["enddate"]) : value["enddate"],
                             rendering: isDailyOrder ? "background" : "",
@@ -565,6 +565,7 @@ $(document).ready(function () {
                                 listOfBlockedDates.push(dateArr[i]);
                             }
                         }
+
                     });
 
                     hideErrorBoxes();
@@ -581,6 +582,18 @@ $(document).ready(function () {
             });
 
         }
+
+    function extractTimeFromDate(dateString) {
+        // Parse the input date string
+        const dateObject = new Date(dateString);
+
+        // Extract hours and minutes
+        const hours = dateObject.getHours().toString().padStart(2, '0');
+        const minutes = dateObject.getMinutes().toString().padStart(2, '0');
+
+        // Combine hours and minutes
+        return `${hours}:${minutes}`;
+    }
 
         function loadHourlyView(order_type, orders) {
             //reset the selection so that the option is null
@@ -607,6 +620,7 @@ $(document).ready(function () {
          * Resets the dropdowns and themebox list to their initial states. (i.e. no filters applied, shows all themeboxes)
          */
         $("#resetCategoryFilterBtn").on("click", function () {
+            $("#resetCategoryFilterBtn").css("display", "none");
             // Reset the dropdown to its initial state
             $("#dropdown1").val("");
             // Reset the multiselect to its initial state
@@ -677,6 +691,9 @@ $(document).ready(function () {
                 // If no value is selected, set it to null or an empty string
                 selectedSchoolLevels = null; // or selectedSchoolLevels = "";
             }
+
+            //if the dropdown1 or dropdown2 is selected, make the resetFilterButton visible
+            $("#resetCategoryFilterBtn").css("display", "block");
 
             // Call updateSelectionListFromCategory function
             updateSelectionListFromFilter(selectedCategoryData, selectedSchoolLevels);
@@ -1086,7 +1103,7 @@ $(document).ready(function () {
                 formatTwoDigit(new_date.getUTCHours()) +
                 ":" +
                 formatTwoDigit(new_date.getUTCMinutes()) +
-                ":00-00:00"
+                ":00"
             return (returnValue);
         }
 
@@ -1154,7 +1171,7 @@ $(document).ready(function () {
         function createEvent(start, end, isHourly) {
             $("#calendar").fullCalendar('renderEvent',
                 {
-                    title: "",
+                    title: isHourly ? extractTimeFromDate(start) + " - "+ extractTimeFromDate(end) : "",
                     start: start,
                     end: end,
                     rendering: !isHourly ? "background" : "",
@@ -1279,7 +1296,7 @@ $(document).ready(function () {
                 $('#button-submit-order').text("Themenkiste liefern lassen");
             } else {
                 $('#delete-warning-header-text').text("Wollen Sie die Themenkiste/Lernroboter wirklich bestellen und selbst abholen?");
-                $('#button-submit-order').text("Themenkiste bestellen");
+                $('#button-submit-order').text("Bestellen");
             }
             prepareOrderConfirmModal();
 

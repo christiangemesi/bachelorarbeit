@@ -111,11 +111,12 @@ $(document).ready(function () {
             data: {name: $('#name').val(), ordernumber: $('#ordernumber').val()},
             success: function (response) {
                 selectedThemeboxInfo = response;
+                //set user-edit-dropdown-von to null
+                $("#user-edit-dropdown-von").val("");
+                $("#user-edit-dropdown-bis").val("");
 
                 bindEndData();
                 loadViewChangeButtons();
-
-
 
 
                 $("#calendar").fullCalendar("render");
@@ -135,9 +136,10 @@ $(document).ready(function () {
                 );
 
                 blockDatesInDatepicker();
+                loadBlockedDates();
+
                 blockNextFiveSundaysInCalendar();
                 blockNextFiveSaturdayAfterTwoPmInCalendar();
-
 
                 var isHourlyOrder = response["themebox"]["fk_order_type"] === 1;
                 if (isHourlyOrder) {
@@ -187,7 +189,6 @@ $(document).ready(function () {
                 $("#user-edit-dropdown-bis").prop('disabled', editable);
 
 
-
                 if (response["order"][0]["fk_status"] === 1) {
                     lastNameValidate();
                     firstNameValidate();
@@ -207,9 +208,11 @@ $(document).ready(function () {
 
                 var footer = '<div class="row">';
                 if (!editable) {
-                    footer += '<div class="col-md-4"><button type="button" class="btn btn-default float-left" id="user-cancel-edit-order" data-dismiss="modal">Schliessen</button></div>';
-                    footer += '<div class="col-md-4"><button type="submit" id="button-save-order-change" class="btn btn-primary float-center" data-dismiss="modal" tabindex=8>Speichern</button></div>';
-                    footer += '<div class="col-md-4"><button type="button" class="btn btn-danger float-right" id="btn-remove-order" data-dismiss="modal">Bestellung löschen</button></div>';
+                    footer += '<div class="col-md-12">';
+                    footer += '<button type="button" class="btn btn-default float-left" id="user-cancel-edit-order" data-dismiss="modal">Schliessen</button>';
+                    footer += '<button type="submit" id="button-save-order-change" class="btn btn-primary" data-dismiss="modal" tabindex=8>Speichern</button>';
+                    footer += '<button type="button" class="btn btn-danger float-right" id="btn-remove-order" data-dismiss="modal">Löschen</button>';
+                    footer += '</div>';
                 } else {
                     footer += '<div class="col-md-12"><button type="button" class="btn btn-default float-right" data-dismiss="modal">Schliessen</button></div>';
                 }
@@ -268,19 +271,13 @@ $(document).ready(function () {
                             className: "myOrder",
                             color: "#04B404"
                         }, true);
-
-
-                        var dateArr = computeDayBetweenStartAndEnd(new Date(addBlockStartdateDailyOrder(value['startdate'])), new Date(addBlockEnddate(value['enddate'])));
-                        for (var i = 0; i <= dateArr.length; i++) {
-                            listOfBlockedDates.push(dateArr[i]);
-                        }
-
                         $('#calendar').fullCalendar('gotoDate', addTime(value["startdate"]));
                     } else if (value["pk_hourly_order"] == $("#order-id").val()) {
+
                         var startDateTime = value["startdate"] + "-00:00";
                         var endDateTime = value["enddate"] + "-00:00";
                         $('#calendar').fullCalendar("renderEvent", {
-                            title: "",
+                            title: extractTimeFromDate(value["startdate"]) + " - " + extractTimeFromDate(value["enddate"]),
                             start: startDateTime,
                             end: endDateTime,
                             rendering: "",
@@ -292,7 +289,7 @@ $(document).ready(function () {
                         var startDateTime = value["startdate"] + "-00:00";
                         var endDateTime = value["enddate"] + "-00:00";
                         $('#calendar').fullCalendar("renderEvent", {
-                            title: "",
+                            title: isHourlyOrder ? extractTimeFromDate(value["startdate"]) + " - " + extractTimeFromDate(value["enddate"]) : "",
                             start: !isHourlyOrder ? addBlockStartdate(value["startdate"]) : startDateTime,
                             end: !isHourlyOrder ? addBlockEnddate(value["enddate"]) : endDateTime,
                             rendering: !isHourlyOrder ? "background" : "",
@@ -306,6 +303,85 @@ $(document).ready(function () {
                 $('#login-user-error-message-box').html('Die Bestellung konnte nicht gefunden werden. Bitte überprüfen Sie Nachname der Bestellperson sowie Bestellnummer. <br>Ansonsten kontaktieren Sie die Campusbibliothek unter <a href="mailto:bibliothek.windisch@fhnw.ch">bibliothek.windisch@fhnw.ch</a> ');
             }
         })
+    }
+
+    /**
+     * load blocked dates
+     */
+    function loadBlockedDates() {
+        $.ajax({
+            url: "./getBlockedPeriods",
+            type: "POST",
+            data: {},
+            success: function (data) {
+                $.each(data, function (index, element) {
+                    blockedPeriodEvent(formatBlockedPeriodCalendarStartDate(element.startdate), formatBlockedPeriodCalendarEndDate(element.enddate));
+                    var blockedPeriodsArray = computeDayBetweenStartAndEnd(new Date(formatCalendarDate(element.startdate)), new Date(formatCalendarDate(element.enddate)));
+
+                    for (var i = 0; i <= blockedPeriodsArray.length; i++) {
+                        listOfBlockedDates.push(blockedPeriodsArray[i]);
+                    }
+                });
+            },
+            error: function (xhr, status, error) {
+                errorHandling("Es ist ein Fehler bei der Datenverarbeitung passiert. Bitte kontaktieren Sie die FHNW Bibliothek unter bibliothek.windisch@fhnw.ch", "#error-message-box");
+            }
+        });
+    }
+
+    /**
+     * format enddate blocked period
+     * @param date
+     * @returns {string}
+     */
+    function formatBlockedPeriodCalendarEndDate(date) {
+        var temp_date = date.split(".");
+        var new_date = new Date(temp_date[2] + "-" + temp_date[1] + "-" + temp_date[0] + "T00:00:00-00:00");
+        return new_date.getUTCFullYear() + "-" + formatTwoDigit(new_date.getUTCMonth() + 1) + "-" + formatTwoDigit(new_date.getUTCDate() + 1);
+    }
+
+    /**
+     * format startdate blocked period
+     * @param date
+     * @returns {string}
+     */
+    function formatBlockedPeriodCalendarStartDate(date) {
+        var temp_date = date.split(".");
+        var new_date = new Date(temp_date[2] + "-" + temp_date[1] + "-" + temp_date[0] + "T00:00:00-00:00");
+        return new_date.getUTCFullYear() + "-" + formatTwoDigit(new_date.getUTCMonth() + 1) + "-" + formatTwoDigit(new_date.getUTCDate());
+    }
+
+    /**
+     * create new blocked period
+     * @param start
+     * @param end
+     */
+    function blockedPeriodEvent(start, end) {
+
+        $("#calendar").fullCalendar('renderEvent',
+            {
+                id: "blocked",
+                title: "",
+                start: start,
+                end: end,
+                rendering: "background",
+                className: "blocked_event",
+                color: "#ffad00"
+            },
+            true
+        );
+    }
+
+    function extractTimeFromDate(dateString) {
+        // Parse the input date string
+        const dateObject = new Date(dateString);
+
+        // Extract hours and minutes
+        const hours = dateObject.getHours().toString().padStart(2, '0');
+        const minutes = dateObject.getMinutes().toString().padStart(2, '0');
+
+        // Combine hours and minutes
+        return `${hours}:${minutes}`;
     }
 
     /**
@@ -375,7 +451,6 @@ $(document).ready(function () {
             nextSunday.setDate(nextSunday.getDate() + 7);
             listOfBlockedDates.push(formatDate(nextSunday));
         }
-
     }
 
     /**
@@ -416,7 +491,7 @@ $(document).ready(function () {
      * Block the the next following Saturdays after 2 pm in the calendar since the library is closed
      */
     function blockNextFiveSaturdayAfterTwoPmInCalendar() {
-        for(var i = 0; i < 20; i++) {
+        for (var i = 0; i < 20; i++) {
             blockAllSaturdayAfterTwoPmEvent(dayToCalculateNextSaturdaysStart, dayToCalculateNextSaturdaysEnd);
             dayToCalculateNextSaturdaysStart.setDate(dayToCalculateNextSaturdaysStart.getDate() + 7);
             dayToCalculateNextSaturdaysEnd.setDate(dayToCalculateNextSaturdaysEnd.getDate() + 7);
@@ -429,7 +504,7 @@ $(document).ready(function () {
      */
     function blockEndTimes() {
 
-        if(selectedThemeboxInfo.themebox.fk_order_type === 2){
+        if (selectedThemeboxInfo.themebox.fk_order_type === 2) {
             return;
         }
 
@@ -442,6 +517,12 @@ $(document).ready(function () {
         var selectedStartTime = selectedThemeboxInfo.order[0].startdate.split(' ')[1].substring(0, 5);
         // Find the corresponding orders for the selected date and start time
         var selectedDateOrders = getSelectedDateOrders(endDate);
+
+        var selectedOrderId = selectedThemeboxInfo.order[0].pk_hourly_order;
+        //get the orders from the selectedOrderId
+        var selectedOrder = selectedDateOrders.find(function (order) {
+            return order.pk_hourly_order === selectedOrderId;
+        });
 
         // Create an array for blocked hours on the selected date and start time
         var blockedHours = [];
@@ -505,7 +586,7 @@ $(document).ready(function () {
      * (This Function sets the possible starting times for the hourly order after the user logs in)
      */
     function blockStartTimes() {
-        if(selectedThemeboxInfo.themebox.fk_order_type === 2){
+        if (selectedThemeboxInfo.themebox.fk_order_type === 2) {
             return;
         }
 
@@ -609,6 +690,12 @@ $(document).ready(function () {
         blockedHours.push({
             start: selectedStartTime,
             end: selectedStartTime
+        });
+
+        //remove the own order from selectedDateOrders
+        var selectedOrderId = selectedThemeboxInfo.order[0].pk_hourly_order;
+        selectedDateOrders = selectedDateOrders.filter(function (order) {
+            return order.pk_hourly_order !== selectedOrderId;
         });
 
         // find the first order that starts after the selectedStartTime
@@ -729,14 +816,14 @@ $(document).ready(function () {
                 start: '13:30',
                 end: '18:00'
             });
-            blockedThirtyMinutes += 9*30;
+            blockedThirtyMinutes += 9 * 30;
         }
 
         selectedDateOrders.forEach(function (order) {
             var startHour = order.startdate.split(' ')[1].substring(0, 5);
             var endHour = order.enddate.split(' ')[1].substring(0, 5);
 
-            if(order.pk_hourly_order !== selectedThemeboxInfo.order[0].pk_hourly_order) {
+            if (order.pk_hourly_order !== selectedThemeboxInfo.order[0].pk_hourly_order) {
                 // Add all the values between startHour-30 and endHour+30 in 30-minute intervals to blockedHours
                 var currentBlockStart = subtractMinutesFromTime(startHour, 30);
                 while (currentBlockStart < endHour) {
@@ -753,7 +840,7 @@ $(document).ready(function () {
             }
         });
 
-        if(blockedThirtyMinutes >= 600) {
+        if (blockedThirtyMinutes >= 600) {
             $("#carousel-right").prop("disabled", true);
             $("#user-edit-dropdown-von").prop("disabled", true);
 

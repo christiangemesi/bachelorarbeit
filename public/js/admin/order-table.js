@@ -275,7 +275,7 @@ $(document).ready(function () {
                         var startDateTime = value["startdate"] + "-00:00";
                         var endDateTime = value["enddate"] + "-00:00";
                         $('#calendar').fullCalendar("renderEvent", {
-                            title: "",
+                            title: extractTimeFromDate(value["startdate"]) + " - " + extractTimeFromDate(value["enddate"]),
                             start: startDateTime,
                             end: endDateTime,
                             rendering: "",
@@ -287,7 +287,7 @@ $(document).ready(function () {
                         var startDateTime = value["startdate"] + "-00:00";
                         var endDateTime = value["enddate"] + "-00:00";
                         $('#calendar').fullCalendar("renderEvent", {
-                            title: "",
+                            title: isHourlyOrder ? extractTimeFromDate(value["startdate"]) + " - " + extractTimeFromDate(value["enddate"]) : "",
                             start: !isHourlyOrder ? addBlockStartdate(value["startdate"]) : startDateTime,
                             end: !isHourlyOrder ? addBlockEnddate(value["enddate"]) : endDateTime,
                             rendering: !isHourlyOrder ? "background" : "",
@@ -399,6 +399,18 @@ $(document).ready(function () {
             }
         }
     });
+
+    function extractTimeFromDate(dateString) {
+        // Parse the input date string
+        const dateObject = new Date(dateString);
+
+        // Extract hours and minutes
+        const hours = dateObject.getHours().toString().padStart(2, '0');
+        const minutes = dateObject.getMinutes().toString().padStart(2, '0');
+
+        // Combine hours and minutes
+        return `${hours}:${minutes}`;
+    }
 
     function setAppropriateEndTimes() {
         //get the selected start time
@@ -579,7 +591,7 @@ $(document).ready(function () {
     function loadBlockedDates() {
 
         $.ajax({
-            url: "../" + "/" + "user/getBlockedPeriods",
+            url: "../" + "user/getBlockedPeriods",
             type: "POST",
             data: {},
             success: function (data) {

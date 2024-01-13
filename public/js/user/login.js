@@ -668,6 +668,10 @@ $(document).ready(function () {
         });
 
         $("#calendar").fullCalendar('removeEvents', function (event) {
+            return event.className == "new_event";
+        });
+
+        $("#calendar").fullCalendar('removeEvents', function (event) {
             return event.className == "newOrder";
         });
 

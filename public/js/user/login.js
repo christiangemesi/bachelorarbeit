@@ -276,6 +276,7 @@ $(document).ready(function () {
 
                         var startDateTime = value["startdate"] + "-00:00";
                         var endDateTime = value["enddate"] + "-00:00";
+
                         $('#calendar').fullCalendar("renderEvent", {
                             title: extractTimeFromDate(value["startdate"]) + " - " + extractTimeFromDate(value["enddate"]),
                             start: startDateTime,
@@ -284,6 +285,22 @@ $(document).ready(function () {
                             className: "myOrder",
                             color: "#04B404"
                         }, true);
+
+                        var endPlus30 = addMinutesToTime(endDateTime.split(' ')[1].substring(0, 5), 30);
+                        var finalEndDate = endDateTime.split(' ')[0] + " " + endPlus30 + ":00";
+
+                        $("#calendar").fullCalendar('renderEvent',
+                            {
+                                title: "Korrektur Personal",
+                                start: endDateTime,
+                                end: finalEndDate,
+                                rendering: "",
+                                className: "new_event",
+                                color: "#04B404"
+                            },
+                            true
+                        );
+
                         $('#calendar').fullCalendar('gotoDate', startDateTime);
                     } else { // render blocked events
                         var startDateTime = value["startdate"] + "-00:00";

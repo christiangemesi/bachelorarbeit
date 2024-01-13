@@ -41,6 +41,9 @@ function updateEvent() {
         return event.className == "newOrder";
     });
 
+    $("#calendar").fullCalendar('removeEvents', function (event) {
+        return event.className == "myOrder";
+    });
 
     $("#calendar").fullCalendar('removeEvents', function (event) {
         return event.className == "new_event";
@@ -257,8 +260,46 @@ function createEvent(start, end, isHourly) {
         true
     );
 
+    if(isHourly) {
+        var endPlus30 = addMinutesToTime(end.split(' ')[1].substring(0, 5), 30);
+        var finalEndDate = end.split(' ')[0] + " " + endPlus30 + ":00";
+
+        $("#calendar").fullCalendar('renderEvent',
+            {
+                title: "Korrektur Personal",
+                start: end,
+                end: finalEndDate,
+                rendering: "",
+                className: "newOrder",
+                color: "#04B404"
+            },
+            true
+        );
+    }
+
     $('#themebox-infobox-select-date').css("display", "block");
     $('#carousel-right').prop('disabled', false);
+}
+
+/**
+ * Add 30 minutes to time
+ */
+function addMinutesToTime(time, minutes) {
+    var timeArray = time.split(':');
+    var hours = parseInt(timeArray[0], 10);
+    var mins = parseInt(timeArray[1], 10);
+
+    var totalMinutes = hours * 60 + mins;
+    var newTotalMinutes = totalMinutes + minutes;
+
+    var newHours = Math.floor(newTotalMinutes / 60);
+    var newMins = newTotalMinutes % 60;
+
+    return padWithZero(newHours) + ':' + padWithZero(newMins);
+}
+
+function padWithZero(value) {
+    return value < 10 ? '0' + value : value;
 }
 
 /**

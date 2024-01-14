@@ -5,16 +5,30 @@ $(document).ready(function () {
     var listOfBlockedDates = Array();
     var dayToCalculateNextSundays = getNextDayOfWeek(new Date, 7);
     var dayToCalculatePreviousSundays = getNextDayOfWeek(new Date, 7);
+    var dayToCalculateNextSaturdaysStart = getNextDayOfWeek(new Date, 6);
+    var dayToCalculateNextSaturdaysEnd = getNextDayOfWeek(new Date, 6);
+    var dayToCalculatePreviousSaturdaysStart = getNextDayOfWeek(new Date, 6);
+    dayToCalculatePreviousSaturdaysStart.setDate(dayToCalculatePreviousSaturdaysStart.getDate() - 7);
+    var dayToCalculatePreviousSaturdaysEnd = getNextDayOfWeek(new Date, 6);
+    dayToCalculatePreviousSaturdaysEnd.setDate(dayToCalculatePreviousSaturdaysEnd.getDate() - 7);
 
-    dayToCalculateNextSaturdaysStart = getNextDayOfWeek(new Date, 6);
+
     dayToCalculateNextSaturdaysStart.setHours(14);
     dayToCalculateNextSaturdaysStart.setMinutes(0);
     dayToCalculateNextSaturdaysStart.setSeconds(0);
 
-    dayToCalculateNextSaturdaysEnd = getNextDayOfWeek(new Date, 6);
     dayToCalculateNextSaturdaysEnd.setHours(18);
     dayToCalculateNextSaturdaysEnd.setMinutes(0);
     dayToCalculateNextSaturdaysEnd.setSeconds(0);
+
+    dayToCalculatePreviousSaturdaysStart.setHours(14);
+    dayToCalculatePreviousSaturdaysStart.setMinutes(0);
+    dayToCalculatePreviousSaturdaysStart.setSeconds(0);
+
+    dayToCalculatePreviousSaturdaysEnd.setDate(dayToCalculatePreviousSaturdaysEnd.getDate() - 7);
+    dayToCalculatePreviousSaturdaysEnd.setHours(18);
+    dayToCalculatePreviousSaturdaysEnd.setMinutes(0);
+    dayToCalculatePreviousSaturdaysEnd.setSeconds(0);
 
 
     var selectedThemeboxInfo = []
@@ -27,12 +41,6 @@ $(document).ready(function () {
     $('#end-date').keydown(function () {
         return false;
     });
-
-    $(".fc-corner-right").click(function () {
-        blockNextFiveSundaysInCalendar();
-        blockNextFiveSaturdayAfterTwoPmInCalendar();
-    });
-
 
     /**
      * Focus is set on button click on glyphicon
@@ -140,6 +148,9 @@ $(document).ready(function () {
 
                 blockNextFiveSundaysInCalendar();
                 blockNextFiveSaturdayAfterTwoPmInCalendar();
+
+                blockPreviousFiveSundaysInCalendar();
+                blockPreviousFiveSaturdayAfterTwoPmInCalendar()
 
                 var isHourlyOrder = response["themebox"]["fk_order_type"] === 1;
                 if (isHourlyOrder) {
@@ -451,7 +462,7 @@ $(document).ready(function () {
      * Block the the next following Sundays in the calendar
      */
     function blockNextFiveSundaysInCalendar() {
-        for (var i = 0; i < 20; i++) {
+        for (var i = 0; i < 40; i++) {
             blockAllSundaysEvent(formatDate(dayToCalculateNextSundays));
             dayToCalculateNextSundays.setDate(dayToCalculateNextSundays.getDate() + 7);
         }
@@ -512,10 +523,25 @@ $(document).ready(function () {
      * Block the the next following Saturdays after 2 pm in the calendar since the library is closed
      */
     function blockNextFiveSaturdayAfterTwoPmInCalendar() {
-        for (var i = 0; i < 20; i++) {
+        for (var i = 0; i < 40; i++) {
             blockAllSaturdayAfterTwoPmEvent(dayToCalculateNextSaturdaysStart, dayToCalculateNextSaturdaysEnd);
             dayToCalculateNextSaturdaysStart.setDate(dayToCalculateNextSaturdaysStart.getDate() + 7);
             dayToCalculateNextSaturdaysEnd.setDate(dayToCalculateNextSaturdaysEnd.getDate() + 7);
+        }
+    }
+
+    function blockPreviousFiveSundaysInCalendar() {
+        for (var i = 0; i < 20; i++) {
+            blockAllSundaysEvent(formatDate(dayToCalculatePreviousSundays));
+            dayToCalculatePreviousSundays.setDate(dayToCalculatePreviousSundays.getDate() - 7);
+        }
+    }
+
+    function blockPreviousFiveSaturdayAfterTwoPmInCalendar() {
+        for (var i = 0; i < 20; i++) {
+            blockAllSaturdayAfterTwoPmEvent(dayToCalculatePreviousSaturdaysStart, dayToCalculatePreviousSaturdaysEnd);
+            dayToCalculatePreviousSaturdaysStart.setDate(dayToCalculatePreviousSaturdaysStart.getDate() - 7);
+            dayToCalculatePreviousSaturdaysEnd.setDate(dayToCalculatePreviousSaturdaysEnd.getDate() - 7);
         }
     }
 

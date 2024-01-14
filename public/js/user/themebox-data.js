@@ -1364,15 +1364,9 @@ $(document).ready(function () {
          * show callback order confirm details
          */
         $(".button-confirm-order").click(function () {
-            if ($('#thekre-dropdown').val() == 2) {
-                $('#delete-warning-header-text').text("Die Lieferung an Aargauer Schulen ist kostenpflichtig.");
-                $('#button-submit-order').text("Themenkiste liefern lassen");
-            } else {
-                $('#delete-warning-header-text').text("Wollen Sie die Themenkiste/Lernroboter wirklich bestellen und selbst abholen?");
-                $('#button-submit-order').text("Bestellen");
-            }
+            $('#delete-warning-header-text').text("Wollen Sie dieses Objekt wirklich bestellen?");
+            $('#button-submit-order').text("Bestellen");
             prepareOrderConfirmModal();
-
         });
 
         /**

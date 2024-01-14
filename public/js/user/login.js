@@ -7,7 +7,7 @@ $(document).ready(function () {
     var dayToCalculatePreviousSundays = getNextDayOfWeek(new Date, 7);
     var dayToCalculateNextSaturdaysStart = getNextDayOfWeek(new Date, 6);
     var dayToCalculateNextSaturdaysEnd = getNextDayOfWeek(new Date, 6);
-    var dayToCalculatePreviousSaturdaysStart = getNextDayOfWeek(new Date, 6);
+    var dayToCalculatePreviousSaturdaysStart = getNextDayOfWeek(new Date(), 6);
     dayToCalculatePreviousSaturdaysStart.setDate(dayToCalculatePreviousSaturdaysStart.getDate() - 7);
     var dayToCalculatePreviousSaturdaysEnd = getNextDayOfWeek(new Date, 6);
     dayToCalculatePreviousSaturdaysEnd.setDate(dayToCalculatePreviousSaturdaysEnd.getDate() - 7);
@@ -112,6 +112,12 @@ $(document).ready(function () {
 
         dayToCalculateNextSundays = getNextDayOfWeek(new Date, 7);
         dayToCalculatePreviousSundays = getNextDayOfWeek(new Date, 7);
+        dayToCalculateNextSaturdaysStart = getNextDayOfWeek(new Date, 6);
+        dayToCalculateNextSaturdaysEnd = getNextDayOfWeek(new Date, 6);
+        dayToCalculatePreviousSaturdaysStart = getNextDayOfWeek(new Date(), 6);
+        dayToCalculatePreviousSaturdaysStart.setDate(dayToCalculatePreviousSaturdaysStart.getDate() - 7);
+        dayToCalculatePreviousSaturdaysEnd = getNextDayOfWeek(new Date, 6);
+        dayToCalculatePreviousSaturdaysEnd.setDate(dayToCalculatePreviousSaturdaysEnd.getDate() - 7);
 
         $.ajax({
             url: "login",
@@ -538,7 +544,7 @@ $(document).ready(function () {
     }
 
     function blockPreviousFiveSaturdayAfterTwoPmInCalendar() {
-        for (var i = 0; i < 20; i++) {
+        for (var i = 0; i < 19; i++) {
             blockAllSaturdayAfterTwoPmEvent(dayToCalculatePreviousSaturdaysStart, dayToCalculatePreviousSaturdaysEnd);
             dayToCalculatePreviousSaturdaysStart.setDate(dayToCalculatePreviousSaturdaysStart.getDate() - 7);
             dayToCalculatePreviousSaturdaysEnd.setDate(dayToCalculatePreviousSaturdaysEnd.getDate() - 7);

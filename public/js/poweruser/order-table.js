@@ -3,6 +3,29 @@ $(document).ready(function () {
     let dayToCalculateNextSundays = getNextDayOfWeek(new Date, 7);
     let dayToCalculatePreviousSundays = getNextDayOfWeek(new Date, 7);
 
+    var dayToCalculateNextSaturdaysStart = getNextDayOfWeek(new Date, 6);
+    dayToCalculateNextSaturdaysStart.setHours(14);
+    dayToCalculateNextSaturdaysStart.setMinutes(0);
+    dayToCalculateNextSaturdaysStart.setSeconds(0);
+
+    var dayToCalculateNextSaturdaysEnd = getNextDayOfWeek(new Date, 6);
+    dayToCalculateNextSaturdaysEnd.setHours(18);
+    dayToCalculateNextSaturdaysEnd.setMinutes(0);
+    dayToCalculateNextSaturdaysEnd.setSeconds(0);
+
+
+    var dayToCalculatePreviousSaturdaysStart = getNextDayOfWeek(new Date, 6);
+    dayToCalculatePreviousSaturdaysStart.setDate(dayToCalculatePreviousSaturdaysStart.getDate() - 7);
+    dayToCalculatePreviousSaturdaysStart.setHours(14);
+    dayToCalculatePreviousSaturdaysStart.setMinutes(0);
+    dayToCalculatePreviousSaturdaysStart.setSeconds(0);
+
+    var dayToCalculatePreviousSaturdaysEnd = getNextDayOfWeek(new Date, 6);
+    dayToCalculatePreviousSaturdaysEnd.setDate(dayToCalculatePreviousSaturdaysEnd.getDate() - 7);
+    dayToCalculatePreviousSaturdaysEnd.setHours(18);
+    dayToCalculatePreviousSaturdaysEnd.setMinutes(0);
+    dayToCalculatePreviousSaturdaysEnd.setSeconds(0);
+
     var selectedThemeboxInfo = []
 
     $('[data-toggle="tooltip"]').tooltip();
@@ -159,19 +182,47 @@ $(document).ready(function () {
             success: function (response) {
                 selectedThemeboxInfo = response["themebox"]
 
-                bindEndData();
-                addBlockDateFromToday();
-                loadBlockedDates();
-                blockTillNextSunday();
-                blockNextFiveSundaysInCalendar();
-                blockPreviousFiveSundaysInCalendar();
-
-
                 $("#calendar").fullCalendar("render");
                 $("#calendar").fullCalendar("removeEvents");
                 $("#calendar").fullCalendar('removeEvents', function (event) {
                     return event.className == "newOrder";
                 });
+
+                dayToCalculateNextSundays = getNextDayOfWeek(new Date, 7);
+                dayToCalculatePreviousSundays = getNextDayOfWeek(new Date, 7);
+
+                dayToCalculateNextSaturdaysStart = getNextDayOfWeek(new Date, 6);
+                dayToCalculateNextSaturdaysStart.setHours(14);
+                dayToCalculateNextSaturdaysStart.setMinutes(0);
+                dayToCalculateNextSaturdaysStart.setSeconds(0);
+
+                dayToCalculateNextSaturdaysEnd = getNextDayOfWeek(new Date, 6);
+                dayToCalculateNextSaturdaysEnd.setHours(18);
+                dayToCalculateNextSaturdaysEnd.setMinutes(0);
+                dayToCalculateNextSaturdaysEnd.setSeconds(0);
+
+                dayToCalculatePreviousSaturdaysStart = getNextDayOfWeek(new Date, 6);
+                dayToCalculatePreviousSaturdaysStart.setDate(dayToCalculatePreviousSaturdaysStart.getDate() - 7);
+                dayToCalculatePreviousSaturdaysStart.setHours(14);
+                dayToCalculatePreviousSaturdaysStart.setMinutes(0);
+                dayToCalculatePreviousSaturdaysStart.setSeconds(0);
+
+                dayToCalculatePreviousSaturdaysEnd = getNextDayOfWeek(new Date, 6);
+                dayToCalculatePreviousSaturdaysEnd.setDate(dayToCalculatePreviousSaturdaysEnd.getDate() - 7);
+                dayToCalculatePreviousSaturdaysEnd.setHours(18);
+                dayToCalculatePreviousSaturdaysEnd.setMinutes(0);
+                dayToCalculatePreviousSaturdaysEnd.setSeconds(0);
+
+                bindEndData();
+                //addBlockDateFromToday();
+                loadBlockedDates();
+                blockTillNextSunday();
+                blockNextFiveSundaysInCalendar();
+                blockPreviousFiveSundaysInCalendar();
+
+                blockPreviousFiveSaturdayAfterTwoPmInCalendar();
+                blockNextFiveSaturdayAfterTwoPmInCalendar();
+
 
                 $('#order-edit-modal').modal('show',
                     {
@@ -301,9 +352,12 @@ $(document).ready(function () {
                     } else { // render blocked events
                         var startDateTime = value["startdate"] + "-00:00";
                         var endDateTime = value["enddate"] + "-00:00";
-                        var endDateTimePlus30 = addMinutesToTime(endDateTime.split(' ')[1].substring(0, 5), 30);
-                        var finalEndDatePlus30 = endDateTime.split(' ')[0] + " " + endDateTimePlus30 + ":00";
 
+                        if(isHourlyOrder){
+                            var endDateTimePlus30 = addMinutesToTime(endDateTime.split(' ')[1].substring(0, 5), 30);
+                            var finalEndDatePlus30 = endDateTime.split(' ')[0] + " " + endDateTimePlus30 + ":00";
+
+                        }
 
                         $('#calendar').fullCalendar("renderEvent", {
                             title: isHourlyOrder ? extractTimeFromDate(value["startdate"]) + " - " + extractTimeFromDate(value["enddate"]) : "",
@@ -709,6 +763,7 @@ $(document).ready(function () {
 
         disableAllOptions();
 
+
         let fk_thembox = 1;
         $.ajax({
             url: "poweruser/getOrderAddData",
@@ -718,12 +773,7 @@ $(document).ready(function () {
 
                 $('#summernote_create').summernote();
 
-                $('#order-add-modal').modal('show',
-                    {
-                        backdrop: 'static',
-                        keyboard: false
-                    }
-                );
+
 
                 $('#order-add-form').trigger("reset");
 
@@ -851,6 +901,9 @@ $(document).ready(function () {
                 blockTillNextSunday();
                 blockNextFiveSundaysInCalendar();
                 blockPreviousFiveSundaysInCalendar();
+
+                blockPreviousFiveSaturdayAfterTwoPmInCalendar();
+                blockNextFiveSaturdayAfterTwoPmInCalendar();
 
 
                 response["orderData"].forEach(function (element) {
@@ -1125,6 +1178,51 @@ $(document).ready(function () {
             blockAllSundaysEvent(formatBlockDate(dayToCalculatePreviousSundays));
             blockAllSundaysEventtwo(formatBlockDate(dayToCalculatePreviousSundays));
         }
+    }
+
+    function blockPreviousFiveSaturdayAfterTwoPmInCalendar() {
+        for (var i = 0; i < 19; i++) {
+            blockAllSaturdayAfterTwoPmEvent(dayToCalculatePreviousSaturdaysStart, dayToCalculatePreviousSaturdaysEnd);
+            dayToCalculatePreviousSaturdaysStart.setDate(dayToCalculatePreviousSaturdaysStart.getDate() - 7);
+            dayToCalculatePreviousSaturdaysEnd.setDate(dayToCalculatePreviousSaturdaysEnd.getDate() - 7);
+        }
+    }
+
+    /**
+     * Block the the next following Saturdays after 2 pm in the calendar since the library is closed
+     */
+    function blockNextFiveSaturdayAfterTwoPmInCalendar() {
+        for (var i = 0; i < 40; i++) {
+            blockAllSaturdayAfterTwoPmEvent(dayToCalculateNextSaturdaysStart, dayToCalculateNextSaturdaysEnd);
+            dayToCalculateNextSaturdaysStart.setDate(dayToCalculateNextSaturdaysStart.getDate() + 7);
+            dayToCalculateNextSaturdaysEnd.setDate(dayToCalculateNextSaturdaysEnd.getDate() + 7);
+        }
+    }
+
+    function blockAllSaturdayAfterTwoPmEvent(start, end) {
+        $("#calendar").fullCalendar('renderEvent',
+            {
+                title: "Geschlossen",
+                start: start,
+                end: end,
+                rendering: "",
+                className: "blocked_event",
+                color: "#ffad00"
+            },
+            true
+        );
+
+        $("#orderAdd-calendar").fullCalendar('renderEvent',
+            {
+                title: "Geschlossen",
+                start: start,
+                end: end,
+                rendering: "",
+                className: "blocked_event",
+                color: "#ffad00"
+            },
+            true
+        );
     }
 
     function formatBlockDate(date) {

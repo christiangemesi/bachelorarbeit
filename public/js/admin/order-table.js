@@ -210,6 +210,8 @@ $(document).ready(function () {
             data: {order_id: $(this).val()},
             success: function (response) {
                 selectedThemeboxInfo = response["themebox"]
+                $("#pu_dropdown-von").val("");
+                $("#pu_dropdown-bis").val("");
 
                 $("#calendar").fullCalendar("render");
                 $("#calendar").fullCalendar("removeEvents");
@@ -362,7 +364,7 @@ $(document).ready(function () {
                         }
 
                         $('#calendar').fullCalendar("renderEvent", {
-                            title: isHourlyOrder ? extractTimeFromDate(value["startdate"]) + " - " + extractTimeFromDate(value["enddate"]) : "",
+                            title: isHourlyOrder ? extractTimeFromDate(value["startdate"]) + " - " + extractTimeFromDate(finalEndDatePlus30) : "",
                             start: !isHourlyOrder ? addBlockStartdate(value["startdate"]) : startDateTime,
                             end: !isHourlyOrder ? addBlockEnddate(value["enddate"]) : finalEndDatePlus30,
                             rendering: !isHourlyOrder ? "background" : "",

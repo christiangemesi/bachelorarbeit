@@ -359,7 +359,7 @@ $(document).ready(function () {
                         }
 
                         $('#calendar').fullCalendar("renderEvent", {
-                            title: isHourlyOrder ? extractTimeFromDate(value["startdate"]) + " - " + extractTimeFromDate(value["enddate"]) : "",
+                            title: isHourlyOrder ? extractTimeFromDate(value["startdate"]) + " - " + extractTimeFromDate(finalEndDatePlus30) : "",
                             start: !isHourlyOrder ? addBlockStartdate(value["startdate"]) : startDateTime,
                             end: !isHourlyOrder ? addBlockEnddate(value["enddate"]) : finalEndDatePlus30,
                             rendering: !isHourlyOrder ? "background" : "",
@@ -935,7 +935,7 @@ $(document).ready(function () {
                         var finalEndDatePlus30 = element["order_enddate"].split(' ')[0] + " " + endDateTimePlus30 + ":00";
                     }
                     $('#orderAdd-calendar').fullCalendar("renderEvent", {
-                        title: isHourlyOrder ? extractTimeFromDate(element["order_startdate"]) + " - " + extractTimeFromDate(element["order_enddate"]) : "",
+                        title: isHourlyOrder ? extractTimeFromDate(element["order_startdate"]) + " - " + extractTimeFromDate(finalEndDatePlus30) : "",
                         start: !isHourlyOrder ? addTime(element["order_startdate"]) : element["order_startdate"],
                         end: !isHourlyOrder ? addEndTime(element["order_enddate"]) : finalEndDatePlus30,
                         rendering: !isHourlyOrder ? "background" : "",

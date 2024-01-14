@@ -5,7 +5,7 @@ $(document).ready(function () {
      */
     $(".button-delete-themebox").click(function () {
         prepareDeleteWarningModal();
-        $('#delete-warning-header-text').val("Wollen Sie die Themenkiste wirklich löschen?");
+        $('#delete-warning-header-text').val("Wollen Sie dieses Ausleihobjekt wirklich löschen?");
         $('#object-remove-id').val($(this).val());
     });
 
@@ -18,7 +18,7 @@ $(document).ready(function () {
             type: 'POST',
             data: {themebox_id: $('#object-remove-id').val()},
             success: function (response) {
-                showSuccessModal("Themenkiste wurde erfolgreich gelöscht");
+                showSuccessModal("Ausleihobjekt wurde erfolgreich gelöscht");
             },
             error: function (xhr, status, error) {
                 showFailureModal("Es ist ein Fehler beim Löschen passiert", xhr);
@@ -65,10 +65,10 @@ $(document).ready(function () {
             type: 'POST',
             data: {themebox_data: $('#create-themebox-form').serializeArray()},
             success: function (response) {
-                showSuccessModal("Themenkiste wurde erfolgreich erstellt");
+                showSuccessModal("Ausleihobjekt wurde erfolgreich erstellt");
             },
             error: function (xhr, status, error) {
-                showFailureModal("Themenkiste konnte nicht erstellt werden", xhr);
+                showFailureModal("Ausleihobjekt konnte nicht erstellt werden", xhr);
             }
         })
     });
@@ -204,8 +204,8 @@ $(document).ready(function () {
         "info": false,
         "language": {
             "search": "Suchen nach: ",
-            "sEmptyTable": "Keine Themenkisten vorhanden",
-            "zeroRecords": "Keine Themenkisten gefunden",
+            "sEmptyTable": "Kein Ausleihobjekt vorhanden",
+            "zeroRecords": "Kein Ausleihobjekt gefunden",
             "paginate": {
                 "previous": "Vorherige Seite",
                 "next": "Nächste Seite"

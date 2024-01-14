@@ -38,7 +38,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="panel-body">
-                            <h2 class="delete-warning-header-text">Wollen Sie die Themenkiste wirklich löschen?</h2>
+                            <h2 class="delete-warning-header-text">Wollen Sie dieses Ausleihobjekt wirklich löschen?</h2>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -85,7 +85,7 @@
                 <tr>
                     <th>Bestellnummer</th>
                     <th>Besteller</th>
-                    <th>Themenkiste</th>
+                    <th>Ausleihobjekte</th>
                     <th>von</th>
                     <th>bis</th>
                     <th>Signatur</th>
@@ -167,9 +167,9 @@
                                 <div class="panel-body margin-less">
                                     <div class="row thekre-row">
                                         <div class="form-group">
-                                            <label class="float-left" for="orderAdd-thembox">Themenkiste</label>
+                                            <label class="float-left" for="orderAdd-thembox">Ausleihobjekt</label>
                                             <select class="form-control" id="orderAdd-thembox">
-                                                <option value="orderAdd-thembox-title" disabled selected>Themenkiste
+                                                <option value="orderAdd-thembox-title" disabled selected>Ausleihobjekt
                                                     auswählen
                                                 </option>
                                                 @foreach($themeboxes as $thembox)
@@ -449,7 +449,7 @@
                                                    name="ordernumber-edit" disabled/>
                                         </div>
                                         <div class="form-group">
-                                            <label class="float-left" for="themebox-title">Themenkiste</label>
+                                            <label class="float-left" for="themebox-title">Ausleihobjekt</label>
                                             <input type="text" class="form-control" id="themebox-title"
                                                    name="themebox-title" disabled/>
                                         </div>

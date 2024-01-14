@@ -59,7 +59,7 @@
                                             <input type="text" class="form-control" id="ordernumber-edit" disabled="disabled"/>
                                         </div>
                                         <div class="form-group">
-                                            <label class="float-left" for="themebox-title">Themenkiste</label>
+                                            <label class="float-left" for="themebox-title">Ausleihobjekt</label>
                                             <input type="text" class="form-control" id="themebox-title" disabled="disabled"/>
                                         </div>
 

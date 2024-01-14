@@ -107,7 +107,7 @@ $(document).ready(function () {
                 var html =
                     '<tr><td class="print-table-title"><strong>Bestellung: </strong></td><td class="print-table-text">' + response["order"]["ordernumber"] + '</td></tr>' +
                     '<tr><td> </td></tr>' +
-                    '<tr><td class="print-table-title">Themenkiste: </td><td class="print-table-text">' + response["themebox"]["title"] + '</td></tr>' +
+                    '<tr><td class="print-table-title">Ausleihobjekt: </td><td class="print-table-text">' + response["themebox"]["title"] + '</td></tr>' +
                     '<tr><td class="print-table-title">Von: </td><td class="print-table-text">' + formatDate(response["order"]["startdate"]) + '</td></tr>' +
                     '<tr><td class="print-table-title">Bis: </td><td class="print-table-text">' + formatDate(response["order"]["enddate"]) + '</td></tr>' +
                     '<tr><td class="print-table-title">Bestelldatum: </td><td class="print-table-text">' + formatDate(response["order"]["datecreated"]) + '</td></tr>' +

@@ -51,7 +51,7 @@
                                 <div class="col-md-4">
                                     <div class="Search">
                                         <input type="text" class="form-control" id="themebox-list-search"
-                                               placeholder="Suche nach Themenkiste..">
+                                               placeholder="Suche nach Ausleihobjekten..">
                                     </div>
 
                                     <div class="filter">
@@ -304,7 +304,7 @@
                             <div class="item overflow-order-box">
                                 <div class="row thekre-row">
                                     <div class="col-md-12">
-                                        <h2 class="order-form-title">Angaben zur Themenkiste</h2>
+                                        <h2 class="order-form-title">Angaben zum Ausleihobjekt</h2>
 
                                         <label class="form-control-label" for="thekre-dropdown">Lieferart</label>
                                         <select name="delivery" id="thekre-dropdown" class="selectpicker form-dropdown">
@@ -429,8 +429,7 @@
                                         <div class="modal-body">
                                             <div class="panel-body">
                                                 <h2 class="delete-warning-header-text" id="delete-warning-header-text">
-                                                    Wollen Sie die Themenkiste wirklich bestellen und selbst
-                                                    abholen?</h2>
+                                                    Wollen Sie dieses Ausleihobjekt wirklich bestellen?</h2>
                                             </div>
                                         </div>
                                         <div class="modal-footer">

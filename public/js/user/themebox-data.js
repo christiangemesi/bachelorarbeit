@@ -20,10 +20,16 @@ $(document).ready(function () {
         var dayToCalculateNextSundays = getNextDayOfWeek(new Date, 7);
         var dayToCalculatePreviousSundays = getNextDayOfWeek(new Date, 7);
 
-        var dayToCalculateNextSaturdays = getNextDayOfWeek(new Date, 6);
-        dayToCalculateNextSaturdays.setHours(14);
-        dayToCalculateNextSaturdays.setMinutes(0);
-        dayToCalculateNextSaturdays.setSeconds(0);
+        var dayToCalculateNextSaturdaysStart = getNextDayOfWeek(new Date, 6);
+        dayToCalculateNextSaturdaysStart.setHours(14);
+        dayToCalculateNextSaturdaysStart.setMinutes(0);
+        dayToCalculateNextSaturdaysStart.setSeconds(0);
+
+        var dayToCalculateNextSaturdaysEnd = getNextDayOfWeek(new Date, 6);
+        dayToCalculateNextSaturdaysEnd.setHours(18);
+        dayToCalculateNextSaturdaysEnd.setMinutes(0);
+        dayToCalculateNextSaturdaysEnd.setSeconds(0);
+
 
         var dayToCalculatePreviousSaturdaysStart = getNextDayOfWeek(new Date, 6);
         dayToCalculatePreviousSaturdaysStart.setDate(dayToCalculatePreviousSaturdaysStart.getDate() - 7);
@@ -482,6 +488,19 @@ $(document).ready(function () {
             dayToCalculateNextSaturdaysEnd.setHours(18);
             dayToCalculateNextSaturdaysEnd.setMinutes(0);
             dayToCalculateNextSaturdaysEnd.setSeconds(0);
+
+            dayToCalculatePreviousSaturdaysStart = getNextDayOfWeek(new Date, 6);
+            dayToCalculatePreviousSaturdaysStart.setDate(dayToCalculatePreviousSaturdaysStart.getDate() - 7);
+            dayToCalculatePreviousSaturdaysStart.setHours(14);
+            dayToCalculatePreviousSaturdaysStart.setMinutes(0);
+            dayToCalculatePreviousSaturdaysStart.setSeconds(0);
+
+            dayToCalculatePreviousSaturdaysEnd = getNextDayOfWeek(new Date, 6);
+            dayToCalculatePreviousSaturdaysEnd.setDate(dayToCalculatePreviousSaturdaysEnd.getDate() - 7);
+            dayToCalculatePreviousSaturdaysEnd.setHours(18);
+            dayToCalculatePreviousSaturdaysEnd.setMinutes(0);
+            dayToCalculatePreviousSaturdaysEnd.setSeconds(0);
+
 
 
             $.ajax({

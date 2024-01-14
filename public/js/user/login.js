@@ -7,8 +7,10 @@ $(document).ready(function () {
     var dayToCalculatePreviousSundays = getNextDayOfWeek(new Date, 7);
     var dayToCalculateNextSaturdaysStart = getNextDayOfWeek(new Date, 6);
     var dayToCalculateNextSaturdaysEnd = getNextDayOfWeek(new Date, 6);
+
     var dayToCalculatePreviousSaturdaysStart = getNextDayOfWeek(new Date(), 6);
     dayToCalculatePreviousSaturdaysStart.setDate(dayToCalculatePreviousSaturdaysStart.getDate() - 7);
+
     var dayToCalculatePreviousSaturdaysEnd = getNextDayOfWeek(new Date, 6);
     dayToCalculatePreviousSaturdaysEnd.setDate(dayToCalculatePreviousSaturdaysEnd.getDate() - 7);
 
@@ -109,16 +111,6 @@ $(document).ready(function () {
      */
     function checkLogin() {
         selectedThemeboxInfo = [];
-
-        dayToCalculateNextSundays = getNextDayOfWeek(new Date, 7);
-        dayToCalculatePreviousSundays = getNextDayOfWeek(new Date, 7);
-        dayToCalculateNextSaturdaysStart = getNextDayOfWeek(new Date, 6);
-        dayToCalculateNextSaturdaysEnd = getNextDayOfWeek(new Date, 6);
-        dayToCalculatePreviousSaturdaysStart = getNextDayOfWeek(new Date(), 6);
-        dayToCalculatePreviousSaturdaysStart.setDate(dayToCalculatePreviousSaturdaysStart.getDate() - 7);
-        dayToCalculatePreviousSaturdaysEnd = getNextDayOfWeek(new Date, 6);
-        dayToCalculatePreviousSaturdaysEnd.setDate(dayToCalculatePreviousSaturdaysEnd.getDate() - 7);
-
         $.ajax({
             url: "login",
             type: 'POST',
@@ -323,11 +315,13 @@ $(document).ready(function () {
 
                         var startDateTime = value["startdate"] + "-00:00";
                         var endDateTime = value["enddate"] + "-00:00";
-                        var endDateTimePlus30 = addMinutesToTime(endDateTime.split(' ')[1].substring(0, 5), 30);
-                        var finalEndDatePlus30 = endDateTime.split(' ')[0] + " " + endDateTimePlus30 + ":00";
+                        if(isHourlyOrder){
+                            var endDateTimePlus30 = addMinutesToTime(endDateTime.split(' ')[1].substring(0, 5), 30);
+                            var finalEndDatePlus30 = endDateTime.split(' ')[0] + " " + endDateTimePlus30 + ":00";
+                        }
 
                         $('#calendar').fullCalendar("renderEvent", {
-                            title: isHourlyOrder ? extractTimeFromDate(value["startdate"]) + " - " + extractTimeFromDate(value["enddate"]) : "",
+                            title: isHourlyOrder ? extractTimeFromDate(value["startdate"]) + " - " + extractTimeFromDate(finalEndDatePlus30) : "",
                             start: !isHourlyOrder ? addBlockStartdate(value["startdate"]) : startDateTime,
                             end: !isHourlyOrder ? addBlockEnddate(value["enddate"]) : finalEndDatePlus30,
                             rendering: !isHourlyOrder ? "background" : "",

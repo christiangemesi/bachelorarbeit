@@ -356,7 +356,6 @@ $(document).ready(function () {
                         if(isHourlyOrder){
                             var endDateTimePlus30 = addMinutesToTime(endDateTime.split(' ')[1].substring(0, 5), 30);
                             var finalEndDatePlus30 = endDateTime.split(' ')[0] + " " + endDateTimePlus30 + ":00";
-
                         }
 
                         $('#calendar').fullCalendar("renderEvent", {
@@ -763,7 +762,6 @@ $(document).ready(function () {
 
         disableAllOptions();
 
-
         let fk_thembox = 1;
         $.ajax({
             url: "poweruser/getOrderAddData",
@@ -772,8 +770,6 @@ $(document).ready(function () {
             success: function (response) {
 
                 $('#summernote_create').summernote();
-
-
 
                 $('#order-add-form').trigger("reset");
 
@@ -814,8 +810,8 @@ $(document).ready(function () {
                 dayToCalculatePreviousSundays = getNextDayOfWeek(new Date, 7);
 
                 blockTillNextSunday();
-                //blockNextFiveSundaysInCalendar();
-                //blockPreviousFiveSundaysInCalendar();
+                blockNextFiveSundaysInCalendar();
+                blockPreviousFiveSundaysInCalendar();
 
                 $('#order-add-modal').modal('show',
                     {
@@ -873,6 +869,31 @@ $(document).ready(function () {
         //clear order add start
         $("#orderAdd-start-date").val("");
         $("#orderAdd-end-date").val("");
+
+        dayToCalculateNextSundays = getNextDayOfWeek(new Date, 7);
+        dayToCalculatePreviousSundays = getNextDayOfWeek(new Date, 7);
+
+        dayToCalculateNextSaturdaysStart = getNextDayOfWeek(new Date, 6);
+        dayToCalculateNextSaturdaysStart.setHours(14);
+        dayToCalculateNextSaturdaysStart.setMinutes(0);
+        dayToCalculateNextSaturdaysStart.setSeconds(0);
+
+        dayToCalculateNextSaturdaysEnd = getNextDayOfWeek(new Date, 6);
+        dayToCalculateNextSaturdaysEnd.setHours(18);
+        dayToCalculateNextSaturdaysEnd.setMinutes(0);
+        dayToCalculateNextSaturdaysEnd.setSeconds(0);
+
+        dayToCalculatePreviousSaturdaysStart = getNextDayOfWeek(new Date, 6);
+        dayToCalculatePreviousSaturdaysStart.setDate(dayToCalculatePreviousSaturdaysStart.getDate() - 7);
+        dayToCalculatePreviousSaturdaysStart.setHours(14);
+        dayToCalculatePreviousSaturdaysStart.setMinutes(0);
+        dayToCalculatePreviousSaturdaysStart.setSeconds(0);
+
+        dayToCalculatePreviousSaturdaysEnd = getNextDayOfWeek(new Date, 6);
+        dayToCalculatePreviousSaturdaysEnd.setDate(dayToCalculatePreviousSaturdaysEnd.getDate() - 7);
+        dayToCalculatePreviousSaturdaysEnd.setHours(18);
+        dayToCalculatePreviousSaturdaysEnd.setMinutes(0);
+        dayToCalculatePreviousSaturdaysEnd.setSeconds(0);
 
         selectedThemeboxInfo = []
 

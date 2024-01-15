@@ -747,6 +747,8 @@ $(document).ready(function () {
         }
     }
 
+
+
     function blockNextFiveSundaysInCalendar() {
         for (var i = 0; i < 52; i++) {
             blockAllSundaysEventtwo(formatBlockDate(dayToCalculateNextSundays));

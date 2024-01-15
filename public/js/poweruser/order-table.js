@@ -217,11 +217,8 @@ $(document).ready(function () {
                 //addBlockDateFromToday();
                 loadBlockedDates();
                 blockTillNextSunday();
-                blockNextFiveSundaysInCalendar();
-                blockPreviousFiveSundaysInCalendar();
 
-                blockPreviousFiveSaturdayAfterTwoPmInCalendar();
-                blockNextFiveSaturdayAfterTwoPmInCalendar();
+                blockClosedTimesInCalender();
 
 
                 $('#order-edit-modal').modal('show',
@@ -785,33 +782,7 @@ $(document).ready(function () {
                 $('#order-add-form div').each(function () {
                     $(this).removeClass("has-error has-feedback");
                 });
-                $("#orderAdd-calendar").fullCalendar("render");
-                $("#orderAdd-calendar").fullCalendar("removeEvents");
-                $("#orderAdd-calendar").fullCalendar('removeEvents', function (event) {
-                    return event.className == "new_event";
-                });
-                response["orderData"].forEach(function (element) {
-                    var isHourlyOrder = response["themebox"]["fk_order_type"] === 1;
 
-                    $('#orderAdd-calendar').fullCalendar("renderEvent", {
-                        title: isHourlyOrder ? extractTimeFromDate(element["order_startdate"]) + " - " + extractTimeFromDate(element["order_enddate"]) : "",
-                        start: addTime(element["order_startdate"]),
-                        end: addEndTime(element["order_enddate"]),
-                        rendering: "background",
-                        className: "Order66",
-                        color: "#f44242"
-                    }, true);
-                });
-
-
-                loadBlockedDates();
-
-                dayToCalculateNextSundays = getNextDayOfWeek(new Date, 7);
-                dayToCalculatePreviousSundays = getNextDayOfWeek(new Date, 7);
-
-                blockTillNextSunday();
-                blockNextFiveSundaysInCalendar();
-                blockPreviousFiveSundaysInCalendar();
 
                 $('#order-add-modal').modal('show',
                     {
@@ -828,6 +799,12 @@ $(document).ready(function () {
 
                 })
                 $("#orderAdd-delivery").val(1);
+
+                $("#orderAdd-calendar").fullCalendar("render");
+                $("#orderAdd-calendar").fullCalendar("removeEvents");
+                $("#orderAdd-calendar").fullCalendar('removeEvents', function (event) {
+                    return event.className == "new_event";
+                });
 
             },
         })
@@ -920,11 +897,7 @@ $(document).ready(function () {
                 dayToCalculatePreviousSundays = getNextDayOfWeek(new Date, 7);
 
                 blockTillNextSunday();
-                blockNextFiveSundaysInCalendar();
-                blockPreviousFiveSundaysInCalendar();
-
-                blockPreviousFiveSaturdayAfterTwoPmInCalendar();
-                blockNextFiveSaturdayAfterTwoPmInCalendar();
+                blockClosedTimesInCalender();
 
 
                 response["orderData"].forEach(function (element) {
@@ -1043,10 +1016,10 @@ $(document).ready(function () {
 
         $("#orderAdd-Von-text").html("Am");
 
-        //hide themebox-datepicker-bis
         $("#pu_themebox-datepicker-bis").hide();
 
         $("#pu_orderAdd-time-select").show();
+
         //the selection should be disabled by default until the dates are chosen
         $("#pu_orderAdd-dropdown-von").prop("disabled", true);
         $("#pu_orderAdd-dropdown-bis").prop("disabled", true);
@@ -1170,16 +1143,7 @@ $(document).ready(function () {
         }
     }
 
-    function blockNextFiveSundaysInCalendar() {
-        for (var i = 0; i < 52; i++) {
-            blockAllSundaysEvent(formatBlockDate(dayToCalculateNextSundays));
-            blockAllSundaysEventtwo(formatBlockDate(dayToCalculateNextSundays));
-            dayToCalculateNextSundays.setDate(dayToCalculateNextSundays.getDate() + 7);
-        }
-    }
-
     function blockAllSundaysEvent(Sunday) {
-
         $("#orderAdd-calendar").fullCalendar('renderEvent',
             {
                 id: "blocked",
@@ -1193,30 +1157,26 @@ $(document).ready(function () {
         );
     }
 
-    function blockPreviousFiveSundaysInCalendar() {
-        for (var i = 0; i < 52; i++) {
+    /**
+     * Block the Time when the Library is Closed (Sunday / Saturday after 2 pm)
+     */
+    function blockClosedTimesInCalender(){
+        for (var i = 0; i < 20; i++) {
             dayToCalculatePreviousSundays.setDate(dayToCalculatePreviousSundays.getDate() - 7);
             blockAllSundaysEvent(formatBlockDate(dayToCalculatePreviousSundays));
             blockAllSundaysEventtwo(formatBlockDate(dayToCalculatePreviousSundays));
-        }
-    }
 
-    function blockPreviousFiveSaturdayAfterTwoPmInCalendar() {
-        for (var i = 0; i < 19; i++) {
             blockAllSaturdayAfterTwoPmEvent(dayToCalculatePreviousSaturdaysStart, dayToCalculatePreviousSaturdaysEnd);
             dayToCalculatePreviousSaturdaysStart.setDate(dayToCalculatePreviousSaturdaysStart.getDate() - 7);
             dayToCalculatePreviousSaturdaysEnd.setDate(dayToCalculatePreviousSaturdaysEnd.getDate() - 7);
-        }
-    }
 
-    /**
-     * Block the the next following Saturdays after 2 pm in the calendar since the library is closed
-     */
-    function blockNextFiveSaturdayAfterTwoPmInCalendar() {
-        for (var i = 0; i < 40; i++) {
             blockAllSaturdayAfterTwoPmEvent(dayToCalculateNextSaturdaysStart, dayToCalculateNextSaturdaysEnd);
             dayToCalculateNextSaturdaysStart.setDate(dayToCalculateNextSaturdaysStart.getDate() + 7);
             dayToCalculateNextSaturdaysEnd.setDate(dayToCalculateNextSaturdaysEnd.getDate() + 7);
+
+            blockAllSundaysEvent(formatBlockDate(dayToCalculateNextSundays));
+            blockAllSundaysEventtwo(formatBlockDate(dayToCalculateNextSundays));
+            dayToCalculateNextSundays.setDate(dayToCalculateNextSundays.getDate() + 7);
         }
     }
 

@@ -223,11 +223,8 @@ $(document).ready(function () {
                 //addBlockDateFromToday();
                 loadBlockedDates();
                 blockTillNextSunday();
-                blockNextFiveSundaysInCalendar();
-                blockPreviousFiveSundaysInCalendar();
 
-                blockPreviousFiveSaturdayAfterTwoPmInCalendar()
-                blockNextFiveSaturdayAfterTwoPmInCalendar()
+                blockClosedTimesInCalender();
 
 
                 $('#order-edit-modal').modal('show',
@@ -478,15 +475,15 @@ $(document).ready(function () {
         }
     });
 
+    /**
+     * Extract the time from a date string
+     */
     function extractTimeFromDate(dateString) {
-        // Parse the input date string
         const dateObject = new Date(dateString);
 
-        // Extract hours and minutes
         const hours = dateObject.getHours().toString().padStart(2, '0');
         const minutes = dateObject.getMinutes().toString().padStart(2, '0');
 
-        // Combine hours and minutes
         return `${hours}:${minutes}`;
     }
 
@@ -747,31 +744,6 @@ $(document).ready(function () {
         }
     }
 
-
-
-    function blockNextFiveSundaysInCalendar() {
-        for (var i = 0; i < 52; i++) {
-            blockAllSundaysEventtwo(formatBlockDate(dayToCalculateNextSundays));
-            dayToCalculateNextSundays.setDate(dayToCalculateNextSundays.getDate() + 7);
-        }
-    }
-
-    function blockPreviousFiveSundaysInCalendar() {
-
-        for (var i = 0; i < 52; i++) {
-            dayToCalculatePreviousSundays.setDate(dayToCalculatePreviousSundays.getDate() - 7);
-            blockAllSundaysEventtwo(formatBlockDate(dayToCalculatePreviousSundays));
-        }
-    }
-
-    function blockPreviousFiveSaturdayAfterTwoPmInCalendar() {
-        for (var i = 0; i < 19; i++) {
-            blockAllSaturdayAfterTwoPmEvent(dayToCalculatePreviousSaturdaysStart, dayToCalculatePreviousSaturdaysEnd);
-            dayToCalculatePreviousSaturdaysStart.setDate(dayToCalculatePreviousSaturdaysStart.getDate() - 7);
-            dayToCalculatePreviousSaturdaysEnd.setDate(dayToCalculatePreviousSaturdaysEnd.getDate() - 7);
-        }
-    }
-
     /**
      * Block the the next following Saturdays after 2 pm in the calendar since the library is closed
      */
@@ -780,6 +752,27 @@ $(document).ready(function () {
             blockAllSaturdayAfterTwoPmEvent(dayToCalculateNextSaturdaysStart, dayToCalculateNextSaturdaysEnd);
             dayToCalculateNextSaturdaysStart.setDate(dayToCalculateNextSaturdaysStart.getDate() + 7);
             dayToCalculateNextSaturdaysEnd.setDate(dayToCalculateNextSaturdaysEnd.getDate() + 7);
+        }
+    }
+
+    /**
+     * Block the Time when the Library is Closed (Sunday / Saturday after 2 pm)
+     */
+    function blockClosedTimesInCalender(){
+        for (var i = 0; i < 20; i++) {
+            dayToCalculatePreviousSundays.setDate(dayToCalculatePreviousSundays.getDate() - 7);
+            blockAllSundaysEventtwo(formatBlockDate(dayToCalculatePreviousSundays));
+
+            blockAllSaturdayAfterTwoPmEvent(dayToCalculatePreviousSaturdaysStart, dayToCalculatePreviousSaturdaysEnd);
+            dayToCalculatePreviousSaturdaysStart.setDate(dayToCalculatePreviousSaturdaysStart.getDate() - 7);
+            dayToCalculatePreviousSaturdaysEnd.setDate(dayToCalculatePreviousSaturdaysEnd.getDate() - 7);
+
+            blockAllSaturdayAfterTwoPmEvent(dayToCalculateNextSaturdaysStart, dayToCalculateNextSaturdaysEnd);
+            dayToCalculateNextSaturdaysStart.setDate(dayToCalculateNextSaturdaysStart.getDate() + 7);
+            dayToCalculateNextSaturdaysEnd.setDate(dayToCalculateNextSaturdaysEnd.getDate() + 7);
+
+            blockAllSundaysEventtwo(formatBlockDate(dayToCalculateNextSundays));
+            dayToCalculateNextSundays.setDate(dayToCalculateNextSundays.getDate() + 7);
         }
     }
 

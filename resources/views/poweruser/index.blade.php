@@ -21,7 +21,6 @@
     <script src="{{ asset('js/calendar/add-first-block.js') }}"></script>
     <script src="{{ asset('js/callback-modal.js') }}"></script>
 
-
     <div class="modal fade" id="callback-modal" tabindex="-1">
         <div class="modal-dialog " role="document">
             <div class="modal-content">

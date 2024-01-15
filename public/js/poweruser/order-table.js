@@ -1,3 +1,4 @@
+
 $(document).ready(function () {
     let listOfBlockedDates = Array();
     let dayToCalculateNextSundays = getNextDayOfWeek(new Date, 7);
@@ -1227,7 +1228,6 @@ $(document).ready(function () {
     }
 
     function blockAllSundaysEventtwo(Sunday) {
-
         $("#calendar").fullCalendar('renderEvent',
             {
                 id: "blocked",

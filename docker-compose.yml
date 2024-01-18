@@ -1,45 +1,45 @@
 version: '3'
 
 services:
-    # Application Service
-    thekre:
-        image: thekre
-        build:
-            context: .
-            dockerfile: Dockerfile
-        ports:
-            - "8000:80"
-        volumes:
-            - .env:/var/www/html/.env
+  # Application Service
+  thekre:
+    image: thekre
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    volumes:
+      - .env:/var/www/html/.env
+    env_file:
+      - .env
 
-    # Database Service
-    mysql:
-        image: mysql:8.0
-        container_name: mysql
-        volumes:
-            - db:/var/lib/mysql
-        environment:
-            MYSQL_DATABASE: ${DATABASE}
-            MYSQL_USER: ${DATABASE_USERNAME}
-            MYSQL_PASSWORD: ${DATABASE_PASSWORD}
+  # Database Service
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    volumes:
+      - db:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: ${DATABASE}
+      MYSQL_USER: ${DATABASE_USERNAME}
+      MYSQL_PASSWORD: ${DATABASE_PASSWORD}
 
-            MYSQL_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD}
-        env_file:
-            - .env
-        ports:
-            - "3306:3306"
+      MYSQL_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD}
+    env_file:
+      - .env
 
-    # PhpMyAdmin Service
-    phpmyadmin:
-        image: phpmyadmin/phpmyadmin
-        container_name: phpmyadmin
-        environment:
-            PMA_HOST: ${DATABASE_DRIVER}
-            PMA_PORT: ${DATABASE_PORT}
-        env_file:
-            - .env
-        ports:
-            - "9001:80"
+  # PhpMyAdmin Service
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    environment:
+      PMA_HOST: ${DATABASE_DRIVER}
+      PMA_PORT: ${DATABASE_PORT}
+    env_file:
+      - .env
+    ports:
+      - "9001:80"
 
 volumes:
-    db:
+  db:

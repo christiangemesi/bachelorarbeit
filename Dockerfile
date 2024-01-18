@@ -18,6 +18,9 @@ RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf
 
 # Copy the application code
 COPY ../.. /var/www/html
+COPY ./apache/thekre.conf /etc/apache2/sites-available/000-default.conf
+COPY ./apache/apache.conf /etc/apache2/apache2.conf
+COPY ./apache/.htaccess /var/www/html/public/.htaccess
 
 # Set the working directory
 WORKDIR /var/www/html

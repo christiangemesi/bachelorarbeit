@@ -13,10 +13,6 @@
 
 
 
-
-$url = getenv('APP_URL');
-
-
 Route::get('/', function () {
     return redirect('user');
 });

@@ -37,5 +37,5 @@ echo "Changing into the deployment folder..."
 cd deployment || { echo "Error: Unable to change into the deployment folder"; exit 1; }
 
 echo "Starting the Docker container..."
-sudo docker compose up || { echo "Error: Unable to start the Docker container"; exit 1; }
+sudo docker compose up -d || { echo "Error: Unable to start the Docker container"; exit 1; }
 echo "Docker container started successfully."

@@ -132,7 +132,7 @@ class AdminControllerTest extends TestCase
         $order_amount = count($current_orders);
 
         $order = new Order();
-        $order->fk_themebox = 75; // use existing themebox
+        $order->fk_themebox = 75; // assuming that there is a themebox with this id
         $order->startdate = "2010-12-12";
         $order->enddate = "2010-12-24";
         $order->name = "mueller";

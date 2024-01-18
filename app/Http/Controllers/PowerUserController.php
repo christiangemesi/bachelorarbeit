@@ -361,7 +361,7 @@ class PowerUserController extends Controller
         );
 
         Mail::send('admin.mail_ready_pickup', $mail_data, function ($message) use ($mail_data) {
-            $message->to($mail_data['receiver_mail'], $mail_data['receiver_name'] . " " . $mail_data['receiver_surname'])->bcc('christian.hasley1337@gmail.com', 'Bibliothek Windisch')->subject('Abholungseinladung Themenkiste');
+            $message->to($mail_data['receiver_mail'], $mail_data['receiver_name'] . " " . $mail_data['receiver_surname'])->bcc('christian.hasley1337@gmail.com', 'Bibliothek Windisch')->subject('Abholungseinladung Ausleihobjekt');
         });
     }
 
@@ -586,7 +586,7 @@ class PowerUserController extends Controller
         }
 
         Mail::send($view, $mail_data, function ($message) use ($mail_data) {
-            $message->to($mail_data['receiver_mail'], $mail_data['receiver_name'] . " " . $mail_data['receiver_surname'])->bcc('christian.hasley1337@gmail.com', 'Bibliothek Windisch')->subject('Bestellbestätigung Themenkiste');
+            $message->to($mail_data['receiver_mail'], $mail_data['receiver_name'] . " " . $mail_data['receiver_surname'])->bcc('christian.hasley1337@gmail.com', 'Bibliothek Windisch')->subject('Bestellbestätigung Ausleihobjekt');
         });
     }
 }

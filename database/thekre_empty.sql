@@ -200,7 +200,7 @@ CREATE TABLE `tbl_order_type` (
 
 INSERT INTO `tbl_order_type` (`pk_order_type`, `name`) VALUES
                                                            (1, 'Stundenbasiert (max. 1 Tag)'),
-                                                           (2, 'Tagesbasiert (max. 6 Wochen)');
+                                                           (2, 'Tagesbasiert (max. 8 Wochen)');
 
 -- --------------------------------------------------------
 

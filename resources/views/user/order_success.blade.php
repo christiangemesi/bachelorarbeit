@@ -25,7 +25,7 @@
                     </div>
                 </div><br>
                 <a href="../">
-                    <button type="button" class="btn btn-primary">neue Themenkiste bestellen</button>
+                    <button type="button" class="btn btn-primary">neues Ausleihobjekt bestellen</button>
                 </a>
             </div>
         </div>

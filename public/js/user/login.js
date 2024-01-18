@@ -5,16 +5,32 @@ $(document).ready(function () {
     var listOfBlockedDates = Array();
     var dayToCalculateNextSundays = getNextDayOfWeek(new Date, 7);
     var dayToCalculatePreviousSundays = getNextDayOfWeek(new Date, 7);
+    var dayToCalculateNextSaturdaysStart = getNextDayOfWeek(new Date, 6);
+    var dayToCalculateNextSaturdaysEnd = getNextDayOfWeek(new Date, 6);
 
-    dayToCalculateNextSaturdaysStart = getNextDayOfWeek(new Date, 6);
+    var dayToCalculatePreviousSaturdaysStart = getNextDayOfWeek(new Date(), 6);
+    dayToCalculatePreviousSaturdaysStart.setDate(dayToCalculatePreviousSaturdaysStart.getDate() - 7);
+
+    var dayToCalculatePreviousSaturdaysEnd = getNextDayOfWeek(new Date, 6);
+    dayToCalculatePreviousSaturdaysEnd.setDate(dayToCalculatePreviousSaturdaysEnd.getDate() - 7);
+
+
     dayToCalculateNextSaturdaysStart.setHours(14);
     dayToCalculateNextSaturdaysStart.setMinutes(0);
     dayToCalculateNextSaturdaysStart.setSeconds(0);
 
-    dayToCalculateNextSaturdaysEnd = getNextDayOfWeek(new Date, 6);
     dayToCalculateNextSaturdaysEnd.setHours(18);
     dayToCalculateNextSaturdaysEnd.setMinutes(0);
     dayToCalculateNextSaturdaysEnd.setSeconds(0);
+
+    dayToCalculatePreviousSaturdaysStart.setHours(14);
+    dayToCalculatePreviousSaturdaysStart.setMinutes(0);
+    dayToCalculatePreviousSaturdaysStart.setSeconds(0);
+
+    dayToCalculatePreviousSaturdaysEnd.setDate(dayToCalculatePreviousSaturdaysEnd.getDate() - 7);
+    dayToCalculatePreviousSaturdaysEnd.setHours(18);
+    dayToCalculatePreviousSaturdaysEnd.setMinutes(0);
+    dayToCalculatePreviousSaturdaysEnd.setSeconds(0);
 
 
     var selectedThemeboxInfo = []
@@ -27,12 +43,6 @@ $(document).ready(function () {
     $('#end-date').keydown(function () {
         return false;
     });
-
-    $(".fc-corner-right").click(function () {
-        blockNextFiveSundaysInCalendar();
-        blockNextFiveSaturdayAfterTwoPmInCalendar();
-    });
-
 
     /**
      * Focus is set on button click on glyphicon
@@ -101,10 +111,6 @@ $(document).ready(function () {
      */
     function checkLogin() {
         selectedThemeboxInfo = [];
-
-        dayToCalculateNextSundays = getNextDayOfWeek(new Date, 7);
-        dayToCalculatePreviousSundays = getNextDayOfWeek(new Date, 7);
-
         $.ajax({
             url: "login",
             type: 'POST',
@@ -138,8 +144,7 @@ $(document).ready(function () {
                 blockDatesInDatepicker();
                 loadBlockedDates();
 
-                blockNextFiveSundaysInCalendar();
-                blockNextFiveSaturdayAfterTwoPmInCalendar();
+                blockClosedTimesInCalender();
 
                 var isHourlyOrder = response["themebox"]["fk_order_type"] === 1;
                 if (isHourlyOrder) {
@@ -276,6 +281,7 @@ $(document).ready(function () {
 
                         var startDateTime = value["startdate"] + "-00:00";
                         var endDateTime = value["enddate"] + "-00:00";
+
                         $('#calendar').fullCalendar("renderEvent", {
                             title: extractTimeFromDate(value["startdate"]) + " - " + extractTimeFromDate(value["enddate"]),
                             start: startDateTime,
@@ -284,14 +290,36 @@ $(document).ready(function () {
                             className: "myOrder",
                             color: "#04B404"
                         }, true);
+
+                        var endPlus30 = addMinutesToTime(endDateTime.split(' ')[1].substring(0, 5), 30);
+                        var finalEndDate = endDateTime.split(' ')[0] + " " + endPlus30 + ":00";
+
+                        $("#calendar").fullCalendar('renderEvent',
+                            {
+                                title: "Korrektur Personal",
+                                start: endDateTime,
+                                end: finalEndDate,
+                                rendering: "",
+                                className: "new_event",
+                                color: "#04B404"
+                            },
+                            true
+                        );
+
                         $('#calendar').fullCalendar('gotoDate', startDateTime);
                     } else { // render blocked events
+
                         var startDateTime = value["startdate"] + "-00:00";
                         var endDateTime = value["enddate"] + "-00:00";
+                        if(isHourlyOrder){
+                            var endDateTimePlus30 = addMinutesToTime(endDateTime.split(' ')[1].substring(0, 5), 30);
+                            var finalEndDatePlus30 = endDateTime.split(' ')[0] + " " + endDateTimePlus30 + ":00";
+                        }
+
                         $('#calendar').fullCalendar("renderEvent", {
-                            title: isHourlyOrder ? extractTimeFromDate(value["startdate"]) + " - " + extractTimeFromDate(value["enddate"]) : "",
+                            title: isHourlyOrder ? extractTimeFromDate(value["startdate"]) + " - " + extractTimeFromDate(finalEndDatePlus30) : "",
                             start: !isHourlyOrder ? addBlockStartdate(value["startdate"]) : startDateTime,
-                            end: !isHourlyOrder ? addBlockEnddate(value["enddate"]) : endDateTime,
+                            end: !isHourlyOrder ? addBlockEnddate(value["enddate"]) : finalEndDatePlus30,
                             rendering: !isHourlyOrder ? "background" : "",
                             className: "block"
                         }, true);
@@ -427,16 +455,6 @@ $(document).ready(function () {
     }
 
     /**
-     * Block the the next following Sundays in the calendar
-     */
-    function blockNextFiveSundaysInCalendar() {
-        for (var i = 0; i < 20; i++) {
-            blockAllSundaysEvent(formatDate(dayToCalculateNextSundays));
-            dayToCalculateNextSundays.setDate(dayToCalculateNextSundays.getDate() + 7);
-        }
-    }
-
-    /**
      *  Block Sundays in the datepicker
      */
     function blockDatesInDatepicker() {
@@ -487,16 +505,28 @@ $(document).ready(function () {
         );
     }
 
+
     /**
-     * Block the the next following Saturdays after 2 pm in the calendar since the library is closed
+     * Block the Time when the Library is Closed (Sunday / Saturday after 2 pm)
      */
-    function blockNextFiveSaturdayAfterTwoPmInCalendar() {
+    function blockClosedTimesInCalender(){
         for (var i = 0; i < 20; i++) {
+            dayToCalculatePreviousSundays.setDate(dayToCalculatePreviousSundays.getDate() - 7);
+            blockAllSundaysEvent(formatDate(dayToCalculatePreviousSundays));
+
+            blockAllSaturdayAfterTwoPmEvent(dayToCalculatePreviousSaturdaysStart, dayToCalculatePreviousSaturdaysEnd);
+            dayToCalculatePreviousSaturdaysStart.setDate(dayToCalculatePreviousSaturdaysStart.getDate() - 7);
+            dayToCalculatePreviousSaturdaysEnd.setDate(dayToCalculatePreviousSaturdaysEnd.getDate() - 7);
+
             blockAllSaturdayAfterTwoPmEvent(dayToCalculateNextSaturdaysStart, dayToCalculateNextSaturdaysEnd);
             dayToCalculateNextSaturdaysStart.setDate(dayToCalculateNextSaturdaysStart.getDate() + 7);
             dayToCalculateNextSaturdaysEnd.setDate(dayToCalculateNextSaturdaysEnd.getDate() + 7);
+
+            blockAllSundaysEvent(formatDate(dayToCalculateNextSundays));
+            dayToCalculateNextSundays.setDate(dayToCalculateNextSundays.getDate() + 7);
         }
     }
+
 
     /**
      * Sets the available Ending times for selection based on the selected date and existing orders.
@@ -644,6 +674,10 @@ $(document).ready(function () {
 
         $("#calendar").fullCalendar('removeEvents', function (event) {
             return event.className == "myOrder";
+        });
+
+        $("#calendar").fullCalendar('removeEvents', function (event) {
+            return event.className == "new_event";
         });
 
         $("#calendar").fullCalendar('removeEvents', function (event) {

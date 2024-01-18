@@ -32,7 +32,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="panel-body">
-                            <h2 class="delete-warning-header-text">Wollen Sie die Themenkiste wirklich löschen?</h2>
+                            <h2 class="delete-warning-header-text">Wollen Sie dieses Ausleihobjekt wirklich löschen?</h2>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -57,7 +57,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                     <div class="panel-heading themebox-new-title">
-                        Neue Themenkiste
+                        Neues Ausleihobjekt
                     </div>
                 </div>
                 <div class="model-body">
@@ -65,7 +65,7 @@
                         <div class="panel-body">
                             <div class="row thekre-row themebox-create-form-background" id="themebox-data-box">
                                 <div class="form-group has-feedback">
-                                    <label class="themebox-form-label" for="themebox-form-name">Themenkiste Name
+                                    <label class="themebox-form-label" for="themebox-form-name">Ausleihobjekt Name
                                         * </label>
                                     <input type="text" class="form-control" name="name" id="themebox-form-name"
                                            maxlength="100" placeholder="Bienen"
@@ -73,7 +73,7 @@
                                            onkeyup="notEmptyValidate('themebox-form-name','themebox-form-name-status','themebox-form-name-icon')"
                                            autofocus autofocus="autofocus"/>
                                     <span id="themebox-form-name-icon"></span>
-                                    <span id="themebox-form-name-status" class="errorHeader">Themenkistenname wird benötigt!</span>
+                                    <span id="themebox-form-name-status" class="errorHeader">Ausleihobjekt Name wird benötigt!</span>
                                 </div>
                                 <div class="form-group has-feedback">
                                     <label class="themebox-form-label" for="themebox-form-signature">Signatur * </label>
@@ -194,7 +194,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                     <div class="panel-heading themebox-new-title">
-                        Themenkiste Bearbeiten
+                        Ausleihobjekt Bearbeiten
                     </div>
                 </div>
                 <div class="model-body">
@@ -203,7 +203,7 @@
                         <div class="panel-body">
                             <div class="row thekre-row themebox-create-form-background" id="themebox-data-box">
                                 <div class="form-group has-feedback">
-                                    <label class="themebox-form-label" for="themebox-edit-form-name">Themenkiste Name
+                                    <label class="themebox-form-label" for="themebox-edit-form-name">Ausleihobjekt Name
                                         * </label>
                                     <input type="text" class="form-control" name="name" id="themebox-edit-form-name"
                                            maxlength="100"
@@ -211,7 +211,7 @@
                                            onkeyup="notEmptyValidate('themebox-edit-form-name','themebox-edit-form-name-status','themebox-edit-form-name-icon')"
                                            autofocus="autofocus"/>
                                     <span id="themebox-edit-form-name-icon"></span>
-                                    <span id="themebox-edit-form-name-status" class="errorHeader">Themenkistenname wird benötigt!</span>
+                                    <span id="themebox-edit-form-name-status" class="errorHeader">Ausleihobjekt Name wird benötigt!</span>
                                 </div>
                                 <div class="form-group has-feedback">
                                     <label class="themebox-form-label" for="themebox-edit-form-signature">Signatur
@@ -339,9 +339,9 @@
     </div>
 
     <div class="col-md-12 admin-panel data-table-thekre">
-        <h1 class="admin-header">Themenkisten</h1>
+        <h1 class="admin-header">Ausleihobjekte</h1>
         <div class="row" style="display: none;">
-            <button type="button" class="btn btn-success btn-create-themebox" id="button-create-themebox"><span class="glyphicon glyphicon-plus"></span> Themenkiste erstellen</button>
+            <button type="button" class="btn btn-success btn-create-themebox" id="button-create-themebox"><span class="glyphicon glyphicon-plus"></span> Ausleihobjekt erstellen</button>
         </div>
 
         <div class="thekre-row" id="new-order-table">
@@ -352,7 +352,7 @@
             <table id="new-themebox-table" class="data-table table table-bordered" cellspacing="0" width="100%">
                 <thead>
                 <tr>
-                    <th class="themebox-name-column-width">Themenkiste</th>
+                    <th class="themebox-name-column-width">Ausleihobjekt</th>
                     <th>Signatur</th>
                     <th>Schulstufe</th>
                     <th>Strichcode</th>
@@ -407,7 +407,7 @@
                             @endif
                         </td>
                         <td style="display: none;">
-                            <button type="button" class="button-update btn btn-primary button-edit-themebox" aria-label="edit"  value="{{$themebox["pk_themebox"]}}" data-toggle="tooltip" data-placement="top" title="Themenkiste bearbeiten">
+                            <button type="button" class="button-update btn btn-primary button-edit-themebox" aria-label="edit"  value="{{$themebox["pk_themebox"]}}" data-toggle="tooltip" data-placement="top" title="Ausleihobjekt bearbeiten">
                                 <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                             </button>
                         </td>

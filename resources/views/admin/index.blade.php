@@ -36,7 +36,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="panel-body">
-                            <h2 class="delete-warning-header-text">Wollen Sie die Themenkiste wirklich löschen?</h2>
+                            <h2 class="delete-warning-header-text">Wollen Sie diese Bestellung wirklich löschen?</h2>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -71,7 +71,7 @@
                 <tr>
                     <th>Bestellnummer</th>
                     <th>Besteller</th>
-                    <th>Themenkiste</th>
+                    <th>Ausleihobjekt</th>
                     <th>von</th>
                     <th>bis</th>
                     <th>Signatur</th>
@@ -160,7 +160,7 @@
                                         <input type="text" class="form-control" id="ordernumber-edit" name="ordernumber-edit" disabled/>
                                     </div>
                                     <div class="form-group">
-                                        <label class="float-left" for="themebox-title">Themenkiste</label>
+                                        <label class="float-left" for="themebox-title">Ausleihobjekt</label>
                                         <input type="text" class="form-control" id="themebox-title" name="themebox-title" disabled/>
                                     </div>
                                     <div class="form-group">

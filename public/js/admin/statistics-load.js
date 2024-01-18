@@ -31,7 +31,7 @@ $(document).ready(function() {
                 var max_value = 100 / max_order;
 
                 html += '<div class="row statistics-themebox-header">';
-                html += '<div class="col-md-4 statistics-themebox-name">Themenkiste</div>';
+                html += '<div class="col-md-4 statistics-themebox-name">Ausleihobjekt</div>';
                 html += '<div class="col-md-8">Anzahl Bestellungen</div>';
                 html += '</div><hr>';
 

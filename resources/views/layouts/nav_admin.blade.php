@@ -16,7 +16,7 @@
             <li class="sidebar-nav-text">
                 <a href="{{ env('APP_URL') }}/admin/themeboxes">
                     <div class="nav-icon"><span class="glyphicon glyphicon-inbox glyphicon-sm" aria-hidden="true"></span></div>
-                    <div class="nav-text"> Themenkisten</div>
+                    <div class="nav-text"> Ausleihobjekte</div>
                 </a>
             </li>
             <li class="sidebar-nav-text">

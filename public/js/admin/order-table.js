@@ -3,6 +3,29 @@ $(document).ready(function () {
     let dayToCalculateNextSundays = getNextDayOfWeek(new Date, 7);
     let dayToCalculatePreviousSundays = getNextDayOfWeek(new Date, 7);
 
+    var dayToCalculateNextSaturdaysStart = getNextDayOfWeek(new Date, 6);
+    dayToCalculateNextSaturdaysStart.setHours(14);
+    dayToCalculateNextSaturdaysStart.setMinutes(0);
+    dayToCalculateNextSaturdaysStart.setSeconds(0);
+
+    var dayToCalculateNextSaturdaysEnd = getNextDayOfWeek(new Date, 6);
+    dayToCalculateNextSaturdaysEnd.setHours(18);
+    dayToCalculateNextSaturdaysEnd.setMinutes(0);
+    dayToCalculateNextSaturdaysEnd.setSeconds(0);
+
+
+    var dayToCalculatePreviousSaturdaysStart = getNextDayOfWeek(new Date, 6);
+    dayToCalculatePreviousSaturdaysStart.setDate(dayToCalculatePreviousSaturdaysStart.getDate() - 7);
+    dayToCalculatePreviousSaturdaysStart.setHours(14);
+    dayToCalculatePreviousSaturdaysStart.setMinutes(0);
+    dayToCalculatePreviousSaturdaysStart.setSeconds(0);
+
+    var dayToCalculatePreviousSaturdaysEnd = getNextDayOfWeek(new Date, 6);
+    dayToCalculatePreviousSaturdaysEnd.setDate(dayToCalculatePreviousSaturdaysEnd.getDate() - 7);
+    dayToCalculatePreviousSaturdaysEnd.setHours(18);
+    dayToCalculatePreviousSaturdaysEnd.setMinutes(0);
+    dayToCalculatePreviousSaturdaysEnd.setSeconds(0);
+
     var selectedThemeboxInfo = []
 
     $('[data-toggle="tooltip"]').tooltip();
@@ -112,7 +135,7 @@ $(document).ready(function () {
                 var html =
                     '<tr><td class="print-table-title"><strong>Bestellung: </strong></td><td class="print-table-text">' + response["order"]["ordernumber"] + '</td></tr>' +
                     '<tr><td> </td></tr>' +
-                    '<tr><td class="print-table-title">Themenkiste: </td><td class="print-table-text">' + response["themebox"]["title"] + '</td></tr>' +
+                    '<tr><td class="print-table-title">Ausleihobjekt: </td><td class="print-table-text">' + response["themebox"]["title"] + '</td></tr>' +
                     '<tr><td class="print-table-title">Von: </td><td class="print-table-text">' + formatDate(response["order"]["startdate"]) + '</td></tr>' +
                     '<tr><td class="print-table-title">Bis: </td><td class="print-table-text">' + formatDate(response["order"]["enddate"]) + '</td></tr>' +
                     '<tr><td class="print-table-title">Bestelldatum: </td><td class="print-table-text">' + formatDate(response["order"]["datecreated"]) + '</td></tr>' +
@@ -155,25 +178,54 @@ $(document).ready(function () {
      * get order data for edit modal
      */
     $(".button-edit-order").click(function () {
+
+        dayToCalculateNextSundays = getNextDayOfWeek(new Date, 7);
+        dayToCalculatePreviousSundays = getNextDayOfWeek(new Date, 7);
+
+        dayToCalculateNextSaturdaysStart = getNextDayOfWeek(new Date, 6);
+        dayToCalculateNextSaturdaysStart.setHours(14);
+        dayToCalculateNextSaturdaysStart.setMinutes(0);
+        dayToCalculateNextSaturdaysStart.setSeconds(0);
+
+        dayToCalculateNextSaturdaysEnd = getNextDayOfWeek(new Date, 6);
+        dayToCalculateNextSaturdaysEnd.setHours(18);
+        dayToCalculateNextSaturdaysEnd.setMinutes(0);
+        dayToCalculateNextSaturdaysEnd.setSeconds(0);
+
+        dayToCalculatePreviousSaturdaysStart = getNextDayOfWeek(new Date, 6);
+        dayToCalculatePreviousSaturdaysStart.setDate(dayToCalculatePreviousSaturdaysStart.getDate() - 7);
+        dayToCalculatePreviousSaturdaysStart.setHours(14);
+        dayToCalculatePreviousSaturdaysStart.setMinutes(0);
+        dayToCalculatePreviousSaturdaysStart.setSeconds(0);
+
+        dayToCalculatePreviousSaturdaysEnd = getNextDayOfWeek(new Date, 6);
+        dayToCalculatePreviousSaturdaysEnd.setDate(dayToCalculatePreviousSaturdaysEnd.getDate() - 7);
+        dayToCalculatePreviousSaturdaysEnd.setHours(18);
+        dayToCalculatePreviousSaturdaysEnd.setMinutes(0);
+        dayToCalculatePreviousSaturdaysEnd.setSeconds(0);
+
         $.ajax({
             url: "admin/getOrder",
             type: 'POST',
             data: {order_id: $(this).val()},
             success: function (response) {
                 selectedThemeboxInfo = response["themebox"]
-
-                bindEndData();
-                addBlockDateFromToday();
-                loadBlockedDates();
-                blockTillNextSunday();
-                blockNextFiveSundaysInCalendar();
-                blockPreviousFiveSundaysInCalendar();
+                $("#pu_dropdown-von").val("");
+                $("#pu_dropdown-bis").val("");
 
                 $("#calendar").fullCalendar("render");
                 $("#calendar").fullCalendar("removeEvents");
                 $("#calendar").fullCalendar('removeEvents', function (event) {
                     return event.className == "newOrder";
                 });
+
+                bindEndData();
+                //addBlockDateFromToday();
+                loadBlockedDates();
+                blockTillNextSunday();
+
+                blockClosedTimesInCalender();
+
 
                 $('#order-edit-modal').modal('show',
                     {
@@ -282,14 +334,36 @@ $(document).ready(function () {
                             className: "new_event",
                             color: "#04B404"
                         }, true);
+
+                        var endPlus30 = addMinutesToTime(endDateTime.split(' ')[1].substring(0, 5), 30);
+                        var finalEndDate = endDateTime.split(' ')[0] + " " + endPlus30 + ":00";
+
+                        $("#calendar").fullCalendar('renderEvent',
+                            {
+                                title: "Korrektur Personal",
+                                start: endDateTime,
+                                end: finalEndDate,
+                                rendering: "",
+                                className: "new_event",
+                                color: "#04B404"
+                            },
+                            true
+                        );
+
                         $('#calendar').fullCalendar('gotoDate', startDateTime);
                     } else { // render blocked events
                         var startDateTime = value["startdate"] + "-00:00";
                         var endDateTime = value["enddate"] + "-00:00";
+
+                        if(isHourlyOrder){
+                            var endDateTimePlus30 = addMinutesToTime(endDateTime.split(' ')[1].substring(0, 5), 30);
+                            var finalEndDatePlus30 = endDateTime.split(' ')[0] + " " + endDateTimePlus30 + ":00";
+                        }
+
                         $('#calendar').fullCalendar("renderEvent", {
-                            title: isHourlyOrder ? extractTimeFromDate(value["startdate"]) + " - " + extractTimeFromDate(value["enddate"]) : "",
+                            title: isHourlyOrder ? extractTimeFromDate(value["startdate"]) + " - " + extractTimeFromDate(finalEndDatePlus30) : "",
                             start: !isHourlyOrder ? addBlockStartdate(value["startdate"]) : startDateTime,
-                            end: !isHourlyOrder ? addBlockEnddate(value["enddate"]) : endDateTime,
+                            end: !isHourlyOrder ? addBlockEnddate(value["enddate"]) : finalEndDatePlus30,
                             rendering: !isHourlyOrder ? "background" : "",
                             className: "block"
                         }, true);
@@ -298,6 +372,7 @@ $(document).ready(function () {
 
                 dayToCalculateNextSundays = getNextDayOfWeek(new Date, 7);
                 dayToCalculatePreviousSundays = getNextDayOfWeek(new Date, 7);
+
 
             },
             error: function (xhr, status, error) {
@@ -400,15 +475,15 @@ $(document).ready(function () {
         }
     });
 
+    /**
+     * Extract the time from a date string
+     */
     function extractTimeFromDate(dateString) {
-        // Parse the input date string
         const dateObject = new Date(dateString);
 
-        // Extract hours and minutes
         const hours = dateObject.getHours().toString().padStart(2, '0');
         const minutes = dateObject.getMinutes().toString().padStart(2, '0');
 
-        // Combine hours and minutes
         return `${hours}:${minutes}`;
     }
 
@@ -669,19 +744,50 @@ $(document).ready(function () {
         }
     }
 
-    function blockNextFiveSundaysInCalendar() {
-        for (var i = 0; i < 52; i++) {
+    /**
+     * Block the the next following Saturdays after 2 pm in the calendar since the library is closed
+     */
+    function blockNextFiveSaturdayAfterTwoPmInCalendar() {
+        for (var i = 0; i < 40; i++) {
+            blockAllSaturdayAfterTwoPmEvent(dayToCalculateNextSaturdaysStart, dayToCalculateNextSaturdaysEnd);
+            dayToCalculateNextSaturdaysStart.setDate(dayToCalculateNextSaturdaysStart.getDate() + 7);
+            dayToCalculateNextSaturdaysEnd.setDate(dayToCalculateNextSaturdaysEnd.getDate() + 7);
+        }
+    }
+
+    /**
+     * Block the Time when the Library is Closed (Sunday / Saturday after 2 pm)
+     */
+    function blockClosedTimesInCalender(){
+        for (var i = 0; i < 20; i++) {
+            dayToCalculatePreviousSundays.setDate(dayToCalculatePreviousSundays.getDate() - 7);
+            blockAllSundaysEventtwo(formatBlockDate(dayToCalculatePreviousSundays));
+
+            blockAllSaturdayAfterTwoPmEvent(dayToCalculatePreviousSaturdaysStart, dayToCalculatePreviousSaturdaysEnd);
+            dayToCalculatePreviousSaturdaysStart.setDate(dayToCalculatePreviousSaturdaysStart.getDate() - 7);
+            dayToCalculatePreviousSaturdaysEnd.setDate(dayToCalculatePreviousSaturdaysEnd.getDate() - 7);
+
+            blockAllSaturdayAfterTwoPmEvent(dayToCalculateNextSaturdaysStart, dayToCalculateNextSaturdaysEnd);
+            dayToCalculateNextSaturdaysStart.setDate(dayToCalculateNextSaturdaysStart.getDate() + 7);
+            dayToCalculateNextSaturdaysEnd.setDate(dayToCalculateNextSaturdaysEnd.getDate() + 7);
+
             blockAllSundaysEventtwo(formatBlockDate(dayToCalculateNextSundays));
             dayToCalculateNextSundays.setDate(dayToCalculateNextSundays.getDate() + 7);
         }
     }
 
-    function blockPreviousFiveSundaysInCalendar() {
-
-        for (var i = 0; i < 52; i++) {
-            dayToCalculatePreviousSundays.setDate(dayToCalculatePreviousSundays.getDate() - 7);
-            blockAllSundaysEventtwo(formatBlockDate(dayToCalculatePreviousSundays));
-        }
+    function blockAllSaturdayAfterTwoPmEvent(start, end) {
+        $("#calendar").fullCalendar('renderEvent',
+            {
+                title: "Geschlossen",
+                start: start,
+                end: end,
+                rendering: "",
+                className: "blocked_event",
+                color: "#ffad00"
+            },
+            true
+        );
     }
 
     function formatBlockDate(date) {

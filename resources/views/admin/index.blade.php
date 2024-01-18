@@ -36,7 +36,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="panel-body">
-                            <h2 class="delete-warning-header-text">Wollen Sie dieses Ausleihobjekt wirklich löschen?</h2>
+                            <h2 class="delete-warning-header-text">Wollen Sie diese Bestellung wirklich löschen?</h2>
                         </div>
                     </div>
                     <div class="modal-footer">

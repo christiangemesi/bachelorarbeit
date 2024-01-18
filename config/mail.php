@@ -2,11 +2,11 @@
 
 return [
 
-    'driver' => env('MAIL_DRIVER', 'smtp'),
+    'driver' => env('MAIL_DRIVER', false),
 
-    'host' => env('MAIL_HOST', 'smtp.gmail.com'),
+    'host' => env('MAIL_HOST', false),
 
-    'port' => env('MAIL_PORT', 587),
+    'port' => env('MAIL_PORT', false),
 
 
     'from' => [
@@ -14,16 +14,14 @@ return [
         'name' => env('EMAILS_FROM_NAME',false)
     ],
 
-    'encryption' => env('MAIL_ENCRYPTION', 'tls'),
+    'encryption' => env('MAIL_ENCRYPTION', false),
 
 
-    'username' => env('MAIL_USERNAME'),
-    'password' => env('MAIL_PASSWORD'),
+    'username' => env('MAIL_USERNAME',false),
+    'password' => env('MAIL_PASSWORD',false),
 
 
     'sendmail' => '/usr/sbin/sendmail -bs',
-
-    'pretend' => false,
 
     /*
     |--------------------------------------------------------------------------

@@ -1,4 +1,3 @@
-
 $(document).ready(function () {
     let listOfBlockedDates = Array();
     let dayToCalculateNextSundays = getNextDayOfWeek(new Date, 7);
@@ -351,7 +350,7 @@ $(document).ready(function () {
                         var startDateTime = value["startdate"] + "-00:00";
                         var endDateTime = value["enddate"] + "-00:00";
 
-                        if(isHourlyOrder){
+                        if (isHourlyOrder) {
                             var endDateTimePlus30 = addMinutesToTime(endDateTime.split(' ')[1].substring(0, 5), 30);
                             var finalEndDatePlus30 = endDateTime.split(' ')[0] + " " + endDateTimePlus30 + ":00";
                         }
@@ -807,6 +806,9 @@ $(document).ready(function () {
                     return event.className == "new_event";
                 });
 
+            },
+            error: function (xhr, status, error) {
+                showFailureModal("Es ist ein Fehler beim Laden der Daten aufgetreten", xhr);
             }
         })
     })
@@ -1161,7 +1163,7 @@ $(document).ready(function () {
     /**
      * Block the Time when the Library is Closed (Sunday / Saturday after 2 pm)
      */
-    function blockClosedTimesInCalender(){
+    function blockClosedTimesInCalender() {
         for (var i = 0; i < 20; i++) {
             dayToCalculatePreviousSundays.setDate(dayToCalculatePreviousSundays.getDate() - 7);
             blockAllSundaysEvent(formatBlockDate(dayToCalculatePreviousSundays));

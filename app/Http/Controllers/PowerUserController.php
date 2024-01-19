@@ -379,26 +379,33 @@ class PowerUserController extends Controller
 
         $deliveries = Delivery::get();
 
-        if($themebox["fk_order_type"] == 1){
-            $orders = HourlyOrder::where('fk_themebox', $fk_themboxrequest)->get();
+        // Check if $themebox is null
+        if ($themebox) {
+            if ($themebox->fk_order_type == 1) {
+                $orders = HourlyOrder::where('fk_themebox', $fk_themboxrequest)->get();
+            } else {
+                $orders = Order::where('fk_themebox', $fk_themboxrequest)->get();
+            }
+
+            $counter = 0;
+            $orderData = array();
+            foreach ($orders as $order) {
+                $orderstartdate = $order->startdate;
+                $orderenddate = $order->enddate;
+                $orderid = $order->pk_order;
+                $orderData[$counter] = array("pk_order" => $orderid, "order_startdate" => $orderstartdate, "order_enddate" => $orderenddate);
+                $counter++;
+            }
         } else {
-            $orders = Order::where('fk_themebox', $fk_themboxrequest)->get();
+            // Set values to empty arrays if $themebox is null
+            $orders = [];
+            $orderData = [];
         }
-
-        $counter = 0;
-        $orderData = array();
-        foreach ($orders as $order) {
-            $orderstartdate = $order->startdate;
-            $orderenddate = $order->enddate;
-            $orderid = $order->pk_order;
-            $orderData[$counter] = array("pk_order" => $orderid, "order_startdate" => $orderstartdate, "order_enddate" => $orderenddate);
-            $counter++;
-        }
-
 
         $data = array("delivery" => $deliveries, "orderData" => $orderData, "themebox" => $themebox);
         return response()->json($data, 200);
     }
+
 
     public function addOrder(Request $request)
     {

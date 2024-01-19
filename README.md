@@ -20,7 +20,7 @@ Christian Gémesi and Ramanan Rasaiah in the course of an IP6 Project.
 > - Click Next and wait for the installation to finish. <br>
 
 > 2. Install [Composer](https://getcomposer.org/download/) <br>
-> Download Composer-Setup.exe from the Link above and run the installer.
+> Download Composer-Setup.exe from the Link above and run the installer. (direct Download Link: [here](https://getcomposer.org/Composer-Setup.exe))
 > - Developer mode: Uncheck the box
 > - The Installation path needs to be C:\xampp\php\php.exe <br>
 > - Add PHP to PATH: Check the box, if existent <br> 
@@ -29,22 +29,26 @@ Christian Gémesi and Ramanan Rasaiah in the course of an IP6 Project.
 
 > 3. Install IDE <br>
 > We used PhpStorm as our IDE. You can download it [here](https://www.jetbrains.com/phpstorm/) <br>
+> Note: As a student/teacher you can apply to get a free premium license
 > - No special settings needed <br>
 
 > 4. Clone the Repository <br>
-> Open your IDE and copy the HTTPS Link from the Project [Project](https://gitlab.fhnw.ch/christian.gemesi/thek-re-2/) <br>
-> Clone the Project into C:\xampp\htdocs\thek-re-2 <br>
+> Open your IDE (in our case PHPStorm) and copy the HTTPS Link from the Project [here](https://gitlab.fhnw.ch/christian.gemesi/thek-re-2/) <br>
+<img src="images_readme/clone_via_http_link.png" alt="Clone via HTTP Link" width="1000"> <br>
+> In PHPStorm go to File -> New -> Project from Version Control -> Git and paste the Link into the URL field.
+> Clone the Project into the Directory "C:\xampp\htdocs\thek-re-2" (thek-re-2 Folder needs to be created) <br>
 
 > 5. Setup Development EMail <br>
 > - We used Gmail as our Email provider. Ensure you create a new fresh Gmail account, as we will place our password in plain text within the .env file. This precaution is taken to mitigate potential issues if the file is accidently pushed to Git. <br>
-> - To setup, you first need to enable 2-Step Verification on your Gmail account. You can do this [here](https://myaccount.google.com/security) <br>
-> - After that you can create an App Password. This password will be placed in your .env file. You can get the Password [here](https://myaccount.google.com/apppasswords) by setting an App name. Copy the password fresh txt file to store it until we have the .env file created. <br>
+> - To setup, you first need to enable 2-Step Verification on your Gmail account. You can do this [here](https://myaccount.google.com/security)<br>
+> - Direct Link to 2-Step Verification: [here](https://myaccount.google.com/signinoptions/two-step-verification/enroll-welcome) <br>
+> - After that you can create an App Password. This password will be placed in your .env file. You can get the Password [here](https://myaccount.google.com/apppasswords) by setting an App name. Copy the password into fresh txt file to store it until we have the .env file created. <br>
 
 > 6. Setup .env file <br>
-> Create a new file called .env in C:\xampp\htdocs\thek-re-2 and add the following values: <br>
-> Replace "<< YOUR NAME HERE >>" with the name which your emails will be sent by <br>
-> Replace << YOUR EMAIL HERE>> with the email address you created in step 5 <br>
-> Replace << YOUR APP PASSWORD HERE >> with the app password you created in step 5 <br>
+> Create a new file called .env in C:\xampp\htdocs\thek-re-2 (Since you have the PHPStorm IDE Open you can rightclick on the thek-re-2 folder and select New -> File -> .env) and add the following values: <br>
+> Replace "<<YOUR NAME HERE >>" with the name which your emails will be sent by. (We used Development) <br>
+> Replace <<YOUR EMAIL HERE>> with the email address you created in step 5 <br>
+> Replace <<YOUR APP PASSWORD HERE >> with the app password you created in step 5 <br>
 > 
 > ```
 > APP_NAME=ThekRe
@@ -93,25 +97,25 @@ Christian Gémesi and Ramanan Rasaiah in the course of an IP6 Project.
 > ![create_database_thekre.JPG](images_readme%2Fcreate_database_thekre.JPG)
 > - Import the database from the file database\thekre_empty.sql <br>
 > ![import_db_phpmyadmin.png](images_readme%2Fimport_db_phpmyadmin.png)
-> - Now the database thekre with the 7 tables got generated. <br>
+> - Now the database thekre with the 11 tables got generated. <br>
 > ![tables_thekre.png](images_readme%2Ftables_thekre.png)
-> - After that we have to create a new database user for the system access. Go back to the homepage and then choose "Benutzerkonten" in the navigation bar and klick Benutzerkonten hinzufügen.
+> - After that we have to create a new database user for the system access. Go back to the homepage and then choose "Benutzerkonten" in the navigation bar and klick Benutzerkonten hinzufügen. <br>
 > ![add_user_phpmyadmin.png](images_readme%2Fadd_user_phpmyadmin.png)
-> - The hostname is localhost. The username and password are defined in the .env file.
+> - The hostname is localhost. The username and password are defined in the .env file. <br>
 > ![add_user_name_password_phpmyadmin.png](images_readme%2Fadd_user_name_password_phpmyadmin.png)
 > - Choose the following user privilege's and klick OK.
 > ![user_privileges_phpmyadmin.png](images_readme%2Fuser_privileges_phpmyadmin.png)
-> 
+
 
 > 8. Run the application <br>
-> - Open the file C:\xampp\php\php.ini with any texteditor and search for the line ";extension=zip". Remove the ";" at the beginning of the line to enable the extension. <br>
-> - In Your IDE open the terminal, change into the cloned repository directory, and run the following commands: <br>
+> - Open the file C:\xampp\php\php.ini with any texteditor (we chose editor.txt) and search for the line ";extension=zip". Remove the ";" at the beginning of the line to enable the extension. <br>
+> - In Your IDE open the terminal (if not already open, the terminal is located on the bottom) change into the cloned repository directory (cd <<thek-re-2>> if not already inside), and run the following commands: <br>
 > - ```composer install``` <br>
 > - ```php artisan key:generate``` <br>
 > - ```php artisan serve``` <br>
 > - Now you can open the application in your browser at http://127.0.0.1:8000/ You should see the following page: <br>
 > ![homepage.jpg](images_readme%2Fhomepage.jpg)
-> - PS: the username and password for the admin under http://127.0.0.1:8000/admin/loginForm are: username: "root", password: "root" <br>
+> - PS: the username and password for the admin under http://127.0.0.1:8000/admin/loginForm are: username: "root@localhost", password: "root@localhost" <br>
 > - PS: the password for the poweruser under http://127.0.0.1:8000/poweruser/loginForm is: "poweruser" <br>
 
 ### Installation Dockerized Environment

@@ -23,6 +23,8 @@ return [
 
     'sendmail' => '/usr/sbin/sendmail -bs',
 
+    'verify_peer' => false,
+
     /*
     |--------------------------------------------------------------------------
     | Markdown Mail Settings

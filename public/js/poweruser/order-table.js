@@ -807,7 +807,7 @@ $(document).ready(function () {
                     return event.className == "new_event";
                 });
 
-            },
+            }
         })
     })
 

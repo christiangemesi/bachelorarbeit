@@ -68,7 +68,7 @@
                                     <label class="category-form-label" for="category-form-name">Kategorie Name
                                         * </label>
                                     <input type="text" class="form-control" name="name" id="category-form-name"
-                                           maxlength="100" placeholder="Bienen"
+                                           maxlength="100" placeholder="Themenbox"
                                            onblur="nonEmptyCategoryValidate('category-form-name','category-form-name-status','category-form-name-icon')"
                                            onkeyup="nonEmptyCategoryValidate('category-form-name','category-form-name-status','category-form-name-icon')"
                                            autofocus autofocus="autofocus"/>
@@ -159,7 +159,7 @@
                 <thead>
                 <tr>
                     <th class="category-name-column-width">Kategorie</th>
-                    <th>Themenboxen</th>
+                    <th>Ausleihobjekte</th>
                     <th class="edit-column-width"></th>
                 </tr>
                 </thead>

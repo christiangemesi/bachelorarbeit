@@ -765,6 +765,7 @@ $(document).ready(function () {
             type: "POST",
             data: {fk_thembox},
             success: function (response) {
+                console.log(response)
 
                 $('#summernote_create').summernote();
 
@@ -907,8 +908,11 @@ $(document).ready(function () {
                     var isHourlyOrder = response["themebox"]["fk_order_type"] === 1;
 
                     if (isHourlyOrder) {
+                        $("#orderAdd-Von-text").html("Am");
                         var endDateTimePlus30 = addMinutesToTime(element["order_enddate"].split(' ')[1].substring(0, 5), 30);
                         var finalEndDatePlus30 = element["order_enddate"].split(' ')[0] + " " + endDateTimePlus30 + ":00";
+                    } else {
+                        $("#orderAdd-Von-text").html("Von");
                     }
                     $('#orderAdd-calendar').fullCalendar("renderEvent", {
                         title: isHourlyOrder ? extractTimeFromDate(element["order_startdate"]) + " - " + extractTimeFromDate(finalEndDatePlus30) : "",

@@ -124,21 +124,20 @@ The exact same Commandline commands can be copied into the Terminal
 > 1. Install [Docker](https://www.docker.com/) <br>
 > 2. Follow the Installation instructions from below <br>
 >```
->  mkdir thekre && cd thekre # create a new folder and change into it
->  git clone https://gitlab.fhnw.ch/christian.gemesi/thek-re-2.git # clone the repository
->  cd thek-re-2 # change into the repository folder
->  cp '<<Link to .env.production>>' . # copy the .env file into the folder
->  docker compose build # build the docker image
->  cd .. # change back into the thekre folder
+>  Copy thekre_docker.sh into a seperate new folder
+>  Create a .env file in the same folder with the content shown below 
+>  The Structure should look like this:
 >
->  mkdir deployment # create a new folder
->  cp 'thek-re-2/docker-compose.yml' deployment/ # copy the docker-compose.yml file into the deployment folder
->  cp 'thek-re-2/.env' deployment/ # copy the .env file into the deploymentfolder
->  rm -rf thek-re-2 # remove the thek-re-2 folder
->  cd deployment # change into the deployment folder
->  docker compose up # start the docker container
+>   -folder
+>   |- thekre_docker.sh
+>   |- .env
+>
+>  Open the terminal and change into the folder with the thekre_docker.sh file
+>  Run the thekre_docker.sh
+>
+>  You might be asked to enter login credentials
 >```
-> 3. Open the application in your browser at http://127.0.0.1:8000  
+> 3. Open the application in your browser at http://127.0.0.1/user <br>
 > Note: If the application is run for the first time the database needs to be importet manually. (see step 7 of the [Installation Development Environment](#Installation Development Environment))  
 > Note 2: The thekre_admin user does also need to be created if run for the first time. (see step 7 of the [Installation Development Environment](#Installation Development Environment))
 
@@ -149,7 +148,7 @@ The exact same Commandline commands can be copied into the Terminal
 > APP_KEY=base64:OXiQSLCrUXYKg8PH2U7ulTM8cg8e5POG+H+wX4hXK4A=
 > APP_DEBUG=true
 > APP_LOG_LEVEL=debug
-> APP_URL=http://127.0.0.1:8000
+> APP_URL=http://127.0.0.1
 > 
 > UNIQUE_SERVER_URL=themenkisten/
 > 

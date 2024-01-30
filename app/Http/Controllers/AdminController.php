@@ -370,7 +370,7 @@ class AdminController extends Controller
     public function getOrder(Request $request)
     {
         $order = Order::find($request->order_id);
-        if($order == null){
+        if ($order == null) {
             try {
                 $order = HourlyOrder::find($request->order_id);
                 $themebox = Themebox::find($order->fk_themebox);
@@ -415,16 +415,16 @@ class AdminController extends Controller
      */
     public function updateOrder(Request $request)
     {
-        $orderId =$request->order_data[0]["value"];
+        $orderId = $request->order_data[0]["value"];
 
         $isHourlyOrder = false;
         $order = Order::find($orderId);
-        if($order == null){
+        if ($order == null) {
             $order = HourlyOrder::find($orderId);
             $isHourlyOrder = true;
         }
 
-        if(!$isHourlyOrder){ // daily order
+        if (!$isHourlyOrder) { // daily order
             try {
                 //if new status is "ready"
                 if (2 == $request->order_data[3]["value"] && 1 == $request->order_data[9]["value"]) {
@@ -531,16 +531,16 @@ class AdminController extends Controller
         $status_ready = 0;
 
         $isHourlyOrder = false;
-        if(Order::find($order_id)){
+        if (Order::find($order_id)) {
             $order = Order::find($order_id);
         } else {
             $order = HourlyOrder::find($order_id);
             $isHourlyOrder = true;
         }
 
-        if(!$isHourlyOrder){
+        if (!$isHourlyOrder) {
             try {
-                if ("Bereit" == Status::find($new_state_id)->name && (1 == $order["fk_delivery"])){
+                if ("Bereit" == Status::find($new_state_id)->name && (1 == $order["fk_delivery"])) {
                     $this->sendEmail($order_id);
                     $status_ready = 1;
                 }
@@ -551,7 +551,7 @@ class AdminController extends Controller
             }
         } else {
             try {
-                if ("Bereit" == Status::find($new_state_id)->name){
+                if ("Bereit" == Status::find($new_state_id)->name) {
                     //$this->sendEmail($order_id); // dont send email for hourly orders
                     $status_ready = 1;
                 }
@@ -572,7 +572,7 @@ class AdminController extends Controller
     {
         $order_id = $request->order_id;
         $order = Order::find($order_id);
-        if($order == null){
+        if ($order == null) {
             $order = HourlyOrder::find($order_id);
         }
 
@@ -594,6 +594,9 @@ class AdminController extends Controller
 
         $themebox_id = $request->themebox_id;
         $themebox = Themebox::find($themebox_id);
+        if ($themebox == null) {
+            $themebox = HourlyOrder::find($themebox_id);
+        }
 
         $orders = Order::where('fk_themebox', $themebox_id)->get();
 
@@ -614,7 +617,7 @@ class AdminController extends Controller
 
     public function removeCategory(Request $request)
     {
-        if($request->category_id == 1){
+        if ($request->category_id == 1) {
             return response()->json(["message" => "This Category cannot be deleted."], 401);
         }
 
@@ -720,7 +723,7 @@ class AdminController extends Controller
         $category = Category::find($themebox->fk_category);
         $order_type = Order_Type::find($themebox->fk_order_type);
 
-        return response()->json([$themebox, $category,$order_type], 200);
+        return response()->json([$themebox, $category, $order_type], 200);
     }
 
     public function getCategory(Request $request)

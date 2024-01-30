@@ -23,7 +23,7 @@ $(document).ready(function () {
             },
             error: function (xhr, status, error) {
                 if(xhr.status === 409) {
-                    showFailureModal("Kategorie konnte nicht gelöscht werden, da sie noch Themenboxen enthält", xhr)
+                    showFailureModal("Kategorie konnte nicht gelöscht werden, da sie noch Ausleihobjekte enthält", xhr)
                 } else {
                     showFailureModal("Es ist ein Fehler beim Löschen passiert", xhr);
                 }

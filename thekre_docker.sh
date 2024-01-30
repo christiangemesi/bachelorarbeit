@@ -10,7 +10,7 @@ cd thek-re-2 || { echo "Error: Unable to change into thek-re-2 folder"; exit 1; 
 echo "Repository cloned and switched to 'thek-re-2' folder."
 
 echo "Copying the .env file into the folder..."
-cp 'C:\xampp\htdocs\leihmich\thek-re-2\.env' . || { echo "Error: Unable to copy the .env.production file"; exit 1; }
+cp '..\..\.env' . || { echo "Error: Unable to copy the .env.production file"; exit 1; }
 echo ".env file copied."
 
 echo "Building the Docker image..."

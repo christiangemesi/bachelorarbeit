@@ -594,9 +594,6 @@ class AdminController extends Controller
 
         $themebox_id = $request->themebox_id;
         $themebox = Themebox::find($themebox_id);
-        if ($themebox == null) {
-            $themebox = HourlyOrder::find($themebox_id);
-        }
 
         $orders = Order::where('fk_themebox', $themebox_id)->get();
 

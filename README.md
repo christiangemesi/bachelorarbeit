@@ -125,13 +125,11 @@ The exact same Commandline commands can be copied into the Terminal
 > 2. Follow the Installation instructions from below <br>
 >```
 >  Copy thekre_docker.sh into a seperate new folder
->  Create a .env file in the same folder with the content shown below 
-
+>  Create a .env file in the same folder with the content shown below
 >  The Structure should look like this:
 >   -folder
 >   |- thekre_docker.sh
 >   |- .env
->
 >  Open the terminal and change into the folder with the thekre_docker.sh file
 >  Run the thekre_docker.sh
 >

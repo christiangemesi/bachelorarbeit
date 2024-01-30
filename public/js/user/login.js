@@ -116,6 +116,32 @@ $(document).ready(function () {
             type: 'POST',
             data: {name: $('#name').val(), ordernumber: $('#ordernumber').val()},
             success: function (response) {
+                dayToCalculateNextSundays = getNextDayOfWeek(new Date, 7);
+                dayToCalculatePreviousSundays = getNextDayOfWeek(new Date, 7);
+
+                dayToCalculateNextSaturdaysStart = getNextDayOfWeek(new Date, 6);
+                dayToCalculateNextSaturdaysStart.setHours(14);
+                dayToCalculateNextSaturdaysStart.setMinutes(0);
+                dayToCalculateNextSaturdaysStart.setSeconds(0);
+
+                dayToCalculateNextSaturdaysEnd = getNextDayOfWeek(new Date, 6);
+                dayToCalculateNextSaturdaysEnd.setHours(18);
+                dayToCalculateNextSaturdaysEnd.setMinutes(0);
+                dayToCalculateNextSaturdaysEnd.setSeconds(0);
+
+                dayToCalculatePreviousSaturdaysStart = getNextDayOfWeek(new Date, 6);
+                dayToCalculatePreviousSaturdaysStart.setDate(dayToCalculatePreviousSaturdaysStart.getDate() - 7);
+                dayToCalculatePreviousSaturdaysStart.setHours(14);
+                dayToCalculatePreviousSaturdaysStart.setMinutes(0);
+                dayToCalculatePreviousSaturdaysStart.setSeconds(0);
+
+                dayToCalculatePreviousSaturdaysEnd = getNextDayOfWeek(new Date, 6);
+                dayToCalculatePreviousSaturdaysEnd.setDate(dayToCalculatePreviousSaturdaysEnd.getDate() - 7);
+                dayToCalculatePreviousSaturdaysEnd.setHours(18);
+                dayToCalculatePreviousSaturdaysEnd.setMinutes(0);
+                dayToCalculatePreviousSaturdaysEnd.setSeconds(0);
+
+
                 selectedThemeboxInfo = response;
                 //set user-edit-dropdown-von to null
                 $("#user-edit-dropdown-von").val("");

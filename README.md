@@ -119,26 +119,27 @@ Christian Gémesi and Ramanan Rasaiah in the course of an IP6 Project.
 > - PS: the password for the poweruser under http://127.0.0.1:8000/poweruser/loginForm is: "poweruser" <br>
 
 ### Installation Dockerized Environment
-The exact same Commandline commands can be copied into the Terminal
+
 
 > 1. Install [Docker](https://www.docker.com/) <br>
 > 2. Follow the Installation instructions from below <br>
 >```
->  Copy thekre_docker.sh into a seperate new folder
->  Create a .env file in the same folder with the content shown below
->  The Structure should look like this:
+>  i.   Copy thekre_docker.sh into a seperate new folder
+>  ii.  Create a .env file in the same folder with the content shown below
+>  iii. The Structure should look like this:
 >   -folder
 >   |- thekre_docker.sh
 >   |- .env
->  Open the terminal and change into the folder with the thekre_docker.sh file
->  Run the thekre_docker.sh
+>  iv.  Change into the folder with the thekre_docker.sh (cd <<folder>> or via windows explorer click into the folder if not already inside)
+>  v.   Run the thekre_docker.sh (./thekre_docker.sh or via double click)
 >
->  You might be asked to enter login credentials
+>  You might be asked to enter login credentials for git
 >```
 > 3. Open the application in your browser at http://127.0.0.1/user <br>
-> Note: If the application is run for the first time the database needs to be importet manually. (see step 7 of the [Installation Development Environment](#Installation Development Environment))  
-> Note 2: The thekre_admin user does also need to be created if run for the first time. (see step 7 of the [Installation Development Environment](#Installation Development Environment))
-
+> Note: If the application is run for the first time the database needs to be importet manually. (see step 7 of the [Installation Development Environment](#Installation Development Environment))  <br>
+> Note 2: The thekre_admin user does also need to be created if run for the first time. (see step 7 of the [Installation Development Environment](#Installation Development Environment)) <br>
+> Note 3: If the Website is not shown correctly (e.g. no CSS) clear the browser cache and reload the page. <br>
+> 
 >.env file:
 > ``` 
 > APP_NAME=ThekRe

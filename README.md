@@ -124,14 +124,16 @@ Christian Gémesi and Ramanan Rasaiah in the course of an IP6 Project.
 > 1. Install [Docker](https://www.docker.com/) <br>
 > 2. Follow the Installation instructions from below <br>
 >```
->  i.   Copy thekre_docker.sh into a seperate new folder
->  ii.  Create a .env file in the same folder with the content shown below
->  iii. The Structure should look like this:
+>  i.   Create a new folder (Windows: right click -> New -> Folder, Linux: mkdir <<folder>>)
+>  ii.  Copy "thekre_docker.sh" into the created folder (Windows: Copy the file, Linux: vim thekre_docker.sh -> paste the content -> save the file with :wq!)
+>  iii. Create a .env file in the same folder with the content shown below at ".env file:" (Windows: just copy the file, Linux: vim .env -> paste the content -> save the file with :wq!)
+>  iv.  The Structure should look like this:
 >   -folder
 >   |- thekre_docker.sh
 >   |- .env
->  iv.  Change into the folder with the thekre_docker.sh (cd <<folder>> or via windows explorer click into the folder if not already inside)
->  v.   Run the thekre_docker.sh (./thekre_docker.sh or via double click)
+>  iv.  Make sure that docker is running (Windows: search for Docker Desktop and open it, Linux: check if the service is running with "docker ps", if no service is running start it with "sudo systemctl start docker")
+>  iv.  Change into the folder with the thekre_docker.sh (Windows: double click on the folder, Linux: cd <<folder>>)
+>  v.   Run the thekre_docker.sh (Windows: double click on the file, Linux: ./thekre_docker.sh)
 >
 >  You might be asked to enter login credentials for git
 >```

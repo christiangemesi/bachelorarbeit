@@ -218,7 +218,13 @@ $(document).ready(function () {
                 loadBlockedDates();
                 blockTillNextSunday();
 
-                blockClosedTimesInCalender();
+                blockPreviousFiveSundaysInCalendar();
+                blockNextFiveSundaysInCalendar();
+
+                if (selectedThemeboxInfo.fk_order_type === 1) {
+                    blockPreviousFiveSaturdayAfterTwoPmInCalendar();
+                    blockNextFiveSaturdayAfterTwoPmInCalendar();
+                }
 
 
                 $('#order-edit-modal').modal('show',
@@ -901,7 +907,14 @@ $(document).ready(function () {
                 dayToCalculatePreviousSundays = getNextDayOfWeek(new Date, 7);
 
                 blockTillNextSunday();
-                blockClosedTimesInCalender();
+
+                blockPreviousFiveSundaysInCalendar();
+                blockNextFiveSundaysInCalendar();
+
+                if (response["themebox"]["fk_order_type"] === 1) {
+                    blockPreviousFiveSaturdayAfterTwoPmInCalendar();
+                    blockNextFiveSaturdayAfterTwoPmInCalendar();
+                }
 
 
                 response["orderData"].forEach(function (element) {
@@ -1165,25 +1178,38 @@ $(document).ready(function () {
     }
 
     /**
-     * Block the Time when the Library is Closed (Sunday / Saturday after 2 pm)
+     * Block the the next following Sundays in the calendar
      */
-    function blockClosedTimesInCalender() {
-        for (var i = 0; i < 20; i++) {
-            dayToCalculatePreviousSundays.setDate(dayToCalculatePreviousSundays.getDate() - 7);
-            blockAllSundaysEvent(formatBlockDate(dayToCalculatePreviousSundays));
-            blockAllSundaysEventtwo(formatBlockDate(dayToCalculatePreviousSundays));
+    function blockNextFiveSundaysInCalendar() {
+        for (var i = 0; i < 40; i++) {
+            blockAllSundaysEventtwo(formatBlockDate(dayToCalculateNextSundays));
+            dayToCalculateNextSundays.setDate(dayToCalculateNextSundays.getDate() + 7);
+        }
+    }
 
+    function blockPreviousFiveSundaysInCalendar() {
+        for (var i = 0; i < 19; i++) {
+            blockAllSundaysEventtwo(formatBlockDate(dayToCalculatePreviousSundays));
+            dayToCalculatePreviousSundays.setDate(dayToCalculatePreviousSundays.getDate() - 7);
+        }
+    }
+
+    function blockPreviousFiveSaturdayAfterTwoPmInCalendar() {
+        for (var i = 0; i < 19; i++) {
             blockAllSaturdayAfterTwoPmEvent(dayToCalculatePreviousSaturdaysStart, dayToCalculatePreviousSaturdaysEnd);
             dayToCalculatePreviousSaturdaysStart.setDate(dayToCalculatePreviousSaturdaysStart.getDate() - 7);
             dayToCalculatePreviousSaturdaysEnd.setDate(dayToCalculatePreviousSaturdaysEnd.getDate() - 7);
+        }
+    }
 
+    /**
+     * Block the the next following Saturdays after 2 pm in the calendar since the library is closed
+     */
+    function blockNextFiveSaturdayAfterTwoPmInCalendar() {
+        for (var i = 0; i < 40; i++) {
             blockAllSaturdayAfterTwoPmEvent(dayToCalculateNextSaturdaysStart, dayToCalculateNextSaturdaysEnd);
             dayToCalculateNextSaturdaysStart.setDate(dayToCalculateNextSaturdaysStart.getDate() + 7);
             dayToCalculateNextSaturdaysEnd.setDate(dayToCalculateNextSaturdaysEnd.getDate() + 7);
-
-            blockAllSundaysEvent(formatBlockDate(dayToCalculateNextSundays));
-            blockAllSundaysEventtwo(formatBlockDate(dayToCalculateNextSundays));
-            dayToCalculateNextSundays.setDate(dayToCalculateNextSundays.getDate() + 7);
         }
     }
 
@@ -1245,6 +1271,19 @@ $(document).ready(function () {
             },
             true
         );
+
+        $("#orderAdd-calendar").fullCalendar('renderEvent',
+            {
+                id: "blocked",
+                title: "",
+                start: Sunday,
+                rendering: "background",
+                className: "blocked_event",
+                color: "#ffad00"
+            },
+            true
+        );
+
     }
 
     function blockedPeriodEventtwo(start, end) {

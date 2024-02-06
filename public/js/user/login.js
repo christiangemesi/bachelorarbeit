@@ -322,7 +322,7 @@ $(document).ready(function () {
 
                         $("#calendar").fullCalendar('renderEvent',
                             {
-                                title: "Korrektur Personal",
+                                title: "Korrektur",
                                 start: endDateTime,
                                 end: finalEndDate,
                                 rendering: "",

@@ -271,7 +271,7 @@ function createEvent(start, end, isHourly) {
 
         $("#calendar").fullCalendar('renderEvent',
             {
-                title: "Korrektur Personal",
+                title: "Korrektur",
                 start: end,
                 end: finalEndDate,
                 rendering: "",
@@ -329,7 +329,7 @@ function orderAddCreateEvent(start, end, isHourly) {
 
         $("#orderAdd-calendar").fullCalendar('renderEvent',
             {
-                title: "Korrektur Personal",
+                title: "Korrektur",
                 start: end,
                 end: finalEndDate,
                 rendering: "",

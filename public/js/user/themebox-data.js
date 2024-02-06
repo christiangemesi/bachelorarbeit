@@ -929,7 +929,7 @@ $(document).ready(function () {
             $("#calendar").fullCalendar('renderEvent',
                 {
                     //id: "blocked",
-                    title: "Korrektur Personal",
+                    title: "Korrektur",
                     start: start,
                     end: end,
                     rendering: "",
@@ -1262,7 +1262,7 @@ $(document).ready(function () {
 
                 $("#calendar").fullCalendar('renderEvent',
                     {
-                        title: "Korrektur Personal",
+                        title: "Korrektur",
                         start: end,
                         end: finalEndDate,
                         rendering: "",

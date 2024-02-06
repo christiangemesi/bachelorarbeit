@@ -7,7 +7,7 @@ Christian Gémesi and Ramanan Rasaiah in the course of an IP6 Project.
 ## Table of content
 [Installation](#installation)
 - [Installation Development Environment](#Installation Development Environment)
-- [Put the Application Live](#Installation Dockerized Environment)
+- [Set the Application Live on the FHNW Server](#Installation Dockerized Environment)
 
 
 ## Installation
@@ -118,7 +118,7 @@ Christian Gémesi and Ramanan Rasaiah in the course of an IP6 Project.
 > - PS: the username and password for the admin under http://127.0.0.1:8000/admin/loginForm are: username: "root@localhost", password: "root@localhost" <br>
 > - PS: the password for the poweruser under http://127.0.0.1:8000/poweruser/loginForm is: "poweruser" <br>
 
-### Put the Application Live
+### Set the Application Live on the FHNW Server
 
 > 1. Install [Docker](https://www.docker.com/) <br>
 > 2. Follow the Installation instructions from below <br>
@@ -136,10 +136,12 @@ Christian Gémesi and Ramanan Rasaiah in the course of an IP6 Project.
 >
 >  You might be asked to enter login credentials for git
 >```
+
 > 3. Open the application in your browser at http://127.0.0.1/user <br>
-> Note: If the application is run for the first time the database needs to be importet manually. (see step 7 of the [Installation Development Environment](#Installation Development Environment))  <br>
+> Note 1: If the application is run for the first time the database needs to be importet manually. (see step 7 of the [Installation Development Environment](#Installation Development Environment))  <br>
 > Note 2: The thekre_admin user does also need to be created if run for the first time. (see step 7 of the [Installation Development Environment](#Installation Development Environment)) <br>
 > Note 3: If the Website is not shown correctly (e.g. no CSS) clear the browser cache and reload the page. <br>
+> Note 4: If setup on a local machine other than the FHNW Server. You will not be able to send emails over the FHNW-E-Mail. If nevertheless you want to test the email functionality, please setup the email part as shown in step 5 and 6 of the [Installation Development Environment](#Installation Development Environment) <br>
 > 
 >.env file:
 > ``` 

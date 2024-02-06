@@ -554,11 +554,6 @@ $(document).ready(function () {
                         $("#hourly-order-info").css("display", "block");
                         $("#Von-text").html("Am:");
 
-
-                        $("#thekre-dropdown option[value='3']").prop("disabled", false).show();
-                        $("#thekre-dropdown option[value='1']").prop("disabled", true).hide();
-                        $("#thekre-dropdown").val("3");
-
                         //Folgende Zeile kann eingefügt werden, wenn die Option "Lieferung an die Schule" wieder aktiviert werden soll
                         // die Option wird nur für die tagesorders angezeigt, bitte beide zeilen einkommentieren
                         //WICHTIG: ID der Option in der DB für "Lieferung an Aargauer Schulen" muss 2 sein
@@ -568,11 +563,6 @@ $(document).ready(function () {
                     } else { // Daily order
                         blockTillNextSunday();
                         addBlockDateFromToday();
-
-                        //make the thekre-dropdown option disable and also not show the one with the name "Gebrauch in der Bibliothek"
-                        $("#thekre-dropdown option[value='3']").prop("disabled", true).hide();
-                        $("#thekre-dropdown option[value='1']").prop("disabled", false).show();
-                        $("#thekre-dropdown").val("1");
 
                         //Folgende Zeile kann eingefügt werden, wenn die Option "Lieferung an die Schule" wieder aktiviert werden soll
                         // die Option wird nur für die tagesorders angezeigt, bitte beide zeilen einkommentieren

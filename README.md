@@ -7,7 +7,7 @@ Christian Gémesi and Ramanan Rasaiah in the course of an IP6 Project.
 ## Table of content
 [Installation](#installation)
 - [Installation Development Environment](#Installation Development Environment)
-- [Installation Dockerized Environment](#Installation Dockerized Environment)
+- [Put the Application Live](#Installation Dockerized Environment)
 
 
 ## Installation
@@ -118,8 +118,7 @@ Christian Gémesi and Ramanan Rasaiah in the course of an IP6 Project.
 > - PS: the username and password for the admin under http://127.0.0.1:8000/admin/loginForm are: username: "root@localhost", password: "root@localhost" <br>
 > - PS: the password for the poweruser under http://127.0.0.1:8000/poweruser/loginForm is: "poweruser" <br>
 
-### Installation Dockerized Environment
-
+### Put the Application Live
 
 > 1. Install [Docker](https://www.docker.com/) <br>
 > 2. Follow the Installation instructions from below <br>
@@ -166,13 +165,13 @@ Christian Gémesi and Ramanan Rasaiah in the course of an IP6 Project.
 > PUSHER_APP_KEY=
 > PUSHER_APP_SECRET=
 > 
-> EMAILS_FROM_NAME="<<YOUR NAME HERE>>"
+> EMAILS_FROM_NAME='Campusbibliothek Brugg-Windisch TESTUMGEBUNG'
+> MAIL_USERNAME="bibliothek.windisch@fhnw.ch"
+> MAIL_PASSWORD=
 > MAIL_DRIVER=smtp
-> MAIL_HOST=smtp.gmail.com
-> MAIL_PORT=587
-> MAIL_USERNAME="<<YOUR EMAIL HERE>>"
-> MAIL_PASSWORD="<<YOUR APP PASSWORD HERE>>"
-> MAIL_ENCRYPTION=tls
+> MAIL_HOST=lmailer.ict.fhnw.ch
+> MAIL_PORT=25
+> MAIL_ENCRYPTION=null
 > 
 > DATABASE_DRIVER=mysql
 > DATABASE_HOST=mysql

@@ -536,10 +536,12 @@ $(document).ready(function () {
                     loadBlockedDates();
 
                     blockPreviousFiveSundaysInCalendar();
-                    blockPreviousFiveSaturdayAfterTwoPmInCalendar();
-
                     blockNextFiveSundaysInCalendar();
-                    blockNextFiveSaturdayAfterTwoPmInCalendar();
+
+                    if (response["data"]["themebox"]["fk_order_type"] === 1) {
+                        blockPreviousFiveSaturdayAfterTwoPmInCalendar();
+                        blockNextFiveSaturdayAfterTwoPmInCalendar();
+                    }
 
                     var orders = response["data"]["orders"];
                     loadHourlyView(response["data"]["themebox"]["fk_order_type"]);

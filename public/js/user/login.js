@@ -170,7 +170,13 @@ $(document).ready(function () {
                 blockDatesInDatepicker();
                 loadBlockedDates();
 
-                blockClosedTimesInCalender();
+                blockPreviousFiveSundaysInCalendar();
+                blockNextFiveSundaysInCalendar();
+
+                if (selectedThemeboxInfo.themebox.fk_order_type === 1) {
+                    blockPreviousFiveSaturdayAfterTwoPmInCalendar();
+                    blockNextFiveSaturdayAfterTwoPmInCalendar();
+                }
 
                 var isHourlyOrder = response["themebox"]["fk_order_type"] === 1;
                 if (isHourlyOrder) {
@@ -532,24 +538,40 @@ $(document).ready(function () {
     }
 
 
-    /**
-     * Block the Time when the Library is Closed (Sunday / Saturday after 2 pm)
-     */
-    function blockClosedTimesInCalender(){
-        for (var i = 0; i < 20; i++) {
-            dayToCalculatePreviousSundays.setDate(dayToCalculatePreviousSundays.getDate() - 7);
-            blockAllSundaysEvent(formatDate(dayToCalculatePreviousSundays));
 
+    /**
+     * Block the the next following Sundays in the calendar
+     */
+    function blockNextFiveSundaysInCalendar() {
+        for (var i = 0; i < 40; i++) {
+            blockAllSundaysEvent(formatDate(dayToCalculateNextSundays));
+            dayToCalculateNextSundays.setDate(dayToCalculateNextSundays.getDate() + 7);
+        }
+    }
+
+    function blockPreviousFiveSundaysInCalendar() {
+        for (var i = 0; i < 20; i++) {
+            blockAllSundaysEvent(formatDate(dayToCalculatePreviousSundays));
+            dayToCalculatePreviousSundays.setDate(dayToCalculatePreviousSundays.getDate() - 7);
+        }
+    }
+
+    function blockPreviousFiveSaturdayAfterTwoPmInCalendar() {
+        for (var i = 0; i < 19; i++) {
             blockAllSaturdayAfterTwoPmEvent(dayToCalculatePreviousSaturdaysStart, dayToCalculatePreviousSaturdaysEnd);
             dayToCalculatePreviousSaturdaysStart.setDate(dayToCalculatePreviousSaturdaysStart.getDate() - 7);
             dayToCalculatePreviousSaturdaysEnd.setDate(dayToCalculatePreviousSaturdaysEnd.getDate() - 7);
+        }
+    }
 
+    /**
+     * Block the the next following Saturdays after 2 pm in the calendar since the library is closed
+     */
+    function blockNextFiveSaturdayAfterTwoPmInCalendar() {
+        for (var i = 0; i < 40; i++) {
             blockAllSaturdayAfterTwoPmEvent(dayToCalculateNextSaturdaysStart, dayToCalculateNextSaturdaysEnd);
             dayToCalculateNextSaturdaysStart.setDate(dayToCalculateNextSaturdaysStart.getDate() + 7);
             dayToCalculateNextSaturdaysEnd.setDate(dayToCalculateNextSaturdaysEnd.getDate() + 7);
-
-            blockAllSundaysEvent(formatDate(dayToCalculateNextSundays));
-            dayToCalculateNextSundays.setDate(dayToCalculateNextSundays.getDate() + 7);
         }
     }
 

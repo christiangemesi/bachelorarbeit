@@ -316,7 +316,7 @@
                                             <p id="user-delivery-info"><span
                                                         class="glyphicon glyphicon-info-sign"></span> Themenkisten
                                                 können an der Infotheke der FHNW Bibliothek Brugg-Windisch abgeholt
-                                                werden. Beachten Sie dass Elektronische Geräte das Bibliotheksgebäude
+                                                werden. Beachten Sie dass die HoloLens das Bibliotheksgebäude
                                                 nicht verlassen dürfen.</p>
                                             <div id="school-Address">
                                                 <p id="user-delivery-info"><span

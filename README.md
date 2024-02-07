@@ -6,13 +6,15 @@ Christian Gémesi and Ramanan Rasaiah in the course of an IP6 Project.
 
 ## Table of content
 [Installation](#installation)
-- [Installation Development Environment](#Installation Development Environment)
-- [Setup the Dockerized Environment Locally ](#Setup the Dockerized Environment Locally)
+- [Installation Development Environment with XAMPP](#Installation Development Environment with XAMPP)
+- [Installation Development Environment with Docker](#Installation Development Environment with Docker)
+
+
 - [Set the Application Live on the FHNW Server](#Set the Application Live on the FHNW Server)
 
 
 ## Installation
-### Installation Development Environment
+### Installation Development Environment with XAMPP
 In the following section, we will guide you through the installation of the development environment on your local machine.
 > 1. Install [XAMPP](https://sourceforge.net/projects/xampp/files/XAMPP%20Windows/8.2.4/) <br>
 > Download xampp-windows-x64-8.2.4-0-VS16-installer.exe from the above Link and run the installer.
@@ -120,8 +122,8 @@ In the following section, we will guide you through the installation of the deve
 > - PS: the username and password for the admin under http://127.0.0.1:8000/admin/loginForm are: username: "root@localhost", password: "root@localhost" <br>
 > - PS: the password for the poweruser under http://127.0.0.1:8000/poweruser/loginForm is: "poweruser" <br>
 
-### Setup the Dockerized Environment Locally 
-In the following section, we will guide you through the installation of the dockerized environment on your local machine. Docker is used to set the application live on the FHNW Server. So its good to also have set it up locally once for better understanding. <br>
+### Installation Development Environment with Docker
+In the following section, we will guide you through the installation of the dockerized environment on your local machine. Docker is used to set the application live on the FHNW Server. So its good to also have set it up locally once for better understanding, since the setup on the server is almost identical but with no visual feedback.<br>
 
 > 1. Install [Docker](https://www.docker.com/) <br>
 >    - Download the Docker Desktop Installer from [here](https://www.docker.com/products/docker-desktop) and run the installer. <br>
@@ -217,7 +219,7 @@ In the following section, we will guide you through the installation of the dock
 >           
 >           DATABASE_ROOT_PASSWORD="156deq1ws56dwq5e245864e5w6qe45w61cw5dw"
 >           ```
->      4. Replace all the "<< >>" with the respective values. See 5. and 6. of the [Installation Development Environment](#Installation Development Environment). <br>
+>      4. Replace all the "<< >>" with the respective values. See 5. and 6. of the [Installation Development Environment with XAMPP](#Installation Development Environment with XAMPP). <br>
 >    
 >  - After doing the steps above for the respective OS, the folder structure should look like this:
 > ```
@@ -238,11 +240,11 @@ In the following section, we will guide you through the installation of the dock
 >  http://127.0.0.1/user <br>
 
 > 4. Notes to keep in mind: <br>
->   1.  If the application is run for the first time the database needs to be importet manually. (see step 7 of the [Installation Development Environment](#Installation Development Environment))  <br>
->   2.  If the application is run for the first time the thekre_admin user does also need to be created. (see step 7 of the [Installation Development Environment](#Installation Development Environment)) <br>
+>   1.  If the application is run for the first time the database needs to be importet manually. (see step 7 of the [Installation Development Environment with XAMPP](#Installation Development Environment with XAMPP))  <br>
+>   2.  If the application is run for the first time the thekre_admin user does also need to be created. (see step 7 of the [Installation Development Environment with XAMPP](#Installation Development Environment with XAMPP)) <br>
 >   3.  If the Website is not shown correctly (e.g. no CSS) clear the browser cache and, or history and reload the page. <br>
 
-### Set the Application Live on the FHNW Server
+## Set the Application Live on the FHNW Server
 In the following section, we will guide you through the installation of the dockerized environment. This will set the application Live on the FHNW Server. <br>
 > 1. Install [Docker](https://www.docker.com/) <br>
 >    - Install Docker by running this command `sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin` <br>
@@ -347,26 +349,27 @@ In the following section, we will guide you through the installation of the dock
 >           |-thekre_docker.sh
 >           |-.env
 >           ```
+
 > 3. Setup the Mail Server <br>
 > TODO: Add the steps to setup the Mail Server
 
-> 3. Run docker <br>
+> 4. Run docker <br>
 >     1.  you can check if the service is running with `docker ps`, if no service is running start it with `sudo systemctl start docker`
 
-> 4. Run the thekre_docker.sh <br>
+> 5. Run the thekre_docker.sh <br>
 >     1. `chmod +x thekre_docker.sh` (to make the file executable)
 >     2. `sudo ./thekre_docker.sh` (to run the file)
 > 
 > Note: You might be asked to enter login credentials for git (You can not use your Password, you need to create a Personal Access Token. See the instructions [here](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html#create-a-personal-access-token))
 
-> 5. Open the application in your browser <br>
+> 6. Open the application in your browser <br>
 >    https://www.fhnw.ch/de/die-fhnw/bibliotheken/bibliothek-brugg-windisch/themenkisten
 
-> 6. Take the application offline <br>
+> 7. Take the application offline <br>
 >    To take the application offline you need to stop the Docker container. You need to change into the deployment folder and run the following command: <br>
 >    `docker compose down` <br>
 
-> 7. Notes to keep in mind: <br>
+> 8. Notes to keep in mind: <br>
 >    1.  If the application is run for the first time the database needs to be importet manually. (see step 7 of the [Installation Development Environment](#Installation Development Environment))  <br>
 >    2.  If the application is run for the first time the thekre_admin user does also need to be created. (see step 7 of the [Installation Development Environment](#Installation Development Environment)) <br>
 >    3.  If the Website is not shown correctly (e.g. no CSS) clear the browser cache and, or history and reload the page. <br>

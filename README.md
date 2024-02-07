@@ -373,3 +373,4 @@ In the following section, we will guide you through the installation of the dock
 >    1.  If the application is run for the first time the database needs to be importet manually. (see step 7 of the [Installation Development Environment](#Installation Development Environment))  <br>
 >    2.  If the application is run for the first time the thekre_admin user does also need to be created. (see step 7 of the [Installation Development Environment](#Installation Development Environment)) <br>
 >    3.  If the Website is not shown correctly (e.g. no CSS) clear the browser cache and, or history and reload the page. <br>
+>    4.  **If you took down the docker container you can also delete the thekre folder to restart the script. The Database WONT BE LOST. ALL ENTRIES STILL REMAIN AFTER RESTARTING THE SCRIPT.**

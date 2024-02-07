@@ -12,6 +12,7 @@ Christian Gémesi and Ramanan Rasaiah in the course of an IP6 Project.
 
 ## Installation
 ### Installation Development Environment
+In the following section, we will guide you through the installation of the development environment on your local machine.
 > 1. Install [XAMPP](https://sourceforge.net/projects/xampp/files/XAMPP%20Windows/8.2.4/) <br>
 > Download xampp-windows-x64-8.2.4-0-VS16-installer.exe from the above Link and run the installer.
 > - At Selected Components only MySQL and phpMyAdmin are required. <br>
@@ -118,39 +119,79 @@ Christian Gémesi and Ramanan Rasaiah in the course of an IP6 Project.
 > - PS: the username and password for the admin under http://127.0.0.1:8000/admin/loginForm are: username: "root@localhost", password: "root@localhost" <br>
 > - PS: the password for the poweruser under http://127.0.0.1:8000/poweruser/loginForm is: "poweruser" <br>
 
-### Set the Application Live on the FHNW Server
+### Setup the Dockerized Environment (Linux: Live on FHNW Server, Windows: Local Machine)
+In the following section, we will guide you through the installation of the dockerized environment. Following the Linux setup will set the application Live <br>
+Following the Windows setup will setup the application on your local machine (not live). <br>
 
 > 1. Install [Docker](https://www.docker.com/) <br>
-> 2. Follow the Installation instructions from below <br>
->```
->  i.   Create a new folder (Windows: right click -> New -> Folder, Linux: mkdir <<folder>>)
->  ii.  Copy "thekre_docker.sh" into the created folder (Windows: Copy the file, Linux: vim thekre_docker.sh -> paste the content -> save the file with :wq!)
->  iii. Create a .env file in the same folder with the content shown below at ".env file:" (Windows: just copy the file, Linux: vim .env -> paste the content -> save the file with :wq!)
->  iv.  The Structure should look like this:
->   -folder
->   |- thekre_docker.sh
->   |- .env
->  iv.  Make sure that docker is running (Windows: search for Docker Desktop and open it, Linux: check if the service is running with "docker ps", if no service is running start it with "sudo systemctl start docker")
->  iv.  Change into the folder with the thekre_docker.sh (Windows: double click on the folder, Linux: cd <<folder>>)
->  v.   Run the thekre_docker.sh (Windows: double click on the file, Linux: ./thekre_docker.sh)
->
->  You might be asked to enter login credentials for git
->```
+>    - On Windows: Download the Docker Desktop Installer from [here](https://www.docker.com/products/docker-desktop) and run the installer. <br>
+>    - On Linux: Install by running this command `sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin` <br>
+>    You can verify the installation by running `docker --version` in a Terminal or run `Docker Desktop` on Windows <br>
 
-> 3. Open the application in your browser at http://127.0.0.1/user <br>
-> Note 1: If the application is run for the first time the database needs to be importet manually. (see step 7 of the [Installation Development Environment](#Installation Development Environment))  <br>
-> Note 2: The thekre_admin user does also need to be created if run for the first time. (see step 7 of the [Installation Development Environment](#Installation Development Environment)) <br>
-> Note 3: If the Website is not shown correctly (e.g. no CSS) clear the browser cache and reload the page. <br>
-> Note 4: If setup on a local machine other than the FHNW Server. You will not be able to send emails over the FHNW-E-Mail. If nevertheless you want to test the email functionality, please setup the email part as shown in step 5 and 6 of the [Installation Development Environment](#Installation Development Environment) <br>
+> 2. Preparing the Folder Structure <br>
+>    - On Linux:
+>      1. `mkdir <<ThekRe_Webportal>>`
+>      2.  `cd <<ThekRe_Webportal>>`
+>      3. `vim thekre_docker.sh` and paste the content from the file thekre_docker.sh
+>      4.  type `:wq` to save the file
+>      5.  `vim .env` and paste the content from the file .env (Shown below: ".env file Production Environment")
+>      6.  type `:wq` to save the file
 > 
->.env file:
+>    - On Windows:
+>      1. `right click -> New -> Folder` (Name: ThekRe_Webportal)
+>      2.  Copy "thekre_docker.sh" into the created folder
+>      3.  Create a .env file and paste the content from the file .env (Shown below: ".env file Dockerized Development Environment")
+>    
+>  - After doing the steps above for the respective OS, the folder structure should look like this:
+> ```
+>  -folder
+>  |-thekre_docker.sh
+>  |-.env
+>  ```
+
+> 3. Run docker <br>
+>   - On Linux:
+>      1.  you can check if the service is running with `docker ps`, if no service is running start it with `sudo systemctl start docker`)
+>   - On Windows:
+>      2. Open Docker Desktop and wait for the service to start
+
+> 4. Run the thekre_docker.sh <br>
+>    - On Linux:
+>     1. `chmod +x thekre_docker.sh` (to make the file executable)
+>     2. `sudo ./thekre_docker.sh` (to run the file)
+>   - On Windows:
+>     1. Double click on the thekre_docker.sh file
+>     
+>  Note: You might be asked to enter login credentials for git
+
+> 3. Open the application in your browser
+>  - On Linux: https://www.fhnw.ch/de/die-fhnw/bibliotheken/bibliothek-brugg-windisch/themenkisten
+>  - On Windows: http://127.0.0.1/user <br>
+
+> 4. Notes to keep in mind: <br>
+>   1.  If the application is run for the first time the database needs to be importet manually. (see step 7 of the [Installation Development Environment](#Installation Development Environment))  <br>
+>   2.  If the application is run for the first time the thekre_admin user does also need to be created. (see step 7 of the [Installation Development Environment](#Installation Development Environment)) <br>
+>   3.  If the Website is not shown correctly (e.g. no CSS) clear the browser cache and, or history and reload the page. <br>
+>   4.  If setup on a local machine other than the FHNW Server. You will not be able to send emails over the FHNW-E-Mail. If nevertheless you want to test the email functionality, please setup the email part as shown in step 5 and 6 of the [Installation Development Environment](#Installation Development Environment). You can replace the part of the .env file for the email with the following one: <br>
+>       ``` 
+>       EMAILS_FROM_NAME="<<YOUR NAME HERE>>"
+>       MAIL_DRIVER=smtp
+>       MAIL_HOST=smtp.gmail.com
+>       MAIL_PORT=587
+>       MAIL_USERNAME="<<YOUR EMAIL HERE>>"
+>       MAIL_PASSWORD="<<YOUR APP PASSWORD HERE>>"
+>       MAIL_ENCRYPTION=tls
+>       ```
+
+> **Files** <br>
+>.env file Production Environment:
 > ``` 
 > APP_NAME=ThekRe
 > APP_ENV=local
 > APP_KEY=base64:OXiQSLCrUXYKg8PH2U7ulTM8cg8e5POG+H+wX4hXK4A=
 > APP_DEBUG=true
 > APP_LOG_LEVEL=debug
-> APP_URL=http://127.0.0.1
+> APP_URL=https://www.fhnw.ch/de/die-fhnw/bibliotheken/bibliothek-brugg-windisch/themenkisten
 > 
 > UNIQUE_SERVER_URL=themenkisten/
 > 
@@ -179,8 +220,56 @@ Christian Gémesi and Ramanan Rasaiah in the course of an IP6 Project.
 > DATABASE_HOST=mysql
 > DATABASE_PORT=3306
 > DATABASE=thekre
-> DATABASE_USERNAME="thekre_user"
+> DATABASE_USERNAME="thekre_admin"
 > DATABASE_PASSWORD="cSCdrkd1VNEbk8PW"
 > #Database root user in mysql per default is root
 > DATABASE_ROOT_PASSWORD="156deq1ws56dwq5e245864e5w6qe45w61cw5dw"
 > ``` 
+> 
+> thekre_docker.sh file:
+> ```
+> #!/bin/bash
+> echo "Creating a new folder..."
+> mkdir thekre && cd thekre || { echo "Error: Unable to create or change into thekre folder"; exit 1; }
+> echo "Folder 'thekre' created and switched to."
+> 
+> echo "Cloning the repository..."
+> git clone https://gitlab.fhnw.ch/christian.gemesi/thek-re-2.git || { echo "Error: Unable to clone the repository"; exit 1; }
+> cd thek-re-2 || { echo "Error: Unable to change into thek-re-2 folder"; exit 1; }
+> echo "Repository cloned and switched to 'thek-re-2' folder."
+> 
+> echo "Copying the .env file into the folder..."
+> cp '..\..\.env' . || { echo "Error: Unable to copy the .env.production file"; exit 1; }
+> echo ".env file copied."
+> 
+> echo "Building the Docker image..."
+> docker compose build || { echo "Error: Unable to build the Docker image"; exit 1; }
+> echo "Docker image built successfully."
+> 
+> echo "Moving back to the parent folder..."
+> cd .. || { echo "Error: Unable to change into the parent folder"; exit 1; }
+> echo "Successfully moved back to the parent folder."
+> 
+> echo "Creating a new folder for deployment..."
+> mkdir deployment || { echo "Error: Unable to create the deployment folder"; exit 1; }
+> echo "Deployment folder created."
+> 
+> echo "Copying docker-compose.yml into the deployment folder..."
+> cp 'thek-re-2/docker-compose.yml' deployment/ || { echo "Error: Unable to copy docker-compose.yml"; exit 1; }
+> echo "docker-compose.yml copied into the deployment folder."
+> 
+> echo "Copying .env into the deployment folder..."
+> cp 'thek-re-2/.env' deployment/ || { echo "Error: Unable to copy the .env.production file"; exit 1; }
+> echo ".env file copied into the deployment folder."
+> 
+> echo "Removing the 'thek-re-2' folder..."
+> rm -rf thek-re-2 || { echo "Error: Unable to remove thek-re-2 folder"; exit 1; }
+> echo "'thek-re-2' folder removed."
+> 
+> echo "Changing into the deployment folder..."
+> cd deployment || { echo "Error: Unable to change into the deployment folder"; exit 1; }
+> 
+> echo "Starting the Docker container in the background..."
+> docker compose up -d || { echo "Error: Unable to start the Docker container"; exit 1; }
+> echo "Docker container started successfully."
+> ```

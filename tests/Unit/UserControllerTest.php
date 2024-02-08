@@ -28,8 +28,24 @@ class UserControllerTest extends TestCase
     }
 
     public function test_getOrder(){
+        // Create a new Themebox to be used in the order
+        $themebox = new Themebox();
+        $themebox->title = "Test Title";
+        $themebox->signatur = "Test Sig";
+        $themebox->schoollevel = "Sek4";
+        $themebox->barcode = "K979808";
+        $themebox->size = "10";
+        $themebox->content = "1 Buch";
+        $themebox->weight = "12";
+        $themebox->complete = 1;
+        $themebox->save();
+
+        // Retrieve the ID of the newly created themebox
+        $themebox_id = $themebox->pk_themebox;
+
+
         $order = new Order();
-        $order->fk_themebox = 75; // assuming that there is a themebox with this id
+        $order->fk_themebox = $themebox_id; // assuming that there is a themebox with this id
         $order->startdate = "2010-12-12";
         $order->enddate = "2010-12-24";
         $order->name = "mueller";
@@ -49,11 +65,29 @@ class UserControllerTest extends TestCase
         $order->forceDelete();
 
         $this->assertEquals($result[0]["ordernumber"], "JJL");
+
+        Themebox::destroy($themebox_id);
     }
 
     public function test_getOrder_datecreated(){
+        // Create a new Themebox to be used in the order
+        $themebox = new Themebox();
+        $themebox->title = "Test Title";
+        $themebox->signatur = "Test Sig";
+        $themebox->schoollevel = "Sek4";
+        $themebox->barcode = "K979808";
+        $themebox->size = "10";
+        $themebox->content = "1 Buch";
+        $themebox->weight = "12";
+        $themebox->complete = 1;
+        $themebox->save();
+
+        // Retrieve the ID of the newly created themebox
+        $themebox_id = $themebox->pk_themebox;
+
+
         $order = new Order();
-        $order->fk_themebox = 75; // assuming that there is a themebox with this id
+        $order->fk_themebox = $themebox_id; // assuming that there is a themebox with this id
         $order->startdate = "2010-12-12";
         $order->enddate = "2010-12-24";
         $order->name = "mueller";
@@ -73,11 +107,30 @@ class UserControllerTest extends TestCase
         $order->forceDelete();
 
         $this->assertEquals($result[0]["datecreated"], "2010-12-12");
+
+        Themebox::destroy($themebox_id);
     }
 
     public function test_getOrder_name(){
+        // Create a new Themebox to be used in the order
+        $themebox = new Themebox();
+        $themebox->title = "Test Title";
+        $themebox->signatur = "Test Sig";
+        $themebox->schoollevel = "Sek4";
+        $themebox->barcode = "K979808";
+        $themebox->size = "10";
+        $themebox->content = "1 Buch";
+        $themebox->weight = "12";
+        $themebox->complete = 1;
+        $themebox->save();
+
+        // Retrieve the ID of the newly created themebox
+        $themebox_id = $themebox->pk_themebox;
+
+
+
         $order = new Order();
-        $order->fk_themebox = 75; // assuming that there is a themebox with this id
+        $order->fk_themebox = $themebox_id; // assuming that there is a themebox with this id
         $order->startdate = "2010-12-12";
         $order->enddate = "2010-12-24";
         $order->name = "mueller";
@@ -97,6 +150,8 @@ class UserControllerTest extends TestCase
         $order->forceDelete();
 
         $this->assertEquals($result[0]["name"], "mueller");
+
+        Themebox::destroy($themebox_id);
     }
 
     public function test_getThemeboxContent(){

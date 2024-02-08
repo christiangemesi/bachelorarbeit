@@ -1,42 +1,31 @@
 stages:
   - test
-  - build
-  - deploy
 
-image: php
-before_script:
-  - cd sources
-  - php -v
+variables:
+  MYSQL_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD}
+  MYSQL_DATABASE: ${DATABASE}
+  MYSQL_USER: ${DATABASE_USERNAME}
+  MYSQL_PASSWORD: ${DATABASE_PASSWORD}
+
+services:
+  - name: mysql:8.0
+    alias: mysql
 
 test:
   stage: test
+  image: php:8.2.4-apache
+  before_script:
+    - apt-get update && apt-get install -y \
+      libzip-dev \
+      zip \
+      curl
+    - docker-php-ext-install pdo_mysql zip
+    - docker-php-ext-enable pdo_mysql
+    - cp .env.example .env
+    - php artisan key:generate
+    # You might need additional setup steps here
   script:
-    # Run tests
-    - phpunit --bootstrap vendor/autoload.php tests/Unit/UserControllerTest.php
-    - phpunit --bootstrap vendor/autoload.php tests/Unit/AdminControllerTest.php
-  allow_failure: false # Fail the pipeline if tests fail
-
-build:
-  stage: build
-  image: docker:20.10
-  services:
-    - docker:20.10-dind
-  script:
-    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
-    - docker build -t $CI_REGISTRY_IMAGE .
-    - docker push $CI_REGISTRY_IMAGE
-  dependencies:
-    - test
-
-deploy:
-  stage: deploy
-  image: docker:20.10
-  services:
-    - docker:20.10-dind
-  script:
-    - docker pull $CI_REGISTRY_IMAGE
-    - docker-compose -f docker-compose.yml up -d
-  only:
-    - master
-  dependencies:
-    - build
+    - composer install --no-progress --no-suggest --prefer-dist --optimize-autoloader
+    - php artisan test
+  after_script:
+    - rm .env

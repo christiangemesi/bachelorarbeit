@@ -123,8 +123,9 @@ In the following section, we will guide you through the installation of the deve
 > - PS: the password for the poweruser under http://127.0.0.1:8000/poweruser/loginForm is: "poweruser" <br>
 
 ### Installation Development Environment with Docker
-In the following section, we will guide you through the installation of the dockerized environment on your local machine. Docker is used to set the application live on the FHNW Server. So its good to also have set it up once locally for better understanding.<br>
+In the following section, we will guide you through the installation of the dockerized environment on your local machine. Docker is used to set the application live on the FHNW Server. So it is good to also have set it up once locally for better understanding.<br>
 To make the installation easier we mainly used the User Interface of the Windows OS. <br>
+Keep in mind that there is no hot-reload for the dockerized environment. If you want to see changes you need to stop the container and start it again. <br>
 
 > 1. Install [Docker](https://www.docker.com/) <br>
 >    - Download the Docker Desktop Installer from [here](https://www.docker.com/products/docker-desktop) and run the installer. <br>
@@ -268,7 +269,8 @@ In the following section, we will guide you through the installation of the dock
 > 2. Preparing the Folder Structure <br>
 >      1. `mkdir ThekRe_Webportal` (to create a new folder)
 >      2.  `cd ThekRe_Webportal` (to change into the folder)
->      3. `vim thekre_docker.sh` (to create a new file and open it with vim) and paste the content from the file below:
+>      3. `sudo vim thekre_docker.sh` (to create a new file and open it with vim)
+>      4.  click `i` to enter the insert mode and paste the content from the file below:
 >           ```
 >           #!/bin/bash
 >           echo "Creating a new folder..."
@@ -316,7 +318,8 @@ In the following section, we will guide you through the installation of the dock
 >           echo "Docker container started successfully."
 >           ```
 >      4.  type `:wq` to save the file
->      5.  `vim .env` (to create a new file and open it with vim) and paste the content from the file below:
+>      5.  `sudo vim .env` (to create a new file and open it with vim)
+>      6. click `i` to enter the insert mode and paste the content from the file below:
 >           ``` 
 >           APP_NAME=ThekRe
 >           APP_ENV=local
@@ -365,7 +368,6 @@ In the following section, we will guide you through the installation of the dock
 >           |-.env
 >           ```
 
-
 > 3. Setup the Mail Server <br>
 >    - This only needs to be done once. If youd change to another server, youd need to follow theese steps:
 >    1. TODO: Add the steps to setup the Mail Server
@@ -374,7 +376,7 @@ In the following section, we will guide you through the installation of the dock
 >     1.  you can check if the service is running with `docker ps`, if no service is running start it with `sudo systemctl start docker`
 
 > 5. Run the thekre_docker.sh <br>
->     1. `chmod +x thekre_docker.sh` (to make the file executable)
+>     1. `sudo chmod +x thekre_docker.sh` (to make the file executable)
 >     2. `sudo ./thekre_docker.sh` (to run the file)
 > 
 > Note: You might be asked to enter login credentials for git (You can not use your Password, you need to create a Personal Access Token. See the instructions [here](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html#create-a-personal-access-token))

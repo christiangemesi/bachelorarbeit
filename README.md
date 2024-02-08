@@ -389,6 +389,7 @@ In the following section, we will guide you through the installation of the dock
 >    `docker compose down` <br>
 
 > 8. Notes to keep in mind: <br>
+>   TODO: add part with access token and cron job to always have the latest version of the application running <br>
 >    1.  If the application is run for the first time the database needs to be importet manually. (see step 7 of the [Installation Development Environment](#Installation Development Environment))  <br>
 >    2.  If the application is run for the first time the thekre_admin user does also need to be created. (see step 7 of the [Installation Development Environment](#Installation Development Environment)) <br>
 >    3.  If the Website is not shown correctly (e.g. no CSS) clear the browser cache and, or history and reload the page. <br>

@@ -257,14 +257,18 @@ To make the installation easier we mainly used the User Interface of the Windows
 
 ## Set the Application Live on the FHNW Server
 In the following section, we will guide you through the installation of the dockerized environment. This will set the application Live on the FHNW Server. <br>
+
+> 0. Connect to the FHNW Server <br>
+>    - Connect to the FHNW Server via SSH <br>
+
 > 1. Install [Docker](https://www.docker.com/) <br>
->    - Install Docker by running this command `sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin` <br>
->    - You can verify the installation by running `docker --version` in the Terminal <br>
+>    - Check if Docker is already installed by running `docker --version` in the Terminal. If so, skip to the next step. <br>
+>    - Install Docker by running this command `sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin` (this will install docker and all necessary plugins) <br>
 
 > 2. Preparing the Folder Structure <br>
->      1. `mkdir <<ThekRe_Webportal>>`
->      2.  `cd <<ThekRe_Webportal>>`
->      3. `vim thekre_docker.sh` and paste the content from the file below:
+>      1. `mkdir ThekRe_Webportal` (to create a new folder)
+>      2.  `cd ThekRe_Webportal` (to change into the folder)
+>      3. `vim thekre_docker.sh` (to create a new file and open it with vim) and paste the content from the file below:
 >           ```
 >           #!/bin/bash
 >           echo "Creating a new folder..."
@@ -312,7 +316,7 @@ In the following section, we will guide you through the installation of the dock
 >           echo "Docker container started successfully."
 >           ```
 >      4.  type `:wq` to save the file
->      5.  `vim .env` and paste the content from the file .env below:
+>      5.  `vim .env` (to create a new file and open it with vim) and paste the content from the file below:
 >           ``` 
 >           APP_NAME=ThekRe
 >           APP_ENV=local
@@ -362,7 +366,8 @@ In the following section, we will guide you through the installation of the dock
 >           ```
 
 > 3. Setup the Mail Server <br>
-> TODO: Add the steps to setup the Mail Server
+>    - This only needs to be done once. If youd change to another server, youd need to follow theese steps:
+>    1. TODO: Add the steps to setup the Mail Server
 
 > 4. Run docker <br>
 >     1.  you can check if the service is running with `docker ps`, if no service is running start it with `sudo systemctl start docker`

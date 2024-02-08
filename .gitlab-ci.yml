@@ -18,9 +18,13 @@ test:
     - apt-get update && apt-get install -y libzip-dev zip curl
     - docker-php-ext-install pdo_mysql zip
     - cp .env.cicd .env
-    - composer install --no-progress --no-suggest --prefer-dist --optimize-autoloader
+    - apt-get update && apt-get install -y wget  # Install wget
+    - wget -O composer-setup.php https://getcomposer.org/installer  # Download Composer installer
+    - php composer-setup.php --install-dir=/usr/local/bin --filename=composer  # Install Composer
+    - rm composer-setup.php  # Remove Composer setup file
+    - composer install --no-progress --no-suggest --prefer-dist --optimize-autoloader  # Install Composer dependencies
     - php artisan key:generate
   script:
     - php artisan test
   after_script:
-    - rm .env
+    - rm .env  # Remove .env file after the tests

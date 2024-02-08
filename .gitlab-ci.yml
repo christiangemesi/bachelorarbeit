@@ -1,6 +1,5 @@
 stages:
   - test
-  - deploy
 
 services:
   - name: mysql:8.0
@@ -30,17 +29,3 @@ test:
   after_script:
     - rm .env  # Remove .env file after the tests
   allow_failure: false # Fail the pipeline if tests fail
-
-deploy:
-  stage: deploy
-  image: alpine:latest
-  before_script:
-    - apk add --no-cache openssh-client sshpass
-  script:
-    - echo "Deploying to server via SSH"
-    - sshpass -p "$TEST_SERVER_SSH_PASSWORD" ssh $TEST_SERVER_SSH_USERNAME@$TEST_SERVER_URL 'bash -s' < test_script.sh
-    - echo "Deployment finished"
-  only:
-    - master
-
-

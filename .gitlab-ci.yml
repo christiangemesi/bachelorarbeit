@@ -3,15 +3,14 @@ stages:
   - build
   - deploy
 
+image: php
+before_script:
+  - cd sources
+  - php -v
+
 test:
   stage: test
-  image: php:8.2
   script:
-    # Install phpunit
-    - apt-get update && apt-get install -y wget
-    - wget -O phpunit https://phar.phpunit.de/phpunit-9.phar
-    - chmod +x phpunit
-
     # Run tests
     - phpunit --bootstrap vendor/autoload.php tests/Unit/UserControllerTest.php
     - phpunit --bootstrap vendor/autoload.php tests/Unit/AdminControllerTest.php

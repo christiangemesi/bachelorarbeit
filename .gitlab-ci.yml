@@ -9,7 +9,7 @@ variables:
 
 services:
   - name: mysql:8.0
-    alias: mysql
+    alias: db_ci
 
 test:
   stage: test

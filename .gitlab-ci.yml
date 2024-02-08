@@ -18,9 +18,9 @@ test:
     - apt-get update && apt-get install -y libzip-dev zip curl
     - docker-php-ext-install pdo_mysql zip
     - cp .env.cicd .env
+    - composer install --no-progress --no-suggest --prefer-dist --optimize-autoloader
     - php artisan key:generate
   script:
-    - composer install --no-progress --no-suggest --prefer-dist --optimize-autoloader
     - php artisan test
   after_script:
     - rm .env

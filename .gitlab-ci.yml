@@ -4,15 +4,16 @@ stages:
 services:
   - name: mysql:8.0
     alias: db_ci
+    variables:
+      MYSQL_ROOT_PASSWORD: "root_password_ci"
+      MYSQL_DATABASE: "db_ci"
+      MYSQL_USER: "username_ci"
+      MYSQL_PASSWORD: "password_ci"
+
 
 test:
   stage: test
   image: php:8.2.4-apache
-  variables:
-    MYSQL_ROOT_PASSWORD: "$DATABASE_ROOT_PASSWORD"
-    MYSQL_DATABASE: "$DATABASE"
-    MYSQL_USER: "$DATABASE_USERNAME"
-    MYSQL_PASSWORD: "$DATABASE_PASSWORD"
   before_script:
     - apt-get update && apt-get install -y libzip-dev zip curl
     - docker-php-ext-install pdo_mysql zip

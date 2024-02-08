@@ -18,8 +18,7 @@ test:
     - apt-get update && apt-get install -y libzip-dev zip curl default-mysql-client iputils-ping
     - docker-php-ext-install pdo_mysql zip
     - cp .env.cicd .env
-    - ping db_ci
-    - mysql -h db_ci -u root -p root_password_ci < database/thekre_empty.sql
+    - mysql -h db_ci -u root -p root_password_ci db_ci < database/thekre_empty.sql
     - apt-get update && apt-get install -y wget  # Install wget
     - wget -O composer-setup.php https://getcomposer.org/installer  # Download Composer installer
     - php composer-setup.php --install-dir=/usr/local/bin --filename=composer  # Install Composer

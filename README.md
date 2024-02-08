@@ -15,7 +15,7 @@ Christian Gémesi and Ramanan Rasaiah in the course of an IP6 Project.
 
 ## Installation
 ### Installation Development Environment with XAMPP
-In the following section, we will guide you through the installation of the development environment on your local machine.
+In the following section, we will guide you through the installation of the development environment via XAMPP on your local machine. We prefer this method for development as the application loads quicker and it has hot-reloading. <br>
 > 1. Install [XAMPP](https://sourceforge.net/projects/xampp/files/XAMPP%20Windows/8.2.4/) <br>
 > Download xampp-windows-x64-8.2.4-0-VS16-installer.exe from the above Link and run the installer.
 > - At Selected Components only MySQL and phpMyAdmin are required. <br>

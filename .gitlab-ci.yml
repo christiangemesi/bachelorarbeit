@@ -15,9 +15,10 @@ test:
   stage: test
   image: php:8.2.4-apache
   before_script:
-    - apt-get update && apt-get install -y libzip-dev zip curl
+    - apt-get update && apt-get install -y libzip-dev zip curl mysql-client
     - docker-php-ext-install pdo_mysql zip
     - cp .env.cicd .env
+    - mysql -h db_ci -u username_ci -p password password_ci < thek-re-2/database/thekre_empty.sql
     - apt-get update && apt-get install -y wget  # Install wget
     - wget -O composer-setup.php https://getcomposer.org/installer  # Download Composer installer
     - php composer-setup.php --install-dir=/usr/local/bin --filename=composer  # Install Composer

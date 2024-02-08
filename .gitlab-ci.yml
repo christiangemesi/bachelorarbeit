@@ -35,10 +35,11 @@ deploy:
   stage: deploy
   image: alpine:latest
   before_script:
-    - apk add --no-cache openssh-client  # Install SSH client
+    - apk add --no-cache openssh-client sshpass
   script:
     - echo "Deploying to server via SSH"
-    - sshpass -p "$SSH_PASSWORD" ssh $SSH_USER@$SSH_HOST 'bash -s' < test_script.sh
+    - sshpass -p "$TEST_SERVER_SSH_PASSWORD" ssh $TEST_SERVER_SSH_USERNAME@$TEST_SERVER_URL 'bash -s' < test_script.sh
+    - echo "Deployment finished"
   only:
     - master
 

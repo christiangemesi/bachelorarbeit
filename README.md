@@ -365,6 +365,7 @@ In the following section, we will guide you through the installation of the dock
 >           |-.env
 >           ```
 
+
 > 3. Setup the Mail Server <br>
 >    - This only needs to be done once. If youd change to another server, youd need to follow theese steps:
 >    1. TODO: Add the steps to setup the Mail Server

@@ -15,7 +15,7 @@ test:
   stage: test
   image: php:8.2.4-apache
   before_script:
-    - apt-get update && apt-get install -y libzip-dev zip curl default-mysql-client
+    - apt-get update && apt-get install -y libzip-dev zip curl default-mysql-client iputils-ping
     - docker-php-ext-install pdo_mysql zip
     - cp .env.cicd .env
     - ping db_ci

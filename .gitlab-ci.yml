@@ -5,8 +5,11 @@ stages:
 
 test:
   stage: test
-  image: php:8.2.4-apache
+  image: php:8.2
   script:
+
+
+    # Run tests
     - phpunit --bootstrap vendor/autoload.php tests/Unit/UserControllerTest.php
     - phpunit --bootstrap vendor/autoload.php tests/Unit/AdminControllerTest.php
   allow_failure: false # Fail the pipeline if tests fail

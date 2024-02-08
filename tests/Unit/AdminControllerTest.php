@@ -5,6 +5,7 @@ use ThekRe\Category;
 use ThekRe\Http\Controllers\AdminController;
 use Illuminate\Http\Request;
 use ThekRe\Order;
+use ThekRe\HourlyOrder;
 use ThekRe\Status;
 use ThekRe\Themebox;
 
@@ -34,12 +35,18 @@ class AdminControllerTest extends TestCase
     {
         $orders =  $this->controller->getOrders();
 
-        $this->assertEquals(count($orders), count(Order::get()));
+        $countHourlyOrders = count(HourlyOrder::get());
+        $countDailyOrders = count(Order::get());
+
+        $this->assertEquals(count($orders), $countHourlyOrders + $countDailyOrders);
     }
+
 
 
     public function test_loginSuccess()
     {
+        $this->markTestSkipped('We do not want to run this test on the production server.');
+
         // Assuming you have set up the admin password and email for testing
         $adminPassword = config('admin_auth.admin_password');
         $adminEmail = config('admin_auth.admin_email');
@@ -131,8 +138,24 @@ class AdminControllerTest extends TestCase
         $current_orders = Order::get();
         $order_amount = count($current_orders);
 
+        // Create a new Themebox to be used in the order
+        $themebox = new Themebox();
+        $themebox->title = "Test Title";
+        $themebox->signatur = "Test Sig";
+        $themebox->schoollevel = "Sek4";
+        $themebox->barcode = "K979808";
+        $themebox->size = "10";
+        $themebox->content = "1 Buch";
+        $themebox->weight = "12";
+        $themebox->complete = 1;
+        $themebox->save();
+
+        // Retrieve the ID of the newly created themebox
+        $themebox_id = $themebox->pk_themebox;
+
+
         $order = new Order();
-        $order->fk_themebox = 75; // assuming that there is a themebox with this id
+        $order->fk_themebox = $themebox_id; // assuming that there is a themebox with this id
         $order->startdate = "2010-12-12";
         $order->enddate = "2010-12-24";
         $order->name = "mueller";
@@ -152,6 +175,8 @@ class AdminControllerTest extends TestCase
         $this->controller->removeOrder($request);
 
         $this->assertEquals($order_amount, count(Order::get()));
+
+        Themebox::destroy($themebox_id);
     }
 
     public function test_getThemebox(){
@@ -195,6 +220,7 @@ class AdminControllerTest extends TestCase
         // Remove the category
         $new_category->forceDelete();
     }
+
     public function test_removeCategory()
     {
         $current_categories = Category::get();
@@ -264,9 +290,6 @@ class AdminControllerTest extends TestCase
         // Remove the category
         $updated_category->forceDelete();
     }
-
-
-
 
     public function tearDown(): void{
     }

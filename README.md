@@ -123,7 +123,8 @@ In the following section, we will guide you through the installation of the deve
 > - PS: the password for the poweruser under http://127.0.0.1:8000/poweruser/loginForm is: "poweruser" <br>
 
 ### Installation Development Environment with Docker
-In the following section, we will guide you through the installation of the dockerized environment on your local machine. Docker is used to set the application live on the FHNW Server. So its good to also have set it up locally once for better understanding, since the setup on the server is almost identical but with no visual feedback.<br>
+In the following section, we will guide you through the installation of the dockerized environment on your local machine. Docker is used to set the application live on the FHNW Server. So its good to also have set it up once locally for better understanding.<br>
+To make the installation easier we mainly used the User Interface of the Windows OS. <br>
 
 > 1. Install [Docker](https://www.docker.com/) <br>
 >    - Download the Docker Desktop Installer from [here](https://www.docker.com/products/docker-desktop) and run the installer. <br>
@@ -229,20 +230,30 @@ In the following section, we will guide you through the installation of the dock
 >  ```
 
 > 3. Run docker <br>
->    Open Docker Desktop and wait for the service to start
+>    Open Docker Desktop and wait for the service to start. After the service is running, Docker Desktop should look like this: <br>
+>    ![img.png](images_readme/Docker_Desktop.png)
 
 > 4. Run the thekre_docker.sh <br>
->     1. Double click on the thekre_docker.sh file
+>     1. Double click on the thekre_docker.sh file <br>
+>       You can see the running container in the Docker Desktop <br>
+>    ![img.png](images_readme/running_docker_container.png)
+>        
 >
 > Note: You might be asked to enter login credentials for git (You can not use your Password, you need to create a Personal Access Token. See the instructions [here](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html#create-a-personal-access-token))
 
 > 3. Open the application in your browser <br>
 >  http://127.0.0.1/user <br>
 
+> 4. Take the application offline <br>
+>    To take the application offline you need to stop the Docker container. You can do this by clicking the "Stop" button in the Docker Desktop <br>
+>    ![img.png](images_readme/stop_docker_container.png)
+
 > 4. Notes to keep in mind: <br>
 >   1.  If the application is run for the first time the database needs to be importet manually. (see step 7 of the [Installation Development Environment with XAMPP](#Installation Development Environment with XAMPP))  <br>
 >   2.  If the application is run for the first time the thekre_admin user does also need to be created. (see step 7 of the [Installation Development Environment with XAMPP](#Installation Development Environment with XAMPP)) <br>
 >   3.  If the Website is not shown correctly (e.g. no CSS) clear the browser cache and, or history and reload the page. <br>
+>   4.  If the application got taken offline, and you want to start it again, you can do so by deleting the thekre folder and running the thekre_docker.sh again or by clicking the "Start" button in the Docker Desktop <br>
+>   ![img.png](images_readme/start_docker_container.png)
 
 ## Set the Application Live on the FHNW Server
 In the following section, we will guide you through the installation of the dockerized environment. This will set the application Live on the FHNW Server. <br>

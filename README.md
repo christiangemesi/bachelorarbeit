@@ -361,12 +361,19 @@ In the following section, we will guide you through the installation of the dock
 >           DATABASE_ROOT_PASSWORD="156deq1ws56dwq5e245864e5w6qe45w61cw5dw"
 >           ``` 
 >      6.  type `:wq` to save the file 
->      7.  After doing the steps above for the respective OS, the folder structure should look like this:
->          ```
->           -folder
->           |-thekre_docker.sh
->           |-.env
->           ```
+>      7.  `sudo vim clone_address.txt` (to create a new file and open it with vim)
+>      8.   click `i` to enter the insert mode and paste the content from the file below:
+>      9.    ```
+>            https://user:<<TOKEN>>@gitlab.fhnw.ch/christian.gemesi/thek-re-2.git
+>            ```
+>      10. type `:wq` to save the file
+>    11. After doing the steps above for the respective OS, the folder structure should look like this:
+>        ```
+>         -folder
+>         |-thekre_docker.sh
+>         |-.env
+>         |-clone_address.txt
+>         ```
 
 > 3. Setup the Mail Server <br>
 >    - This only needs to be done once. If youd change to another server, youd need to follow theese steps:

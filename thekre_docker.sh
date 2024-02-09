@@ -1,49 +1,71 @@
 #!/bin/bash
 
-echo "Changing into thekre_webportal folder... Will created if not exists."
-cd thekre_webportal || { sudo mkdir thekre_webportal && cd thekre_webportal || { echo "Error: Unable to create or change into thekre_webportal folder"; exit 1; } }
-echo "Folder 'thekre_webportal' switched to."
+# Check if clone_address.txt exists
+if [ ! -f "clone_address.txt" ]; then
+    echo "Error: clone_address.txt file not found."
+    exit 1
+fi
 
-echo "Creating a new folder..."
-mkdir thekre && cd thekre || { echo "Error: Unable to create or change into thekre folder"; exit 1; }
-echo "Folder 'thekre' created and switched to."
+# Read the clone address from clone_address.txt
+clone_address=$(<clone_address.txt)
+
+echo "Creating deployment folder..."
+mkdir deployment || { echo "Error: Unable to create the deployment folder"; exit 1; }
+echo "Deployment folder created and switched to."
+
+echo "Switching to the deployment folder..."
+cd deployment || { echo "Error: Unable to switch to the deployment folder"; exit 1; }
+echo "Switched to the deployment folder."
 
 echo "Cloning the repository..."
-git clone https://gitlab.fhnw.ch/christian.gemesi/thek-re-2.git || { echo "Error: Unable to clone the repository"; exit 1; }
-cd thek-re-2 || { echo "Error: Unable to change into thek-re-2 folder"; exit 1; }
+git clone "$clone_address" . || { echo "Error: Unable to clone the repository"; exit 1; }
 echo "Repository cloned and switched to 'thek-re-2' folder."
 
 echo "Copying the .env file into the folder..."
-cp '..\..\.env' . || { echo "Error: Unable to copy the .env.production file"; exit 1; }
+cp '..\.env' . || { echo "Error: Unable to copy the .env.production file"; exit 1; }
 echo ".env file copied."
 
 echo "Building the Docker image..."
 docker compose build || { echo "Error: Unable to build the Docker image"; exit 1; }
 echo "Docker image built successfully."
 
-echo "Moving back to the parent folder..."
-cd .. || { echo "Error: Unable to change into the parent folder"; exit 1; }
-echo "Successfully moved back to the parent folder."
-
-echo "Creating a new folder for deployment..."
-mkdir deployment || { echo "Error: Unable to create the deployment folder"; exit 1; }
-echo "Deployment folder created."
-
-echo "Copying docker-compose.yml into the deployment folder..."
-cp 'thek-re-2/docker-compose.yml' deployment/ || { echo "Error: Unable to copy docker-compose.yml"; exit 1; }
-echo "docker-compose.yml copied into the deployment folder."
-
-echo "Copying .env into the deployment folder..."
-cp 'thek-re-2/.env' deployment/ || { echo "Error: Unable to copy the .env.production file"; exit 1; }
-echo ".env file copied into the deployment folder."
-
-echo "Removing the 'thek-re-2' folder..."
-rm -rf thek-re-2 || { echo "Error: Unable to remove thek-re-2 folder"; exit 1; }
-echo "'thek-re-2' folder removed."
-
-echo "Changing into the deployment folder..."
-cd deployment || { echo "Error: Unable to change into the deployment folder"; exit 1; }
-
 echo "Starting the Docker container in the background..."
 docker compose up -d || { echo "Error: Unable to start the Docker container"; exit 1; }
 echo "Docker container started successfully."
+
+# Change directory to one folder outside of the deployment folder
+cd ..
+
+# Create a new script file with the provided content
+cat <<EOF > rebuild_docker_container.sh
+#!/bin/bash
+
+# Change directory to the repository folder
+cd deployment || { echo "Error: Unable to change into the repository folder"; exit 1; }
+
+# Fetch changes from the remote repository
+git fetch origin master
+
+# Check if there are changes
+if ! git diff --quiet origin/master; then
+    echo "Changes detected. Rebuilding Docker container..."
+
+    # Stop the current Docker container if it's running
+    docker-compose down || { echo "Error: Unable to stop the Docker container"; exit 1; }
+
+    # Build the Docker image
+    docker-compose build || { echo "Error: Unable to build the Docker image"; exit 1; }
+
+    # Start the Docker container in the background
+    docker-compose up -d || { echo "Error: Unable to start the Docker container"; exit 1; }
+
+    echo "Docker container rebuilt and started successfully."
+else
+    echo "No changes detected. Skipping Docker container rebuild."
+fi
+EOF
+
+# Grant executable rights to the script
+chmod +x rebuild_docker_container.sh
+
+echo "Script 'rebuild_docker_container.sh' created with rebuild instructions."

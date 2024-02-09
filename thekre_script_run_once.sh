@@ -18,7 +18,7 @@ cd deployment || { echo "Error: Unable to switch to the deployment folder"; exit
 echo "Switched to the deployment folder."
 
 echo "Cloning the repository..."
-sudo git clone "$clone_address" . || { echo "Error: Unable to clone the repository"; exit 1; }
+git clone "$clone_address" . || { echo "Error: Unable to clone the repository"; exit 1; }
 echo "Repository cloned and switched to 'thek-re-2' folder."
 
 echo "Copying the .env file into the folder..."
@@ -26,12 +26,12 @@ cp '../.env' . || { echo "Error: Unable to copy the .env.production file"; exit 
 echo ".env file copied."
 
 echo "Building the Docker image..."
-sudo docker compose build || { echo "Error: Unable to build the Docker image"; exit 1; }
+docker compose build || { echo "Error: Unable to build the Docker image"; exit 1; }
 echo "Docker image built successfully."
 
 echo "Starting the Docker container in the background..."
-sudo docker compose up -d || { echo "Error: Unable to start the Docker container"; exit 1; }
+docker compose up -d || { echo "Error: Unable to start the Docker container"; exit 1; }
 echo "Docker container started successfully."
 
 # Grant executable rights to the script
-sudo chmod +x rebuild_docker_container.sh
+chmod +x rebuild_docker_container.sh

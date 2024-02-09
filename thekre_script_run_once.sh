@@ -18,7 +18,7 @@ cd deployment || { echo "Error: Unable to switch to the deployment folder"; exit
 echo "Switched to the deployment folder."
 
 echo "Cloning the repository..."
-git clone "$clone_address" . || { echo "Error: Unable to clone the repository"; exit 1; }
+sudo git clone "$clone_address" . || { echo "Error: Unable to clone the repository"; exit 1; }
 echo "Repository cloned and switched to 'thek-re-2' folder."
 
 echo "Copying the .env file into the folder..."
@@ -35,15 +35,3 @@ echo "Docker container started successfully."
 
 # Grant executable rights to the script
 sudo chmod +x rebuild_docker_container.sh
-
-echo "Script 'rebuild_docker_container.sh' created with rebuild instructions."
-
-# Schedule the execution of rebuild_docker_container.sh using cron
-# Check if the cronjob is already present
-if ! crontab -l | grep -q "rebuild_docker_container.sh"; then
-    # Add cronjob to run rebuild_docker_container.sh every 5 minutes
-    (crontab -l ; echo "*/5 * * * * /home/matrix/thekre_webportal/deployment/rebuild_docker_container.sh") | crontab -
-    echo "Cronjob installed successfully."
-else
-    echo "Cronjob is already installed."
-fi

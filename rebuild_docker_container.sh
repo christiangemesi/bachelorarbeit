@@ -11,7 +11,7 @@ if ! git diff --quiet origin/master; then
     sudo docker compose down || { echo "Error: Unable to stop the Docker container"; exit 1; }
 
     # Pull the latest changes from the remote repository
-    sudo git pull origin master || { echo "Error: Unable to pull the latest changes"; exit 1; }
+    error_msg=$(sudo git pull origin master 2>&1) || { echo "Error: Unable to pull the latest changes: $error_msg"; exit 1; }
 
     # Build the Docker image
     sudo docker compose build || { echo "Error: Unable to build the Docker image"; exit 1; }

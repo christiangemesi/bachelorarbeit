@@ -26,7 +26,7 @@ cp '..\.env' . || { echo "Error: Unable to copy the .env.production file"; exit 
 echo ".env file copied."
 
 echo "Building the Docker image..."
-docker compose build || { echo "Error: Unable to build the Docker image"; exit 1; }
+docker compose build --no-cache || { echo "Error: Unable to build the Docker image"; exit 1; }
 echo "Docker image built successfully."
 
 echo "Starting the Docker container in the background..."
@@ -54,7 +54,7 @@ if ! git diff --quiet origin/master; then
     docker-compose down || { echo "Error: Unable to stop the Docker container"; exit 1; }
 
     # Build the Docker image
-    docker-compose build || { echo "Error: Unable to build the Docker image"; exit 1; }
+    docker-compose build --no-cache || { echo "Error: Unable to build the Docker image"; exit 1; }
 
     # Start the Docker container in the background
     docker-compose up -d || { echo "Error: Unable to start the Docker container"; exit 1; }

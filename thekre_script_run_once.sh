@@ -41,7 +41,7 @@ sudo cat <<EOF > rebuild_docker_container.sh
 #!/bin/bash
 
 # Change directory to the repository folder
-cd deployment || { echo "Error: Unable to change into the repository folder"; exit 1; }
+cd /home/matrix/thekre_webportal/deployment || { echo "Error: Unable to change into the repository folder"; exit 1; }
 
 # Fetch changes from the remote repository
 git fetch origin master
@@ -57,10 +57,10 @@ if ! git diff --quiet origin/master; then
     sudo git pull origin master || { echo "Error: Unable to pull the latest changes"; exit 1; }
 
     # Build the Docker image
-    sudo docker-compose build || { echo "Error: Unable to build the Docker image"; exit 1; }
+    sudo docker compose build || { echo "Error: Unable to build the Docker image"; exit 1; }
 
     # Start the Docker container in the background
-    sudo docker-compose up -d || { echo "Error: Unable to start the Docker container"; exit 1; }
+    sudo docker compose up -d || { echo "Error: Unable to start the Docker container"; exit 1; }
 
     echo "Docker container rebuilt and started successfully."
 else

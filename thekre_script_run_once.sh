@@ -22,22 +22,22 @@ git clone "$clone_address" . || { echo "Error: Unable to clone the repository"; 
 echo "Repository cloned and switched to 'thek-re-2' folder."
 
 echo "Copying the .env file into the folder..."
-cp '..\.env' . || { echo "Error: Unable to copy the .env.production file"; exit 1; }
+cp '../.env' . || { echo "Error: Unable to copy the .env.production file"; exit 1; }
 echo ".env file copied."
 
 echo "Building the Docker image..."
-docker compose build || { echo "Error: Unable to build the Docker image"; exit 1; }
+sudo docker compose build || { echo "Error: Unable to build the Docker image"; exit 1; }
 echo "Docker image built successfully."
 
 echo "Starting the Docker container in the background..."
-docker compose up -d || { echo "Error: Unable to start the Docker container"; exit 1; }
+sudo docker compose up -d || { echo "Error: Unable to start the Docker container"; exit 1; }
 echo "Docker container started successfully."
 
 # Change directory to one folder outside of the deployment folder
 cd ..
 
 # Create a new script file with the provided content
-cat <<EOF > rebuild_docker_container.sh
+sudo cat <<EOF > rebuild_docker_container.sh
 #!/bin/bash
 
 # Change directory to the repository folder
@@ -51,16 +51,16 @@ if ! git diff --quiet origin/master; then
     echo "Changes detected. Rebuilding Docker container..."
 
     # Stop the current Docker container if it's running
-    docker-compose down || { echo "Error: Unable to stop the Docker container"; exit 1; }
+    sudo docker-compose down || { echo "Error: Unable to stop the Docker container"; exit 1; }
 
     # Pull the latest changes from the remote repository
-    git pull origin master || { echo "Error: Unable to pull the latest changes"; exit 1; }
+    sudo git pull origin master || { echo "Error: Unable to pull the latest changes"; exit 1; }
 
     # Build the Docker image
-    docker-compose build || { echo "Error: Unable to build the Docker image"; exit 1; }
+    sudo docker-compose build || { echo "Error: Unable to build the Docker image"; exit 1; }
 
     # Start the Docker container in the background
-    docker-compose up -d || { echo "Error: Unable to start the Docker container"; exit 1; }
+    sudo docker-compose up -d || { echo "Error: Unable to start the Docker container"; exit 1; }
 
     echo "Docker container rebuilt and started successfully."
 else
@@ -69,6 +69,16 @@ fi
 EOF
 
 # Grant executable rights to the script
-chmod +x rebuild_docker_container.sh
+sudo chmod +x rebuild_docker_container.sh
 
 echo "Script 'rebuild_docker_container.sh' created with rebuild instructions."
+
+# Schedule the execution of rebuild_docker_container.sh using cron
+# Check if the cronjob is already present
+if ! crontab -l | grep -q "rebuild_docker_container.sh"; then
+    # Add cronjob to run rebuild_docker_container.sh every 5 minutes
+    (crontab -l ; echo "*/5 * * * * /home/matrix/thekre_webportal/rebuild_docker_container.sh") | crontab -
+    echo "Cronjob installed successfully."
+else
+    echo "Cronjob is already installed."
+fi

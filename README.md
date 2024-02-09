@@ -267,58 +267,99 @@ In the following section, we will guide you through the installation of the dock
 >    - Install Docker by running this command `sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin` (this will install docker and all necessary plugins) <br>
 
 > 2. Preparing the Folder Structure <br>
->      1. `mkdir ThekRe_Webportal` (to create a new folder)
+>      1. `mkdir thekre_webportal` (to create a new folder)
 >      2.  `cd ThekRe_Webportal` (to change into the folder)
->      3. `sudo vim thekre_docker.sh` (to create a new file and open it with vim)
+>      3. `sudo vim thekre_script_run_once.sh` (to create a new file and open it with vim)
 >      4.  click `i` to enter the insert mode and paste the content from the file below:
 >           ```
 >           #!/bin/bash
->           echo "Creating a new folder..."
->           mkdir thekre && cd thekre || { echo "Error: Unable to create or change into thekre folder"; exit 1; }
->           echo "Folder 'thekre' created and switched to."
+>           
+>           # Check if clone_address.txt exists
+>           if [ ! -f "clone_address.txt" ]; then
+>           echo "Error: clone_address.txt file not found."
+>           exit 1
+>           fi
+>           
+>           # Read the clone address from clone_address.txt
+>           clone_address=$(<clone_address.txt)
+>           
+>           echo "Creating deployment folder..."
+>           mkdir deployment || { echo "Error: Unable to create the deployment folder"; exit 1; }
+>           echo "Deployment folder created and switched to."
+>           
+>           echo "Switching to the deployment folder..."
+>           cd deployment || { echo "Error: Unable to switch to the deployment folder"; exit 1; }
+>           echo "Switched to the deployment folder."
 >           
 >           echo "Cloning the repository..."
->           git clone https://gitlab.fhnw.ch/christian.gemesi/thek-re-2.git || { echo "Error: Unable to clone the repository"; exit 1; }
->           cd thek-re-2 || { echo "Error: Unable to change into thek-re-2 folder"; exit 1; }
+>           git clone "$clone_address" . || { echo "Error: Unable to clone the repository"; exit 1; }
 >           echo "Repository cloned and switched to 'thek-re-2' folder."
 >           
 >           echo "Copying the .env file into the folder..."
->           cp '..\..\.env' . || { echo "Error: Unable to copy the .env.production file"; exit 1; }
+>           cp '..\.env' . || { echo "Error: Unable to copy the .env.production file"; exit 1; }
 >           echo ".env file copied."
 >           
 >           echo "Building the Docker image..."
 >           docker compose build || { echo "Error: Unable to build the Docker image"; exit 1; }
 >           echo "Docker image built successfully."
 >           
->           echo "Moving back to the parent folder..."
->           cd .. || { echo "Error: Unable to change into the parent folder"; exit 1; }
->           echo "Successfully moved back to the parent folder."
->           
->           echo "Creating a new folder for deployment..."
->           mkdir deployment || { echo "Error: Unable to create the deployment folder"; exit 1; }
->           echo "Deployment folder created."
->           
->           echo "Copying docker-compose.yml into the deployment folder..."
->           cp 'thek-re-2/docker-compose.yml' deployment/ || { echo "Error: Unable to copy docker-compose.yml"; exit 1; }
->           echo "docker-compose.yml copied into the deployment folder."
->           
->           echo "Copying .env into the deployment folder..."
->           cp 'thek-re-2/.env' deployment/ || { echo "Error: Unable to copy the .env.production file"; exit 1; }
->           echo ".env file copied into the deployment folder."
->           
->           echo "Removing the 'thek-re-2' folder..."
->           rm -rf thek-re-2 || { echo "Error: Unable to remove thek-re-2 folder"; exit 1; }
->           echo "'thek-re-2' folder removed."
->           
->           echo "Changing into the deployment folder..."
->           cd deployment || { echo "Error: Unable to change into the deployment folder"; exit 1; }
->           
 >           echo "Starting the Docker container in the background..."
 >           docker compose up -d || { echo "Error: Unable to start the Docker container"; exit 1; }
 >           echo "Docker container started successfully."
+>           
+>           # Change directory to one folder outside of the deployment folder
+>           cd ..
+>           
+>           # Create a new script file with the provided content
+>           cat <<EOF > rebuild_docker_container.sh
+>           #!/bin/bash
+>           
+>           # Change directory to the repository folder
+>           cd deployment || { echo "Error: Unable to change into the repository folder"; exit 1; }
+>           
+>           # Fetch changes from the remote repository
+>           git fetch origin master
+>           
+>           # Check if there are changes
+>           if ! git diff --quiet origin/master; then
+>           echo "Changes detected. Rebuilding Docker container..."
+>           
+>               # Stop the current Docker container if it's running
+>               docker-compose down || { echo "Error: Unable to stop the Docker container"; exit 1; }
+>           
+>               # Pull the latest changes from the remote repository
+>               git pull origin master || { echo "Error: Unable to pull the latest changes"; exit 1; }
+>           
+>               # Build the Docker image
+>               docker-compose build || { echo "Error: Unable to build the Docker image"; exit 1; }
+>           
+>               # Start the Docker container in the background
+>               docker-compose up -d || { echo "Error: Unable to start the Docker container"; exit 1; }
+>           
+>               echo "Docker container rebuilt and started successfully."
+>           else
+>           echo "No changes detected. Skipping Docker container rebuild."
+>           fi
+>           EOF
+>           
+>           # Grant executable rights to the script
+>           chmod +x rebuild_docker_container.sh
+>           
+>           echo "Script 'rebuild_docker_container.sh' created with rebuild instructions."
+>           
+>           # Schedule the execution of rebuild_docker_container.sh using cron
+>           # Check if the cronjob is already present
+>           if ! crontab -l | grep -q "rebuild_docker_container.sh"; then
+>           # Add cronjob to run rebuild_docker_container.sh every 5 minutes
+>           (crontab -l ; echo "*/5 * * * * /home/matrix/thekre_webportal/rebuild_docker_container.sh") | crontab -
+>           echo "Cronjob installed successfully."
+>           else
+>           echo "Cronjob is already installed."
+>           fi
+>           
 >           ```
->      4.  type `:wq` to save the file
->      5.  `sudo vim .env` (to create a new file and open it with vim)
+>      4.   click `esc` to exit insert mode and type `:wq` to save the file
+>      5.  type `sudo vim .env` (to create a new file and open it with vim)
 >      6. click `i` to enter the insert mode and paste the content from the file below:
 >           ``` 
 >           APP_NAME=ThekRe
@@ -360,31 +401,86 @@ In the following section, we will guide you through the installation of the dock
 >           #Database root user in mysql per default is root
 >           DATABASE_ROOT_PASSWORD="156deq1ws56dwq5e245864e5w6qe45w61cw5dw"
 >           ``` 
->      6.  type `:wq` to save the file 
->      7.  `sudo vim clone_address.txt` (to create a new file and open it with vim)
+>      6.  click `esc` to exit insert mode and type `:wq` to save the file 
+>      7.  type `sudo vim clone_address.txt` (to create a new file and open it with vim)
 >      8.   click `i` to enter the insert mode and paste the content from the file below:
 >      9.    ```
 >            https://user:<<TOKEN>>@gitlab.fhnw.ch/christian.gemesi/thek-re-2.git
 >            ```
->      10. type `:wq` to save the file
->    11. After doing the steps above for the respective OS, the folder structure should look like this:
->        ```
->         -folder
->         |-thekre_docker.sh
->         |-.env
->         |-clone_address.txt
->         ```
+>            Replace <<TOKEN>> with the Project Access Token. That token can be generated by going to the project in Gitlab, On the left side clickiing on Settings -> Access Tokens: <br>
+>            ![img.png](images_readme/going_to_access_token.png) <br>
+>            Click "Add new token" and fill in the form as followed as shown in the picture below. Choose the Expiration date to be 1 year in the future (thats the maximum) and click "Create project access token". <br>
+>            ![img.png](images_readme/create_access_token.png) <br>
+>            Now you can copy the token and paste it into the clone_address.txt file. <br>
+>            ![img_1.png](images_readme/copy_access_token.png)
+>            After pasting the token into the file, click `esc` to exit insert mode and type `:wq` to save the file <br> <br>
+> 
+>            Note: This Token as we created it is only valid for 1 year. After that you need to create a new one. Any pushes to the repository will not be possible without a valid token. <br> <br>
 
-> 3. Setup the Mail Server <br>
->    - This only needs to be done once. If youd change to another server, youd need to follow theese steps:
->    1. TODO: Add the steps to setup the Mail Server
+>    After doing the steps above the folder structure should look like this:
+>   ```
+>    -folder
+>    |-thekre_script_run_once.sh
+>    |-.env
+>    |-clone_address.txt
+>    ```
+>    Explenations for the files:
+>    - thekre_script_run_once.sh: creates the deploymend folder, runs the docker containers, creates the rebuild_docker_container.sh which is scheduled with the cronjob to run every 5 minutes
+>    - .env: contains the environment variables for the application like logindata
+>    - clone_address.txt: contains the clone address of the repository with the token
+
+
+> 3. Setup the Mail Server (LMailer) <br>
+> To send the order confirmation e-mail we use the FHNW intern LMailer. The following instructions are basen on the [official_documention_lmailer.pdf](readme_docs%2Fofficial_documention_lmailer.pdf) <br>
+> This setup only needs to be done once. If youd change to another server, youd need to follow theese steps: <br>
+>
+>    1.  Unistall exim4: ```apt-get remove exim4 exim4-base``` <br>
+>    2.  Install postfix: ```apt-get install postfix libsasl2-modules ca-certificates``` <br> <br>
+>    3.  type```sudo vim /etc/postfix/main.cf``` (to open the file with vim and Replace HERE_COMES_THE_HOSTNAME_OF_THE_SERVER with the hostname of the server. The host name must be set to the hostname of the server. In the **etc/mailname** file, the hostname must also be entered and must match with **myhostname**.)<br>
+>    ```bash
+>    myhostname = HERE_COMES_THE_HOSTNAME_OF_THE_SERVER
+>    # default value for alias_maps = hash:/etc/aliases, nis:mail.aliases
+>    alias_maps = hash:/etc/aliases
+>    alias_database = hash:/etc/aliases
+>    myorigin = /etc/mailname
+>    mydestination =
+>    relayhost = lmailer.ict.fhnw.ch:25
+>    mynetworks = 127.0.0.0/8
+>    mailbox_size_limit = 0
+>    recipient_delimiter = +
+>    inet_interfaces = loopback-only
+>    inet_protocols = ipv4
+>    fork_attempts = 2
+>    biff=no
+>    append_dot_mydomain = no
+>    # Uncomment the next line to generate "delayed mail" warnings
+>    #delay_warning_time = 4h
+>    # See /usr/share/doc/postfix/TLS_README.gz in the postfix-doc package for
+>    # information on enabling SSL in the smtp client.
+>    smtp_use_tls = no
+>    sender_canonical_maps = hash:/etc/postfix/sender_canonical
+>    recipient_canonical_maps = hash:/etc/postfix/recipient_canonical
+>    ```
+>    4. type ```sudo vim /etc/postfix/sender_canonical``` (to open the file with vim and add the lines below. This has to be done, so that all local E-Mails get forwarded to the collective address.) <br>
+>    ```bash
+>    @<hostname>.imvs.technik.fhnw.ch admin.imvs.windisch@fhnw.ch
+>    @<hostname> admin.imvs.windisch@fhnw.ch
+>    @localhost admin.imvs.windisch@fhnw.ch
+>    ```
+>    5. Now execute the following commands to create the hash files: <br>
+>   ````bash
+>    postmap hash:/etc/aliases
+>    postmap hash:/etc/postfix/recipient_canonical
+>    postmap hash:/etc/postfix/sender_canonical
+>   ````
+>   **After every change of the files the hashes have to generated again.**
 
 > 4. Run docker <br>
 >     1.  you can check if the service is running with `docker ps`, if no service is running start it with `sudo systemctl start docker`
 
-> 5. Run the thekre_docker.sh <br>
->     1. `sudo chmod +x thekre_docker.sh` (to make the file executable)
->     2. `sudo ./thekre_docker.sh` (to run the file)
+> 5. Run the thekre_script_run_once.sh <br>
+>     1. `sudo chmod +x thekre_script_run_once.sh` (to make the file executable)
+>     2. `sudo ./thekre_script_run_once.sh` (to run the file)
 > 
 > Note: You might be asked to enter login credentials for git (You can not use your Password, you need to create a Personal Access Token. See the instructions [here](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html#create-a-personal-access-token))
 

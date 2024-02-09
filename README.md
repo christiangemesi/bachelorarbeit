@@ -381,7 +381,12 @@ In the following section, we will guide you through the installation of the dock
 >    - .env: contains the environment variables for the application like logindata
 >    - clone_address.txt: contains the clone address of the repository with the token
 
-> 3. Setup the Mail Server (LMailer) <br>
+> 3. Add User to the Docker Group <br>
+>    To run Docker commands without sudo, add your user to the docker group. You can do this by running the following command: <br>
+>    ```sudo usermod -a -G docker $USER``` <br>
+>    After that you need to logout and login again to apply the changes. <br>
+
+> 4. Setup the Mail Server (LMailer) <br>
 > To send the order confirmation e-mail we use the FHNW intern LMailer. The following instructions are basen on the [official_documention_lmailer.pdf](readme_docs%2Fofficial_documention_lmailer.pdf) <br>
 > This setup only needs to be done once. If youd change to another server, youd need to follow theese steps: <br>
 >
@@ -426,14 +431,14 @@ In the following section, we will guide you through the installation of the dock
 >   ````
 >   **After every change of the files the hashes have to generated again.**
 
-> 4. Run docker <br>
+> 5. Run docker <br>
 >     1.  you can check if the service is running with `docker ps`, if no service is running start it with `sudo systemctl start docker`
 
-> 5. Run the thekre_script_run_once.sh <br>
+> 6. Run the thekre_script_run_once.sh <br>
 >     1. `sudo chmod +x thekre_script_run_once.sh` (to make the file executable)
 >     2. `sudo ./thekre_script_run_once.sh` (to run the file)
 
-> 6. Setup automatic updates <br>
+> 7. Setup automatic updates <br>
 >    For the application to always have the lates version running, we need to setup a cronjob. The cronjob will run the rebuild_docker_container.sh script every 5 minutes. Execute the following command to set it up: <br>
 >    1.  ```crontab -e``` (to open the file) <br>
 >    2. click `i` to enter the insert mode and add the following line to the file: <br>
@@ -442,15 +447,15 @@ In the following section, we will guide you through the installation of the dock
 >   This will run the rebuild_docker_container.sh script every 5 minutes. The script looks for changes in git, pulls them and rebuilds and reruns the containers. <br>
 
 
-> 7. Open the application in your browser <br>
+> 8. Open the application in your browser <br>
 >    https://www.fhnw.ch/de/die-fhnw/bibliotheken/bibliothek-brugg-windisch/themenkisten/user
 
-> 8. Take the application offline <br>
+> 9. Take the application offline <br>
 >    To take the application offline you need to stop the Docker container. You need to change into the deployment folder and run the following command: <br>
 >    `docker compose down` <br>
 > You also need to remove the cronjob. You can do this by running `crontab -e` and deleting the line we added in step 6. <br>
 
-> 9.  Notes to keep in mind: <br>
+> 10. Notes to keep in mind: <br>
 >    1.  If the application is run for the first time the database needs to be importet manually. (see step 7 of the [Installation Development Environment](#Installation Development Environment))  <br>
 >    2.  If the application is run for the first time the thekre_admin user does also need to be created. (see step 7 of the [Installation Development Environment](#Installation Development Environment)) <br>
 >    3.  If the Website is not shown correctly (e.g. no CSS) clear the browser cache and, or history and reload the page. <br>

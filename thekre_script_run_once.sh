@@ -51,7 +51,7 @@ if ! git diff --quiet origin/master; then
     echo "Changes detected. Rebuilding Docker container..."
 
     # Stop the current Docker container if it's running
-    sudo docker-compose down || { echo "Error: Unable to stop the Docker container"; exit 1; }
+    sudo docker compose down || { echo "Error: Unable to stop the Docker container"; exit 1; }
 
     # Pull the latest changes from the remote repository
     sudo git pull origin master || { echo "Error: Unable to pull the latest changes"; exit 1; }
@@ -77,7 +77,7 @@ echo "Script 'rebuild_docker_container.sh' created with rebuild instructions."
 # Check if the cronjob is already present
 if ! crontab -l | grep -q "rebuild_docker_container.sh"; then
     # Add cronjob to run rebuild_docker_container.sh every 5 minutes
-    (crontab -l ; echo "*/5 * * * * /home/matrix/thekre_webportal/rebuild_docker_container.sh") | crontab -
+    (crontab -l ; echo "*/5 * * * * root /home/matrix/thekre_webportal/rebuild_docker_container.sh") | crontab -
     echo "Cronjob installed successfully."
 else
     echo "Cronjob is already installed."

@@ -257,7 +257,7 @@ Keep in mind that there is no hot-reload for the dockerized environment. If you 
 >   ![img.png](images_readme/start_docker_container.png)
 
 ## Set the Application Live on the FHNW Server
-In the following section, we will guide you through the installation of the dockerized environment. This will set the application Live on the FHNW Server. <br>
+In the following section, we will guide you through the installation of the dockerized environment. This will set the application Live on the FHNW Server. This setup is only needed to do once. <br>
 
 > 0. Connect to the FHNW Server <br>
 >    - Connect to the FHNW Server via SSH <br>
@@ -270,7 +270,7 @@ In the following section, we will guide you through the installation of the dock
 >      1. `mkdir thekre_webportal` (to create a new folder)
 >      2.  `cd ThekRe_Webportal` (to change into the folder)
 >      3. `sudo vim thekre_script_run_once.sh` (to create a new file and open it with vim)
->      4.  click `i` to enter the insert mode and paste the content from the file below:
+>      4.  click `i` to enter the insert mode and paste the content from the file below: <br>
 >           ```
 >           #!/bin/bash
 >           
@@ -296,7 +296,7 @@ In the following section, we will guide you through the installation of the dock
 >           echo "Repository cloned and switched to 'thek-re-2' folder."
 >           
 >           echo "Copying the .env file into the folder..."
->           cp '..\.env' . || { echo "Error: Unable to copy the .env.production file"; exit 1; }
+>           cp '../.env' . || { echo "Error: Unable to copy the .env.production file"; exit 1; }
 >           echo ".env file copied."
 >           
 >           echo "Building the Docker image..."
@@ -307,60 +307,12 @@ In the following section, we will guide you through the installation of the dock
 >           docker compose up -d || { echo "Error: Unable to start the Docker container"; exit 1; }
 >           echo "Docker container started successfully."
 >           
->           # Change directory to one folder outside of the deployment folder
->           cd ..
->           
->           # Create a new script file with the provided content
->           cat <<EOF > rebuild_docker_container.sh
->           #!/bin/bash
->           
->           # Change directory to the repository folder
->           cd deployment || { echo "Error: Unable to change into the repository folder"; exit 1; }
->           
->           # Fetch changes from the remote repository
->           git fetch origin master
->           
->           # Check if there are changes
->           if ! git diff --quiet origin/master; then
->           echo "Changes detected. Rebuilding Docker container..."
->           
->               # Stop the current Docker container if it's running
->               docker-compose down || { echo "Error: Unable to stop the Docker container"; exit 1; }
->           
->               # Pull the latest changes from the remote repository
->               git pull origin master || { echo "Error: Unable to pull the latest changes"; exit 1; }
->           
->               # Build the Docker image
->               docker-compose build || { echo "Error: Unable to build the Docker image"; exit 1; }
->           
->               # Start the Docker container in the background
->               docker-compose up -d || { echo "Error: Unable to start the Docker container"; exit 1; }
->           
->               echo "Docker container rebuilt and started successfully."
->           else
->           echo "No changes detected. Skipping Docker container rebuild."
->           fi
->           EOF
->           
 >           # Grant executable rights to the script
 >           chmod +x rebuild_docker_container.sh
->           
->           echo "Script 'rebuild_docker_container.sh' created with rebuild instructions."
->           
->           # Schedule the execution of rebuild_docker_container.sh using cron
->           # Check if the cronjob is already present
->           if ! crontab -l | grep -q "rebuild_docker_container.sh"; then
->           # Add cronjob to run rebuild_docker_container.sh every 5 minutes
->           (crontab -l ; echo "*/5 * * * * /home/matrix/thekre_webportal/rebuild_docker_container.sh") | crontab -
->           echo "Cronjob installed successfully."
->           else
->           echo "Cronjob is already installed."
->           fi
->           
 >           ```
 >      4.   click `esc` to exit insert mode and type `:wq` to save the file
 >      5.  type `sudo vim .env` (to create a new file and open it with vim)
->      6. click `i` to enter the insert mode and paste the content from the file below:
+>      6. click `i` to enter the insert mode and paste the content from the file below: <br>
 >           ``` 
 >           APP_NAME=ThekRe
 >           APP_ENV=local
@@ -403,7 +355,7 @@ In the following section, we will guide you through the installation of the dock
 >           ``` 
 >      6.  click `esc` to exit insert mode and type `:wq` to save the file 
 >      7.  type `sudo vim clone_address.txt` (to create a new file and open it with vim)
->      8.   click `i` to enter the insert mode and paste the content from the file below:
+>      8.   click `i` to enter the insert mode and paste the content from the file below. This file contains the clone address of the repository with the token. This is required to automatically clone the repository. (so the Server doesnt ask for login credentials) <br>
 >      9.    ```
 >            https://user:<<TOKEN>>@gitlab.fhnw.ch/christian.gemesi/thek-re-2.git
 >            ```
@@ -415,7 +367,7 @@ In the following section, we will guide you through the installation of the dock
 >            ![img_1.png](images_readme/copy_access_token.png)
 >            After pasting the token into the file, click `esc` to exit insert mode and type `:wq` to save the file <br> <br>
 > 
->            Note: This Token as we created it is only valid for 1 year. After that you need to create a new one. Any pushes to the repository will not be possible without a valid token. <br> <br>
+>            Note: This Token as we created it is only valid for 1 year. (this is also the maximum duration) After that you need to create a new one. Any pushes to the repository will not be possible without a valid token. <br> <br>
 
 >    After doing the steps above the folder structure should look like this:
 >   ```
@@ -428,7 +380,6 @@ In the following section, we will guide you through the installation of the dock
 >    - thekre_script_run_once.sh: creates the deploymend folder, runs the docker containers, creates the rebuild_docker_container.sh which is scheduled with the cronjob to run every 5 minutes
 >    - .env: contains the environment variables for the application like logindata
 >    - clone_address.txt: contains the clone address of the repository with the token
-
 
 > 3. Setup the Mail Server (LMailer) <br>
 > To send the order confirmation e-mail we use the FHNW intern LMailer. The following instructions are basen on the [official_documention_lmailer.pdf](readme_docs%2Fofficial_documention_lmailer.pdf) <br>
@@ -481,19 +432,25 @@ In the following section, we will guide you through the installation of the dock
 > 5. Run the thekre_script_run_once.sh <br>
 >     1. `sudo chmod +x thekre_script_run_once.sh` (to make the file executable)
 >     2. `sudo ./thekre_script_run_once.sh` (to run the file)
-> 
-> Note: You might be asked to enter login credentials for git (You can not use your Password, you need to create a Personal Access Token. See the instructions [here](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html#create-a-personal-access-token))
 
-> 6. Open the application in your browser <br>
->    https://www.fhnw.ch/de/die-fhnw/bibliotheken/bibliothek-brugg-windisch/themenkisten
+> 6. Setup automatic updates <br>
+>    For the application to always have the lates version running, we need to setup a cronjob. The cronjob will run the rebuild_docker_container.sh script every 5 minutes. Execute the following command to set it up: <br>
+>    1.  ```crontab -e``` (to open the file) <br>
+>    2. click `i` to enter the insert mode and add the following line to the file: <br>
+>        ```*/5 * * * * cd /home/matrix/thekre_webportal/deployment && sh rebuild_docker_container.sh>>test.log``` <br>
+>    
+>   This will run the rebuild_docker_container.sh script every 5 minutes. The script looks for changes in git, pulls them and rebuilds and reruns the containers. <br>
 
-> 7. Take the application offline <br>
+
+> 7. Open the application in your browser <br>
+>    https://www.fhnw.ch/de/die-fhnw/bibliotheken/bibliothek-brugg-windisch/themenkisten/user
+
+> 8. Take the application offline <br>
 >    To take the application offline you need to stop the Docker container. You need to change into the deployment folder and run the following command: <br>
 >    `docker compose down` <br>
+> You also need to remove the cronjob. You can do this by running `crontab -e` and deleting the line we added in step 6. <br>
 
-> 8. Notes to keep in mind: <br>
->   TODO: add part with access token and cron job to always have the latest version of the application running <br>
+> 9.  Notes to keep in mind: <br>
 >    1.  If the application is run for the first time the database needs to be importet manually. (see step 7 of the [Installation Development Environment](#Installation Development Environment))  <br>
 >    2.  If the application is run for the first time the thekre_admin user does also need to be created. (see step 7 of the [Installation Development Environment](#Installation Development Environment)) <br>
 >    3.  If the Website is not shown correctly (e.g. no CSS) clear the browser cache and, or history and reload the page. <br>
->    4.  **If you took down the docker container you can also delete the thekre folder to restart the script. The Database WONT BE LOST. ALL ENTRIES STILL REMAIN AFTER RESTARTING THE SCRIPT.**

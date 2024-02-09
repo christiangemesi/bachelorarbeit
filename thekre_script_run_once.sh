@@ -33,44 +33,6 @@ echo "Starting the Docker container in the background..."
 sudo docker compose up -d || { echo "Error: Unable to start the Docker container"; exit 1; }
 echo "Docker container started successfully."
 
-# Change directory to one folder outside of the deployment folder
-cd ..
-
-# Create a new script file with the provided content
-sudo cat <<EOF > rebuild_docker_container.sh
-#!/bin/bash
-
-# Define the path to the Docker project directory
-DOCKER_PROJECT_DIR="/home/matrix/thekre_webportal/deployment"
-
-# Change directory to the Docker project directory
-cd "$DOCKER_PROJECT_DIR" || { echo "Error: Unable to change into the Docker project directory"; exit 1; }
-
-# Fetch changes from the remote repository
-git fetch origin master
-
-# Check if there are changes
-if ! git diff --quiet origin/master; then
-    echo "Changes detected. Rebuilding Docker container..."
-
-    # Stop the current Docker container if it's running
-    sudo docker compose -f "$DOCKER_PROJECT_DIR/docker-compose.yml" down || { echo "Error: Unable to stop the Docker container"; exit 1; }
-
-    # Pull the latest changes from the remote repository
-    sudo git pull origin master || { echo "Error: Unable to pull the latest changes"; exit 1; }
-
-    # Build the Docker image
-    sudo docker compose -f "$DOCKER_PROJECT_DIR/docker-compose.yml" build || { echo "Error: Unable to build the Docker image"; exit 1; }
-
-    # Start the Docker container in the background
-    sudo docker compose -f "$DOCKER_PROJECT_DIR/docker-compose.yml" up -d || { echo "Error: Unable to start the Docker container"; exit 1; }
-
-    echo "Docker container rebuilt and started successfully."
-else
-    echo "No changes detected. Skipping Docker container rebuild."
-fi
-EOF
-
 # Grant executable rights to the script
 sudo chmod +x rebuild_docker_container.sh
 
@@ -80,7 +42,7 @@ echo "Script 'rebuild_docker_container.sh' created with rebuild instructions."
 # Check if the cronjob is already present
 if ! crontab -l | grep -q "rebuild_docker_container.sh"; then
     # Add cronjob to run rebuild_docker_container.sh every 5 minutes
-    (crontab -l ; echo "*/5 * * * * /home/matrix/thekre_webportal/rebuild_docker_container.sh") | crontab -
+    (crontab -l ; echo "*/5 * * * * /home/matrix/thekre_webportal/deployment/rebuild_docker_container.sh") | crontab -
     echo "Cronjob installed successfully."
 else
     echo "Cronjob is already installed."

@@ -40,7 +40,10 @@ In the following section, we will guide you through the installation of the deve
 > Open your IDE (in our case PHPStorm) and copy the HTTPS Link from the Project [here](https://gitlab.fhnw.ch/christian.gemesi/thek-re-2/) <br>
 <img src="images_readme/clone_via_http_link.png" alt="Clone via HTTP Link" width="1000"> <br>
 > In PHPStorm go to File -> New -> Project from Version Control -> Git and paste the Link into the URL field.
-> Clone the Project into the Directory "C:\xampp\htdocs\thek-re-2" (thek-re-2 Folder needs to be created) <br>
+> Clone the Project into the Directory "C:\xampp\htdocs\thek-re-2" (thek-re-2 Folder needs to be created) <br> <br>
+> If phpstorm just got installed, the setup is slightly different. After opening PHPStorm you need to click on "Get from Version Control" and paste the Link into the URL field. The directory will also need to be created manually and selected. See images below: <br>
+> ![img.png](images_readme/newphpstorm_open_from_version_control.png) <br>
+> ![img_1.png](images_readme/newphpstorm_clone_repo_into_folder.png)
 
 > 5. Setup Development EMail <br>
 > - We used Gmail as our Email provider. Ensure you create a new fresh Gmail account, as we will place our password in plain text within the .env file. This precaution is taken to mitigate potential issues if the file is accidently pushed to Git. <br>

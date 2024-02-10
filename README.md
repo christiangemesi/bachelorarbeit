@@ -458,7 +458,7 @@ In the following section, we will guide you through the installation of the dock
 > 9. Take the application offline <br>
 >    To take the application offline you need to stop the Docker container. You need to change into the deployment folder and run the following command: <br>
 >    `docker compose down` <br>
-> You also need to remove the cronjob. You can do this by running `crontab -e` clin `i` to change to insert mode and deleting the line we added in step 6. (or you can comment it out by adding a `#` at the beginning of the line, `esc` to exit insert mode and type `:wq` to save the file) <br>
+> You also need to remove the cronjob. You can do this by running `crontab -e` click `i` to change to insert mode and deleting the line we added in step 6. (or you can comment it out by adding a `#` at the beginning of the line, `esc` to exit insert mode and type `:wq` to save the file) <br>
 
 > 10. Notes to keep in mind: <br>
 >    1.  If the application is run for the very first time the database needs to be importet manually. (see step 7 of the [Installation Development Environment](#Installation Development Environment))  <br>

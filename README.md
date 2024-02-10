@@ -377,7 +377,7 @@ In the following section, we will guide you through the installation of the dock
 >    |-clone_address.txt
 >    ```
 >    Explenations for the files:
->    - thekre_script_run_once.sh: creates the deploymend folder, runs the docker containers, creates the rebuild_docker_container.sh which is scheduled with the cronjob to run every 5 minutes
+>    - thekre_script_run_once.sh: creates the deploymend folder, runs the docker containers, runs rebuild_docker_container.sh which is scheduled with will be scheduled with a cronjob to run every 5 minutes
 >    - .env: contains the environment variables for the application like logindata
 >    - clone_address.txt: contains the clone address of the repository with the token
 
@@ -443,19 +443,21 @@ In the following section, we will guide you through the installation of the dock
 >    1.  ```crontab -e``` (to open the file) <br>
 >    2. click `i` to enter the insert mode and add the following line to the file: <br>
 >        ```*/5 * * * * cd /home/matrix/thekre_webportal/deployment && sh rebuild_docker_container.sh>>test.log``` <br>
+>    3. click `esc` to exit insert mode and type `:wq` to save the file <br>
 >    
 >   This will run the rebuild_docker_container.sh script every 5 minutes. The script looks for changes in git, pulls them and rebuilds and reruns the containers. <br>
 
 
 > 8. Open the application in your browser <br>
->    https://www.fhnw.ch/de/die-fhnw/bibliotheken/bibliothek-brugg-windisch/themenkisten/user
+>    https://www.fhnw.ch/de/die-fhnw/bibliotheken/bibliothek-brugg-windisch/themenkisten/user <br>
+>    Setup is now complete. 9. Can be skipped and only needs to be done whenever you want to take the application offline. <br>
 
 > 9. Take the application offline <br>
 >    To take the application offline you need to stop the Docker container. You need to change into the deployment folder and run the following command: <br>
 >    `docker compose down` <br>
-> You also need to remove the cronjob. You can do this by running `crontab -e` and deleting the line we added in step 6. <br>
+> You also need to remove the cronjob. You can do this by running `crontab -e` clin `i` to change to insert mode and deleting the line we added in step 6. (or you can comment it out by adding a `#` at the beginning of the line, `esc` to exit insert mode and type `:wq` to save the file) <br>
 
 > 10. Notes to keep in mind: <br>
->    1.  If the application is run for the first time the database needs to be importet manually. (see step 7 of the [Installation Development Environment](#Installation Development Environment))  <br>
->    2.  If the application is run for the first time the thekre_admin user does also need to be created. (see step 7 of the [Installation Development Environment](#Installation Development Environment)) <br>
->    3.  If the Website is not shown correctly (e.g. no CSS) clear the browser cache and, or history and reload the page. <br>
+>    1.  If the application is run for the very first time the database needs to be importet manually. (see step 7 of the [Installation Development Environment](#Installation Development Environment))  <br>
+>    2.  If the application is run for the very first time the thekre_admin user does also need to be created. (see step 7 of the [Installation Development Environment](#Installation Development Environment)) <br>
+>    3.  If the Website is not shown correctly (e.g. no CSS) clear the browser cache and / or history and reload the page. <br>

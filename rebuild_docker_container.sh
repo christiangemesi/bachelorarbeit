@@ -19,9 +19,6 @@ if ! git diff --quiet origin/master; then
     # Start the Docker container in the background and log errors
     docker compose up -d 2>> test.log || { echo "Error: Unable to start the Docker container"; exit 1; }
 
-    # Remove dangling images so that the disk space doesn't get filled up
-    docker rmi $(docker images -f "dangling=true" -q) 2>> test.log || { echo "Error: Unable to delete the Docker image"; exit 1; }
-
     echo "Docker container rebuilt and started successfully."
 else
     echo "No changes detected. Docker container is up to date."

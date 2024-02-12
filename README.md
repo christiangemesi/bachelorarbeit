@@ -451,6 +451,7 @@ In the following section, we will guide you through the installation of the dock
 >   This will run the rebuild_docker_container.sh script every 5 minutes. The script looks for changes in git, pulls them and rebuilds and reruns the containers. <br>
 
 
+
 > 8. Open the application in your browser <br>
 >    https://www.fhnw.ch/de/die-fhnw/bibliotheken/bibliothek-brugg-windisch/themenkisten/user <br>
 >    Setup is now complete. 9. Can be skipped and only needs to be done whenever you want to take the application offline. <br>

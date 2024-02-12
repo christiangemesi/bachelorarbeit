@@ -448,7 +448,7 @@ In the following section, we will guide you through the installation of the dock
 >        ```*/5 * * * * cd /home/matrix/thekre_webportal/deployment && sh rebuild_docker_container.sh>>test.log```  (this will also log any errors into test.log) <br>
 >    3. click `esc` to exit insert mode and type `:wq` to save the file <br>
 >    
->   This will run the rebuild_docker_container.sh script every 5 minutes. The script looks for changes in git, pulls them and rebuilds and reruns the containers. <br>
+>   This will run the rebuild_docker_container.sh script every 5 minutes. The script looks for changes in git, pulls them, rebuilds and reruns the containers and removes the previous images so that we dont run out of space. <br>
 
 > 8. Open the application in your browser <br>
 >    https://www.fhnw.ch/de/die-fhnw/bibliotheken/bibliothek-brugg-windisch/themenkisten/user <br>

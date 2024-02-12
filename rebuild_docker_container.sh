@@ -4,7 +4,7 @@
 git fetch origin master
 
 # Check if there are changes
-if ! git diff --quiet origin/master; then
+if ! git diff --quiet HEAD origin/master; then
     echo "Changes detected. Rebuilding Docker container..."
 
     # Pull the latest changes from the remote repository

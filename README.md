@@ -271,7 +271,7 @@ In the following section, we will guide you through the installation of the dock
 
 > 2. Preparing the Folder Structure <br>
 >      1. `mkdir thekre_webportal` (to create a new folder)
->      2.  `cd ThekRe_Webportal` (to change into the folder)
+>      2.  `cd thekre_webportal` (to change into the folder)
 >      3. `sudo vim thekre_script_run_once.sh` (to create a new file and open it with vim)
 >      4.  click `i` to enter the insert mode and paste the content from the file below: <br>
 >           ```

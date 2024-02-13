@@ -272,7 +272,7 @@ In the following section, we will guide you through the installation of the dock
 > 2. Preparing the Folder Structure <br>
 >      1. `mkdir thekre_webportal` (to create a new folder)
 >      2.  `cd thekre_webportal` (to change into the folder)
->      3. `sudo vim thekre_script_run_once.sh` (to create a new file and open it with vim)
+>      3. `vim thekre_script_run_once.sh` (to create a new file and open it with vim)
 >      4.  click `i` to enter the insert mode and paste the content from the file below: <br>
 >           ```
 >            #!/bin/bash
@@ -381,7 +381,7 @@ In the following section, we will guide you through the installation of the dock
 >            
 >           ```
 >      4.   click `esc` to exit insert mode and type `:wq` to save the file
->      5.  type `sudo vim .env` (to create a new file and open it with vim)
+>      5.  type `vim .env` (to create a new file and open it with vim)
 >      6. click `i` to enter the insert mode and paste the content from the file below: <br>
 >           ``` 
 >           APP_NAME=ThekRe
@@ -424,7 +424,7 @@ In the following section, we will guide you through the installation of the dock
 >           DATABASE_ROOT_PASSWORD="156deq1ws56dwq5e245864e5w6qe45w61cw5dw"
 >           ``` 
 >      6.  click `esc` to exit insert mode and type `:wq` to save the file 
->      7.  type `sudo vim clone_address.txt` (to create a new file and open it with vim)
+>      7.  type `vim clone_address.txt` (to create a new file and open it with vim)
 >      8.   click `i` to enter the insert mode and paste the content from the file below. This file contains the clone address of the repository with the token. This is required to automatically clone the repository. (so the Server doesnt ask for login credentials) <br>
 >      9.    ```
 >            https://user:<<TOKEN>>@gitlab.fhnw.ch/christian.gemesi/thek-re-2.git
@@ -512,7 +512,7 @@ In the following section, we will guide you through the installation of the dock
 >    For the application to always have the lates version running, we need to setup a cronjob. The cronjob will run the rebuild_docker_container.sh script every 5 minutes. Execute the following command to set it up: <br>
 >    1.  ```crontab -e``` (to open the file) <br>
 >    2. click `i` to enter the insert mode and add the following line to the file: <br>
->        ```*/5 * * * * cd /home/matrix/thekre_webportal && sh rebuild_docker_container.sh >> /home/matrix/thekre_webportal/rebuild.log```  (this will also log any errors into test.log) <br>
+>        ```*/5 * * * * cd /home/matrix/thekre_webportal && sh rebuild_docker_container.sh >> /home/matrix/thekre_webportal/rebuild.log```  (this will also log any errors into rebuild.log) <br>
 >    3. click `esc` to exit insert mode and type `:wq` to save the file <br>
 >    
 >   This will run the rebuild_docker_container.sh script every 5 minutes. The script looks for changes in git, pulls them, rebuilds and reruns the containers and removes the previous images so that we dont run out of space. <br>

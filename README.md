@@ -506,7 +506,7 @@ In the following section, we will guide you through the installation of the dock
 
 > 6. Run the thekre_script_run_once.sh <br>
 >     1. `sudo chmod +x thekre_script_run_once.sh` (to make the file executable)
->     2. `sudo ./thekre_script_run_once.sh` (to run the file)
+>     2. `./thekre_script_run_once.sh` (to run the file)
 
 > 7. Setup automatic updates <br>
 >    For the application to always have the lates version running, we need to setup a cronjob. The cronjob will run the rebuild_docker_container.sh script every 5 minutes. Execute the following command to set it up: <br>

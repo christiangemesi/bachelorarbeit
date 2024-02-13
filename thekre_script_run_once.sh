@@ -12,6 +12,7 @@ if [ -f "rebuild_docker_container.sh" ]; then
     exit 1
 fi
 
+
 # Read the clone address from clone_address.txt
 clone_address=$(<clone_address.txt)
 
@@ -39,14 +40,12 @@ echo "Starting the Docker container in the background..."
 docker compose up -d || { echo "Error: Unable to start the Docker container"; exit 1; }
 echo "Docker container started successfully."
 
-# Switch back to root folder so that script is not in repository folder
+# Navigate back to the parent directory
 cd ..
 
 # Create rebuild_docker_container.sh script
 cat <<'EOF' > rebuild_docker_container.sh
 #!/bin/bash
-
-cd deployment
 
 # Get current date
 current_date=$(date +"%Y-%m-%d %H:%M:%S")

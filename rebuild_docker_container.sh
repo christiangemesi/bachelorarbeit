@@ -13,34 +13,36 @@ if ! git diff --quiet HEAD origin/master; then
     # Pull the latest changes from the remote repository
     git pull origin master 2>&1 || {
         error_message=$(git pull origin master 2>&1)
-        echo "$current_date - Error: $error_message";
-        exit 1;
+        echo "$current_date - Error: $error_message"
+        exit 1
     }
 
     # Build the Docker image
     docker compose build 2>&1 || {
         error_message=$(docker compose build 2>&1)
-        echo "$current_date - Error: $error_message";
-        exit 1;
+        echo "$current_date - Error: $error_message"
+        exit 1
+    }
 
     # Stop the current Docker container if it's running
     docker compose down 2>&1 || {
         error_message=$(docker compose down 2>&1)
-        echo "$current_date - Error: $error_message";
-        exit 1;
+        echo "$current_date - Error: $error_message"
+        exit 1
     }
 
     # Start the Docker container in the background
     docker compose up -d 2>&1 || {
         error_message=$(docker compose up -d 2>&1)
-        echo "$current_date - Error: $error_message";
-        exit 1;
+        echo "$current_date - Error: $error_message"
+        exit 1
+    }
 
     # Remove dangling images so that the disk space is not consumed
     docker rmi $(docker images --filter "dangling=true" -q --no-trunc) 2>&1 || {
         error_message=$(docker rmi $(docker images --filter "dangling=true" -q --no-trunc) 2>&1)
-        echo "$current_date - Error: $error_message";
-        exit 1;
+        echo "$current_date - Error: $error_message"
+        exit 1
     }
 
     echo "$current_date - Docker container rebuilt and started successfully."

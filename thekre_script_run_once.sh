@@ -6,6 +6,12 @@ if [ ! -f "clone_address.txt" ]; then
     exit 1
 fi
 
+# Check if rebuild_docker_container.sh already exists
+if [ -f "rebuild_docker_container.sh" ]; then
+    echo "Error: rebuild_docker_container.sh already exists. Please delete it before running this script."
+    exit 1
+fi
+
 # Read the clone address from clone_address.txt
 clone_address=$(<clone_address.txt)
 
@@ -32,6 +38,61 @@ echo "Docker image built successfully."
 echo "Starting the Docker container in the background..."
 docker compose up -d || { echo "Error: Unable to start the Docker container"; exit 1; }
 echo "Docker container started successfully."
+
+# Create rebuild_docker_container.sh script
+cat <<'EOF' > rebuild_docker_container.sh
+#!/bin/bash
+
+# Get current date
+current_date=$(date +"%Y-%m-%d %H:%M:%S")
+
+# Fetch changes from the remote repository
+git fetch origin master
+
+# Check if there are changes
+if ! git diff --quiet HEAD origin/master; then
+    echo "$current_date - Changes detected. Rebuilding Docker container..."
+
+    # Pull the latest changes from the remote repository
+    git pull origin master 2>&1 || {
+        error_message=$(git pull origin master 2>&1)
+        echo "$current_date - Error: $error_message"
+        exit 1
+    }
+
+    # Build the Docker image
+    docker compose build 2>&1 || {
+        error_message=$(docker compose build 2>&1)
+        echo "$current_date - Error: $error_message"
+        exit 1
+    }
+
+    # Stop the current Docker container if it's running
+    docker compose down 2>&1 || {
+        error_message=$(docker compose down 2>&1)
+        echo "$current_date - Error: $error_message"
+        exit 1
+    }
+
+    # Start the Docker container in the background
+    docker compose up -d 2>&1 || {
+        error_message=$(docker compose up -d 2>&1)
+        echo "$current_date - Error: $error_message"
+        exit 1
+    }
+
+    # Remove dangling images so that the disk space is not consumed
+    docker rmi $(docker images --filter "dangling=true" -q --no-trunc) 2>&1 || {
+        error_message=$(docker rmi $(docker images --filter "dangling=true" -q --no-trunc) 2>&1)
+        echo "$current_date - Error: $error_message"
+        exit 1
+    }
+
+    echo "$current_date - Docker container rebuilt and started successfully."
+else
+    echo "$current_date - No changes detected. Docker container is up to date."
+fi
+EOF
 
 # Grant executable rights to the script
 chmod +x rebuild_docker_container.sh

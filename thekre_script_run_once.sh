@@ -47,6 +47,8 @@ cd ..
 cat <<'EOF' > rebuild_docker_container.sh
 #!/bin/bash
 
+cd deployment
+
 # Get current date
 current_date=$(date +"%Y-%m-%d %H:%M:%S")
 

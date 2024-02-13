@@ -39,8 +39,8 @@ echo "Starting the Docker container in the background..."
 docker compose up -d || { echo "Error: Unable to start the Docker container"; exit 1; }
 echo "Docker container started successfully."
 
-# Create rebuild_docker_container.sh script
-cat <<'EOF' > rebuild_docker_container.sh
+echo "Creating rebuild_docker_container.sh script..."
+cd .. || cat <<'EOF' > rebuild_docker_container.sh
 #!/bin/bash
 
 # Get current date

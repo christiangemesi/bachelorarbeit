@@ -382,7 +382,7 @@ In the following section, we will guide you through the installation of the dock
 >           ```
 >      4.   click `esc` to exit insert mode and type `:wq` to save the file
 >      5.  type `vim .env` (to create a new file and open it with vim)
->      6. click `i` to enter the insert mode and paste the content from the file below: <br>
+>      6. click `i` to enter the insert mode and paste the content from the file below: (Replace all login Credentials with new ones!) <br>
 >           ``` 
 >           APP_NAME=ThekRe
 >           APP_ENV=local

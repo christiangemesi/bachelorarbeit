@@ -457,35 +457,60 @@ In the following section, we will guide you through the installation of the dock
 >    After that you need to logout and login again to apply the changes. <br>
 
 > 4. Setup the Mail Server (LMailer) <br>
-> To send the order confirmation e-mail we use the FHNW intern LMailer. The following instructions are basen on the [official_documention_lmailer.pdf](readme_docs%2Fofficial_documention_lmailer.pdf) <br>
+> The Setup of this Mail Server is a combination of our findings and the official documentation of the FHNW from the [official_documention_lmailer.pdf](readme_docs%2Fofficial_documention_lmailer.pdf) <br>
+> To send the order confirmation e-mail we use the FHNW intern LMailer.
 > This setup only needs to be done once. If youd change to another server, youd need to follow theese steps: <br>
 >
->    1.  Unistall exim4: ```apt-get remove exim4 exim4-base``` <br>
->    2.  Install postfix: ```apt-get install postfix libsasl2-modules ca-certificates``` <br> <br>
->    3.  type```sudo vim /etc/postfix/main.cf``` (to open the file with vim and Replace HERE_COMES_THE_HOSTNAME_OF_THE_SERVER with the hostname of the server. The host name must be set to the hostname of the server. In the **etc/mailname** file, the hostname must also be entered and must match with **myhostname**.)<br>
+>    1.  Unistall exim4: ```sudo apt-get remove exim4 exim4-base``` <br>
+>    2.  Install postfix: ```sudo apt-get install postfix libsasl2-modules ca-certificates``` <br> <br>
+>    3.  type```sudo vim /etc/postfix/main.cf``` (to open the file and paste the following infos: with vim and Replace HERE_COMES_THE_HOSTNAME_OF_THE_SERVER with the hostname of the server. The host name must be set to the hostname of the server. In the **etc/mailname** file, the hostname must also be entered and must match with **myhostname**.)<br>
 >    ```bash
->    myhostname = HERE_COMES_THE_HOSTNAME_OF_THE_SERVER
->    # default value for alias_maps = hash:/etc/aliases, nis:mail.aliases
->    alias_maps = hash:/etc/aliases
->    alias_database = hash:/etc/aliases
->    myorigin = /etc/mailname
->    mydestination =
->    relayhost = lmailer.ict.fhnw.ch:25
->    mynetworks = 127.0.0.0/8
->    mailbox_size_limit = 0
->    recipient_delimiter = +
->    inet_interfaces = loopback-only
->    inet_protocols = ipv4
->    fork_attempts = 2
->    biff=no
->    append_dot_mydomain = no
->    # Uncomment the next line to generate "delayed mail" warnings
->    #delay_warning_time = 4h
->    # See /usr/share/doc/postfix/TLS_README.gz in the postfix-doc package for
->    # information on enabling SSL in the smtp client.
->    smtp_use_tls = no
->    sender_canonical_maps = hash:/etc/postfix/sender_canonical
->    recipient_canonical_maps = hash:/etc/postfix/recipient_canonical
+>     # See /usr/share/postfix/main.cf.dist for a commented, more complete version
+>     
+>     
+>     # Debian specific:  Specifying a file name will cause the first
+>     # line of that file to be used as the name.  The Debian default
+>     # is /etc/mailname.
+>     #myorigin = /etc/mailname
+>     
+>     smtpd_banner = $myhostname ESMTP $mail_name (Ubuntu)
+>     biff = no
+>     
+>     # appending .domain is the MUA's job.
+>     append_dot_mydomain = no
+>     
+>     # Uncomment the next line to generate "delayed mail" warnings
+>     #delay_warning_time = 4h
+>     
+>     readme_directory = no
+>     
+>     # See http://www.postfix.org/COMPATIBILITY_README.html -- default to 2 on
+>     # fresh installs.
+>     compatibility_level = 2
+>     
+>     # TLS parameters
+>     smtpd_tls_cert_file=/etc/ssl/certs/ssl-cert-snakeoil.pem
+>     smtpd_tls_key_file=/etc/ssl/private/ssl-cert-snakeoil.key
+>     smtpd_tls_security_level=may
+>     
+>     smtp_tls_CApath=/etc/ssl/certs
+>     smtp_tls_security_level=may
+>     smtp_tls_session_cache_database = btree:${data_directory}/smtp_scache
+>     
+>     
+>     smtpd_relay_restrictions = permit_mynetworks permit_sasl_authenticated defer_unauth_destination
+>     myhostname = <<HERE_COMES_THE_HOSTNAME_OF_THE_SERVER>>
+>     alias_maps = hash:/etc/aliases
+>     alias_database = hash:/etc/aliases
+>     myorigin = /etc/mailname
+>     mydestination = $myhostname, server1120.cs.technik.fhnw.ch, localhost.cs.technik.fhnw.ch, , localhost
+>     relayhost =
+>     mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128
+>     mailbox_size_limit = 0
+>     recipient_delimiter = +
+>     inet_interfaces = all
+>     inet_protocols = all
+>     
 >    ```
 >    4. type ```sudo vim /etc/postfix/sender_canonical``` (to open the file with vim and add the lines below. This has to be done, so that all local E-Mails get forwarded to the collective address.) <br>
 >    ```bash

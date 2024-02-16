@@ -135,8 +135,10 @@ Keep in mind that there is no hot-reload for the dockerized environment. If you 
 >    - You can verify the installation by running `docker --version` in a Terminal or run `Docker Desktop` on Windows <br>
 
 > 2. Preparing the Folder Structure <br>
->      1. `right click -> New -> Folder` (Name: ThekRe_Webportal)
->      2.  Create a thekre_docker.sh file and paste the content from the file below:
+> The Following steps should be done in your IDE, since otherwise youd might be needed to download additional software to create a .sh file. <br>
+>
+>      1. `right click on the root directory (thek-re-2) -> New -> Directory` (Name: thekre_webportal)
+>      2.  In the folder create a new file called "thekre_docker.sh" and paste the content from the file below:
 >          ```
 >          #!/bin/bash
 >          echo "Creating a new folder..."
@@ -183,7 +185,7 @@ Keep in mind that there is no hot-reload for the dockerized environment. If you 
 >          docker compose up -d || { echo "Error: Unable to start the Docker container"; exit 1; }
 >          echo "Docker container started successfully."
 >          ```
->      3.  Create a .env file and paste the content from the file below:
+>      3.  In the folder create a new file called  ".env" and paste the content from the file below:
 >           ```
 >           APP_NAME=ThekRe
 >           APP_ENV=local
@@ -238,7 +240,8 @@ Keep in mind that there is no hot-reload for the dockerized environment. If you 
 >    ![img.png](images_readme/Docker_Desktop.png)
 
 > 4. Run the thekre_docker.sh <br>
->     1. Double click on the thekre_docker.sh file <br>
+>    1. Open git bash and change into the directory where thekre_werbportal is located. (cd Path/From/C/To/thekre_webportal) <br>
+>     1. type "./thekre_docker" (This will execute the script) <br>
 >       You can see the running container in the Docker Desktop <br>
 >    ![img.png](images_readme/running_docker_container.png)
 >        

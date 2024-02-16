@@ -525,7 +525,11 @@ In the following section, we will guide you through the installation of the dock
 >    5. Now execute the following commands to create the hash files: <br>
 >   ````bash
 >    postmap hash:/etc/aliases
+>   ```
+>   ```bash
 >    postmap hash:/etc/postfix/recipient_canonical
+>   ```
+>   ```bash
 >    postmap hash:/etc/postfix/sender_canonical
 >   ````
 >   **After every change of the files the hashes have to generated again.**

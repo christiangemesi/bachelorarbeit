@@ -280,49 +280,49 @@ In the following section, we will guide you through the installation of the dock
 >      2.  `cd thekre_webportal` (to change into the folder)
 >      3. `vim thekre_script_run_once.sh` (to create a new file and open it with vim)
 >      4.  click `i` to enter insert mode and enter the content from /scripts/thekre_script_run_once.sh
->    5. click `esc` to exit insert mode and type `:wq` to save the file
+>      5. click `esc` to exit insert mode and type `:wq` to save the file
 >      6. type `vim .env` (to create a new file and open it with vim)
 >      7. click `i` to enter the insert mode and paste the content from the file below. (Replace all login Credentials with new ones!) <br>
 >          Replace the HERE_COMES_URL with the URL of the application. (liveserver: https://www.fhnw.ch/de/die-fhnw/bibliotheken/bibliothek-brugg-windisch/themenkisten, testserver: server1120.cs.technik.fhnw.ch) <br>
 >           ``` bash
->         APP_NAME=ThekRe
->         APP_ENV=local
->         APP_KEY=base64:OXiQSLCrUXYKg8PH2U7ulTM8cg8e5POG+H+wX4hXK4A=
->         APP_DEBUG=true
->         APP_LOG_LEVEL=debug
->         APP_URL=HERE_COMES_URL
->         
->         UNIQUE_SERVER_URL=themenkisten/
->         
->         BROADCAST_DRIVER=log
->         CACHE_DRIVER=file
->         SESSION_DRIVER=file
->         QUEUE_DRIVER=sync
->         
->         REDIS_HOST=127.0.0.1
->         REDIS_PASSWORD=null
->         REDIS_PORT=6379
->         
->         PUSHER_APP_ID=
->         PUSHER_APP_KEY=
->         PUSHER_APP_SECRET=
->         
->         EMAILS_FROM_NAME='Campusbibliothek Brugg-Windisch TESTUMGEBUNG'
->         MAIL_USERNAME="bibliothek.windisch@fhnw.ch"
->         MAIL_PASSWORD=
->         MAIL_DRIVER=smtp
->         MAIL_HOST=lmailer.ict.fhnw.ch
->         MAIL_PORT=25
->         MAIL_ENCRYPTION=null
->         
->         DATABASE_DRIVER=mysql
->         DATABASE_HOST=mysql
->         DATABASE_PORT=3306
->         DATABASE=thekre
->         DATABASE_USERNAME="thekre_admin"
->         DATABASE_PASSWORD="cSCdrkd1VNEbk8PW"
->         #Database root user in mysql per default is root
->         DATABASE_ROOT_PASSWORD="156deq1ws56dwq5e245864e5w6qe45w61cw5dw"
+>          APP_NAME=ThekRe
+>          APP_ENV=local
+>          APP_KEY=base64:OXiQSLCrUXYKg8PH2U7ulTM8cg8e5POG+H+wX4hXK4A=
+>          APP_DEBUG=true
+>          APP_LOG_LEVEL=debug
+>          APP_URL=HERE_COMES_URL
+>          
+>          UNIQUE_SERVER_URL=themenkisten/
+>          
+>          BROADCAST_DRIVER=log
+>          CACHE_DRIVER=file
+>          SESSION_DRIVER=file
+>          QUEUE_DRIVER=sync
+>          
+>          REDIS_HOST=127.0.0.1
+>          REDIS_PASSWORD=null
+>          REDIS_PORT=6379
+>          
+>          PUSHER_APP_ID=
+>          PUSHER_APP_KEY=
+>          PUSHER_APP_SECRET=
+>          
+>          EMAILS_FROM_NAME='Campusbibliothek Brugg-Windisch TESTUMGEBUNG'
+>          MAIL_USERNAME="bibliothek.windisch@fhnw.ch"
+>          MAIL_PASSWORD=
+>          MAIL_DRIVER=smtp
+>          MAIL_HOST=lmailer.ict.fhnw.ch
+>          MAIL_PORT=25
+>          MAIL_ENCRYPTION=null
+>          
+>          DATABASE_DRIVER=mysql
+>          DATABASE_HOST=mysql
+>          DATABASE_PORT=3306
+>          DATABASE=thekre
+>          DATABASE_USERNAME="thekre_admin"
+>          DATABASE_PASSWORD="cSCdrkd1VNEbk8PW"
+>          #Database root user in mysql per default is root
+>          DATABASE_ROOT_PASSWORD="156deq1ws56dwq5e245864e5w6qe45w61cw5dw"
 >           ``` 
 >      6.  click `esc` to exit insert mode and type `:wq` to save the file 
 >      7.  type `vim clone_address.txt` (to create a new file and open it with vim)
@@ -348,7 +348,7 @@ In the following section, we will guide you through the installation of the dock
 >    |-clone_address.txt
 >    ```
 >    Explenations for the files:
->    - thekre_script_run_once.sh: creates the deploymend folder, runs the docker containers, creates rebuild_docker_container.sh which will be scheduled with a cronjob to run every 5 minutes
+>    - thekre_script_run_once.sh: creates the deploymend folder, runs the docker containers, creates rebuild_docker_container.sh which will be scheduled with a cronjob to run every day at 00:00
 >    - .env: contains the environment variables for the application like logindata
 >    - clone_address.txt: contains the clone address of the repository with the token
 
@@ -439,13 +439,13 @@ In the following section, we will guide you through the installation of the dock
 >     2. `./thekre_script_run_once.sh` (to run the file)
 
 > 7. Setup automatic updates <br>
->    For the application to always have the lates version running, we need to setup a cronjob. The cronjob will run the rebuild_docker_container.sh script every 5 minutes. Execute the following command to set it up: <br>
+>    For the application to always have the lates version running, we need to setup a cronjob. The cronjob will run the rebuild_docker_container.sh script every day at 00:00. Execute the following command to set it up: <br>
 >    1.  ```crontab -e``` (to open the file) <br>
 >    2. click `i` to enter the insert mode and add the following line to the file: <br>
->        ```*/5 * * * * cd /home/matrix/thekre_webportal && sh rebuild_docker_container.sh >> /home/matrix/thekre_webportal/rebuild.log```  (this will also log any errors into rebuild.log) <br>
+>        ```0 0 * * * cd /home/matrix/thekre_webportal && sh rebuild_docker_container.sh >> /home/matrix/thekre_webportal/rebuild.log```  (this will also log any errors into rebuild.log) <br>
 >    3. click `esc` to exit insert mode and type `:wq` to save the file <br>
 >    
->   This will run the rebuild_docker_container.sh script every 5 minutes. The script looks for changes in git, pulls them, rebuilds and reruns the containers and removes the previous images so that we dont run out of space. <br>
+>   This will run the rebuild_docker_container.sh script every day at 00:00. The script looks for changes in git, pulls them, rebuilds and reruns the containers and removes the previous images so that we dont run out of space. <br>
 
 > 8. Open the application in your browser <br>
 >    liveserver: https://www.fhnw.ch/de/die-fhnw/bibliotheken/bibliothek-brugg-windisch/themenkisten/user <br>
@@ -461,4 +461,4 @@ In the following section, we will guide you through the installation of the dock
 
 > 10. Notes to keep in mind: <br>
 >    1. If the application is run for the very first time the thekre_admin user does also need to be created. (see step 7 of the [Installation Development Environment](#Installation Development Environment)) <br>
->    2. If the Website is not shown correctly (e.g. no CSS) clear the browser cache and / or history and reload the page. <br>
+>    2. If the Website is not shown correctly (e.g. no CSS) and you get 404 errors, compose down the containers, and delete everything (inclusive the thekre_webportal folder). That problem seems to occur if you run the script multiple times. <br>

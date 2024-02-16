@@ -240,7 +240,7 @@ Keep in mind that there is no hot-reload for the dockerized environment. If you 
 >    ![img.png](images_readme/Docker_Desktop.png)
 
 > 4. Run the thekre_docker.sh <br>
->    1. Open git bash and change into the directory where thekre_werbportal is located. (cd Path/From/C/To/thekre_webportal) <br>
+>    1. Open git bash and change into the directory where thekre_werbportal is located. (`cd Path/From/C/To/thekre_webportal`) <br>
 >     1. type "./thekre_docker" (This will execute the script) <br>
 >       You can see the running container in the Docker Desktop <br>
 >    ![img.png](images_readme/running_docker_container.png)
@@ -385,14 +385,15 @@ In the following section, we will guide you through the installation of the dock
 >           ```
 >      4.   click `esc` to exit insert mode and type `:wq` to save the file
 >      5.  type `vim .env` (to create a new file and open it with vim)
->      6. click `i` to enter the insert mode and paste the content from the file below: (Replace all login Credentials with new ones!) <br>
+>      6. click `i` to enter the insert mode and paste the content from the file below. (Replace all login Credentials with new ones!) <br>
+>          Replace the HERE_COMES_URL with the URL of the application. (liveserver: https://www.fhnw.ch/de/die-fhnw/bibliotheken/bibliothek-brugg-windisch/themenkisten, testserver: server1120.cs.technik.fhnw.ch) <br>
 >           ``` bash
 >           APP_NAME=ThekRe
 >           APP_ENV=local
 >           APP_KEY=base64:OXiQSLCrUXYKg8PH2U7ulTM8cg8e5POG+H+wX4hXK4A=
 >           APP_DEBUG=true
 >           APP_LOG_LEVEL=debug
->           APP_URL=https://www.fhnw.ch/de/die-fhnw/bibliotheken/bibliothek-brugg-windisch/themenkisten
+>           APP_URL=HERE_COMES_URL
 >           
 >           UNIQUE_SERVER_URL=themenkisten/
 >           
@@ -466,7 +467,7 @@ In the following section, we will guide you through the installation of the dock
 >
 >    1.  Unistall exim4: ```sudo apt-get remove exim4 exim4-base``` <br>
 >    2.  Install postfix: ```sudo apt-get install postfix libsasl2-modules ca-certificates``` <br> <br>
->    3.  type```sudo vim /etc/postfix/main.cf``` (to open the file and paste the following infos: with vim and Replace HERE_COMES_THE_HOSTNAME_OF_THE_SERVER with the hostname of the server. The host name must be set to the hostname of the server. In the **etc/mailname** file, the hostname must also be entered and must match with **myhostname**.)<br>
+>    3.  type```sudo vim /etc/postfix/main.cf``` (to open the file and paste the content from the file below with vim and Replace HERE_COMES_THE_HOSTNAME_OF_THE_SERVER with the hostname of the server. (liveserver: server1121.cs.technik.fhnw.ch, testserver: server1120.cs.technik.fhnw.ch))<br>
 >    ```bash
 >     # See /usr/share/postfix/main.cf.dist for a commented, more complete version
 >     
@@ -502,7 +503,7 @@ In the following section, we will guide you through the installation of the dock
 >     
 >     
 >     smtpd_relay_restrictions = permit_mynetworks permit_sasl_authenticated defer_unauth_destination
->     myhostname = <<HERE_COMES_THE_HOSTNAME_OF_THE_SERVER>>
+>     myhostname = HERE_COMES_THE_HOSTNAME_OF_THE_SERVER
 >     alias_maps = hash:/etc/aliases
 >     alias_database = hash:/etc/aliases
 >     myorigin = /etc/mailname

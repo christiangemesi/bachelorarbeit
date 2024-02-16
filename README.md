@@ -135,10 +135,10 @@ Keep in mind that there is no hot-reload for the dockerized environment. If you 
 >    - You can verify the installation by running `docker --version` in a Terminal or run `Docker Desktop` on Windows <br>
 
 > 2. Preparing the Folder Structure <br>
-> The Following steps should be done in your IDE, since otherwise youd might be needed to download additional software to create a .sh file. <br>
+> The Following steps should be done in your IDE, since otherwise youd be needed to download additional software to create a .sh file. <br>
 >
 >      1. `right click on the root directory (thek-re-2) -> New -> Directory` (Name: thekre_webportal)
->      2.  In the folder create a new file called "thekre_docker.sh" and paste the content from the file below:
+>      2.  In the folder create a new file called `thekre_docker.sh` and paste the content from the file below:
 >          ```
 >          #!/bin/bash
 >          echo "Creating a new folder..."
@@ -185,7 +185,7 @@ Keep in mind that there is no hot-reload for the dockerized environment. If you 
 >          docker compose up -d || { echo "Error: Unable to start the Docker container"; exit 1; }
 >          echo "Docker container started successfully."
 >          ```
->      3.  In the folder create a new file called  ".env" and paste the content from the file below:
+>      3.  In the folder create a new file called  `.env` and paste the content from the file below:
 >           ```
 >           APP_NAME=ThekRe
 >           APP_ENV=local

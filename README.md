@@ -240,8 +240,10 @@ Keep in mind that there is no hot-reload for the dockerized environment. If you 
 >    ![img.png](images_readme/Docker_Desktop.png)
 
 > 4. Run the thekre_docker.sh <br>
+>    
 >    1. Open git bash and change into the directory where thekre_werbportal is located. (`cd Path/From/C/To/thekre_webportal`) <br>
->     1. type "./thekre_docker" (This will execute the script) <br>
+>       Note that git bash needs to be installed. You can download it [here](https://git-scm.com/download/win) <br>
+>    2. type "./thekre_docker" (This will execute the script) <br>
 >       You can see the running container in the Docker Desktop <br>
 >    ![img.png](images_readme/running_docker_container.png)
 >        
@@ -250,13 +252,14 @@ Keep in mind that there is no hot-reload for the dockerized environment. If you 
 
 > 3. Open the application in your browser <br>
 >  http://127.0.0.1/user <br>
+> 
+> If the application is run for the first time the database needs to be importet manually. (see step 7 of the [Installation Development Environment with XAMPP](#Installation Development Environment with XAMPP))  <br>
 
 > 4. Take the application offline <br>
 >    To take the application offline you need to stop the Docker container. You can do this by clicking the "Stop" button in the Docker Desktop <br>
 >    ![img.png](images_readme/stop_docker_container.png)
 
 > 4. Notes to keep in mind: <br>
->   1.  If the application is run for the first time the database needs to be importet manually. (see step 7 of the [Installation Development Environment with XAMPP](#Installation Development Environment with XAMPP))  <br>
 >   2.  If the application is run for the first time the thekre_admin user does also need to be created. (see step 7 of the [Installation Development Environment with XAMPP](#Installation Development Environment with XAMPP)) <br>
 >   3.  If the Website is not shown correctly (e.g. no CSS) clear the browser cache and, or history and reload the page. <br>
 >   4.  If the application got taken offline, and you want to start it again, you can do so by deleting the thekre folder and running the thekre_docker.sh again or by clicking the "Start" button in the Docker Desktop <br>
@@ -276,156 +279,50 @@ In the following section, we will guide you through the installation of the dock
 >      1. `mkdir thekre_webportal` (to create a new folder)
 >      2.  `cd thekre_webportal` (to change into the folder)
 >      3. `vim thekre_script_run_once.sh` (to create a new file and open it with vim)
->      4.  click `i` to enter the insert mode and paste the content from the file below: <br>
->           ```bash
->            #!/bin/bash
->            
->            # Check if clone_address.txt exists
->            if [ ! -f "clone_address.txt" ]; then
->            echo "Error: clone_address.txt file not found."
->            exit 1
->            fi
->            
->            # Check if rebuild_docker_container.sh already exists
->            if [ -f "rebuild_docker_container.sh" ]; then
->            echo "Error: rebuild_docker_container.sh already exists. Please delete it before running this script."
->            exit 1
->            fi
->            
->            # Read the clone address from clone_address.txt
->            clone_address=$(<clone_address.txt)
->            
->            echo "Creating deployment folder..."
->            mkdir deployment || { echo "Error: Unable to create the deployment folder"; exit 1; }
->            echo "Deployment folder created and switched to."
->            
->            echo "Switching to the deployment folder..."
->            cd deployment || { echo "Error: Unable to switch to the deployment folder"; exit 1; }
->            echo "Switched to the deployment folder."
->            
->            echo "Cloning the repository..."
->            git clone "$clone_address" . || { echo "Error: Unable to clone the repository"; exit 1; }
->            echo "Repository cloned and switched to 'thek-re-2' folder."
->            
->            echo "Copying the .env file into the folder..."
->            cp '../.env' . || { echo "Error: Unable to copy the .env.production file"; exit 1; }
->            echo ".env file copied."
->            
->            echo "Building the Docker image..."
->            docker compose build || { echo "Error: Unable to build the Docker image"; exit 1; }
->            echo "Docker image built successfully."
->            
->            echo "Starting the Docker container in the background..."
->            docker compose up -d || { echo "Error: Unable to start the Docker container"; exit 1; }
->            echo "Docker container started successfully."
->            
->            # Switch back to root folder so that script is not in repository folder
->            cd ..
->            
->            # Create rebuild_docker_container.sh script
->            cat <<'EOF' > rebuild_docker_container.sh
->            #!/bin/bash
->            
->            cd deployment
->            
->            # Get current date
->            current_date=$(date +"%Y-%m-%d %H:%M:%S")
->            
->            # Fetch changes from the remote repository
->            git fetch origin master
->            
->            # Check if there are changes
->            if ! git diff --quiet HEAD origin/master; then
->            echo "$current_date - Changes detected. Rebuilding Docker container..."
->            
->                # Pull the latest changes from the remote repository
->                git pull origin master 2>&1 || {
->                    error_message=$(git pull origin master 2>&1)
->                    echo "$current_date - Error: $error_message"
->                    exit 1
->                }
->            
->                # Build the Docker image
->                docker compose build 2>&1 || {
->                    error_message=$(docker compose build 2>&1)
->                    echo "$current_date - Error: $error_message"
->                    exit 1
->                }
->            
->                # Stop the current Docker container if it's running
->                docker compose down 2>&1 || {
->                    error_message=$(docker compose down 2>&1)
->                    echo "$current_date - Error: $error_message"
->                    exit 1
->                }
->            
->                # Start the Docker container in the background
->                docker compose up -d 2>&1 || {
->                    error_message=$(docker compose up -d 2>&1)
->                    echo "$current_date - Error: $error_message"
->                    exit 1
->                }
->            
->                # Remove dangling images so that the disk space is not consumed
->                docker rmi $(docker images --filter "dangling=true" -q --no-trunc) 2>&1 || {
->                    error_message=$(docker rmi $(docker images --filter "dangling=true" -q --no-trunc) 2>&1)
->                    echo "$current_date - Error: $error_message"
->                    exit 1
->                }
->            
->                echo "$current_date - Docker container rebuilt and started successfully."
->            else
->            echo "$current_date - No changes detected. Docker container is up to date."
->            fi
->            EOF
->            
->            # Grant executable rights to the script
->            chmod +x rebuild_docker_container.sh
->            
->           ```
->      4.   click `esc` to exit insert mode and type `:wq` to save the file
->      5.  type `vim .env` (to create a new file and open it with vim)
->      6. click `i` to enter the insert mode and paste the content from the file below. (Replace all login Credentials with new ones!) <br>
+>      4.  click `i` to enter insert mode and enter the content from /scripts/thekre_script_run_once.sh
+>    5. click `esc` to exit insert mode and type `:wq` to save the file
+>      6. type `vim .env` (to create a new file and open it with vim)
+>      7. click `i` to enter the insert mode and paste the content from the file below. (Replace all login Credentials with new ones!) <br>
 >          Replace the HERE_COMES_URL with the URL of the application. (liveserver: https://www.fhnw.ch/de/die-fhnw/bibliotheken/bibliothek-brugg-windisch/themenkisten, testserver: server1120.cs.technik.fhnw.ch) <br>
 >           ``` bash
->           APP_NAME=ThekRe
->           APP_ENV=local
->           APP_KEY=base64:OXiQSLCrUXYKg8PH2U7ulTM8cg8e5POG+H+wX4hXK4A=
->           APP_DEBUG=true
->           APP_LOG_LEVEL=debug
->           APP_URL=HERE_COMES_URL
->           
->           UNIQUE_SERVER_URL=themenkisten/
->           
->           BROADCAST_DRIVER=log
->           CACHE_DRIVER=file
->           SESSION_DRIVER=file
->           QUEUE_DRIVER=sync
->           
->           REDIS_HOST=127.0.0.1
->           REDIS_PASSWORD=null
->           REDIS_PORT=6379
->           
->           PUSHER_APP_ID=
->           PUSHER_APP_KEY=
->           PUSHER_APP_SECRET=
->           
->           EMAILS_FROM_NAME='Campusbibliothek Brugg-Windisch TESTUMGEBUNG'
->           MAIL_USERNAME="bibliothek.windisch@fhnw.ch"
->           MAIL_PASSWORD=
->           MAIL_DRIVER=smtp
->           MAIL_HOST=lmailer.ict.fhnw.ch
->           MAIL_PORT=25
->           MAIL_ENCRYPTION=null
->           
->           DATABASE_DRIVER=mysql
->           DATABASE_HOST=mysql
->           DATABASE_PORT=3306
->           DATABASE=thekre
->           DATABASE_USERNAME="thekre_admin"
->           DATABASE_PASSWORD="cSCdrkd1VNEbk8PW"
->           #Database root user in mysql per default is root
->           DATABASE_ROOT_PASSWORD="156deq1ws56dwq5e245864e5w6qe45w61cw5dw"
+>         APP_NAME=ThekRe
+>         APP_ENV=local
+>         APP_KEY=base64:OXiQSLCrUXYKg8PH2U7ulTM8cg8e5POG+H+wX4hXK4A=
+>         APP_DEBUG=true
+>         APP_LOG_LEVEL=debug
+>         APP_URL=HERE_COMES_URL
+>         
+>         UNIQUE_SERVER_URL=themenkisten/
+>         
+>         BROADCAST_DRIVER=log
+>         CACHE_DRIVER=file
+>         SESSION_DRIVER=file
+>         QUEUE_DRIVER=sync
+>         
+>         REDIS_HOST=127.0.0.1
+>         REDIS_PASSWORD=null
+>         REDIS_PORT=6379
+>         
+>         PUSHER_APP_ID=
+>         PUSHER_APP_KEY=
+>         PUSHER_APP_SECRET=
+>         
+>         EMAILS_FROM_NAME='Campusbibliothek Brugg-Windisch TESTUMGEBUNG'
+>         MAIL_USERNAME="bibliothek.windisch@fhnw.ch"
+>         MAIL_PASSWORD=
+>         MAIL_DRIVER=smtp
+>         MAIL_HOST=lmailer.ict.fhnw.ch
+>         MAIL_PORT=25
+>         MAIL_ENCRYPTION=null
+>         
+>         DATABASE_DRIVER=mysql
+>         DATABASE_HOST=mysql
+>         DATABASE_PORT=3306
+>         DATABASE=thekre
+>         DATABASE_USERNAME="thekre_admin"
+>         DATABASE_PASSWORD="cSCdrkd1VNEbk8PW"
+>         #Database root user in mysql per default is root
+>         DATABASE_ROOT_PASSWORD="156deq1ws56dwq5e245864e5w6qe45w61cw5dw"
 >           ``` 
 >      6.  click `esc` to exit insert mode and type `:wq` to save the file 
 >      7.  type `vim clone_address.txt` (to create a new file and open it with vim)
@@ -523,7 +420,7 @@ In the following section, we will guide you through the installation of the dock
 >    @localhost admin.imvs.windisch@fhnw.ch
 >    ```
 >    5. Now execute the following commands to create the hash files: <br>
->   ````bash
+>   ```bash
 >    postmap hash:/etc/aliases
 >   ```
 >   ```bash
@@ -553,6 +450,8 @@ In the following section, we will guide you through the installation of the dock
 > 8. Open the application in your browser <br>
 >    liveserver: https://www.fhnw.ch/de/die-fhnw/bibliotheken/bibliothek-brugg-windisch/themenkisten/user <br>
 >    testserver: server1120.cs.technik.fhnw.ch/user <br>
+>
+>    If the application is run for the very first time the database needs to be importet manually. (see step 7 of the [Installation Development Environment](#Installation Development Environment))  <br>
 >    Setup is now complete. 9. Can be skipped and only needs to be done whenever you want to take the application offline. <br>
 
 > 9. Take the application offline <br>
@@ -561,6 +460,5 @@ In the following section, we will guide you through the installation of the dock
 > You also need to remove the cronjob. You can do this by running `crontab -e` click `i` to change to insert mode and deleting the line we added in step 6. (or you can comment it out by adding a `#` at the beginning of the line, `esc` to exit insert mode and type `:wq` to save the file) <br>
 
 > 10. Notes to keep in mind: <br>
->    1.  If the application is run for the very first time the database needs to be importet manually. (see step 7 of the [Installation Development Environment](#Installation Development Environment))  <br>
->    2.  If the application is run for the very first time the thekre_admin user does also need to be created. (see step 7 of the [Installation Development Environment](#Installation Development Environment)) <br>
->    3.  If the Website is not shown correctly (e.g. no CSS) clear the browser cache and / or history and reload the page. <br>
+>    1. If the application is run for the very first time the thekre_admin user does also need to be created. (see step 7 of the [Installation Development Environment](#Installation Development Environment)) <br>
+>    2. If the Website is not shown correctly (e.g. no CSS) clear the browser cache and / or history and reload the page. <br>

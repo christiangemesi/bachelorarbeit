@@ -284,17 +284,17 @@ In the following section, we will guide you through the installation of the dock
 >      5. click `esc` to exit insert mode and type `:wq` to save the file
 >      6. type `vim .env` (to create a new file and open it with vim)
 >      7. click `i` to enter the insert mode and paste the content from the file below. (Replace all login Credentials with new ones!) <br>
->          Replace the HERE_COMES_URL with the URL of the application. (liveserver: https://www.fhnw.ch/de/die-fhnw/bibliotheken/bibliothek-brugg-windisch/themenkisten, testserver: server1120.cs.technik.fhnw.ch) <br>
->          Replace the HERE COMES DATABASE USERNAME with the username of the database user. (like: thekre_admin) <br>
->          Replace the HERE COMES DATABASE PASSWORD with the password of the database user. (like: dajlskjlklk232lkjSD) <br>
->          Replace the HERE COMES DATABASE ROOT PASSWORD with the password of the root user in mysql. (like: sdljkapsdj2kjkld2lkjdjl22j2JD=FDSJKLD231) <br>
+>      - Replace the \<\<HERE_COMES_URL\>\> with the URL of the application. (liveserver: https://www.fhnw.ch/de/die-fhnw/bibliotheken/bibliothek-brugg-windisch/themenkisten, testserver: server1120.cs.technik.fhnw.ch) <br>
+>      - Replace the \<\<HERE COMES DATABASE USERNAME\>\> with the username of the database user. (like: thekre_admin) <br>
+>      - Replace the \<\<HERE COMES DATABASE PASSWORD\>\> with the password of the database user. (like: dajlskjlklk232lkjSD) <br>
+>      - Replace the \<\<HERE COMES DATABASE ROOT PASSWORD\>\> with the password of the root user in mysql. (like: sdljkapsdj2kjkld2lkjdjl22j2JD=FDSJKLD231) <br>
 >           ``` bash
 >          APP_NAME=ThekRe
 >          APP_ENV=local
 >          APP_KEY=base64:OXiQSLCrUXYKg8PH2U7ulTM8cg8e5POG+H+wX4hXK4A=
 >          APP_DEBUG=true
 >          APP_LOG_LEVEL=debug
->          APP_URL=HERE_COMES_URL
+>          APP_URL=<<HERE_COMES_URL>>
 >          
 >          UNIQUE_SERVER_URL=themenkisten/
 >          
@@ -323,10 +323,10 @@ In the following section, we will guide you through the installation of the dock
 >          DATABASE_HOST=mysql
 >          DATABASE_PORT=3306
 >          DATABASE=thekre
->          DATABASE_USERNAME="HERE COMES DATABASE USERNAME"
->          DATABASE_PASSWORD="HERE COMES DATABASE PASSWORD"
+>          DATABASE_USERNAME="<<HERE COMES DATABASE USERNAME>>"
+>          DATABASE_PASSWORD="<<HERE COMES DATABASE PASSWORD>>"
 >          #Database root user in mysql per default is root
->          DATABASE_ROOT_PASSWORD="HERE COMES DATABASE ROOT PASSWORD"
+>          DATABASE_ROOT_PASSWORD="<<HERE COMES DATABASE ROOT PASSWORD>>"
 >           ``` 
 >      6.  click `esc` to exit insert mode and type `:wq` to save the file 
 >      7.  type `vim clone_address.txt` (to create a new file and open it with vim)

@@ -455,7 +455,7 @@ In the following section, we will guide you through the installation of the dock
 >    For the application to always have the lates version running, we need to setup a cronjob. The cronjob will run the rebuild_docker_container.sh script every day at 00:00. Execute the following command to set it up: <br>
 >    1.  ```crontab -e``` (to open the file) <br>
 >    2. click `i` to enter the insert mode and add the following line to the file: <br>
->        ```0 0 * * * cd /home/matrix/thekre_webportal && sh rebuild_docker_container.sh >> /home/matrix/thekre_webportal/rebuild.log```  (this will also log any errors into rebuild.log) <br>
+>        ```0 0 * * * cd /home/thekre/thekre_webportal && sh rebuild_docker_container.sh >> /home/thekre/thekre_webportal/rebuild.log```  (this will also log any errors into rebuild.log) <br>
 >    3. click `esc` to exit insert mode and type `:wq` to save the file <br>
 >    
 >   This will run the rebuild_docker_container.sh script every day at 00:00. The script looks for changes in git, pulls them, rebuilds and reruns the containers and removes the previous images so that we dont run out of space. <br>

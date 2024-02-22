@@ -460,7 +460,6 @@ In the following section, we will guide you through the installation of the dock
 >    
 >   This will run the rebuild_docker_container.sh script every day at 00:00. The script looks for changes in git, pulls them, rebuilds and reruns the containers and removes the previous images so that we dont run out of space. <br>
 
-
 > 8. Open the application in your browser <br>
 >    liveserver: https://www.fhnw.ch/de/die-fhnw/bibliotheken/bibliothek-brugg-windisch/themenkisten/user <br>
 >    testserver: server1120.cs.technik.fhnw.ch/user <br>

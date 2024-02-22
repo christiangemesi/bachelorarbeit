@@ -49,6 +49,9 @@ cat <<'EOF' > rebuild_docker_container.sh
 
 cd deployment
 
+# Full path to docker executable
+DOCKER_EXECUTABLE=/snap/bin/docker
+
 # Get current date
 current_date=$(date +"%Y-%m-%d %H:%M:%S")
 
@@ -67,29 +70,29 @@ if ! git diff --quiet HEAD origin/master; then
     }
 
     # Build the Docker image
-    docker compose build 2>&1 || {
-        error_message=$(docker compose build 2>&1)
+    $DOCKER_EXECUTABLE compose build 2>&1 || {
+        error_message=$($DOCKER_EXECUTABLE compose build 2>&1)
         echo "$current_date - Error: $error_message"
         exit 1
     }
 
     # Stop the current Docker container if it's running
-    docker compose down 2>&1 || {
-        error_message=$(docker compose down 2>&1)
+    $DOCKER_EXECUTABLE compose down 2>&1 || {
+        error_message=$($DOCKER_EXECUTABLE compose down 2>&1)
         echo "$current_date - Error: $error_message"
         exit 1
     }
 
     # Start the Docker container in the background
-    docker compose up -d 2>&1 || {
-        error_message=$(docker compose up -d 2>&1)
+    $DOCKER_EXECUTABLE compose up -d 2>&1 || {
+        error_message=$($DOCKER_EXECUTABLE compose up -d 2>&1)
         echo "$current_date - Error: $error_message"
         exit 1
     }
 
     # Remove dangling images so that the disk space is not consumed
-    docker rmi $(docker images --filter "dangling=true" -q --no-trunc) 2>&1 || {
-        error_message=$(docker rmi $(docker images --filter "dangling=true" -q --no-trunc) 2>&1)
+    $DOCKER_EXECUTABLE rmi $($DOCKER_EXECUTABLE images --filter "dangling=true" -q --no-trunc) 2>&1 || {
+        error_message=$($DOCKER_EXECUTABLE rmi $($DOCKER_EXECUTABLE images --filter "dangling=true" -q --no-trunc) 2>&1)
         echo "$current_date - Error: $error_message"
         exit 1
     }

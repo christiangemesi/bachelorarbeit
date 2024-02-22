@@ -1,12 +1,11 @@
 $(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip();
-
     /**
      * remove themebox
      */
     $(".button-delete-themebox").click(function () {
         prepareDeleteWarningModal();
-        $('#delete-warning-header-text').val("Wollen Sie die Themenkiste wirklich löschen?");
+        $('#delete-warning-header-text').val("Wollen Sie dieses Ausleihobjekt wirklich löschen?");
         $('#object-remove-id').val($(this).val());
     });
 
@@ -19,7 +18,7 @@ $(document).ready(function () {
             type: 'POST',
             data: {themebox_id: $('#object-remove-id').val()},
             success: function (response) {
-                showSuccessModal("Themenkiste wurde erfolgreich gelöscht");
+                showSuccessModal("Ausleihobjekt wurde erfolgreich gelöscht");
             },
             error: function (xhr, status, error) {
                 showFailureModal("Es ist ein Fehler beim Löschen passiert", xhr);
@@ -66,10 +65,10 @@ $(document).ready(function () {
             type: 'POST',
             data: {themebox_data: $('#create-themebox-form').serializeArray()},
             success: function (response) {
-                showSuccessModal("Themenkiste wurde erfolgreich erstellt");
+                showSuccessModal("Ausleihobjekt wurde erfolgreich erstellt");
             },
             error: function (xhr, status, error) {
-                showFailureModal("Themenkiste konnte nicht erstellt werden", xhr);
+                showFailureModal("Ausleihobjekt konnte nicht erstellt werden", xhr);
             }
         })
     });
@@ -85,25 +84,51 @@ $(document).ready(function () {
             type: 'POST',
             data: {themebox_id: $(this).val()},
             success: function (response) {
-                $("#themebox-edit-form-name").val(response["title"]);
-                $("#themebox-edit-form-signature").val(response["signatur"]);
-                $("#themebox-edit-form-schoollevel").val(response["schoollevel"]);
-                $("#themebox-edit-form-barcode").val(response["barcode"]);
-                $("#themebox-edit-form-size").val(response["size"]);
-                $("#themebox-edit-form-weight").val(response["weight"]);
-                $("#themebox-edit-form-content").val(response["content"]);
-                $("#themebox-edit-form-extra_text").val(response["extra_text"]);
+                $("#themebox-edit-form-name").val(response[0]["title"]);
+                $("#themebox-edit-form-signature").val(response[0]["signatur"]);
+                $("#themebox-edit-form-schoollevel").val(response[0]["schoollevel"]);
+                $("#themebox-edit-form-barcode").val(response[0]["barcode"]);
+                $("#themebox-edit-form-size").val(response[0]["size"]);
+                $("#themebox-edit-form-weight").val(response[0]["weight"]);
+                $("#themebox-edit-form-content").val(response[0]["content"]);
+                $("#themebox-edit-form-extra_text").val(response[0]["extra_text"]);
+                $('#summernote_edit').summernote("code", response[0]["extra_text"]);
 
-                $('#summernote_edit').summernote("code", response["extra_text"]);
+                const categoryElement = document.getElementById("themebox-edit-form-category");
+                const categoryOptions = categoryElement.options;
+                for (var i = 0; i < categoryOptions.length; i++) {
+                    // Convert both values to integers for strict comparison
+                    if (parseInt(categoryOptions[i].value, 10) === parseInt(response[1]["pk_category"], 10)) {
+                        // Set the selected attribute for the matched option
+                        categoryOptions[i].selected = true;
+                        break;
+                    }
+                }
 
-                if (1 === response["complete"]) {
+                const order_typeElement = document.getElementById("themebox-edit-form-order_type");
+                const order_typeOptions = order_typeElement.options;
+                for (var l = 0; l < order_typeOptions.length; l++) {
+                    // Convert both values to integers for strict comparison
+                    if (parseInt(order_typeOptions[l].value, 10) === parseInt(response[2]["pk_order_type"], 10)) {
+                        // Set the selected attribute for the matched option
+                        order_typeOptions[l].selected = true;
+                        break;
+                    }
+                }
+                $("#themebox-edit-form-order_type").prop('disabled', true);
+
+
+
+
+
+                if (1 === response[0]["complete"]) {
                     $("#themebox-edit-form-complete").prop('checked', true);
                     $("#themebox-edit-form-complete").val(1);
                 } else {
                     $("#themebox-edit-form-complete").prop('checked', false);
                     $("#themebox-edit-form-complete").val(0);
                 }
-                $("#themebox_id").val(response["pk_themebox"]);
+                $("#themebox_id").val(response[0]["pk_themebox"]);
 
                 notEmptyValidate('themebox-edit-form-name','themebox-edit-form-name-status','themebox-edit-form-name-icon');
                 notEmptyValidate('themebox-edit-form-signature','themebox-edit-form-signature-status','themebox-edit-form-signature-icon');
@@ -112,6 +137,9 @@ $(document).ready(function () {
                 notEmptyValidate('themebox-edit-form-size','themebox-edit-form-size-status','themebox-edit-form-size-icon');
                 notEmptyValidate('themebox-edit-form-weight','themebox-edit-form-weight-status','themebox-edit-form-weight-icon');
                 notEmptyValidate('themebox-edit-form-content','themebox-edit-form-content-status','themebox-edit-form-content-icon');
+                notEmptyValidate('themebox-edit-form-category','themebox-edit-form-category-status','themebox-edit-form-category-icon');
+                notEmptyValidate('themebox-edit-form-order_type','themebox-edit-form-order_type-status','themebox-edit-form-order_type-icon');
+
 
             },
             error: function (xhr, status, error) {
@@ -169,14 +197,15 @@ $(document).ready(function () {
      * initial datatable settings
      */
     $('#new-themebox-table').DataTable({
+        responsive: false,
         "lengthChange": false,
         "paging": false,
         "pageLength": 10,
         "info": false,
         "language": {
             "search": "Suchen nach: ",
-            "sEmptyTable": "Keine Themenkisten vorhanden",
-            "zeroRecords": "Keine Themenkisten gefunden",
+            "sEmptyTable": "Kein Ausleihobjekt vorhanden",
+            "zeroRecords": "Kein Ausleihobjekt gefunden",
             "paginate": {
                 "previous": "Vorherige Seite",
                 "next": "Nächste Seite"
@@ -184,8 +213,8 @@ $(document).ready(function () {
         },
         "columnDefs": [
             {
-                "searchable": false, "targets": 7,
-                "orderable": false, "targets": 7
+                "searchable": false, "targets": 8,
+                "orderable": false, "targets": 8
             }
         ]
     });

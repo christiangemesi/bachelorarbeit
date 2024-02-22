@@ -1,0 +1,31 @@
+stages:
+  - test
+
+services:
+  - name: mysql:8.0
+    alias: db_ci
+    variables:
+      MYSQL_ROOT_PASSWORD: "root_password_ci"
+      MYSQL_DATABASE: "db_ci"
+      MYSQL_USER: "username_ci"
+      MYSQL_PASSWORD: "password_ci"
+
+test:
+  stage: test
+  image: php:8.2.4-apache
+  before_script:
+    - apt-get update && apt-get install -y libzip-dev zip curl default-mysql-client iputils-ping
+    - docker-php-ext-install pdo_mysql zip
+    - cp .env.cicd .env
+    - mysql -hdb_ci -uroot -proot_password_ci db_ci < database/thekre_empty.sql
+    - apt-get update && apt-get install -y wget  # Install wget
+    - wget -O composer-setup.php https://getcomposer.org/installer  # Download Composer installer
+    - php composer-setup.php --install-dir=/usr/local/bin --filename=composer  # Install Composer
+    - rm composer-setup.php  # Remove Composer setup file
+    - composer install --no-progress --no-suggest --prefer-dist --optimize-autoloader  # Install Composer dependencies
+    - php artisan key:generate
+  script:
+    - php artisan test
+  after_script:
+    - rm .env  # Remove .env file after the tests
+  allow_failure: false # Fail the pipeline if tests fail

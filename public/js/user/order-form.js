@@ -62,7 +62,7 @@ function firstNameValidate() {
         document.getElementById("firstNameIcon").className = "glyphicon glyphicon-remove form-control-feedback";
         checkValidation(0);
         return false;
-    } else if (!onlyLetters(firstNameInput.value)) {
+    } else if (!onlyLettersNumbers(firstNameInput.value)) {
         document.getElementById("firstNameInputStatus").innerHTML = "Nur Buchstaben sind erlaubt!";
         document.getElementById("firstNameInputStatus").style.display = "block";
         firstNameInput.parentNode.className = "form-group has-warning has-feedback";
@@ -159,32 +159,32 @@ function phoneValidate() {
     }
 }
 
-//function nebisValidate() {
-    // if (nebisusernumber.value == "") {
-    //     document.getElementById("nebisInputStatus").innerHTML = "Bibliotheksausweisnummer wird benötigt!";
-    //     document.getElementById("nebisInputStatus").style.display = "block";
-    //     nebisusernumber.parentNode.className = "form-group has-error has-feedback";
-    //     document.getElementById("nebisIcon").className = "glyphicon glyphicon-remove form-control-feedback";
-    //     checkValidation(0);
-    //     return false;
-    // } else
-    // if (!notEmpty(nebisusernumber.value)) {
-    //     document.getElementById("nebisInputStatus").innerHTML = "Falsches Bibliotheksausweisnummer Format!";
-    //     document.getElementById("nebisInputStatus").style.display = "block";
-    //     nebisusernumber.parentNode.className = "form-group has-warning has-feedback";
-    //     document.getElementById("nebisIcon").className = "glyphicon glyphicon-warning-sign form-control-feedback";
-    //     checkValidation(0);
-    //     return false;
-    // } else {
-    //     document.getElementById("nebisInputStatus").style.display = "none";
-    //     nebisusernumber.parentNode.className = "form-group has-success has-feedback";
-    //     document.getElementById("nebisIcon").className = "glyphicon glyphicon-ok form-control-feedback";
-    //     checkValidation(0);
-    //     return true;
-    // }
-    //checkValidation(0);
-    //return true;
-//}
+function nebisValidate() {
+    
+    var nebisusernumber = document.getElementById("nebisusernumber");
+    
+    if (nebisusernumber.value == "") {
+        document.getElementById("nebisInputStatus").innerHTML = "Wenn keine vorhanden, mit 1234 ausfüllen";
+        document.getElementById("nebisInputStatus").style.display = "block";
+        nebisusernumber.parentNode.className = "form-group has-error has-feedback";
+        document.getElementById("nebisIcon").className = "glyphicon glyphicon-remove form-control-feedback";
+        checkValidation(0);
+        return false;
+    } else if (!notEmpty(nebisusernumber.value)) {
+        document.getElementById("nebisInputStatus").innerHTML = "Falsches Format!";
+        document.getElementById("nebisInputStatus").style.display = "block";
+        nebisusernumber.parentNode.className = "form-group has-warning has-feedback";
+        document.getElementById("nebisIcon").className = "glyphicon glyphicon-warning-sign form-control-feedback";
+        checkValidation(0);
+        return false;
+    } else {
+        document.getElementById("nebisInputStatus").style.display = "none";
+        nebisusernumber.parentNode.className = "form-group has-success has-feedback";
+        document.getElementById("nebisIcon").className = "glyphicon glyphicon-ok form-control-feedback";
+        checkValidation(0);
+        return true;
+    }
+}
 
 /**
  * 2.Form School Address
@@ -337,7 +337,7 @@ function notEmpty(word) {
 }
 
 function onlyLetters(word) {
-    var pattern = /^[a-zA-ZäöüÄÖÜéèêàÈÉÀ- ]+$/;
+    var pattern = /^[a-zA-ZäöüÄÖÜéèêàÈÉÀ-]+$/;
     return pattern.test(word);
 }
 
@@ -380,7 +380,6 @@ function checkValidation(order_carousel_status) {
         var cansubmit = true;
 
         $("#personal-data-box :input").each(function () {
-            console.log(this.parentNode)
             if ($(this).parent().attr('class') != "form-group has-success has-feedback") {
                 cansubmit = false;
             }

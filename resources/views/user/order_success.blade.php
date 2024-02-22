@@ -21,11 +21,11 @@
                         <p class="order_feeback_text">
                             Vielen Dank für Ihre Bestellung. <br>
                             Sie erhalten in Kürze eine <b>E-Mail</b> mit den Informationen zu Ihrer Bestellung.
-                            Es besteht die Möglichkeit, dass die Bestätigungs Email in Ihrem Spam Ordner landet.</p>
+                            Es besteht die Möglichkeit, dass die Bestätigungs E-Mail in Ihrem Spam Ordner landet.</p>
                     </div>
                 </div><br>
                 <a href="../">
-                    <button type="button" class="btn btn-primary">neue Themenkiste bestellen</button>
+                    <button type="button" class="btn btn-primary">neues Ausleihobjekt bestellen</button>
                 </a>
             </div>
         </div>

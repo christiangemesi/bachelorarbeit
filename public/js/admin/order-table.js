@@ -3,6 +3,31 @@ $(document).ready(function () {
     let dayToCalculateNextSundays = getNextDayOfWeek(new Date, 7);
     let dayToCalculatePreviousSundays = getNextDayOfWeek(new Date, 7);
 
+    var dayToCalculateNextSaturdaysStart = getNextDayOfWeek(new Date, 6);
+    dayToCalculateNextSaturdaysStart.setHours(14);
+    dayToCalculateNextSaturdaysStart.setMinutes(0);
+    dayToCalculateNextSaturdaysStart.setSeconds(0);
+
+    var dayToCalculateNextSaturdaysEnd = getNextDayOfWeek(new Date, 6);
+    dayToCalculateNextSaturdaysEnd.setHours(18);
+    dayToCalculateNextSaturdaysEnd.setMinutes(0);
+    dayToCalculateNextSaturdaysEnd.setSeconds(0);
+
+
+    var dayToCalculatePreviousSaturdaysStart = getNextDayOfWeek(new Date, 6);
+    dayToCalculatePreviousSaturdaysStart.setDate(dayToCalculatePreviousSaturdaysStart.getDate() - 7);
+    dayToCalculatePreviousSaturdaysStart.setHours(14);
+    dayToCalculatePreviousSaturdaysStart.setMinutes(0);
+    dayToCalculatePreviousSaturdaysStart.setSeconds(0);
+
+    var dayToCalculatePreviousSaturdaysEnd = getNextDayOfWeek(new Date, 6);
+    dayToCalculatePreviousSaturdaysEnd.setDate(dayToCalculatePreviousSaturdaysEnd.getDate() - 7);
+    dayToCalculatePreviousSaturdaysEnd.setHours(18);
+    dayToCalculatePreviousSaturdaysEnd.setMinutes(0);
+    dayToCalculatePreviousSaturdaysEnd.setSeconds(0);
+
+    var selectedThemeboxInfo = []
+
     $('[data-toggle="tooltip"]').tooltip();
 
     $('#start-date').keydown(function () {
@@ -53,7 +78,7 @@ $(document).ready(function () {
             },
             error: function (xhr, status, error) {
                 $('#modal-order-edit-progress').modal('toggle');
-                showFailureModal("Es ist ein Fehler bei der Statusänderung passiert", xhr);
+                showFailureModal("Es ist ein Fehler bei der Statusänderung aufgetreten", xhr);
             }
         })
     });
@@ -92,14 +117,13 @@ $(document).ready(function () {
     /**
      * button print
      */
-    function printData()
-    {
-        var divToPrint=document.getElementById("printTable");
-        newWin= window.open("");
+    function printData() {
+        var divToPrint = document.getElementById("printTable");
+        newWin = window.open("");
         newWin.document.write(divToPrint.outerHTML);
-        newWin.print();
-        newWin.close();
-        refresh();
+        //newWin.close();
+        //newWin.print();
+        //refresh();
     }
 
     $(".button-print-order").click(function () {
@@ -108,48 +132,45 @@ $(document).ready(function () {
             type: 'POST',
             data: {order_id: $(this).val()},
             success: function (response) {
-
-
                 var html =
-                    '<tr><td class="print-table-title"><strong>Bestellung: </strong></td><td class="print-table-text">' + response["order"]["ordernumber"] +'</td></tr>' +
+                    '<tr><td class="print-table-title"><strong>Bestellung: </strong></td><td class="print-table-text">' + response["order"]["ordernumber"] + '</td></tr>' +
                     '<tr><td> </td></tr>' +
-                    '<tr><td class="print-table-title">Themenkiste: </td><td class="print-table-text">' + response["themebox"]["title"] +'</td></tr>' +
-                    '<tr><td class="print-table-title">Von: </td><td class="print-table-text">' + formatDate(response["order"]["startdate"]) +'</td></tr>' +
-                    '<tr><td class="print-table-title">Bis: </td><td class="print-table-text">' + formatDate(response["order"]["enddate"]) +'</td></tr>' +
-                    '<tr><td class="print-table-title">Bestelldatum: </td><td class="print-table-text">' + formatDate(response["order"]["datecreated"]) +'</td></tr>' +
+                    '<tr><td class="print-table-title">Ausleihobjekt: </td><td class="print-table-text">' + response["themebox"]["title"] + '</td></tr>' +
+                    '<tr><td class="print-table-title">Von: </td><td class="print-table-text">' + formatDate(response["order"]["startdate"]) + '</td></tr>' +
+                    '<tr><td class="print-table-title">Bis: </td><td class="print-table-text">' + formatDate(response["order"]["enddate"]) + '</td></tr>' +
+                    '<tr><td class="print-table-title">Bestelldatum: </td><td class="print-table-text">' + formatDate(response["order"]["datecreated"]) + '</td></tr>' +
                     '<tr><td> </td></tr>' +
-                    '<tr class="print-table-user"><td class="print-table-title">Nachname: </td><td class="print-table-text">' + response["order"]["name"] +'</td></tr>' +
-                    '<tr class="print-table-user"><td class="print-table-title">Vorname: </td><td class="print-table-text">' + response["order"]["surname"] +'</td></tr>' +
-                    '<tr class="print-table-user"><td class="print-table-title">Bibliotheksausweisnummer: </td><td class="print-table-text">' + response["order"]["nebisusernumber"] +'</td></tr>' +
-                    '<tr class="print-table-user"><td class="print-table-title">Email: </td><td class="print-table-text">' + response["order"]["email"] +'</td></tr>' +
-                    '<tr class="print-table-user"><td class="print-table-title">Telefonnummer: </td><td class="print-table-text">' + response["order"]["phonenumber"] +'</td></tr>';
+                    '<tr class="print-table-user"><td class="print-table-title">Nachname: </td><td class="print-table-text">' + response["order"]["name"] + '</td></tr>' +
+                    '<tr class="print-table-user"><td class="print-table-title">Vorname: </td><td class="print-table-text">' + response["order"]["surname"] + '</td></tr>' +
+                    '<tr class="print-table-user"><td class="print-table-title">Bibliotheksausweis: </td><td class="print-table-text">' + response["order"]["nebisusernumber"] + '</td></tr>' +
+                    '<tr class="print-table-user"><td class="print-table-title">Email: </td><td class="print-table-text">' + response["order"]["email"] + '</td></tr>' +
+                    '<tr class="print-table-user"><td class="print-table-title">Telefonnummer: </td><td class="print-table-text">' + response["order"]["phonenumber"] + '</td></tr>';
 
                 if (2 === response["order"]["fk_delivery"]) {
                     var deliveryHtml =
                         '+ <tr><td> </td></tr>' +
-                        '<tr class="print-table-delivery"><td class="print-table-title">Lieferart: </td><td class="print-table-text">' + "Lieferung an Aargauer Schulen" +'</td></tr>' +
-                        '<tr class="print-table-delivery"><td class="print-table-title">Name der Schule: </td><td class="print-table-text">' + response["order"]["schoolname"] +'</td></tr>' +
-                        '<tr class="print-table-delivery"><td class="print-table-title">Strasse und Nr.: </td><td class="print-table-text">' + response["order"]["schoolstreet"] +'</td></tr>' +
-                        '<tr class="print-table-delivery"><td class="print-table-title">PLZ und Ort: </td><td class="print-table-text">' + response["order"]["schoolcity"] +'</td></tr>' +
-                        '<tr class="print-table-delivery"><td class="print-table-title">Abgabeort: </td><td class="print-table-text">' + response["order"]["placeofhandover"] +'</td></tr>' +
-                        '<tr class="print-table-delivery"><td class="print-table-title">Telefonnummer der Schule: </td><td class="print-table-text">' + response["order"]["schoolphonenumber"] +'</td></tr>';
+                        '<tr class="print-table-delivery"><td class="print-table-title">Lieferart: </td><td class="print-table-text">' + "Lieferung an Aargauer Schulen" + '</td></tr>' +
+                        '<tr class="print-table-delivery"><td class="print-table-title">Name der Schule: </td><td class="print-table-text">' + response["order"]["schoolname"] + '</td></tr>' +
+                        '<tr class="print-table-delivery"><td class="print-table-title">Strasse und Nr.: </td><td class="print-table-text">' + response["order"]["schoolstreet"] + '</td></tr>' +
+                        '<tr class="print-table-delivery"><td class="print-table-title">PLZ und Ort: </td><td class="print-table-text">' + response["order"]["schoolcity"] + '</td></tr>' +
+                        '<tr class="print-table-delivery"><td class="print-table-title">Abgabeort: </td><td class="print-table-text">' + response["order"]["placeofhandover"] + '</td></tr>' +
+                        '<tr class="print-table-delivery"><td class="print-table-title">Telefonnummer der Schule: </td><td class="print-table-text">' + response["order"]["schoolphonenumber"] + '</td></tr>';
                     html = html + deliveryHtml;
-                }else{
+                } else {
                     var deliveryTypeHtml =
                         '+ <tr><td> </td></tr>' +
-                        '<tr class="print-table-delivery"><td class="print-table-title">Lieferart: </td><td class="print-table-text">' + "Abholung in der Bibliothek" +'</td></tr>';
+                        '<tr class="print-table-delivery"><td class="print-table-title">Lieferart: </td><td class="print-table-text">' + "Abholung in der Bibliothek" + '</td></tr>';
                     html = html + deliveryTypeHtml;
                 }
                 $('#print-order').html(html);
-
             },
             error: function (xhr, status, error) {
-                showFailureModal("Es ist ein Fehler beim Laden der Daten vorgekommen", xhr);
+                showFailureModal("Es ist ein Fehler beim Laden der Daten aufgetreten", xhr);
             },
             complete: function () {
                 printData();
             }
-    });
+        });
     });
 
 
@@ -157,11 +178,40 @@ $(document).ready(function () {
      * get order data for edit modal
      */
     $(".button-edit-order").click(function () {
+
+        dayToCalculateNextSundays = getNextDayOfWeek(new Date, 7);
+        dayToCalculatePreviousSundays = getNextDayOfWeek(new Date, 7);
+
+        dayToCalculateNextSaturdaysStart = getNextDayOfWeek(new Date, 6);
+        dayToCalculateNextSaturdaysStart.setHours(14);
+        dayToCalculateNextSaturdaysStart.setMinutes(0);
+        dayToCalculateNextSaturdaysStart.setSeconds(0);
+
+        dayToCalculateNextSaturdaysEnd = getNextDayOfWeek(new Date, 6);
+        dayToCalculateNextSaturdaysEnd.setHours(18);
+        dayToCalculateNextSaturdaysEnd.setMinutes(0);
+        dayToCalculateNextSaturdaysEnd.setSeconds(0);
+
+        dayToCalculatePreviousSaturdaysStart = getNextDayOfWeek(new Date, 6);
+        dayToCalculatePreviousSaturdaysStart.setDate(dayToCalculatePreviousSaturdaysStart.getDate() - 7);
+        dayToCalculatePreviousSaturdaysStart.setHours(14);
+        dayToCalculatePreviousSaturdaysStart.setMinutes(0);
+        dayToCalculatePreviousSaturdaysStart.setSeconds(0);
+
+        dayToCalculatePreviousSaturdaysEnd = getNextDayOfWeek(new Date, 6);
+        dayToCalculatePreviousSaturdaysEnd.setDate(dayToCalculatePreviousSaturdaysEnd.getDate() - 7);
+        dayToCalculatePreviousSaturdaysEnd.setHours(18);
+        dayToCalculatePreviousSaturdaysEnd.setMinutes(0);
+        dayToCalculatePreviousSaturdaysEnd.setSeconds(0);
+
         $.ajax({
             url: "admin/getOrder",
             type: 'POST',
             data: {order_id: $(this).val()},
             success: function (response) {
+                selectedThemeboxInfo = response["themebox"]
+                $("#pu_dropdown-von").val("");
+                $("#pu_dropdown-bis").val("");
 
                 $("#calendar").fullCalendar("render");
                 $("#calendar").fullCalendar("removeEvents");
@@ -169,20 +219,53 @@ $(document).ready(function () {
                     return event.className == "newOrder";
                 });
 
+                bindEndData();
+                //addBlockDateFromToday();
+                loadBlockedDates();
+                blockTillNextSunday();
+
+                blockPreviousFiveSundaysInCalendar();
+                blockNextFiveSundaysInCalendar();
+
+                if (selectedThemeboxInfo.fk_order_type === 1) {
+                    blockPreviousFiveSaturdayAfterTwoPmInCalendar();
+                    blockNextFiveSaturdayAfterTwoPmInCalendar();
+                }
+
+
                 $('#order-edit-modal').modal('show',
                     {
                         backdrop: 'static',
                         keyboard: false
                     }
                 );
-                $('#order-edit-form').trigger("reset");
-                $("#order-id").val(response["order"]["pk_order"]);
+
+                var isHourlyOrder = response["themebox"]["fk_order_type"] === 1;
+
+                if (isHourlyOrder) {
+                    $("#pu_themebox-time-select").show();
+                    $("#end-date_box").hide();
+
+                    //select the option in the dropdown that matches the start time
+                    $('#pu_dropdown-von option[value="' + formatTimeWithoutDate(response["order"]["startdate"]) + '"]').prop("selected", true);
+                    $('#pu_dropdown-bis option[value="' + formatTimeWithoutDate(response["order"]["enddate"]) + '"]').prop("selected", true);
+                    $("#order-id").val(response["order"]["pk_hourly_order"]);
+                    // set the Von-text to Am
+                    $("#Von-text").html("Am");
+                } else {
+                    $("#pu_themebox-time-select").hide();
+                    $("#end-date_box").show();
+                    $("#order-id").val(response["order"]["pk_order"]);
+                    // set the Von-text to Von
+                    $("#Von-text").html("Von");
+                }
+
                 $("#ordernumber-edit").val(response["order"]["ordernumber"]);
                 $("#themebox-title").val(response["themebox"]["title"]);
                 $("#themebox-signatur").val(response["themebox"]["signatur"]);
                 $("#datecreated").val(formatDate(response["order"]["datecreated"]));
-                $("#start-date").val(formatDate(response["order"]["startdate"]));
-                $("#end-date").val(formatDate(response["order"]["enddate"]));
+                $("#start-date").val(formatDateWithoutTime(response["order"]["startdate"]));
+                $("#end-date").val(formatDateWithoutTime(response["order"]["enddate"]));
                 $("#status").html("");
 
                 response["all_status"].forEach(function (element) {
@@ -242,16 +325,52 @@ $(document).ready(function () {
                             start: addTime(value["startdate"]),
                             end: addEndTime(value["enddate"]),
                             rendering: "background",
-                            className: "myOrder",
+                            className: "new_event",
                             color: "#04B404"
                         }, true);
                         $('#calendar').fullCalendar('gotoDate', addTime(value["startdate"]));
-                    } else {
+                    } else if (value["pk_hourly_order"] == $("#order-id").val()) {
+                        var startDateTime = value["startdate"] + "-00:00";
+                        var endDateTime = value["enddate"] + "-00:00";
                         $('#calendar').fullCalendar("renderEvent", {
-                            title: "",
-                            start: addBlockStartdate(value["startdate"]),
-                            end: addBlockEnddate(value["enddate"]),
-                            rendering: "background",
+                            title: extractTimeFromDate(value["startdate"]) + " - " + extractTimeFromDate(value["enddate"]),
+                            start: startDateTime,
+                            end: endDateTime,
+                            rendering: "",
+                            className: "new_event",
+                            color: "#04B404"
+                        }, true);
+
+                        var endPlus30 = addMinutesToTime(endDateTime.split(' ')[1].substring(0, 5), 30);
+                        var finalEndDate = endDateTime.split(' ')[0] + " " + endPlus30 + ":00";
+
+                        $("#calendar").fullCalendar('renderEvent',
+                            {
+                                title: "Korrektur",
+                                start: endDateTime,
+                                end: finalEndDate,
+                                rendering: "",
+                                className: "new_event",
+                                color: "#04B404"
+                            },
+                            true
+                        );
+
+                        $('#calendar').fullCalendar('gotoDate', startDateTime);
+                    } else { // render blocked events
+                        var startDateTime = value["startdate"] + "-00:00";
+                        var endDateTime = value["enddate"] + "-00:00";
+
+                        if(isHourlyOrder){
+                            var endDateTimePlus30 = addMinutesToTime(endDateTime.split(' ')[1].substring(0, 5), 30);
+                            var finalEndDatePlus30 = endDateTime.split(' ')[0] + " " + endDateTimePlus30 + ":00";
+                        }
+
+                        $('#calendar').fullCalendar("renderEvent", {
+                            title: isHourlyOrder ? extractTimeFromDate(value["startdate"]) + " - " + extractTimeFromDate(finalEndDatePlus30) : "",
+                            start: !isHourlyOrder ? addBlockStartdate(value["startdate"]) : startDateTime,
+                            end: !isHourlyOrder ? addBlockEnddate(value["enddate"]) : finalEndDatePlus30,
+                            rendering: !isHourlyOrder ? "background" : "",
                             className: "block"
                         }, true);
                     }
@@ -260,12 +379,6 @@ $(document).ready(function () {
                 dayToCalculateNextSundays = getNextDayOfWeek(new Date, 7);
                 dayToCalculatePreviousSundays = getNextDayOfWeek(new Date, 7);
 
-                bindEndData();
-                addBlockDateFromToday();
-                loadBlockedDates();
-                blockTillNextSunday();
-                blockNextFiveSundaysInCalendar();
-                blockPreviousFiveSundaysInCalendar();
 
             },
             error: function (xhr, status, error) {
@@ -291,7 +404,6 @@ $(document).ready(function () {
             data: {order_data: $('#order-edit-form').serializeArray()},
             beforeSend: function () {
                 $('#modal-order-edit-progress').modal('show');
-                console.log($('#order-edit-form').serializeArray());
             },
             success: function (response) {
                 $('#modal-order-edit-progress').modal('toggle');
@@ -308,21 +420,20 @@ $(document).ready(function () {
      * show / hide delivery input fields
      */
     $('#delivery').click(function () {
-        if ($("#delivery").val() === "1") {
-            $("#order-delivery-type").hide();
-            lastNameValidate();
-            firstNameValidate();
-            emailValidate();
-            phoneValidate();
-            nebisValidate();
-        }
-        else {
+        if ($("#delivery").val() === "2") {
             $("#order-delivery-type").show();
             schoolnameValidate();
             schoolstreetValidate();
             schoolcityValidate();
             placeofhandoverValidate();
             schoolphoneValidate();
+        } else {
+            $("#order-delivery-type").hide();
+            lastNameValidate();
+            firstNameValidate();
+            emailValidate();
+            phoneValidate();
+            nebisValidate();
         }
     });
 
@@ -333,7 +444,28 @@ $(document).ready(function () {
         dateFormat: "dd.mm.yy",
         onSelect: function (date) {
             bindEndData();
-            updateEvent();
+
+            if (selectedThemeboxInfo.fk_order_type === 1) { // hourly order
+                $('#button-save-order-change').prop('disabled', true);
+
+                $("#calendar").fullCalendar('removeEvents', function (event) {
+                    return event.className == "newOrder";
+                });
+
+                $("#calendar").fullCalendar('removeEvents', function (event) {
+                    return event.className == "new_event";
+                });
+
+                //reset the dropdowns
+                $("#pu_dropdown-von").val($("#pu_dropdown-von option:first").val());
+                $("#pu_dropdown-bis").val($("#pu_dropdown-bis option:first").val());
+                //disable the dropdown bis
+                $("#pu_dropdown-bis").prop("disabled", true);
+                //goto selected date
+                $("#calendar").fullCalendar('gotoDate', $("#start-date").datepicker('getDate'));
+            } else { //daily order
+                updateEvent();
+            }
         }
     });
 
@@ -343,9 +475,60 @@ $(document).ready(function () {
     $("#end-date").datepicker({
         dateFormat: "dd.mm.yy",
         onSelect: function (date) {
-            updateEvent();
+            if (selectedThemeboxInfo.fk_order_type === 2) { // daily order
+                updateEvent();
+            }
         }
     });
+
+    /**
+     * Extract the time from a date string
+     */
+    function extractTimeFromDate(dateString) {
+        const dateObject = new Date(dateString);
+
+        const hours = dateObject.getHours().toString().padStart(2, '0');
+        const minutes = dateObject.getMinutes().toString().padStart(2, '0');
+
+        return `${hours}:${minutes}`;
+    }
+
+    function setAppropriateEndTimes() {
+        //get the selected start time
+        var selectedStartTime = $("#pu_dropdown-von").val();
+        //remove all options from the dropdown
+        $("#pu_dropdown-bis").empty();
+        //add all the values from 08:00 until 18:00 in 30-minute intervals to dropdown except the selected start time
+        var maxTime = '18:00';
+        var currentTime = selectedStartTime;
+        //add the option called "Endzeit" disabled
+        $("#pu_dropdown-bis").append('<option value="" disabled selected>Endzeit</option>');
+
+        while (currentTime <= maxTime) {
+            $("#pu_dropdown-bis").append('<option value="' + currentTime + '">' + currentTime + '</option>');
+            currentTime = addMinutesToTime(currentTime, 30);
+        }
+        //remove the selectedTime from the dropdown
+        $("#pu_dropdown-bis option[value='" + selectedStartTime + "']").remove();
+    }
+
+    function addMinutesToTime(time, minutes) {
+        var timeArray = time.split(':');
+        var hours = parseInt(timeArray[0], 10);
+        var mins = parseInt(timeArray[1], 10);
+
+        var totalMinutes = hours * 60 + mins;
+        var newTotalMinutes = totalMinutes + minutes;
+
+        var newHours = Math.floor(newTotalMinutes / 60);
+        var newMins = newTotalMinutes % 60;
+
+        return padWithZero(newHours) + ':' + padWithZero(newMins);
+    }
+
+    function padWithZero(value) {
+        return value < 10 ? '0' + value : value;
+    }
 
     /**
      * initial caledar settings
@@ -354,6 +537,8 @@ $(document).ready(function () {
         selectable: true,
         eventColor: "#f44242",
         height: "auto",
+        minTime: '08:00:00',
+        maxTime: '18:00:00',
         dayClick: function (date, allDay, jsEvent, view) {
             $("#info-calendar-message-box").html("Wählen Sie oben ihre gewünschte Ausleihperiode");
             $("#info-calendar-message-box").css("display", "block");
@@ -365,6 +550,7 @@ $(document).ready(function () {
             $("#error-calendar-message-box").css("display", "none");
         }
     });
+    loadViewChangeButtons();
 
     /**
      * initial datatable settings
@@ -408,16 +594,24 @@ $(document).ready(function () {
      */
     jQuery.extend(jQuery.fn.dataTableExt.oSort, {
         "date-eu-pre": function (a) {
-            var ukDatea = a.split('.');
-            return (ukDatea[2] + ukDatea[1] + ukDatea[0]) * 1;
+            // Split the date and time components
+            var parts = a.split(' ');
+            var datePart = parts[0].split('.');
+            var timePart = parts[1] || '00:00:00';
+
+            // Combine date and time in a format that can be parsed by Date
+            var combinedDateTime = datePart[2] + '-' + datePart[1] + '-' + datePart[0] + 'T' + timePart;
+
+            // Parse the combined date and time using Date object
+            return new Date(combinedDateTime);
         },
 
         "date-eu-asc": function (a, b) {
-            return ((a < b) ? -1 : ((a > b) ? 1 : 0));
+            return a - b;
         },
 
         "date-eu-desc": function (a, b) {
-            return ((a < b) ? 1 : ((a > b) ? -1 : 0));
+            return b - a;
         }
     });
 
@@ -453,51 +647,82 @@ $(document).ready(function () {
         var start_date = $("#start-date").datepicker('getDate');
         var min_date = $("#start-date").datepicker('getDate');
         end_date.datepicker('option', 'minDate', min_date);
+
+        if (selectedThemeboxInfo.fk_order_type === 1) { // Hourly order
+            //set the end date to the same as the start date
+            $("#end-date").datepicker('setDate', $("#start-date").datepicker('getDate'));
+            //enable the dropdowns
+            $("#pu_dropdown-von").prop("disabled", false);
+        }
     }
+
     $("#status-select").change(function () {
         let table = $("#new-order-table").DataTable();
         table.search("");
         table.draw();
     });
 
-    $.fn.dataTable.ext.search.push(function (settings,searchData,index, rowData, counter ) {
+    $.fn.dataTable.ext.search.push(function (settings, searchData, index, rowData, counter) {
         let searchedStatus = $("#status-select option:selected").text();
         let selection = $(rowData[7]);
         let selectedText = $(selection).find('option:selected').text();
         return searchedStatus === selectedText || searchedStatus === "All";
     })
+
     function loadBlockedDates() {
 
         $.ajax({
-            url: "../" + "/" +"user/getBlockedPeriods",
-            type:"POST",
+            url: "../" + "user/getBlockedPeriods",
+            type: "POST",
             data: {},
-            success: function(data) {
+            success: function (data) {
 
-                $.each(data, function(index, element){
+                $.each(data, function (index, element) {
                     blockedPeriodEventtwo(formatBlockedPeriodCalendarStartDate(element.startdate), formatBlockedPeriodCalendarEndDate(element.enddate));
                     var blockedPeriodsArray = computeDayBetweenStartAndEnd(new Date(formatCalendarDate(element.startdate)), new Date(formatCalendarDate(element.enddate)));
 
-                    for(var i = 0; i <= blockedPeriodsArray.length; i++){
+                    for (var i = 0; i <= blockedPeriodsArray.length; i++) {
                         listOfBlockedDates.push(blockedPeriodsArray[i]);
                     }
                 });
             },
-            error: function(xhr, status, error) {
-                errorHandling("Es ist ein Fehler bei der Datenverarbeitung aufgetreten. Bitte kontaktieren Sie die FHNW Bibliothek unter bibliothek.windisch@fhnw.ch", "#error-message-box");
+            error: function (xhr, status, error) {
+                errorHandling("Es ist ein Fehler bei der Datenverarbeitung passiert. Bitte kontaktieren Sie die FHNW Bibliothek unter bibliothek.windisch@fhnw.ch", "#error-message-box");
             }
         });
     }
-    function formatBlockedPeriodCalendarStartDate(date){
+
+
+    $("#pu_dropdown-von").change(function () {
+        setAppropriateEndTimes();
+        $("#pu_dropdown-bis").prop("disabled", false);
+        $('#button-save-order-change').prop('disabled', true);
+        //set the first value
+        $("#pu_dropdown-bis").val($("#pu_dropdown-bis option:first").val());
+        $("#calendar").fullCalendar('removeEvents', function (event) {
+            return event.className == "newOrder";
+        });
+
+        $("#calendar").fullCalendar('removeEvents', function (event) {
+            return event.className == "new_event";
+        });
+    });
+
+    $("#pu_dropdown-bis").change(function () {
+        updateEvent();
+    });
+
+
+    function formatBlockedPeriodCalendarStartDate(date) {
         let temp_date = date.split(".");
         var new_date = new Date(temp_date[2] + "-" + temp_date[1] + "-" + temp_date[0] + "T00:00:00-00:00");
-        return new_date.getUTCFullYear() + "-" + formatTwoDigit(new_date.getUTCMonth() +1) + "-" + formatTwoDigit(new_date.getUTCDate());
+        return new_date.getUTCFullYear() + "-" + formatTwoDigit(new_date.getUTCMonth() + 1) + "-" + formatTwoDigit(new_date.getUTCDate());
     }
 
-    function formatBlockedPeriodCalendarEndDate(date){
+    function formatBlockedPeriodCalendarEndDate(date) {
         var temp_date = date.split(".");
         var new_date = new Date(temp_date[2] + "-" + temp_date[1] + "-" + temp_date[0] + "T00:00:00-00:00");
-        return new_date.getUTCFullYear() + "-" + formatTwoDigit(new_date.getUTCMonth() +1) + "-" + formatTwoDigit(new_date.getUTCDate() +1);
+        return new_date.getUTCFullYear() + "-" + formatTwoDigit(new_date.getUTCMonth() + 1) + "-" + formatTwoDigit(new_date.getUTCDate() + 1);
     }
 
     function computeDayBetweenStartAndEnd(startDate, endDate) {
@@ -511,51 +736,91 @@ $(document).ready(function () {
         }
         return arr;
     }
+
     function blockTillNextSunday() {
         var nextSunday = getNextDayOfWeek(new Date(), 7);
 
         var tomorrow = new Date();
         tomorrow.setDate(tomorrow.getDate() + 1);
 
-        var dateArr = computeDayBetweenStartAndEnd(tomorrow , nextSunday);
+        var dateArr = computeDayBetweenStartAndEnd(tomorrow, nextSunday);
 
-        for(var i = 0; i <= dateArr.length; i++){
+        for (var i = 0; i <= dateArr.length; i++) {
             listOfBlockedDates.push(dateArr[i]);
         }
     }
+
+    /**
+     * Block the the next following Sundays in the calendar
+     */
     function blockNextFiveSundaysInCalendar() {
-        for(var i = 0; i < 52; i++){
+        for (var i = 0; i < 40; i++) {
             blockAllSundaysEventtwo(formatBlockDate(dayToCalculateNextSundays));
             dayToCalculateNextSundays.setDate(dayToCalculateNextSundays.getDate() + 7);
         }
     }
-    function blockPreviousFiveSundaysInCalendar() {
 
-        for(var i = 0; i < 52; i++){
-            dayToCalculatePreviousSundays.setDate(dayToCalculatePreviousSundays.getDate() - 7);
+    function blockPreviousFiveSundaysInCalendar() {
+        for (var i = 0; i < 19; i++) {
             blockAllSundaysEventtwo(formatBlockDate(dayToCalculatePreviousSundays));
+            dayToCalculatePreviousSundays.setDate(dayToCalculatePreviousSundays.getDate() - 7);
         }
     }
+
+    function blockPreviousFiveSaturdayAfterTwoPmInCalendar() {
+        for (var i = 0; i < 19; i++) {
+            blockAllSaturdayAfterTwoPmEvent(dayToCalculatePreviousSaturdaysStart, dayToCalculatePreviousSaturdaysEnd);
+            dayToCalculatePreviousSaturdaysStart.setDate(dayToCalculatePreviousSaturdaysStart.getDate() - 7);
+            dayToCalculatePreviousSaturdaysEnd.setDate(dayToCalculatePreviousSaturdaysEnd.getDate() - 7);
+        }
+    }
+
+    /**
+     * Block the the next following Saturdays after 2 pm in the calendar since the library is closed
+     */
+    function blockNextFiveSaturdayAfterTwoPmInCalendar() {
+        for (var i = 0; i < 40; i++) {
+            blockAllSaturdayAfterTwoPmEvent(dayToCalculateNextSaturdaysStart, dayToCalculateNextSaturdaysEnd);
+            dayToCalculateNextSaturdaysStart.setDate(dayToCalculateNextSaturdaysStart.getDate() + 7);
+            dayToCalculateNextSaturdaysEnd.setDate(dayToCalculateNextSaturdaysEnd.getDate() + 7);
+        }
+    }
+
+    function blockAllSaturdayAfterTwoPmEvent(start, end) {
+        $("#calendar").fullCalendar('renderEvent',
+            {
+                title: "Geschlossen",
+                start: start,
+                end: end,
+                rendering: "",
+                className: "blocked_event",
+                color: "#ffad00"
+            },
+            true
+        );
+    }
+
     function formatBlockDate(date) {
         var day = date.getDate();
         var month = date.getMonth() + 1;
         var year = date.getFullYear();
 
-        if(day<10){
+        if (day < 10) {
             day = '0' + day;
-        }else{
+        } else {
             day = '' + day;
         }
 
-        if(month<10){
+        if (month < 10) {
             month = '0' + month;
-        }else{
+        } else {
             month = '' + month;
         }
 
         return year + '-' + month + '-' + day;
     }
-    function blockAllSundaysEventtwo(Sunday){
+
+    function blockAllSundaysEventtwo(Sunday) {
 
         $("#calendar").fullCalendar('renderEvent',
             {
@@ -569,13 +834,14 @@ $(document).ready(function () {
             true
         );
     }
-    function blockedPeriodEventtwo(start, end){
+
+    function blockedPeriodEventtwo(start, end) {
         $("#calendar").fullCalendar('renderEvent',
             {
                 id: "blocked",
                 title: "",
                 start: start,
-                end:  end,
+                end: end,
                 rendering: "background",
                 className: "blocked_event",
                 color: "#ffad00"

@@ -28,7 +28,6 @@ function firstNameValidate() {
     }
 }
 
-
 function lastNameValidate() {
 
     var lastNameInput = document.getElementById("lastname");
@@ -122,7 +121,7 @@ function nebisValidate() {
         checkformOrder(0);
         return false;
     } else if (!notEmpty(nebisusernumber.value)) {
-        document.getElementById("nebisInputStatus").innerHTML = "Falsches Bibliotheksausweisnummer Format!";
+        document.getElementById("nebisInputStatus").innerHTML = "Falsches Format!";
         document.getElementById("nebisInputStatus").style.display = "block";
         nebisusernumber.parentNode.className = "form-group has-warning has-feedback";
         document.getElementById("nebisIcon").className = "glyphicon glyphicon-warning-sign form-control-feedback";

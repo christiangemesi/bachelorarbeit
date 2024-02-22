@@ -8,8 +8,8 @@
 }
 
 
-body{
-    font-family: Raleway,serif;
+body {
+    font-family: Raleway, serif;
     font-size: 15px;
 }
 
@@ -17,54 +17,56 @@ body{
     top: 20px;
 }
 
-.list-group-item-action.active{
+.list-group-item-action.active {
     color: #555;
-    background-image: linear-gradient(to bottom,#fff48d 0,#fff48d 100%);
-    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff48d), to(#fff48d));
-    border-color: #ddd;
-}
-.list-group-item.active:focus{
-    color: #555;
-    background-image: linear-gradient(to bottom,#fff48d 0,#fff48d 100%);
-    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff48d), to(#fff48d));
-    border-color: #ddd;
-}
-.list-group-item.active:hover{
-    color: #555;
-    background-image: linear-gradient(to bottom,#fff48d 0,#fff48d 100%);
+    background-image: linear-gradient(to bottom, #fff48d 0, #fff48d 100%);
     background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff48d), to(#fff48d));
     border-color: #ddd;
 }
 
-.list-group-item-action:focus{
-    background-image: linear-gradient(to bottom,#fff48d 0,#fff48d 100%);
+.list-group-item.active:focus {
+    color: #555;
+    background-image: linear-gradient(to bottom, #fff48d 0, #fff48d 100%);
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff48d), to(#fff48d));
+    border-color: #ddd;
+}
+
+.list-group-item.active:hover {
+    color: #555;
+    background-image: linear-gradient(to bottom, #fff48d 0, #fff48d 100%);
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff48d), to(#fff48d));
+    border-color: #ddd;
+}
+
+.list-group-item-action:focus {
+    background-image: linear-gradient(to bottom, #fff48d 0, #fff48d 100%);
     background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff48d), to(#fff48d));
 }
 
-.list-group-item-action:hover{
-    background-image: linear-gradient(to bottom,#fff48d 0,#fff48d 100%);
+.list-group-item-action:hover {
+    background-image: linear-gradient(to bottom, #fff48d 0, #fff48d 100%);
     background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff48d), to(#fff48d));
 }
 
-.list-group-item-action{
+.list-group-item-action {
     background-image: linear-gradient(to bottom, #F1F1EE 0, #F1F1EE 100%);
     background-color: #F1F1EE;
     width: 100%;
 }
 
-.container-fluid{
+.container-fluid {
     padding-left: 0px;
 }
 
-.form-control{
+.form-control {
     height: 50px;
 }
 
 
 /*own classes*/
 
-.thekre-progress{
-    background-image: linear-gradient(to bottom,#FDE70E 0,#FDE787 100%);
+.thekre-progress {
+    background-image: linear-gradient(to bottom, #FDE70E 0, #FDE787 100%);
     background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#FDE70E), to(#FDE787));
     background-color: #F1F1EE;
     font-weight: bold;
@@ -74,107 +76,142 @@ body{
     padding: 10px;
 }
 
-.admin-panel{
+.admin-panel {
     padding: 30px;
 }
 
-.no-border{
+.no-border {
     border: none;
 }
 
-#themebox-infobox{
+#themebox-infobox {
     font-size: 16px;
     overflow-x: auto;
 }
 
-#themebox-infobox td{
+#themebox-infobox td {
     padding-left: 5px;
 }
 
-#themebox-infobox-select-date{
+#themebox-infobox-select-date {
     font-size: 16px;
 }
 
-#themebox-infobox-select-date td{
+#themebox-infobox-select-date td {
     padding-left: 5px;
 }
 
-#themebox-infobox-select-date input{
-   height: 30px;
+#themebox-infobox-select-date input {
+    height: 30px;
 }
 
-#themebox-infobox-select-date tr{
+#themebox-infobox-select-date tr {
     height: 36px;
 }
 
-#login-error-message-box{
+#login-error-message-box {
     display: none;
 }
 
-#error-calendar-message-box{
+#passwort-reset-error-message-box {
+    display: none;
+}
+
+/* passwort reset */
+#passwort-reset-success-message-box {
+    display: none;
+}
+
+#email-reset-notExistent-message-box {
+    display: none;
+}
+
+#reset-password-8character-message-box {
+    display: none;
+}
+
+#reset-password-notMatch-message-box-2 {
+    display: none;
+}
+
+#reset-password-Failed-message-box {
+    display: none;
+}
+
+#error-calendar-message-box {
     margin-top: 10px;
 }
 
-#info-calendar-message-box{
+#info-calendar-message-box {
     margin-top: 10px;
 }
 
-.sidebar-nav{
+.sidebar-nav {
     font-family: Raleway, serif;
-    font-size: 20px;
+    font-size: 18px;
 }
 
-.sidebar-nav-text{
+.sidebar-nav-text {
     padding-top: 50px;
     height: 50px;
+    margin-left: -40px;
 }
 
-.thekre-list{
+.nav-icon {
+    display: inline-block;
+}
+
+.nav-text {
+    display: inline-block;
+}
+
+.thekre-list {
     overflow-y: auto;
-    position: fixed;
-    height: 100%;
-    width: inherit;
+    height: 450px;
+    width: 100%;
 }
 
-.thekre-row{
+.thekre-row {
     padding: 20px;
 }
 
-.thekre-button-left{
-    float:left;
+.thekre-button-left {
+    float: left;
     display: none;
     margin-left: -10px;
 }
 
-.thekre-button-right{
+.thekre-button-right {
     float: right;
     margin-right: 20px;
 }
 
-#school-Address{
+#school-Address {
     display: none;
 }
 
-#success-message{
+#success-message {
     display: none;
 }
 
-#carousel-reserve-button{
+#carousel-reserve-button {
     display: none;
 }
 
-.edit-column-width{
+.edit-column-width {
     width: 120px;
 }
 
-.themebox-name-column-width{
+.category-name-column-width,
+.themebox-name-column-width {
     width: 300px;
 }
 
-.thekre-dropdown-statics-year{
+.thekre-dropdown-statics-year {
     cursor: pointer;
     height: 30px;
     margin-left: 15px;
+    margin-right: 15px;
     display: block;
     width: 100px;
     padding-left: 5px;
@@ -192,7 +229,7 @@ body{
     transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
 
-.thekre-dropdown-mail{
+.thekre-dropdown-mail {
     cursor: pointer;
     height: 30px;
     margin-left: 15px;
@@ -213,11 +250,11 @@ body{
     transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
 
-.thekre-dropdown-Admin{
+.thekre-dropdown-Admin {
     height: 30px !important;
 }
 
-.form-dropdown{
+.form-dropdown {
     cursor: pointer;
     height: 50px;
     display: block;
@@ -238,20 +275,20 @@ body{
 }
 
 
-.overflow-order-box{
+.overflow-order-box {
     overflow-y: auto;
     overflow-x: hidden;
     border: 1px solid #dddddd;
     height: 625px;
 }
 
-.overflow-order-user-box{
+.overflow-order-user-box {
     overflow-y: auto;
     overflow-x: hidden;
     height: 560px;
 }
 
-.admin-header{
+.admin-header {
     padding: 10px;
 }
 
@@ -264,54 +301,57 @@ body{
     text-align: left;
 }
 
-#calendar{
+#calendar {
     cursor: pointer;
 }
 
-.margin-top-40{
+.margin-top-40 {
     margin-top: 40px;
 }
 
-#order-progress-bar-value{
+#order-progress-bar-value {
     font-size: 14px;
 }
 
-#fhnw-logo{
+#fhnw-logo {
     margin-top: 15px;
     height: 40px;
 }
 
-#themebox-infobox-select-date-container{
+#themebox-infobox-select-date-container {
     height: 220px;
     margin-top: 10px;
 }
 
-.margin-right-legend{
+.margin-right-legend {
     padding-right: 70px;
 }
 
-#order-calendar-legend-block{
+#order-calendar-legend-block {
     padding-right: 10px;
     height: 20px;
     width: 20px;
     background-color: #FEC5BF;
+    border: 1px solid #bfbfbf;
 }
 
-#order-calendar-legend-new{
+#order-calendar-legend-new {
     padding-right: 10px;
     height: 20px;
     width: 20px;
     background-color: #A7EBC3;
+    border: 1px solid #bfbfbf;
 }
 
-#order-calendar-legend-blocked-period{
+#order-calendar-legend-blocked-period {
     padding-right: 10px;
     height: 20px;
     width: 20px;
     background-color: #ffe6b3;
+    border: 1px solid #bfbfbf;
 }
 
-#order-calendar-legend-free{
+#order-calendar-legend-free {
     padding-right: 10px;
     height: 20px;
     width: 20px;
@@ -319,42 +359,42 @@ body{
     border: 1px solid #bfbfbf;
 }
 
-.order-calendar-legend-text{
-    width: 120px;
+.order-calendar-legend-text {
+    width: 90px;
     padding-left: 25px;
     white-space: nowrap;
 }
 
-.detail-container{
+.detail-container {
     overflow-x: auto;
     height: 220px;
 }
 
-.data-table-thekre{
+.data-table-thekre {
     overflow-x: auto;
 }
 
-.data-table{
+.data-table {
     cursor: pointer;
 }
 
-.data-table tr:hover{
+.data-table tr:hover {
     background-color: rgba(255, 255, 0, 0.31);
 }
 
-.data-table thead{
+.data-table thead {
     background-color: #dfdfdf;
 }
 
-.new-order-table thead :hover{
+.new-order-table thead :hover {
     background-color: #dfdfdf;
 }
 
-.new-blocked-period-table thead :hover{
+.new-blocked-period-table thead :hover {
     background-color: #dfdfdf;
 }
 
-#themebox-order-info-title{
+#themebox-order-info-title {
     text-align: center;
     font-size: 30px;
     margin-top: 0px;
@@ -364,7 +404,7 @@ body{
     color: #333;
 }
 
-.order-form-title{
+.order-form-title {
     text-align: left;
     font-size: 30px;
     margin-top: 0px;
@@ -372,7 +412,7 @@ body{
     color: #333;
 }
 
-#content-core{
+#content-core {
     color: #919191;
     font-size: 20px;
 }
@@ -386,20 +426,20 @@ h1:after {
 }
 
 
-h4{
+h4 {
     font-size: 16px;
 }
 
-h2{
+h2 {
     color: #919191;
     font-size: 25px;
 }
 
-.themebox-new-title{
+.themebox-new-title {
     font-size: 25px;
 }
 
-.blocked-period-new-title{
+.blocked-period-new-title {
     font-size: 25px;
 }
 
@@ -410,23 +450,23 @@ h2{
     padding: 10px;
 }
 
-.carousel{
+.carousel {
     margin-bottom: 80px;
 }
 
-#order-edit-failure{
-     display: none;
-}
-
-#order-edit-success{
+#order-edit-failure {
     display: none;
 }
 
-#delete-warning{
+#order-edit-success {
     display: none;
 }
 
-.label-chose-order-period{
+#delete-warning {
+    display: none;
+}
+
+.label-chose-order-period {
     margin-left: 5px;
     font-size: 16px;
 }
@@ -452,11 +492,15 @@ h2{
     font-size: 4em;
 }
 
-.modal-content{
+.panel-heading {
     text-align: center;
 }
 
-.button-modal{
+.panel-footer {
+    text-align: center;
+}
+
+.button-modal {
     float: right;
 }
 
@@ -464,82 +508,84 @@ h2{
     float: left;
 }
 
-.themebox-table-value{
+.themebox-table-value {
     color: #808080;
     padding-bottom: 5px;
 }
 
-.print-table-title{
+.print-table-title {
     font-family: Arial;
     font-size: 25px;
 }
 
-.print-table-text{
+.print-table-text {
     font-family: Arial;
     font-size: 20px;
 }
 
-.print-table-user{
+.print-table-user {
     padding-left: 20px;
 }
 
-.print-table-delivery{
+.print-table-delivery {
     padding-left: 40px;
 }
 
-.float-right{
+.float-right {
     float: right;
 }
 
-.float-left{
+.float-left {
     float: left;
 }
 
-.text-align-left{
+.text-align-left {
     text-align: left;
 }
 
-.float-center{
+.float-center {
     float: left;
     position: relative;
     left: 25%;
 }
 
-.dataTables_wrapper{
+.dataTables_wrapper {
     margin-top: -50px;
 }
 
-.btn-create-themebox{
+.btn-create-cateogry,
+.btn-create-themebox {
     margin-left: 25px;
 }
 
-.btn-create-blocked-period{
+
+.btn-create-blocked-period {
     margin-left: 25px;
 }
 
-.lbl-statistics-year{
+.lbl-statistics-year {
     font-size: 25px;
     font-weight: normal;
 }
 
-.lbl-mail{
+.lbl-mail {
     font-size: 25px;
     font-weight: normal;
 }
 
-.tbl-statistics-year{
+.tbl-statistics-year {
     margin-left: 20px;
 }
 
-.tbl-mail{
+.tbl-mail {
     margin-left: 20px;
 }
 
-#statistics-background{
+#statistics-background {
     margin-left: 5px;
 }
 
-.statistics-themebox-name{
+.statistics-themebox-name {
     font-size: 16px;
 }
 
@@ -548,40 +594,40 @@ h2{
     font-weight: bold;
 }
 
-.themebox-form-label{
+.themebox-form-label {
     float: left;
     height: fit-content;
 }
 
-.themebox-edit-form-content{
+.themebox-edit-form-content {
     height: 100%;
     resize: none;
     overflow: auto;
 }
 
-.statistics-progressbar-value{
+.statistics-progressbar-value {
     font-size: 18px;
 }
 
-.statistics-progressbar-background{
+.statistics-progressbar-background {
     border-radius: 0px;
     margin-right: 10px;
     height: 20px;
 }
 
-.cursor-pointer{
+.cursor-pointer {
     cursor: pointer;
 }
 
-.text-mail{
+.text-mail {
     font-size: 18px;
     line-height: 10px;
 }
 
 .modal-header-success {
-    color:#fff;
-    padding:9px 15px;
-    border-bottom:1px solid #eee;
+    color: #fff;
+    padding: 9px 15px;
+    border-bottom: 1px solid #eee;
     background-color: #5cb85c;
     -webkit-border-top-left-radius: 5px;
     -webkit-border-top-right-radius: 5px;
@@ -592,9 +638,9 @@ h2{
 }
 
 .modal-header-warning {
-    color:#fff;
-    padding:9px 15px;
-    border-bottom:1px solid #eee;
+    color: #fff;
+    padding: 9px 15px;
+    border-bottom: 1px solid #eee;
     background-color: #f0ad4e;
     -webkit-border-top-left-radius: 5px;
     -webkit-border-top-right-radius: 5px;
@@ -606,9 +652,9 @@ h2{
 
 
 .modal-header-danger {
-    color:#fff;
-    padding:9px 15px;
-    border-bottom:1px solid #eee;
+    color: #fff;
+    padding: 9px 15px;
+    border-bottom: 1px solid #eee;
     background-color: #d9534f;
     -webkit-border-top-left-radius: 5px;
     -webkit-border-top-right-radius: 5px;
@@ -619,9 +665,9 @@ h2{
 }
 
 .modal-header-primary {
-    color:#fff;
-    padding:9px 15px;
-    border-bottom:1px solid #eee;
+    color: #fff;
+    padding: 9px 15px;
+    border-bottom: 1px solid #eee;
     background-color: #428bca;
     -webkit-border-top-left-radius: 5px;
     -webkit-border-top-right-radius: 5px;
@@ -632,9 +678,9 @@ h2{
 }
 
 .modal-header-info {
-    color:#fff;
-    padding:9px 15px;
-    border-bottom:1px solid #eee;
+    color: #fff;
+    padding: 9px 15px;
+    border-bottom: 1px solid #eee;
     background-color: #FDE70E;
     -webkit-border-top-left-radius: 5px;
     -webkit-border-top-right-radius: 5px;
@@ -644,21 +690,21 @@ h2{
     border-top-right-radius: 5px;
 }
 
-.margin-less{
+.margin-less {
     margin-top: -40px;
 }
 
 
-.themebox-create-form-background{
+.themebox-create-form-background {
     overflow-y: auto;
     height: 520px;
 }
 
-.font-weight-bold{
+.font-weight-bold {
     font-weight: bold;
 }
 
-#themebox-content-modal-box{
+#themebox-content-modal-box {
     background-color: white;
 }
 
@@ -667,40 +713,40 @@ h2{
     display: none;
 }
 
-.thekre-panel{
+.thekre-panel {
     margin-bottom: 0px;
 }
 
-.modal-content-failure-message-background{
+.modal-content-failure-message-background {
     text-align: left;
     border: 1px solid gray;
     background-color: #f7f7f7;
 }
 
-.nav-glyphicon{
+.nav-glyphicon {
     line-height: 34px;
     float: left;
 }
 
-.margin-top-less{
+.margin-top-less {
     margin-top: -10px;
 }
 
-.order_feeback_text{
+.order_feeback_text {
     font-size: 20px;
 }
 
-.glyphicon-order-failed{
-    color:darkred;
+.glyphicon-order-failed {
+    color: darkred;
     font-size: 80px
 }
 
-.glyphicon-order-success{
-    color:green;
+.glyphicon-order-success {
+    color: green;
     font-size: 80px
 }
 
-.site-switch{
+.site-switch {
     position: fixed;
     left: 0;
     bottom: 0;
@@ -710,24 +756,24 @@ h2{
     font-size: 13px;
 }
 
-.progress-loading-bar{
-    background-image: linear-gradient(to bottom,#FDE70E 0,#FDE787 100%);
+.progress-loading-bar {
+    background-image: linear-gradient(to bottom, #FDE70E 0, #FDE787 100%);
     background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#FDE70E), to(#FDE787));
     background-color: #F1F1EE;
     font-weight: bold;
 }
 
-#themebox-list-ul{
+#themebox-list-ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
 }
 
-.modal-datepicker{
-    z-index:1151 !important;
+.modal-datepicker {
+    z-index: 1151 !important;
 }
 
-#user-delivery-info{
+#user-delivery-info {
     font-size: 17px;
 }
 
@@ -735,22 +781,49 @@ h2{
     background-color: #FEE71D;
 }
 
-.margin-top-user-order-modal{
+.margin-top-user-order-modal {
     margin-top: 40px;
 }
 
-.required{
+.required {
     padding-top: 15px;
 }
 
-#themebox-content-modal .modal-body{
-    height:450px !important;
+#themebox-content-modal .modal-body {
+    height: 450px !important;
 }
 
-#themebox-list-search{
-    width: 105%;
+#themebox-list-search {
+    width: 100%;
 }
 
-#themebox-extra-text-modal-box{
+#themebox-extra-text-modal-box {
     display: inline-table;
 }
+
+.fc-time2 {
+    display: none;
+}
+
+.fc-content > .fc-time {
+    display: none;
+}
+
+/* themebox time select padding left 5px */
+#themebox-time-select {
+    padding-left: 5px;
+}
+
+#pu_dropdown-von, #pu_dropdown-bis, #dropdown-von, #dropdown-bis, #pu_orderAdd-dropdown-von, #pu_orderAdd-dropdown-bis, #user-edit-dropdown-von, #user-edit-dropdown-bis {
+    border-radius: 5px;
+}
+
+.glyphicon-ok .glyphicon-calendar {
+    display: none;
+}
+
+/* glyphicon glyphicon-remove form-control-feedback then also display none of glyphicon glyphicon-calendar */
+.glyphicon-remove .glyphicon-calendar {
+    display: none;
+}
+

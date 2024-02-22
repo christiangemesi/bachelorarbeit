@@ -94,16 +94,56 @@
                                             <div class="col-md-12">
                                                 <h2 id="themebox-order-info-title"></h2>
                                             </div>
-                                        </div>
-                                        <hr>
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <label class="label-chose-order-period">Beschreibung</label>
-                                                <div class="detail-container">
-                                                    <input type="hidden" id="themebox-id"/>
-                                                    <table id="themebox-infobox">
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label class="label-chose-order-period">Beschreibung</label>
+                                                    <div class="detail-container">
+                                                        <input type="hidden" id="themebox-id"/>
+                                                        <table id="themebox-infobox">
 
-                                                    </table>
+                                                        </table>
+                                                    </div>
+                                                    <div class="form-group" id="themebox-infobox-select-date-container">
+                                                        <label class="label-chose-order-period">gewünschte
+                                                            Ausleihperiode</label>
+                                                        <table id="themebox-infobox-select-date">
+                                                            <tr>
+                                                                <td>Von:</td>
+                                                                <td>
+                                                                    <div class="input-group">
+                                                                        <input type="text"
+                                                                               class="form-control cursor-pointer"
+                                                                               id="start-date" name="startdate">
+                                                                        <span class="input-group-addon cursor-pointer"
+                                                                              id="order-from-glyphicon"><i
+                                                                                    class="glyphicon glyphicon-calendar"></i></span>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Bis:</td>
+                                                                <td>
+                                                                    <div class="input-group">
+                                                                        <input type="text"
+                                                                               class="form-control cursor-pointer"
+                                                                               id="end-date" name="enddate"
+                                                                               disabled="disabled">
+                                                                        <span class="input-group-addon cursor-pointer"
+                                                                              id="order-to-glyphicon"><i
+                                                                                    class="glyphicon glyphicon-calendar"></i></span>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                        <p class="text-max-order-date-info">
+                                                            <i>Ausleihdauer max. 8 Wochen</i>
+                                                        </p>
+                                                        <div class="alert alert-danger display-none"
+                                                             id="error-calendar-message-box"></div>
+                                                        <div class="alert alert-info display-none"
+                                                             id="info-calendar-message-box"></div>
+                                                    </div>
                                                 </div>
                                                 <div class="form-group" id="themebox-infobox-select-date-container">
                                                     <label class="label-chose-order-period">gewünschte
@@ -200,7 +240,9 @@
                                                     </div>
 
                                                     <p class="text-max-order-date-info">
-                                                        <i id="hourly-order-info">Bedenken Sie dass eine 30 Minütige Korrektur nach jeder Bestellung vom Personal durchgeführt wird.</i>
+                                                        <i id="hourly-order-info">Bedenken Sie dass eine 30 Minütige
+                                                            Korrektur nach jeder Bestellung vom Personal durchgeführt
+                                                            wird.</i>
                                                     </p>
 
                                                     <div class="alert alert-danger display-none"
@@ -317,7 +359,7 @@
                                                         class="glyphicon glyphicon-info-sign"></span> Themenkisten
                                                 können an der Infotheke der FHNW Bibliothek Brugg-Windisch abgeholt
                                                 werden.<strong> Beachten Sie dass die HoloLens das Bibliotheksgebäude
-                                                    nicht verlassen dürfen. </strong> </p>
+                                                    nicht verlassen dürfen. </strong></p>
                                             <div id="school-Address">
                                                 <p id="user-delivery-info"><span
                                                             class="glyphicon glyphicon-info-sign"></span> Die Lieferung

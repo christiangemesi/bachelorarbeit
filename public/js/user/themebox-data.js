@@ -1093,6 +1093,21 @@ $(document).ready(function () {
             $('#order-progress-bar-value').text("Schritt " + carousel_counter + " von 3");
         }
 
+<<<<<<< HEAD
+=======
+    /**
+     * bind startdate field and enddate field
+     */
+    function bindEndData(){
+        var end_date = $('#end-date');
+        var start_date = $("#start-date").datepicker('getDate');
+        var min_date = $("#start-date").datepicker('getDate');
+        start_date.setDate(start_date.getDate() + 56);
+        end_date.datepicker('option', 'maxDate', start_date);
+        end_date.datepicker('option', 'minDate', min_date);
+        $("#start-date").datepicker('option', 'minDate', new Date());
+    }
+>>>>>>> master
 
         /**
          * add block days after order enddate

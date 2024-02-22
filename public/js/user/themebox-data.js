@@ -44,7 +44,6 @@ $(document).ready(function () {
         dayToCalculatePreviousSaturdaysEnd.setSeconds(0);
 
 
-
         // initialize the multiselect
         $('#dropdown2').multiselect({});
 
@@ -502,7 +501,6 @@ $(document).ready(function () {
             dayToCalculatePreviousSaturdaysEnd.setSeconds(0);
 
 
-
             $.ajax({
                 url: "./user/getThemebox",
                 type: "POST",
@@ -579,7 +577,7 @@ $(document).ready(function () {
                     var isDailyOrder = response["data"]["themebox"]["fk_order_type"] === 2;
 
                     $.each(orders, function (index, value) {
-                        if(!isDailyOrder) {
+                        if (!isDailyOrder) {
                             var endDate = value["enddate"];
                             var endDatePlus30 = addMinutesToTime(value["enddate"].split(' ')[1].substring(0, 5), 30);
                             var finalEndDate = endDate.split(' ')[0] + " " + endDatePlus30 + ":00";
@@ -795,14 +793,13 @@ $(document).ready(function () {
             });
         }
 
-/*
-        $(".fc-corner-right").click(function () {
-            blockNextFiveSundaysInCalendar();
-            blockNextFiveSaturdayAfterTwoPmInCalendar();
-        });
+        /*
+                $(".fc-corner-right").click(function () {
+                    blockNextFiveSundaysInCalendar();
+                    blockNextFiveSaturdayAfterTwoPmInCalendar();
+                });
 
- */
-
+         */
 
 
         /**
@@ -859,7 +856,6 @@ $(document).ready(function () {
                 dayToCalculateNextSaturdaysEnd.setDate(dayToCalculateNextSaturdaysEnd.getDate() + 7);
             }
         }
-
 
 
         /**
@@ -1093,21 +1089,19 @@ $(document).ready(function () {
             $('#order-progress-bar-value').text("Schritt " + carousel_counter + " von 3");
         }
 
-<<<<<<< HEAD
-=======
-    /**
-     * bind startdate field and enddate field
-     */
-    function bindEndData(){
-        var end_date = $('#end-date');
-        var start_date = $("#start-date").datepicker('getDate');
-        var min_date = $("#start-date").datepicker('getDate');
-        start_date.setDate(start_date.getDate() + 56);
-        end_date.datepicker('option', 'maxDate', start_date);
-        end_date.datepicker('option', 'minDate', min_date);
-        $("#start-date").datepicker('option', 'minDate', new Date());
-    }
->>>>>>> master
+
+        /**
+         * bind startdate field and enddate field
+         */
+        function bindEndData() {
+            var end_date = $('#end-date');
+            var start_date = $("#start-date").datepicker('getDate');
+            var min_date = $("#start-date").datepicker('getDate');
+            start_date.setDate(start_date.getDate() + 56);
+            end_date.datepicker('option', 'maxDate', start_date);
+            end_date.datepicker('option', 'minDate', min_date);
+            $("#start-date").datepicker('option', 'minDate', new Date());
+        }
 
         /**
          * add block days after order enddate
@@ -1263,7 +1257,7 @@ $(document).ready(function () {
                 },
                 true
             );
-            if(isHourly) {
+            if (isHourly) {
                 var endPlus30 = addMinutesToTime(end.split(' ')[1].substring(0, 5), 30);
                 var finalEndDate = end.split(' ')[0] + " " + endPlus30 + ":00";
 

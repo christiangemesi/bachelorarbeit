@@ -8,9 +8,14 @@ Christian Gémesi and Ramanan Rasaiah in the course of an IP6 Project.
 [Installation](#installation)
 - [Installation Development Environment with XAMPP](#Installation Development Environment with XAMPP)
 - [Installation Development Environment with Docker](#Installation Development Environment with Docker)
-
-
 - [Set the Application Live on the FHNW Server](#Set the Application Live on the FHNW Server)
+
+[Architecture](#architecture)
+- [Class Diagram](#class-diagram)
+- [Database](#database)
+- [Order Status](#order-status)
+- [External Libraries](#external-libraries)
+
 
 
 ## Installation
@@ -466,3 +471,91 @@ In the following section, we will guide you through the installation of the dock
 > 10. Notes to keep in mind: <br>
 >    1. If the application is run for the very first time the thekre_admin user does also need to be created. (see step 7 of the [Installation Development Environment](#Installation Development Environment)) <br>
 >    2. If the Website is not shown correctly (e.g. no CSS) and you get 404 errors, compose down the containers, and delete everything (inclusive the thekre_webportal folder). That problem seems to occur if you run the script multiple times. <br>
+
+## Architecture
+### Information to the Classes
+
+| Class Name      | Description                                                                                                                                       |
+|-----------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
+| UserController  | The class UserController is used to provide all the functionality for the user, like to see the availability from theme boxes or create an order. |
+| AdminController | The class AdminController is used to provide all the functionality for the administrator, like the login or view the theme boxes.                 |
+| Themebox        | The class Themebox provides all the theme box data.                                                                                               |
+| Order           | The class Order provide all the order data.                                                                                                       |
+| HourlyOrder     | The class HourlyOrder provides all data to hourly Orders.                                                                                         |
+| Order Type      | The class Order Type provides all the different order type data.                                                                                  |
+| Delivery        | The class Delivery provides all the different delivery type data.                                                                                 |
+| Status          | The class Status provides all the different status type data.                                                                                     |
+| Blocked_Period  | The class Blocked_Period provides all the different blocked period type data.                                                                     |
+| EditMail        | The class Edit Mail provides all the different data for editing the mail templates.                                                               |
+| PasswordReset   | The class PasswordReset provides all the different password reset type data.                                                                      |
+| Login           | The class Login provides all the different Login type data.                                                                                       |
+
+### Database
+
+| Table              | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| ------------------ |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| tbl_themebox       | The table tbl_themebox represents a renting object.                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| tbl_status         | The table tbl_status represents a status from an order. There are five different status which an order can have:<br /><ul><li>“Neu” (a new order is created in the database)</li><li>“Bereit” (the theme box is ready to be supplied)</li><li>“im Umlauf” (the person, who created the order, has the theme box)</li><li>“zurück gekommen” (the theme box is back at the FHNW li-brary</li><li>“abgeschlossen” (the theme box is checked form a library staff and the order is completed)</li></ul> |
+| tbl_delivery       | The table tbl_delivery represents the different delivery types:<br /><ul><li>“Abholung an Ort” (the theme box will be picked up)</li><li>“Lieferung an Aargauer Schulen” (the theme box will be delivered to a school)</li></ul>                                                                                                                                                                                                                                                                    |
+| tbl_order          | The table tbl_order represents an order.                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| tbl_hourly_order   | The table tbl_hourly_order represents an hourly order.                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| tbl_mail           | The table tbl_mail represents the different mail template types:<br /><ul><li>"mail_delivery_school" (the theme box will be delivered to a school)</li><li>"mail_delivery_pickup" (the theme box will be picked up)</li><li>"mail_ready_pickup" (mail template, for sending pickup mail when delivery status gets changed to "Bereit")</li></ul>                                                                                                                                                    |
+| tbl_blocked_period | The table tbl_blocked_period represents the blocked periods.                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| tbl_login          | In the tbl_login the hashed and salted administrator password gets stored.                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| tbl_password_reset | The table tbl_password_reset represents the password reset.                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| tbl_order_type     | The table tbl_order_type represents the different order types:<br /><ul><li>“Tagesbestellung” (a daily order)</li><li>“Stundenbestellung” (an hourly order)</li></ul>                                                                                                                                                                                                                                                                                                                               |
+| tbl_category       | The table tbl_category represents the different categories of renting objects.                                                                                                                                                                                                                                                                                                                                                                                                                      |
+
+### Order Status
+
+When a user orders a box, a new order record will be created in the database. An order refers always to one theme box. Each order has a status. There are 6 different statuses: new, ready, running, returned, closed and cancelled. In the following image, we can see the sequence from the order statuses. Those statuses are recorded in German in the database.
+
+![status_diagram.png](images_readme%2Fstatus_diagram.png)
+
+1. A **new** order is created, when the user places an order for a theme box over the order form. **New** is the initial status from an order.
+
+2. The administrator sees the **new** order in their administration section.
+
+3. The administrator prepares the theme box and check if its content is complete.
+
+4. When the theme box is complete, the administrator sets the status from **new** to **ready**. When an item is missing in the theme box, the replacement is done in few hours.
+
+5. The user comes to the library and picks the theme box up. The administrator sets the status from **ready** to **running**. The status is also set to **running** when the theme box is delivered to the customer.
+
+6. On the end-date of the order, the user brings the theme box back to the library. The administrator sets the status from **running** to **returned**.
+
+7. When the theme box content is complete, the administrator sets the status from **returned** to **closed**.
+
+8. When the order gets cancelled, the administrator sets the status from **closed** to **cancelled**.
+
+9. When there is a missing part in the theme box, the administrator marks the theme box as incomplete in the order tool.
+
+
+### External Libraries
+
+The following external libraries are used.
+
+| Library                 | Description                                                  |
+| ----------------------- | ------------------------------------------------------------ |
+| jQuery<br/>v1.12.4      | jQuery is a JavaScript library which offers the opportunity to manipulate the DOM. jQuery contains the module AJAX, which allows asynchronous JavaScript calls. The asynchronous JavaScript is used to load data from the back end without reloading the page.<br/>https://jquery.com/ |
+| Bootstrap<br/>v3.3.7    | Bootstrap is a CSS library which offers a lot of different pattern for HTML elements. Bootstrap is used for different user interface elements such as but-tons or callback modals.<br/>https://getbootstrap.com/ |
+| Fullcalendar<br/>v3.5.1 | Fullcalendar is an external JavaScript library to generate a month-view based calendar. This calendar is used as view element to create and edit an order.<br/>https://fullcalendar.io/ |
+| DataTable<br/>v1.10.16  | DataTable is an external JavaScript library to generate a data table with a search module. This table is used to show all the orders and theme boxes.<br/>https://datatables.net/ |
+| Summernote<br/>v0.8.9   | Summernote is a JavaScript library that helps you create WYSIWYG editors online.<br />https://summernote.org/ |
+
+
+## Coding Conventions
+
+### Boundaries and Parameter
+
+| Parameter                             | Boundary / Value   |
+| ------------------------------------- | ------------------ |
+| theme box block days before order     | 7 days             |
+| theme box block days after the return | 7 days             |
+| personal data text length             | 0 - 100 characters |
+| order data text length                | 0 - 100 characters |
+| plz length                            | 4 digit            |
+| phone number length                   | 10 digit           |
+| order number                          | 8 characters       |
+| amount of administrator accounts      | 1                  |
+| calendar                              | Gregorian          |

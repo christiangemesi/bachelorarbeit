@@ -62,7 +62,7 @@ In the following section, we will guide you through the installation of the deve
 > APP_NAME=ThekRe
 > APP_ENV=local
 > APP_KEY=base64:OXiQSLCrUXYKg8PH2U7ulTM8cg8e5POG+H+wX4hXK4A=
-> APP_DEBUG=true
+> APP_DEBUG=false
 > APP_LOG_LEVEL=debug
 > APP_URL=http://127.0.0.1:8000
 > 

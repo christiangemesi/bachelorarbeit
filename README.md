@@ -42,7 +42,7 @@ In the following section, we will guide you through the installation of the deve
 > - No special settings needed <br>
 
 > 4. Clone the Repository <br>
-> Open your IDE (in our case PHPStorm) and copy the HTTPS Link from the Project [here](https://gitlab.fhnw.ch/christian.gemesi/thek-re-2/) <br>
+> Open your IDE (in our case PHPStorm) and copy the HTTPS Link from the Project [here](https://gitlab.fhnw.ch/thekre/ThekRe) <br>
 <img src="images_readme/clone_via_http_link.png" alt="Clone via HTTP Link" width="1000"> <br>
 > In PHPStorm go to File -> New -> Project from Version Control -> Git and paste the Link into the URL field.
 > Clone the Project into the Directory "C:\xampp\htdocs\thek-re-2" (thek-re-2 Folder needs to be created) <br> <br>
@@ -152,7 +152,7 @@ Keep in mind that there is no hot-reload for the dockerized environment. If you 
 >          echo "Folder 'thekre' created and switched to."
 >          
 >          echo "Cloning the repository..."
->          git clone https://gitlab.fhnw.ch/christian.gemesi/thek-re-2.git || { echo "Error: Unable to clone the repository"; exit 1; }
+>          git clone https://gitlab.fhnw.ch/thekre/ThekRe.git || { echo "Error: Unable to clone the repository"; exit 1; }
 >          cd thek-re-2 || { echo "Error: Unable to change into thek-re-2 folder"; exit 1; }
 >          echo "Repository cloned and switched to 'thek-re-2' folder."
 >          

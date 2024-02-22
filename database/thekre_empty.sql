@@ -95,14 +95,6 @@ CREATE TABLE `tbl_hourly_order` (
   `fk_delivery` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
---
--- Dumping data for table `tbl_hourly_order`
---
-
-INSERT INTO `tbl_hourly_order` (`pk_hourly_order`, `fk_themebox`, `startdate`, `enddate`, `name`, `surname`, `email`, `phonenumber`, `nebisusernumber`, `fk_status`, `datecreated`, `ordernumber`, `fk_delivery`) VALUES
-(3, 93, '2024-01-09 09:00:00', '2024-01-09 10:00:00', 'gemesi', 'christian', 'christian.gemesi@hotmail.ch', '0123456789', '0123', 1, '2023-12-26', '3OaL3i20AR', 3),
-(4, 93, '2024-01-09 10:30:00', '2024-01-09 11:30:00', 'gemesi', 'christian', 'christian.gemesi@hotmail.ch', '0123456789', '0123', 1, '2023-12-26', 'PBGDF1ed8v', 3);
-
 -- --------------------------------------------------------
 
 --
@@ -173,15 +165,6 @@ CREATE TABLE `tbl_order` (
   `fk_status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
---
--- Dumping data for table `tbl_order`
---
-
-INSERT INTO `tbl_order` (`pk_order`, `fk_themebox`, `startdate`, `enddate`, `name`, `surname`, `email`, `phonenumber`, `nebisusernumber`, `fk_delivery`, `schoolname`, `schoolstreet`, `schoolcity`, `placeofhandover`, `schoolphonenumber`, `comment`, `ordernumber`, `datecreated`, `fk_status`) VALUES
-(102, 93, '2023-12-25', '2023-12-25', 'gemesi', 'christian', 'christian.gemesi@hotmail.ch', '0123456789', '0123', 1, NULL, NULL, NULL, NULL, NULL, NULL, 'OLVHbXYUTT', '2023-12-22', 1),
-(103, 93, '2024-01-03', '2024-01-03', 'gemesi', 'christian', 'christian.gemesi@hotmail.ch', '0123456789', '0123', 1, NULL, NULL, NULL, NULL, NULL, NULL, '39UI2iPt60', '2023-12-22', 1),
-(104, 92, '2023-12-25', '2023-12-26', 'gemesi', 'christian', 'christian.gemesi@hotmail.ch', '0123456789', '0123', 1, NULL, NULL, NULL, NULL, NULL, NULL, '7Pcn246Bwn', '2023-12-22', 1),
-(105, 92, '2024-01-23', '2024-01-24', 'gemesi', 'christian', 'christian.gemesi@hotmail.ch', '0123456789', '0123', 1, NULL, NULL, NULL, NULL, NULL, NULL, 'mNRnCnJfz3', '2024-01-19', 1);
 
 -- --------------------------------------------------------
 
@@ -214,13 +197,6 @@ CREATE TABLE `tbl_password_resets` (
   `created_at` timestamp NULL DEFAULT NULL,
   `pk_password_resets` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
---
--- Dumping data for table `tbl_password_resets`
---
-
-INSERT INTO `tbl_password_resets` (`email`, `token`, `created_at`, `pk_password_resets`) VALUES
-('christian.gemesi@hotmail.ch', 'iw42RvH0qGxO1C0U4BzbOgvWgbdIzCET78wywW0G09a21AFYY9DU0aVWZuLA0eXB', '2023-12-20 16:56:12', 84);
 
 -- --------------------------------------------------------
 

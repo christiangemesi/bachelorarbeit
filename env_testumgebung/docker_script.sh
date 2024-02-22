@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "Cloning the repository..."
-sudo git clone https://gitlab.fhnw.ch/christian.gemesi/thek-re-2.git || { echo "Error: Unable to clone the repository"; exit 1; }
+sudo git clone https://gitlab.fhnw.ch/thekre/ThekRe.git || { echo "Error: Unable to clone the repository"; exit 1; }
 cd thek-re-2 || { echo "Error: Unable to change into thek-re-2 folder"; exit 1; }
 echo "Repository cloned and switched to 'thek-re-2' folder."
 

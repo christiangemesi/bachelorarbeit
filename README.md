@@ -476,6 +476,8 @@ In the following section, we will guide you through the installation of the dock
 > 10. Notes to keep in mind: <br>
 >    1. If the application is run for the very first time the thekre_admin user does also need to be created. (see step 7 of the [Installation Development Environment](#Installation Development Environment)) <br>
 >    2. If the Website is not shown correctly (e.g. no CSS) and you get 404 errors, compose down the containers, and delete everything (inclusive the thekre_webportal folder). That problem seems to occur if you run the script multiple times. <br>
+>    3. Note the docker containers will not be started again after a server restart. Please type the following command to start the containers again: <br>
+>      ```cd /home/thekre/thekre_webportal && docker compose up -d``` <br>
 
 ## Architecture
 ### Information to the Classes

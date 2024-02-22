@@ -51,7 +51,7 @@
                                 <div class="col-md-4">
                                     <div class="Search">
                                         <input type="text" class="form-control" id="themebox-list-search"
-                                               placeholder="Suche nach Ausleihobjekten..">
+                                               placeholder="Suche nach Ausleihobjekten...">
                                     </div>
 
                                     <div class="filter">

@@ -1045,34 +1045,6 @@ $(document).ready(function () {
         $("#pu_orderAdd-dropdown-bis").prop("disabled", true);
     }
 
-    $(".status-update").on("change", function () {
-        var status_data = this.value;
-
-        $.ajax({
-            url: "admin/updateState",
-            type: 'POST',
-            data: {status_data: status_data},
-            headers: {
-                'X-CSRFToken': $('meta[name="token"]').attr('content')
-            },
-            beforeSend: function () {
-                $('#modal-order-edit-progress').modal('show');
-            },
-            success: function (response) {
-                $('#modal-order-edit-progress').modal('toggle');
-                if (1 === response) {
-                    showSuccessModal("Die Themenkiste ist bereit, die Bestellperson erhält eine Benachrichtigungs Email");
-                } else {
-                    showSuccessModal("Status wurde erfolgreich geändert");
-                }
-            },
-            error: function (xhr, status, error) {
-                $('#modal-order-edit-progress').modal('toggle');
-                showFailureModal("Es ist ein Fehler bei der Statusänderung aufgetreten", xhr);
-            }
-        })
-    });
-
     $("#status-select").change(function () {
         let table = $("#new-order-table").DataTable();
         table.search("");

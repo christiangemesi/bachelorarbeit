@@ -71,7 +71,7 @@ $(document).ready(function () {
             success: function (response) {
                 $('#modal-order-edit-progress').modal('toggle');
                 if (1 === response) {
-                    showSuccessModal("Die Themenkiste ist bereit, die Bestellperson erhält eine Benachrichtigungs Email");
+                    showSuccessModal("Das Ausleihobjekt ist bereit, die Bestellperson erhält eine Benachrichtigungs Email wenn es sich um eine Themenkiste handelt.");
                 } else {
                     showSuccessModal("Status wurde erfolgreich geändert");
                 }

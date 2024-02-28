@@ -130,6 +130,10 @@ body {
         width: 62px;
     }
 
+    #calendar {
+        font-size: 80%;
+    }
+
     #fhnw-logo {
         margin-top: 15px;
         height: 20px;

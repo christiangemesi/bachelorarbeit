@@ -4,9 +4,14 @@
     margin: 25px 25px 25px 25px;
 }
 
+/* change font size of dropdwon 1 and 2 */
+#dropdown1, #dropdown2 {
+    font-size: 16px;
+}
 
 .multiselect-container > li {
-    padding: 0
+    padding: 0;
+    font-size: 16px;
 }
 
 .multiselect-container {
@@ -39,6 +44,10 @@
     outline: 0;
     border-color: #CCCCCC;
     background-color: white;
+}
+
+#dropdown1 option {
+    font-size: 16px;
 }
 
 

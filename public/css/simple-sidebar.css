@@ -130,7 +130,22 @@ body {
         width: 62px;
     }
 
-    #calendar {
+    /* Scrollbar styles */
+    .thekre-list::-webkit-scrollbar {
+        height: 20px;
+        width: 5px;
+    }
+
+    .thekre-list::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 6px;
+    }
+
+
+    .fc-header-toolbar {
+        font-size: 80%;
+    }
+    .fc-view-container {
         font-size: 70%;
     }
 

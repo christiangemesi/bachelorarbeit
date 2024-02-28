@@ -75,7 +75,7 @@
                                         Filter zurücksetzen
                                     </button>
 
-                                    <div class="list-group thekre-list">
+                                    <div class="list-group thekre-list thekre_list_user" >
                                         <ul id="themebox-list-ul">
                                             @foreach ($themeboxes as $themebox)
                                                 <li>

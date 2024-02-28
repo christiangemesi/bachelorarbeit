@@ -291,7 +291,7 @@
                                             <label class="form-control-label" for="nebisusernumber">Bibliotheksausweisnummer
                                                 * </label>
                                             <input name="nebisusernumber" type="text" class="form-control"
-                                                   id="nebisusernumber" maxlength="40" placeholder="S98134827348"
+                                                   id="nebisusernumber" maxlength="40" placeholder="beginnend mit S/E/N/SLSP gefolgt von 8 Ziffern"
                                                    onblur="nebisValidate()"/>
                                             <span id="nebisIcon" aria-hidden="true"></span>
                                             <span id="nebisInputStatus" class="errorHeader">Wenn keine vorhanden, mit 1234 ausfüllen</span>

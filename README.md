@@ -256,16 +256,16 @@ Keep in mind that there is no hot-reload for the dockerized environment. If you 
 >
 > Note: You might be asked to enter login credentials for git (You can not use your Password, you need to create a Personal Access Token. See the instructions [here](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html#create-a-personal-access-token))
 
-> 3. Open the application in your browser <br>
+> 5. Open the application in your browser <br>
 >  http://127.0.0.1/user <br>
 > 
 > If the application is run for the first time the database needs to be importet manually. (see step 7 of the [Installation Development Environment with XAMPP](#Installation Development Environment with XAMPP))  <br>
 
-> 4. Take the application offline <br>
+> 6. Take the application offline <br>
 >    To take the application offline you need to stop the Docker container. You can do this by clicking the "Stop" button in the Docker Desktop <br>
 >    ![img.png](images_readme/stop_docker_container.png)
 
-> 4. Notes to keep in mind: <br>
+> 7. Notes to keep in mind: <br>
 >   2.  If the application is run for the first time the thekre_admin user does also need to be created. (see step 7 of the [Installation Development Environment with XAMPP](#Installation Development Environment with XAMPP)) <br>
 >   3.  If the Website is not shown correctly (e.g. no CSS) clear the browser cache and, or history and reload the page. <br>
 >   4.  If the application got taken offline, and you want to start it again, you can do so by deleting the thekre folder and running the thekre_docker.sh again or by clicking the "Start" button in the Docker Desktop <br>

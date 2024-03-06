@@ -148,6 +148,9 @@ body {
     .fc-view-container {
         font-size: 70%;
     }
+    .fc-day-header {
+        font-size: 107%;
+    }
 
     #fhnw-logo {
         margin-top: 15px;

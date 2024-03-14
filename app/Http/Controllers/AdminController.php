@@ -79,7 +79,6 @@ class AdminController extends Controller
      */
     public function forgetPasswordForm()
     {
-        //if the forgetPassword function returned success, redirect to login form
         return view('admin/forget-password_form');
     }
 

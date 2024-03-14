@@ -1,3 +1,5 @@
+Please note that this is a fork of thekre (https://gitlab.fhnw.ch/thekre/ThekRe). The instructions for installations might not work since they are tailored for the official thekre repository.
+
 # ThekRe
 
 ThekRe is a web application for the FHNW campus library to manage their theme boxes. 

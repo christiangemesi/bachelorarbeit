@@ -153,7 +153,7 @@ Keep in mind that there is no hot-reload for the dockerized environment. If you 
 >          
 >          echo "Cloning the repository..."
 >          git clone https://gitlab.fhnw.ch/thekre/ThekRe.git || { echo "Error: Unable to clone the repository"; exit 1; }
->          cd thek-re-2 || { echo "Error: Unable to change into thek-re-2 folder"; exit 1; }
+>          cd thekre || { echo "Error: Unable to change into thek-re-2 folder"; exit 1; }
 >          echo "Repository cloned and switched to 'thek-re-2' folder."
 >          
 >          echo "Copying the .env file into the folder..."
@@ -173,16 +173,16 @@ Keep in mind that there is no hot-reload for the dockerized environment. If you 
 >          echo "Deployment folder created."
 >          
 >          echo "Copying docker-compose.yml into the deployment folder..."
->          cp 'thek-re-2/docker-compose.yml' deployment/ || { echo "Error: Unable to copy docker-compose.yml"; exit 1; }
+>          cp 'thekre/docker-compose.yml' deployment/ || { echo "Error: Unable to copy docker-compose.yml"; exit 1; }
 >          echo "docker-compose.yml copied into the deployment folder."
 >          
 >          echo "Copying .env into the deployment folder..."
->          cp 'thek-re-2/.env' deployment/ || { echo "Error: Unable to copy the .env.production file"; exit 1; }
+>          cp 'thekre/.env' deployment/ || { echo "Error: Unable to copy the .env.production file"; exit 1; }
 >          echo ".env file copied into the deployment folder."
 >          
 >          echo "Removing the 'thek-re-2' folder..."
->          rm -rf thek-re-2 || { echo "Error: Unable to remove thek-re-2 folder"; exit 1; }
->          echo "'thek-re-2' folder removed."
+>          rm -rf thekre || { echo "Error: Unable to remove thek-re-2 folder"; exit 1; }
+>          echo "'thekre' folder removed."
 >          
 >          echo "Changing into the deployment folder..."
 >          cd deployment || { echo "Error: Unable to change into the deployment folder"; exit 1; }

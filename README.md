@@ -8,9 +8,9 @@ Christian Gémesi and Ramanan Rasaiah in the course of an IP6 Project.
 
 ## Table of content
 [Installation](#installation)
-- [Installation Development Environment with XAMPP](#Installation Development Environment with XAMPP)
-- [Installation Development Environment with Docker](#Installation Development Environment with Docker)
-- [Set the Application Live on the FHNW Server](#Set the Application Live on the FHNW Server)
+- [Installation Development Environment with XAMPP](#installation-development-environment-with-xampp)
+- [Installation Development Environment with Docker](#installation-development-environment-with-docker)
+- [Set the Application Live on the FHNW Server](#set-the-application-live-on-the-fhnw-server)
 
 [Architecture](#architecture)
 - [Class Diagram](#class-diagram)
@@ -234,14 +234,14 @@ Keep in mind that there is no hot-reload for the dockerized environment. If you 
 >           
 >           DATABASE_ROOT_PASSWORD="156deq1ws56dwq5e245864e5w6qe45w61cw5dw"
 >           ```
->      4. Replace all the "<< >>" with the respective values. See 5. and 6. of the [Installation Development Environment with XAMPP](#Installation Development Environment with XAMPP). <br>
->    
->  - After doing the steps above for the respective OS, the folder structure should look like this:
-> ```
->  -folder
->  |-thekre_docker.sh
->  |-.env
->  ```
+>      4. Replace all the "<< >>" with the respective values. See 5. and 6. of the [Installation Development Environment with XAMPP](#installation-development-environment-with-xampp). <br>    
+>
+>      5. After doing the steps above for the respective OS, the folder structure should look like this:
+>       ```
+>        -folder
+>        |-thekre_docker.sh
+>        |-.env
+>       ```
 
 > 3. Run docker <br>
 >    Open Docker Desktop and wait for the service to start. After the service is running, Docker Desktop should look like this: <br>
@@ -261,16 +261,16 @@ Keep in mind that there is no hot-reload for the dockerized environment. If you 
 > 5. Open the application in your browser <br>
 >  http://127.0.0.1/user <br>
 > 
-> If the application is run for the first time the database needs to be importet manually. (see step 7 of the [Installation Development Environment with XAMPP](#Installation Development Environment with XAMPP))  <br>
+>    If the application is run for the first time the database needs to be imported manually. (see step 7 of the [Installation Development Environment with XAMPP](#installation-development-environment-with-xampp))  <br>
 
 > 6. Take the application offline <br>
 >    To take the application offline you need to stop the Docker container. You can do this by clicking the "Stop" button in the Docker Desktop <br>
 >    ![img.png](images_readme/stop_docker_container.png)
 
 > 7. Notes to keep in mind: <br>
->   2.  If the application is run for the first time the thekre_admin user does also need to be created. (see step 7 of the [Installation Development Environment with XAMPP](#Installation Development Environment with XAMPP)) <br>
->   3.  If the Website is not shown correctly (e.g. no CSS) clear the browser cache and, or history and reload the page. <br>
->   4.  If the application got taken offline, and you want to start it again, you can do so by deleting the thekre folder and running the thekre_docker.sh again or by clicking the "Start" button in the Docker Desktop <br>
+>    1.  If the application is run for the first time the thekre_admin user does also need to be created. (see step 7 of the [Installation Development Environment with XAMPP](#installation-development-environment-with-xampp)) <br>
+>    2.  If the Website is not shown correctly (e.g. no CSS) clear the browser cache and, or history and reload the page. <br>
+>    3.  If the application got taken offline, and you want to start it again, you can do so by deleting the thekre folder and running the thekre_docker.sh again or by clicking the "Start" button in the Docker Desktop <br>
 >   ![img.png](images_readme/start_docker_container.png)
 
 ## Set the Application Live on the FHNW Server
@@ -350,18 +350,19 @@ In the following section, we will guide you through the installation of the dock
 >            After pasting the token into the file, click `esc` to exit insert mode and type `:wq` to save the file <br> <br>
 > 
 >            Note: This Token as we created it is only valid for 1 year. (this is also the maximum duration) After that you need to create a new one. Any pushes to the repository will not be possible without a valid token. <br> <br>
-
->    After doing the steps above the folder structure should look like this:
->   ```
->    -folder
->    |-thekre_script_run_once.sh
->    |-.env
->    |-clone_address.txt
->    ```
->    Explenations for the files:
->    - thekre_script_run_once.sh: creates the deploymend folder, runs the docker containers, creates rebuild_docker_container.sh which will be scheduled with a cronjob to run every day at 00:00
->    - .env: contains the environment variables for the application like logindata
->    - clone_address.txt: contains the clone address of the repository with the token
+>
+>    10. After doing the steps above the folder structure should look like this:  
+>       ```
+>            -folder  
+>            |-thekre_script_run_once.sh  
+>            |-.env  
+>            |-clone_address.txt  
+>       ``` 
+>
+>        Explanations for the files:
+>        - thekre_script_run_once.sh: creates the deploymend folder, runs the docker containers, creates rebuild_docker_container.sh which will be scheduled with a cronjob to run every day at 00:00
+>        - .env: contains the environment variables for the application like logindata
+>        - clone_address.txt: contains the clone address of the repository with the token
 
 > 3. Add User to the Docker Group <br>
 >    To run Docker commands without sudo, add your user to the docker group. You can do this by running the following command: <br>
@@ -467,8 +468,9 @@ In the following section, we will guide you through the installation of the dock
 >    liveserver: https://www.fhnw.ch/de/die-fhnw/bibliotheken/bibliothek-brugg-windisch/themenkisten/user <br>
 >    testserver: server1120.cs.technik.fhnw.ch/user <br>
 >
->    If the application is run for the very first time the database needs to be importet manually. (see step 7 of the [Installation Development Environment](#Installation Development Environment))  <br>
->    Setup is now complete. 9. Can be skipped and only needs to be done whenever you want to take the application offline. <br>
+>    If the application is run for the very first time the database needs to be imported manually. (see step 7 of the [Installation Development Environment with XAMPP](#installation-development-environment-with-xampp))  <br>
+>    Setup is now complete.  
+>    9. Can be skipped and only needs to be done whenever you want to take the application offline. <br>
 
 > 9. Take the application offline <br>
 >    To take the application offline you need to stop the Docker container. You need to change into the deployment folder and run the following command: <br>
@@ -476,9 +478,9 @@ In the following section, we will guide you through the installation of the dock
 > You also need to remove the cronjob. You can do this by running `crontab -e` click `i` to change to insert mode and deleting the line we added in step 6. (or you can comment it out by adding a `#` at the beginning of the line, `esc` to exit insert mode and type `:wq` to save the file) <br>
 
 > 10. Notes to keep in mind: <br>
->    1. If the application is run for the very first time the thekre_admin user does also need to be created. (see step 7 of the [Installation Development Environment](#Installation Development Environment)) <br>
->    2. If the Website is not shown correctly (e.g. no CSS) and you get 404 errors, compose down the containers, and delete everything (inclusive the thekre_webportal folder). That problem seems to occur if you run the script multiple times. <br>
->    3. Note the docker containers will not be started again after a server restart. Please type the following command to start the containers again: <br>
+>     1. If the application is run for the very first time the thekre_admin user does also need to be created. (see step 7 of the [Installation Development Environment with XAMPP](#installation-development-environment-with-xampp)) <br>
+>     2. If the Website is not shown correctly (e.g. no CSS) and you get 404 errors, compose down the containers, and delete everything (inclusive the thekre_webportal folder). That problem seems to occur if you run the script multiple times. <br>
+>     3. Note the docker containers will not be started again after a server restart. Please type the following command to start the containers again: <br>
 >      ```cd /home/thekre/thekre_webportal && docker compose up -d``` <br>
 
 ## Architecture
